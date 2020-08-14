@@ -1,0 +1,28 @@
+{
+  "name": "js13k-2020-404",
+  "version": "0.1.0",
+  "description": "My 2020 entry for the js13kgames compo...",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Elliot Nelson",
+  "devDependencies": {
+    "chalk": "^2.4.2",
+    "fancy-log": "^1.3.3",
+    "gulp": "^4.0.2",
+    "gulp-advzip": "^1.2.0",
+    "gulp-clean-css": "^3.10.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-imagemin": "^5.0.3",
+    "gulp-modify-file": "^1.0.1",
+    "gulp-size": "^3.0.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-template": "^5.0.0",
+    "gulp-terser": "^1.1.7",
+    "gulp-zip": "^4.2.0",
+    "imagemin-advpng": "^5.0.0",
+    "rollup": "^2.23.1"
+  }
+}
