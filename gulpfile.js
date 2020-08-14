@@ -20,6 +20,7 @@ const concat            = require('gulp-concat');
 const cleancss          = require('gulp-clean-css');
 const htmlmin           = require('gulp-htmlmin');
 const imagemin          = require('gulp-imagemin');
+const rename            = require('gulp-rename');
 const size              = require('gulp-size');
 const sourcemaps        = require('gulp-sourcemaps');
 const template          = require('gulp-template');
@@ -99,6 +100,10 @@ function buildCss() {
 // Assets Build
 // -----------------------------------------------------------------------------
 async function exportSpriteSheet() {
+    // Exporting the sprite sheet is the first step - using Aseprite, we take as input
+    // all of our source aseprite files, and spit out a single spritesheet PNG and a JSON
+    // file containing the x/y/w/h coordinates of the sprites in the spritesheet.
+
     let src = 'src/assets/*.aseprite';
     let png = 'src/assets/spritesheet-gen.png';
     let data = 'src/assets/spritesheet-gen.json';
@@ -112,6 +117,10 @@ async function exportSpriteSheet() {
 }
 
 async function generateSpriteSheetData() {
+    // After exporting the sprite sheet, we use the JSON data to update a source file used by
+    // our asset loader in the game. This way we can freely update images without ever
+    // hand-edting any coordinate data or worrying about the composition of the spritesheet.
+
     let data = 'src/assets/spritesheet-gen.json';
     let output = 'src/js/SpriteSheet-gen.js';
 
@@ -126,6 +135,7 @@ function copyAssets() {
             advpng({ optimizationLevel: 4, iterations: 50 })
         ]))*/
         .pipe(size({ title: 'spritesheet post' }))
+        .pipe(rename("sprites.png"))
         .pipe(gulp.dest('dist/build'))
 }
 

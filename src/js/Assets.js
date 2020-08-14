@@ -4,7 +4,7 @@ import { Constants as C } from './Constants';
 import { Canvas } from './Canvas';
 import { SpriteSheet } from './SpriteSheet-gen';
 
-const SPRITESHEET_URI = 'spritesheet-gen.png';
+const SPRITESHEET_URI = 'sprites.png'; // produced during gulp build
 
 /**
  * Sprites!
