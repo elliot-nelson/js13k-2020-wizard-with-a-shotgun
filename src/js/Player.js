@@ -3,6 +3,7 @@ import { Sprite } from './Assets';
 import { Input } from './input/Input';
 import { Geometry as G } from './Geometry';
 import { Bullet } from './Bullet';
+import { ShotgunBlast } from './ShotgunBlast';
 import { Constants as C } from './Constants';
 
 /**
@@ -14,6 +15,7 @@ export class Player {
     this.vel = { x: 0, y: 0 };
     this.facing = { x: 0, y: -1, m: 0 };
     this.hp = 100;
+    this.damage = 0;
   }
 
   think() {
@@ -48,6 +50,11 @@ export class Player {
   fireShotgun() {
     console.log(this.facing);
     let angle = G.vector2angle(this.facing);
+    game.entities.push(new ShotgunBlast(this.pos, angle));
+
+
+
+    /*
     let spread = G.RAD[60];
     let pellets = 12;
     // shotgun: 60, 12, 10
@@ -61,5 +68,7 @@ export class Player {
       bullet.vel = { x: pelletVector.x * 10, y: pelletVector.y * 10 };
       game.entities.push(bullet);
     }
+    */
+
   }
 }

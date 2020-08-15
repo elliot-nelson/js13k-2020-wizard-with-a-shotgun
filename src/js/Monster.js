@@ -14,6 +14,7 @@ export class Monster {
     this.vel = { x: 0, y: 0 };
     this.facing = { x: 0, y: -1, m: 0 };
     this.hp = 100;
+    this.damage = 0;
   }
 
   think() {
@@ -27,6 +28,9 @@ export class Monster {
         let diff = G.vectorBetween(this.pos, game.player.pos);
         diff.m = G.clamp(diff.m, 0, 1);
         this.vel = { x: diff.x * diff.m, y: diff.y * diff.m };
+        break;
+      case Behavior.DEAD:
+        this.cull = true;
         break;
       default:
         this.state = Behavior.IDLE;

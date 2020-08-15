@@ -27,6 +27,7 @@ import { Menu } from './Menu';
 
 import { Behavior } from './systems/Behavior';
 import { Movement } from './systems/Movement';
+import { Damage } from './systems/Damage';
 
 /**
  * Game state.
@@ -51,15 +52,10 @@ export class Game {
 
         this.player = new Player();
         console.log(this.maze.rooms);
-        this.player.pos.x = this.maze.rooms[1][0].q * C.TILE_WIDTH + C.TILE_WIDTH / 2;
-        this.player.pos.y = this.maze.rooms[1][0].r * C.TILE_WIDTH + C.TILE_WIDTH / 2;
+        this.player.pos.x = (this.maze.rooms[1][0].q + Math.floor(this.maze.rooms[1][0].width / 2)) * C.TILE_WIDTH + C.TILE_WIDTH / 2;
+        this.player.pos.y = (this.maze.rooms[1][0].r + Math.floor(this.maze.rooms[1][0].height / 2)) * C.TILE_WIDTH + C.TILE_WIDTH / 2;
 
         this.entities.push(this.player);
-
-        let monster = new Monster();
-        monster.pos.x = 11 * 32 + 16;
-        monster.pos.y = 11 * 32 + 16;
-        this.entities.push(monster);
 
         /*
 
@@ -130,6 +126,8 @@ export class Game {
         // Behavior (AI, player input, etc.)
         Behavior.apply(this.entities);
 
+        Damage.apply(this.entities);
+
         // Movement (apply entity velocity to position)
         Movement.apply(this.entities);
 
@@ -138,11 +136,24 @@ export class Game {
             x: this.player.pos.x - this.camera.pos.x,
             y: this.player.pos.y - this.camera.pos.y
         };
-        this.camera.pos.x += diff.x * 0.3;
-        this.camera.pos.y += diff.y * 0.3;
+        this.camera.pos.x += diff.x * 0.2;
+        this.camera.pos.y += diff.y * 0.2;
+
+        this.spawnEnemy();
 
         // Culling Step
         this.entities = this.entities.filter(entity => !entity.cull);
+    }
+
+    spawnEnemy() {
+        let enemies = this.entities.filter(entity => entity instanceof Monster);
+        if (enemies.length < 1) {
+            let q = this.maze.rooms[1][0].q + this.maze.rand(0, this.maze.rooms[1][0].width);
+            let r = this.maze.rooms[1][0].r + this.maze.rand(0, this.maze.rooms[1][0].height);
+            let monster = new Monster();
+            monster.pos = G.qr2xy({ q, r });
+            this.entities.push(monster);
+        }
     }
 
     draw(ctx) {
@@ -179,6 +190,11 @@ export class Game {
             Text.drawText(ctx, JSON.stringify(ptr), 20, 20);
             ctx.fillStyle = 'rgba(255, 120, 120, 1)';
             ctx.fillRect(ptr.u - 1, ptr.v - 1, 3, 3);
+        }
+
+        let monster = this.entities.filter(entity => entity instanceof Monster)[0];
+        if (monster) {
+            Text.drawText(ctx, JSON.stringify(monster.pos), 20, 30);
         }
 
         for (let entity of this.entities) {
