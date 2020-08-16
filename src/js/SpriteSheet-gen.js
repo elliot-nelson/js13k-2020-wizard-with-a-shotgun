@@ -19,6 +19,7 @@ export const SpriteSheet =
   demon1_10: { x: 144, y: 32, w: 16, h: 22 },
   font_1: { x: 0, y: 54, w: 236, h: 6 },
   monster2_1: { x: 0, y: 60, w: 32, h: 32 },
+  monster2_2: { x: 32, y: 60, w: 32, h: 32 },
   paper_1: { x: 0, y: 92, w: 32, h: 32 },
   paper_2: { x: 32, y: 92, w: 32, h: 32 },
   particles_1: { x: 0, y: 124, w: 11, h: 11 },

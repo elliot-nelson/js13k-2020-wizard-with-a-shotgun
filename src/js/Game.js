@@ -168,9 +168,7 @@ export class Game {
 
         this.drawMaze(ctx, this.maze);
 
-        ctx.fillStyle = 'white';
-        ctx.font = '8px serif';
-        ctx.fillText([viewport.scale,viewport.width,viewport.height].join(', '), 10, 10);
+        Text.drawText(ctx, [viewport.scale, viewport.width, viewport.height].join(', '), 5, 10);
 
         /*
         Text.drawParagraph(ctx,
@@ -187,14 +185,14 @@ export class Game {
 
         let ptr = this.input.pointer;
         if (ptr) {
-            Text.drawText(ctx, JSON.stringify(ptr), 20, 20);
+            Text.drawText(ctx, JSON.stringify(ptr), 5, 20);
             ctx.fillStyle = 'rgba(255, 120, 120, 1)';
             ctx.fillRect(ptr.u - 1, ptr.v - 1, 3, 3);
         }
 
         let monster = this.entities.filter(entity => entity instanceof Monster)[0];
         if (monster) {
-            Text.drawText(ctx, JSON.stringify(monster.pos), 20, 30);
+            Text.drawText(ctx, JSON.stringify(monster.pos), 5, 30);
         }
 
         for (let entity of this.entities) {
@@ -316,7 +314,6 @@ export class Game {
             x: viewport.center.u - this.camera.pos.x,
             y: viewport.center.v - this.camera.pos.y
         };
-        console.log(Sprite.walls);
         for (let r = 0; r < maze.tiles.length; r++) {
             for (let q = 0; q < maze.tiles[r].length; q++) {
                 let x = q * 32 + offset.x, y = r * 32 + offset.y;
@@ -331,7 +328,9 @@ export class Game {
 
                 //if (this.maze.flowhome[r][q] < 100)
                 //Text.drawText(ctx, String(this.maze.flowhome[r][q]), x, y);
-                Text.drawText(ctx, String(maze.tiles[r][q] >> 4), x, y);
+
+                // commented for screenshots:
+                //Text.drawText(ctx, String(maze.tiles[r][q] >> 4), x, y);
 
                 //ctx.fillRect(q * 4 - this.camera.pos.x + this.center.pixel.u, r * 4 - this.camera.pos.y + this.center.pixel.v, 4, 4);
             }

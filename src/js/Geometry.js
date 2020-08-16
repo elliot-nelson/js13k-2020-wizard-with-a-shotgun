@@ -2,6 +2,7 @@
 
 import { Constants as C } from './Constants'
 import { game } from './Game';
+import { viewport } from './Viewport';
 
 /**
  * Geometry
@@ -26,12 +27,52 @@ export const Geometry = {
     return Geometry.normalizeVector({ x: p2.x - p1.x, y: p2.y - p1.y });
   },
 
-  angle2vector(r) {
-    return { x: Math.cos(r), y: Math.sin(r), m: 1 };
+  angle2vector(r, m) {
+    return { x: Math.cos(r), y: Math.sin(r), m: m || 1 };
   },
 
   vector2angle(v) {
-    return Math.atan2(v.y, v.x);
+    let angle = Math.atan2(v.y, v.x);
+    if (angle < 0) angle += Geometry.RAD[360];
+    return angle;
+  },
+
+  // Takes a series of vectors and denormalizes them and adds them together, usually resulting
+  // in a point in space. Wrap in normalizeVector to get a normalized vector again, if desired.
+  vectorAdd(...vectors) {
+    let v = { x: 0, y: 0, m: 1 };
+    for (let vector of vectors) {
+      v.x += vector.x * (vector.m || 1);
+      v.y += vector.y * (vector.m || 1);
+    }
+    return v;
+  },
+
+  angleBetween(angle, min, max) {
+    if (min > max) [min, max] = [max, min];
+    while (angle >= max + Geometry.RAD[360]) angle -= Geometry.RAD[360];
+    while (angle <= min - Geometry.RAD[360]) angle += Geometry.RAD[360];
+    return (angle >= min && angle < max);
+  },
+
+  arcOverlap(angleA1, angleA2, angleB1, angleB2) {
+    console.log([angleA1, angleA2, angleB1, angleB2].map(x => x * 360 / (Math.PI * 2)));
+    if (angleA1 > angleA2) [angleA1, angleA2] = [angleA2, angleA1];
+    if (angleB1 > angleB2) [angleB1, angleB2] = [angleB2, angleB1];
+    //while (angleA1 < 0) angleA1 += Geometry.RAD[360];
+
+    while (angleB2 >= angleA2 + Geometry.RAD[360]) {
+      angleB2 -= Geometry.RAD[360];
+      angleB1 -= Geometry.RAD[360];
+    }
+    while (angleB1 <= angleA1 - Geometry.RAD[360]) {
+      angleB1 += Geometry.RAD[360];
+      angleB2 += Geometry.RAD[360];
+    }
+
+    const result = [Math.max(angleA1, angleB1), Math.min(angleA2, angleB2)];
+    console.log([angleA1, angleA2, angleB1, angleB2, ...result].map(x => x * 360 / (Math.PI * 2)));
+    return result[0] > result[1] ? undefined : result;
   },
 
   xy2qr(pos) {
@@ -40,6 +81,13 @@ export const Geometry = {
 
   qr2xy(pos) {
     return { x: pos.q * C.TILE_WIDTH, y: pos.r * C.TILE_HEIGHT };
+  },
+
+  xy2uv(pos) {
+    return {
+      u: pos.x + viewport.center.u - game.camera.pos.x,
+      v: pos.y + viewport.center.v - game.camera.pos.y
+    };
   },
 
   clamp(value, min, max) {
@@ -101,7 +149,7 @@ export const Geometry = {
   },
 
   *tilesHitBy(p, v) {
-    yield *Geometry.tilesHitBetween(p, { x: p.x + v.x, y: p.y + v.y });
+    yield *Geometry.tilesHitBetween(p, Geometry.vectorAdd(p, v));
   },
 
   /**
@@ -312,6 +360,6 @@ export const Geometry = {
   },
 
   tileIsPassable(q, r) {
-    return game.maze.maze[r][q];
+    return !!game.maze.maze[r][q];
   }
 };

@@ -108,8 +108,17 @@
     "duration": 100
    },
    {
-    "filename": "monster2.aseprite",
+    "filename": "monster2 0.aseprite",
     "frame": { "x": 0, "y": 60, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "monster2 1.aseprite",
+    "frame": { "x": 32, "y": 60, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },

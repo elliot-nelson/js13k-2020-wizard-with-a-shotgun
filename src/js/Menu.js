@@ -5,6 +5,7 @@ import { Text } from './Text';
 export const Menu = {
     draw(viewport) {
 
+        return;
         viewport.ctx.fillStyle = '#393994';
         viewport.ctx.fillRect(40, 40, 140, 80);
 

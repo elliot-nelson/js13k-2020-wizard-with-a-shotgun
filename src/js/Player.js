@@ -16,6 +16,7 @@ export class Player {
     this.facing = { x: 0, y: -1, m: 0 };
     this.hp = 100;
     this.damage = 0;
+    this.radius = 12;
   }
 
   think() {

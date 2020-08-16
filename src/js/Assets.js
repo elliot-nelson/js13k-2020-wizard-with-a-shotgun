@@ -118,6 +118,7 @@ export class Assets {
 
     // Enemy
     Sprite.monster = await this.initSprite(SPRITESHEET_URI, SpriteSheet.monster2_1);
+    Sprite.monster_dead = await this.initSprite(SPRITESHEET_URI, SpriteSheet.monster2_2);
     Sprite.demon_walk = await this.initSprite(SPRITESHEET_URI, SpriteSheet.demon1_1);
 
     // Tiles
