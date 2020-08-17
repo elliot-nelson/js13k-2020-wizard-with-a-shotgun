@@ -168,7 +168,9 @@ export class Game {
 
         this.drawMaze(ctx, this.maze);
 
-        Text.drawText(ctx, [viewport.scale, viewport.width, viewport.height].join(', '), 5, 10);
+        this.drawHud(ctx);
+
+        Text.drawRightText(ctx, [viewport.scale, viewport.width, viewport.height].join(', '), viewport.width - 4, 10);
 
         /*
         Text.drawParagraph(ctx,
@@ -181,18 +183,11 @@ export class Game {
             120, 50, 225, 100, Text.fire, 1);
             */
 
-        Sprite.drawSprite(ctx, Sprite.demon_walk, 50, 50);
-
         let ptr = this.input.pointer;
         if (ptr) {
-            Text.drawText(ctx, JSON.stringify(ptr), 5, 20);
+            Text.drawRightText(ctx, JSON.stringify(ptr), viewport.width - 4, 20);
             ctx.fillStyle = 'rgba(255, 120, 120, 1)';
             ctx.fillRect(ptr.u - 1, ptr.v - 1, 3, 3);
-        }
-
-        let monster = this.entities.filter(entity => entity instanceof Monster)[0];
-        if (monster) {
-            Text.drawText(ctx, JSON.stringify(monster.pos), 5, 30);
         }
 
         for (let entity of this.entities) {
@@ -388,6 +383,14 @@ export class Game {
             viewport.ctx.fillRect(q * 32 + offset.x, r * 32 + offset.y, 32, 32);
             viewport.ctx.strokeRect(q * 32 + offset.x, r * 32 + offset.y, 32, 32);
             if (redgreen === 'red') break;
+        }
+    }
+
+    drawHud(ctx) {
+        let sprite = Sprite.gui_shell;
+        for (let i = 0; i < game.player.shellsMax; i++) {
+            if (i + 1 > game.player.shellsLeft) sprite = Sprite.gui_shell_spent;
+            ctx.drawImage(sprite.img, 5 + 7 * i, 10);
         }
     }
 }

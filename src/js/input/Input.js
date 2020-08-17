@@ -102,6 +102,7 @@ Input.Action = {
   LEFT:    13,
   RIGHT:   14,
   ATTACK:  21,
+  RELOAD:  30,
   DEFLECT: 22,
   DODGE:   23,
   SUPER:   24,

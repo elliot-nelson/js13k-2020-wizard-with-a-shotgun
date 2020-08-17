@@ -17,6 +17,9 @@ export class Player {
     this.hp = 100;
     this.damage = 0;
     this.radius = 12;
+
+    this.shellsLeft = 4;
+    this.shellsMax = 4;
   }
 
   think() {
@@ -34,6 +37,9 @@ export class Player {
     if (game.input.pressed[Input.Action.ATTACK]) {
       this.fireShotgun();
     }
+    if (game.input.pressed[Input.Action.RELOAD]) {
+      this.shellsLeft = this.shellsMax;
+    }
   }
 
   draw(viewport) {
@@ -49,11 +55,11 @@ export class Player {
   }
 
   fireShotgun() {
-    console.log(this.facing);
+    if (this.shellsLeft === 0) return;
+    this.shellsLeft--;
+
     let angle = G.vector2angle(this.facing);
     game.entities.push(new ShotgunBlast(this.pos, angle));
-
-
 
     /*
     let spread = G.RAD[60];

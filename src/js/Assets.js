@@ -121,6 +121,10 @@ export class Assets {
     Sprite.monster_dead = await this.initSprite(SPRITESHEET_URI, SpriteSheet.monster2_2);
     Sprite.demon_walk = await this.initSprite(SPRITESHEET_URI, SpriteSheet.demon1_1);
 
+    // GUI
+    Sprite.gui_shell = await this.initSprite(SPRITESHEET_URI, SpriteSheet.gui_shells_1);
+    Sprite.gui_shell_spent = await this.initSprite(SPRITESHEET_URI, SpriteSheet.gui_shells_2);
+
     // Tiles
     Sprite.tiles = [];
     Sprite.tiles[C.TILE_FLOOR1] = await this.initSprite(SPRITESHEET_URI, SpriteSheet.tileset_3);
