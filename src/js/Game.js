@@ -387,10 +387,14 @@ export class Game {
     }
 
     drawHud(ctx) {
-        let sprite = Sprite.gui_shell;
+        let hp = G.clamp(game.player.hp, 0, 100);
+        ctx.drawImage(Sprite.hud_health_frame.img, 2, 2);
+        ctx.drawImage(Sprite.hud_health_fill.img, 0, 0, hp + 8, 8, 2, 2, hp + 8, 8);
+
+        let sprite = Sprite.hud_shells_full;
         for (let i = 0; i < game.player.shellsMax; i++) {
-            if (i + 1 > game.player.shellsLeft) sprite = Sprite.gui_shell_spent;
-            ctx.drawImage(sprite.img, 5 + 7 * i, 10);
+            if (i + 1 > game.player.shellsLeft) sprite = Sprite.hud_shells_empty;
+            ctx.drawImage(sprite.img, 15 + 6 * i, 10);
         }
     }
 }
