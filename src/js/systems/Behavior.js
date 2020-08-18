@@ -11,6 +11,9 @@ export const Behavior = {
   FLEE:   105,
   DEAD:   106,
 
+  ATTACK: 201,
+  RELOAD: 202,
+
   apply(entities) {
     for (let entity of entities) {
       if (entity.think) entity.think();

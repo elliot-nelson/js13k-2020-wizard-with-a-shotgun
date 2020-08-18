@@ -5,6 +5,7 @@ import { Geometry as G } from './Geometry';
 import { Bullet } from './Bullet';
 import { ShotgunBlast } from './ShotgunBlast';
 import { Constants as C } from './Constants';
+import { Behavior } from './systems/Behavior';
 
 /**
  * Player
@@ -25,23 +26,50 @@ export class Player {
   }
 
   think() {
+    switch (this.state) {
+      case Behavior.HUNT:
+        this.defaultMovement(1);
+
+        if (game.input.pressed[Input.Action.ATTACK]) {
+          if (this.shellsLeft === 0) {
+            this.reload();
+          } else {
+            this.fire();
+          }
+        }
+
+        if (game.input.pressed[Input.Action.RELOAD]) {
+          this.reload();
+        }
+
+        break;
+      case Behavior.ATTACK:
+        this.defaultMovement(1);
+        if (--this.frames <= 0) this.state = Behavior.HUNT;
+        break;
+      case Behavior.RELOAD:
+        this.defaultMovement(2.5);
+        if (--this.frames <= 0) this.state = Behavior.HUNT;
+        break;
+      default:
+        this.state = Behavior.HUNT;
+        this.frames = 0;
+        break;
+    }
+  }
+
+  defaultMovement(velocityAdj) {
     if (game.pointerXY()) {
       this.facing = G.vectorBetween(this.pos, game.pointerXY());
     }
 
     let v = {
-      x: game.input.direction.x * game.input.direction.m * 2.5,
-      y: game.input.direction.y * game.input.direction.m * 2.5
+      x: game.input.direction.x * game.input.direction.m * 1.8 * velocityAdj,
+      y: game.input.direction.y * game.input.direction.m * 1.8 * velocityAdj
     };
+
     this.vel.x = (this.vel.x + v.x) / 2;
     this.vel.y = (this.vel.y + v.y) / 2;
-
-    if (game.input.pressed[Input.Action.ATTACK]) {
-      this.fireShotgun();
-    }
-    if (game.input.pressed[Input.Action.RELOAD]) {
-      this.shellsLeft = this.shellsMax;
-    }
   }
 
   draw(viewport) {
@@ -56,12 +84,16 @@ export class Player {
     viewport.ctx.setLineDash([]);
   }
 
-  fireShotgun() {
-    if (this.shellsLeft === 0) return;
+  fire() {
+    this.state = Behavior.ATTACK;
+    this.frames = 6;
     this.shellsLeft--;
 
     let angle = G.vector2angle(this.facing);
     game.entities.push(new ShotgunBlast(this.pos, angle));
+
+    this.vel = G.normalizeVector(this.facing);
+    this.vel.m = 1;
 
     /*
     let spread = G.RAD[60];
@@ -79,5 +111,11 @@ export class Player {
     }
     */
 
+  }
+
+  reload() {
+    this.state = Behavior.RELOAD;
+    this.frames = 12;
+    this.shellsLeft = this.shellsMax;
   }
 }
