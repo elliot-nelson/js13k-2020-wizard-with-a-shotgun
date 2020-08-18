@@ -37,6 +37,15 @@ export const Geometry = {
     return angle;
   },
 
+  vector2point(v) {
+    return { x: v.x * (v.m || 1), y: v.y * (v.m || 1) };
+  },
+
+  dot(a, b) {
+    [a, b] = [Geometry.vector2point(a), Geometry.vector2point(b)];
+    return a.x * b.x + a.y * b.y;
+  },
+
   // Takes a series of vectors and denormalizes them and adds them together, usually resulting
   // in a point in space. Wrap in normalizeVector to get a normalized vector again, if desired.
   vectorAdd(...vectors) {
@@ -335,6 +344,21 @@ export const Geometry = {
     let ny = (iy - cornerY) * inverseRadius;
 
     return isNaN(ix) ? undefined : { x: ix, y: iy, t: time, nx, ny, ix: cornerX, iy: cornerY };
+  },
+
+  // https://stackoverflow.com/questions/18683179/how-to-fix-circles-overlap-in-collision-response
+  //
+  // This is an incredibly simple implementation that ASSUMES very small velocities. It doesn't attempt
+  // to answer the question about "when" the intersection happened like the method above - may
+  // fix that in future.
+  intersectCircleCircle2(p1, r1, v1, p2, r2, v2) {
+    [v1, v2] = [Geometry.vector2point(v1), Geometry.vector2point(v2)];
+    let a1 = { x: p1.x + v1.x, y: p1.y + v1.y };
+    let a2 = { x: p2.x + v2.x, y: p2.y + v2.y };
+    let delta = Geometry.vectorBetween(a1, a2);
+    if (delta.m < r1 + r2) {
+      return { nx: delta.x, ny: delta.y, m: r1 + r2 - delta.m };
+    }
   },
 
   flood(maze, pos) {

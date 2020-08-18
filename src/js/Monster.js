@@ -16,6 +16,8 @@ export class Monster {
     this.hp = 100;
     this.damage = 0;
     this.radius = 12;
+
+    this.mass = 0.5;
   }
 
   think() {

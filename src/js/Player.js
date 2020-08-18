@@ -20,6 +20,8 @@ export class Player {
 
     this.shellsLeft = 4;
     this.shellsMax = 4;
+
+    this.mass = 3;
   }
 
   think() {
