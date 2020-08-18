@@ -103,6 +103,6 @@ export class Player {
   reload() {
     this.state = Behavior.RELOAD;
     this.frames = 12;
-    this.shellsLeft = this.shellsMax;
+    game.entities.push(new ReloadAnimation(this.frames));
   }
-  }
+}

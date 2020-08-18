@@ -22,7 +22,9 @@ export class ReloadAnimation {
 
       if (this.t >= start) {
         let y = Math.min(10, 10 + this.t - end);
+        viewport.ctx.globalAlpha = Math.min(1, 1 + (this.t - end) / 10);
         viewport.ctx.drawImage(Sprite.hud_shells_full.img, 15 + 6 * i, y);
+        viewport.ctx.globalAlpha = 1;
       }
     }
   }
