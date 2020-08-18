@@ -130,10 +130,10 @@ async function generateSpriteSheetData() {
 function copyAssets() {
     return gulp.src('src/assets/spritesheet-gen.png')
         .pipe(size({ title: 'spritesheet  pre' }))
-        /*.pipe(imagemin())
+        .pipe(imagemin())
         .pipe(imagemin([
-            advpng({ optimizationLevel: 4, iterations: 50 })
-        ]))*/
+            advpng({ optimizationLevel: 4, iterations: 5 })
+        ]))
         .pipe(size({ title: 'spritesheet post' }))
         .pipe(rename("sprites.png"))
         .pipe(gulp.dest('dist/build'))
@@ -166,7 +166,7 @@ function buildZip() {
     return gulp.src(['dist/build/*', '!dist/build/*.map'])
         .pipe(size())
         .pipe(zip('js13k-2019-letchworth-village.zip'))
-        .pipe(advzip({ optimizationLevel: 4, iterations: 100 }))
+        .pipe(advzip({ optimizationLevel: 4, iterations: 200 }))
         .pipe(s = size({ title: 'zip' }))
         .pipe(gulp.dest('dist/final'))
         .on('end', () => {
@@ -194,7 +194,7 @@ const build = gulp.series(
     buildCss,
     buildHtml,
     ready,
-    //buildZip
+    buildZip
 );
 
 // -----------------------------------------------------------------------------

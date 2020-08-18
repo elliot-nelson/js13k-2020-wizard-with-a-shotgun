@@ -6,6 +6,7 @@ import { Bullet } from './Bullet';
 import { ShotgunBlast } from './ShotgunBlast';
 import { Constants as C } from './Constants';
 import { Behavior } from './systems/Behavior';
+import { ReloadAnimation } from './ReloadAnimation';
 
 /**
  * Player
@@ -49,7 +50,10 @@ export class Player {
         break;
       case Behavior.RELOAD:
         this.defaultMovement(2.5);
-        if (--this.frames <= 0) this.state = Behavior.HUNT;
+        if (--this.frames <= 0) {
+          this.shellsLeft = this.shellsMax;
+          this.state = Behavior.HUNT;
+        }
         break;
       default:
         this.state = Behavior.HUNT;
@@ -94,23 +98,6 @@ export class Player {
 
     this.vel = G.normalizeVector(this.facing);
     this.vel.m = 1;
-
-    /*
-    let spread = G.RAD[60];
-    let pellets = 12;
-    // shotgun: 60, 12, 10
-    // sniper: 5, 12, 40
-
-    for (let idx = 0; idx < pellets; idx++) {
-      let pelletAngle = (idx * spread / (pellets - 1)) + angle - spread / 2;
-      let pelletVector = G.angle2vector(pelletAngle);
-      let bullet = new Bullet();
-      bullet.pos = { ...this.pos };
-      bullet.vel = { x: pelletVector.x * 10, y: pelletVector.y * 10 };
-      game.entities.push(bullet);
-    }
-    */
-
   }
 
   reload() {
@@ -118,4 +105,4 @@ export class Player {
     this.frames = 12;
     this.shellsLeft = this.shellsMax;
   }
-}
+  }
