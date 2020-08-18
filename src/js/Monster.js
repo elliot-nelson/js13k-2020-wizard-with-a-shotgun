@@ -14,8 +14,8 @@ export class Monster {
     this.vel = { x: 0, y: 0 };
     this.facing = { x: 0, y: -1, m: 0 };
     this.hp = 100;
-    this.damage = 0;
-    this.radius = 12;
+    this.damage = [];
+    this.radius = 11;
 
     this.mass = 0.5;
   }

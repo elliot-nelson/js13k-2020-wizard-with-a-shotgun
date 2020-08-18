@@ -37,16 +37,13 @@ export class ShotgunBlast {
 
         let wallHit = [];
         let k = G.vectorAdd(this.pos, G.angle2vector(sides[0], vect.m));
-        console.log(["going to check", this.pos, k]);
         for (let tile of G.tilesHitBy(this.pos, G.angle2vector(sides[0], vect.m))) {
-          console.log([tile, G.tileIsPassable(tile.q, tile.r)]);
           if (!G.tileIsPassable(tile.q, tile.r)) {
             wallHit.push(tile);
             break;
           }
         }
         for (let tile of G.tilesHitBy(this.pos, G.angle2vector(sides[1], vect.m))) {
-          console.log([tile, G.tileIsPassable(tile.q, tile.r)]);
           if (!G.tileIsPassable(tile.q, tile.r)) {
             wallHit.push(tile);
             break;
@@ -55,12 +52,12 @@ export class ShotgunBlast {
 
         if (wallHit.length < 2) {
           // hit
-          entity.damage += 200;
+          entity.damage.push({ amount: 25, vector: vect });
         }
       }
-
-      this.cull = true;
     }
+
+    if (this.t > 6) this.cull = true;
   }
 
   draw(viewport) {
@@ -73,40 +70,5 @@ export class ShotgunBlast {
     viewport.ctx.closePath();
     viewport.ctx.fillStyle = 'rgba(255, 0, 0, 0.5)'
     viewport.ctx.fill();
-
-
-          let entities = game.entities.filter(entity => entity instanceof Monster);
-          let entity = entities[0];
-          if (entity) {
-              let vect = G.vectorBetween(this.pos, entity.pos);
-            viewport.ctx.strokeStyle = 'yellow';
-            viewport.ctx.beginPath();
-            let k1 = G.xy2uv({ x: entity.pos.x - vect.y * 1, x: entity.pos.y + vect.x * 1 });
-            let k2 = G.xy2uv({ x: entity.pos.x + vect.y * 1, x: entity.pos.y - vect.x * 1 });
-            let k3 = G.xy2uv(this.pos);
-            let k4 = G.xy2uv({ x: this.pos.x + vect.x * vect.m, y: this.pos.y + vect.y * vect.m });
-
-            let k5 = G.xy2uv({ x: entity.pos.x - vect.y * 15, y: entity.pos.y + vect.x * 15 });
-            let k6 = G.xy2uv({ x: entity.pos.x + vect.y * 15, y: entity.pos.y - vect.x * 15 });
-
-
-            viewport.ctx.moveTo(k3.u, k3.v);
-            viewport.ctx.lineTo(k4.u, k4.v);
-            viewport.ctx.moveTo(k3.u, k3.v);
-            viewport.ctx.lineTo(k1.u, k1.v);
-            viewport.ctx.stroke();
-
-            viewport.ctx.beginPath();
-            viewport.ctx.strokeStyle = 'green';
-            viewport.ctx.moveTo(k3.u, k3.v);
-            viewport.ctx.lineTo(k5.u, k5.v);
-            viewport.ctx.moveTo(k3.u, k3.v);
-            viewport.ctx.lineTo(k6.u, k6.v);
-            viewport.ctx.stroke();
-
-            //viewport.ctx.moveTo(k3.u, k3.v);
-            //viewport.ctx.lineTo(k3.u + 5, k3.v + 5);
-            //viewport.ctx.stroke();
-          }
   }
 }

@@ -147,7 +147,7 @@ export class Game {
 
     spawnEnemy() {
         let enemies = this.entities.filter(entity => entity instanceof Monster);
-        if (enemies.length < 1) {
+        if (enemies.length < 4 && Math.random() < 0.1) {
             let q = this.maze.rooms[1][0].q + this.maze.rand(0, this.maze.rooms[1][0].width);
             let r = this.maze.rooms[1][0].r + this.maze.rand(0, this.maze.rooms[1][0].height);
             let monster = new Monster();
