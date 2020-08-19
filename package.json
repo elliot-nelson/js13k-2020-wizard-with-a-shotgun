@@ -15,17 +15,15 @@
     "gulp-clean-css": "^3.10.0",
     "gulp-concat": "^2.6.1",
     "gulp-htmlmin": "^5.0.1",
-    "gulp-imagemin": "^5.0.3",
+    "gulp-imagemin": "^7.1.0",
     "gulp-modify-file": "^1.0.1",
+    "gulp-rename": "^2.0.0",
     "gulp-size": "^3.0.0",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-template": "^5.0.0",
     "gulp-terser": "^1.1.7",
     "gulp-zip": "^4.2.0",
-    "imagemin-advpng": "^5.0.0",
-    "rollup": "^2.23.1"
-  },
-  "dependencies": {
-    "gulp-rename": "^2.0.0"
+    "imagemin-advpng": "^6.0.0",
+    "rollup": "^2.26.4"
   }
 }
