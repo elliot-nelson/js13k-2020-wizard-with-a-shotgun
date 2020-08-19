@@ -2,7 +2,6 @@
 
 // https://journal.stuffwithstuff.com/2014/12/21/rooms-and-mazes/
 
-
 import { Constants as C } from './Constants';
 import { Geometry as G } from './Geometry';
 import { Random } from './Random';

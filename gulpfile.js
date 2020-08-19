@@ -130,10 +130,10 @@ async function generateSpriteSheetData() {
 function copyAssets() {
     return gulp.src('src/assets/spritesheet-gen.png')
         .pipe(size({ title: 'spritesheet  pre' }))
-        .pipe(imagemin())
+        /*.pipe(imagemin())
         .pipe(imagemin([
             advpng({ optimizationLevel: 4, iterations: 5 })
-        ]))
+        ]))*/
         .pipe(size({ title: 'spritesheet post' }))
         .pipe(rename("sprites.png"))
         .pipe(gulp.dest('dist/build'))
@@ -194,7 +194,7 @@ const build = gulp.series(
     buildCss,
     buildHtml,
     ready,
-    buildZip
+    //buildZip
 );
 
 // -----------------------------------------------------------------------------

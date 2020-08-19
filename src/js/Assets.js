@@ -119,13 +119,16 @@ export class Assets {
     // Enemy
     Sprite.monster = await this.initSprite(SPRITESHEET_URI, SpriteSheet.monster2_1);
     Sprite.monster_dead = await this.initSprite(SPRITESHEET_URI, SpriteSheet.monster2_2);
-    Sprite.demon_walk = await this.initSprite(SPRITESHEET_URI, SpriteSheet.demon1_1);
 
     // GUI
     Sprite.hud_shells_empty = await this.initSprite(SPRITESHEET_URI, SpriteSheet.hud_shells_1);
     Sprite.hud_shells_full = await this.initSprite(SPRITESHEET_URI, SpriteSheet.hud_shells_2);
     Sprite.hud_health_frame = await this.initSprite(SPRITESHEET_URI, SpriteSheet.hud_healthbar_1);
     Sprite.hud_health_fill = await this.initSprite(SPRITESHEET_URI, SpriteSheet.hud_healthbar_2);
+    Sprite.hud_crosshair = await this.initSprite(SPRITESHEET_URI, SpriteSheet.hud_crosshair_1);
+
+    // Pages
+    Sprite.page = await this.initSprite(SPRITESHEET_URI, SpriteSheet.page_1);
 
     // Tiles
     Sprite.tiles = [];

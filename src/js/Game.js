@@ -170,34 +170,9 @@ export class Game {
 
         this.drawHud(ctx);
 
-        Text.drawRightText(ctx, [viewport.scale, viewport.width, viewport.height].join(', '), viewport.width - 4, 10);
-
-        /*
-        Text.drawParagraph(ctx,
-            "Hold down fire button to decrease spread and increase range." +
-            " Most critical hits, when used, will go up 175%.",
-            121, 50, 225, 100, Text.shadow, 1);
-        Text.drawParagraph(ctx,
-            "Hold down fire button to decrease spread and increase range." +
-            " Most critical hits, when used, will go up 175%.",
-            120, 50, 225, 100, Text.fire, 1);
-            */
-
-        let ptr = this.input.pointer;
-        if (ptr) {
-            Text.drawRightText(ctx, JSON.stringify(ptr), viewport.width - 4, 20);
-            ctx.fillStyle = 'rgba(255, 120, 120, 1)';
-            ctx.fillRect(ptr.u - 1, ptr.v - 1, 3, 3);
-        }
-
         for (let entity of this.entities) {
             entity.draw(viewport);
         }
-
-        // TODO
-        // this.trace(viewport);
-
-        // x
 
         /*
         ctx.fillStyle = 'rgba(150, 128, 128, 1)';
@@ -351,41 +326,6 @@ export class Game {
         };
     }
 
-    trace(viewport) {
-        if (!this.input.pointer) return;
-        let p = this.player;
-        for (let e of this.entities) {
-            if (p === e) continue;
-            viewport.ctx.beginPath();
-            viewport.ctx.strokeStyle = 'red';
-            viewport.ctx.moveTo(viewport.center.u - this.camera.pos.x + p.pos.x,
-                viewport.center.v - this.camera.pos.y + p.pos.y);
-            viewport.ctx.lineTo(this.input.pointer.u, this.input.pointer.v);
-            viewport.ctx.stroke();
-
-            this.raytrace(p.pos, this.pointerXY());
-        }
-    }
-
-    // https://www.genericgamedev.com/general/shooting-rays-through-tilemaps/
-    raytrace(p1, p2) {
-        let redgreen = 'green';
-
-        for (let { q, r } of G.tilesHitBetween(p1, p2)) {
-            let offset = {
-                x: viewport.center.u - this.camera.pos.x,
-                y: viewport.center.v - this.camera.pos.y
-            };
-            if (!game.maze.maze[r][q]) redgreen = 'red';
-            let highlight = redgreen === 'red' ? 'rgba(255, 128, 128, 0.5)' : 'rgba(128, 255, 128, 0.5)';
-            viewport.ctx.fillStyle = highlight;
-            viewport.ctx.strokeStyle = highlight;
-            viewport.ctx.fillRect(q * 32 + offset.x, r * 32 + offset.y, 32, 32);
-            viewport.ctx.strokeRect(q * 32 + offset.x, r * 32 + offset.y, 32, 32);
-            if (redgreen === 'red') break;
-        }
-    }
-
     drawHud(ctx) {
         let hp = G.clamp(game.player.hp, 0, 100);
         ctx.drawImage(Sprite.hud_health_frame.img, 2, 2);
@@ -395,6 +335,16 @@ export class Game {
         for (let i = 0; i < game.player.shellsMax; i++) {
             if (i + 1 > game.player.shellsLeft) sprite = Sprite.hud_shells_empty;
             ctx.drawImage(sprite.img, 15 + 6 * i, 10);
+        }
+
+        ctx.drawImage(Sprite.page.img, viewport.width - 39, 10 - 1);
+        Text.drawText(ctx, 'x302', viewport.width - 30, 10);
+
+        Text.drawRightText(ctx, [viewport.scale, viewport.width, viewport.height].join(', '), viewport.width - 4, viewport.height - 18);
+        let ptr = this.input.pointer;
+        if (ptr) {
+            Text.drawRightText(ctx, JSON.stringify(ptr), viewport.width - 4, viewport.height - 8);
+            Sprite.drawSprite(ctx, Sprite.hud_crosshair, ptr.u, ptr.v);
         }
     }
 }
