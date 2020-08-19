@@ -31,6 +31,7 @@ const zip               = require('gulp-zip');
 // Flags
 // -----------------------------------------------------------------------------
 let watching = false;
+let fast = process.argv.includes('--fast');
 
 // -----------------------------------------------------------------------------
 // JS Build
@@ -61,12 +62,18 @@ async function compileBuild() {
 }
 
 function minifyBuild() {
+    // Fast Mode Shortcut
+    if (fast) return Promise.resolve();
+
     return gulp.src('dist/temp/app.js')
         .pipe(sourcemaps.init())
-        // Phase 1: Mangle all props except DOM & built-ins
+        // Phase 1: Mangle all props except DOM & built-ins. (Reserved props are built-ins
+        // that terser doesn't know about yet, but which will break the game if they get mangled.)
         .pipe(terser({
             mangle: {
-                properties: true
+                properties: {
+                    reserved: ['imageSmoothingEnabled']
+                }
             }
         }))
         // Phase 2: Specifically target properties we know match builtins but that
@@ -83,8 +90,7 @@ function minifyBuild() {
         .pipe(gulp.dest('dist/temp'));
 }
 
-//const buildJs = gulp.series(compileBuild, minifyBuild);
-const buildJs = gulp.series(compileBuild);
+const buildJs = gulp.series(compileBuild, minifyBuild);
 
 // -----------------------------------------------------------------------------
 // CSS Build
@@ -128,15 +134,22 @@ async function generateSpriteSheetData() {
 }
 
 function copyAssets() {
-    return gulp.src('src/assets/spritesheet-gen.png')
-        .pipe(size({ title: 'spritesheet  pre' }))
-        /*.pipe(imagemin())
+    let pipeline = gulp.src('src/assets/spritesheet-gen.png')
+        .pipe(size({ title: 'spritesheet  pre' }));
+
+    // Fast Mode Shortcut
+    if (!fast) {
+        pipeline = pipeline
+        .pipe(imagemin())
         .pipe(imagemin([
-            advpng({ optimizationLevel: 4, iterations: 5 })
-        ]))*/
+            advpng({ optimizationLevel: 4, iterations: 20 })
+        ]));
+    }
+
+    return pipeline
         .pipe(size({ title: 'spritesheet post' }))
         .pipe(rename("sprites.png"))
-        .pipe(gulp.dest('dist/build'))
+        .pipe(gulp.dest('dist/build'));
 }
 
 const refreshAssets = gulp.series(exportSpriteSheet, generateSpriteSheetData);
@@ -161,7 +174,10 @@ function buildHtml() {
 // ZIP Build
 // -----------------------------------------------------------------------------
 function buildZip() {
-    var s;
+    let s;
+
+    // Fast Mode Shortcut
+    if (fast) return Promise.resolve();
 
     return gulp.src(['dist/build/*', '!dist/build/*.map'])
         .pipe(size())
@@ -194,7 +210,7 @@ const build = gulp.series(
     buildCss,
     buildHtml,
     ready,
-    //buildZip
+    buildZip
 );
 
 // -----------------------------------------------------------------------------
