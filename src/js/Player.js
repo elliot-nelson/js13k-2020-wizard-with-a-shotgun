@@ -96,8 +96,8 @@ export class Player {
     let angle = G.vector2angle(this.facing);
     game.entities.push(new ShotgunBlast(this.pos, angle));
 
-    this.vel = G.normalizeVector(this.facing);
-    this.vel.m = 1;
+    // player knockback
+    this.vel = G.vector2point({ ...G.normalizeVector(this.facing), m: -1 });
   }
 
   reload() {
