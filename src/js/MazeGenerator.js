@@ -244,24 +244,29 @@ export const MazeGenerator = {
         }, {});
     },
 
+    createWalls(maze) {
+        let walls = G.array2d(maze[0].length, maze.length, 0);
+        for (let r = 0; r < walls.length; r++) {
+            for (let q = 0; q < walls[0].length; q++) {
+                if (maze[r][q]) {
+                    walls[r][q] = (maze[r - 1][q] ? 0 : C.WALL_TOP) |
+                                  (maze[r][q + 1] ? 0 : C.WALL_RIGHT) |
+                                  (maze[r + 1][q] ? 0 : C.WALL_BOTTOM) |
+                                  (maze[r][q - 1] ? 0 : C.WALL_LEFT);
+                }
+            }
+        }
+        return walls;
+    },
+
     createTiles(maze, rand) {
         let tiles = G.array2d(maze[0].length, maze.length, () => {
-            return (rand() < 0.1 ? C.TILE_WALL2 : C.TILE_WALL1) + (0b000_010_000 << 4);
+            return (rand() < 0.1 ? C.TILE_WALL2 : C.TILE_WALL1);
         });
         for (let r = 0; r < tiles.length; r++) {
             for (let q = 0; q < tiles[0].length; q++) {
                 if (maze[r][q]) {
-                    let key =
-                        (maze[r - 1][q - 1] ? 0 : 0b100_000_000) +
-                        (maze[r - 1][q]     ? 0 : 0b010_000_000) +
-                        (maze[r - 1][q + 1] ? 0 : 0b001_000_000) +
-                        (maze[r][q - 1]     ? 0 : 0b000_100_000) +
-                        (maze[r][q]         ? 0 : 0b000_010_000) +
-                        (maze[r][q + 1]     ? 0 : 0b000_001_000) +
-                        (maze[r + 1][q - 1] ? 0 : 0b000_000_100) +
-                        (maze[r + 1][q]     ? 0 : 0b000_000_010) +
-                        (maze[r + 1][q + 1] ? 0 : 0b000_000_001);
-                    tiles[r][q] = (key << 4) + C.TILE_FLOOR1;
+                    tiles[r][q] = C.TILE_FLOOR1;
                 }
             }
         }
@@ -327,7 +332,8 @@ export const MazeGenerator = {
         let homeflow = G.flood(maze, rooms[0]);
         return {
             maze,
-            tiles: MazeGenerator.createTiles(maze, rand),
+            walls: this.createWalls(maze),
+            tiles: this.createTiles(maze, rand),
             rand,
             rooms: this.createRoomLookup(rooms),
             flowhome: homeflow

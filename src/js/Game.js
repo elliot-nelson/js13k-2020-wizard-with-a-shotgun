@@ -210,7 +210,7 @@ export class Game {
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.scale(viewport.scale, viewport.scale);
 
-        ctx.fillStyle = 'rgba(48,32,48,1)';
+        ctx.fillStyle = 'rgba(20,20,20,1)';
         ctx.fillRect(0, 0, viewport.width, viewport.height);
 
         /*ctx.fillStyle = 'rgba(150, 128, 128, 1)';
@@ -342,19 +342,43 @@ export class Game {
                 let sprite = Sprite.tiles[maze.tiles[r][q] & 0b1111];
                 if (!sprite) throw new Error(`${q},${r} tile ${maze.tiles[r][q]}`);
                 ctx.drawImage(sprite.img, x, y);
-
-                sprite = Sprite.walls[maze.tiles[r][q] >> 4];
-                if (sprite) ctx.drawImage(sprite.img, x, y);
-
-                //if (this.maze.flowhome[r][q] < 100)
-                //Text.drawText(ctx, String(this.maze.flowhome[r][q]), x, y);
-
-                // commented for screenshots:
-                //Text.drawText(ctx, String(maze.tiles[r][q] >> 4), x, y);
-
-                //ctx.fillRect(q * 4 - this.camera.pos.x + this.center.pixel.u, r * 4 - this.camera.pos.y + this.center.pixel.v, 4, 4);
             }
         }
+
+        for (let r = 0; r < maze.tiles.length; r++) {
+            for (let q = 0; q < maze.tiles[r].length; q++) {
+                let x = q * 32 + offset.x, y = r * 32 + offset.y;
+                if (x < -50 || y < -50 || x > 500 || y > 500) continue;
+
+                if (maze.walls[r][q] & C.WALL_TOP) {
+                    ctx.drawImage(Sprite.walls.img, 0, 0, 36, 4, x - 2, y - 2, 36, 4);
+                }
+
+                if (maze.walls[r][q] & C.WALL_RIGHT) {
+                    ctx.drawImage(Sprite.walls.img, 32, 0, 4, 36, x + 30, y - 2, 4, 36);
+                }
+
+                if (maze.walls[r][q] & C.WALL_BOTTOM) {
+                    ctx.drawImage(Sprite.walls.img, 0, 32, 36, 4, x - 2, y + 30, 36, 4);
+                }
+
+                if (maze.walls[r][q] & C.WALL_LEFT) {
+                    ctx.drawImage(Sprite.walls.img, 0, 0, 4, 36, x - 2, y - 2, 4, 36);
+                }
+            }
+        }
+
+        // old wall logic
+        //sprite = Sprite.walls[maze.tiles[r][q] >> 4];
+        //if (sprite) ctx.drawImage(sprite.img, x, y);
+
+        //if (this.maze.flowhome[r][q] < 100)
+        //Text.drawText(ctx, String(this.maze.flowhome[r][q]), x, y);
+
+        // commented for screenshots:
+        //Text.drawText(ctx, String(maze.tiles[r][q] >> 4), x, y);
+
+        //ctx.fillRect(q * 4 - this.camera.pos.x + this.center.pixel.u, r * 4 - this.camera.pos.y + this.center.pixel.v, 4, 4);
     }
 
     pointerXY() {

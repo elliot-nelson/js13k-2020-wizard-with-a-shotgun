@@ -17,5 +17,11 @@ export const Constants = {
     TILE_WALL1:             2,
     TILE_WALL2:             3,
 
+    // Wall bits, for rendering wall edges
+    WALL_TOP:      0b1000,
+    WALL_RIGHT:    0b0100,
+    WALL_BOTTOM:   0b0010,
+    WALL_LEFT:     0b0001,
+
     PLAYER_BOUND_RADIUS: 9
 };

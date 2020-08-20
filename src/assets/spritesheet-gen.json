@@ -144,7 +144,7 @@
     "duration": 100
    },
    {
-    "filename": "tiles 0.aseprite",
+    "filename": "tileset 0.aseprite",
     "frame": { "x": 0, "y": 221, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -153,7 +153,7 @@
     "duration": 100
    },
    {
-    "filename": "tiles 1.aseprite",
+    "filename": "tileset 1.aseprite",
     "frame": { "x": 32, "y": 221, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -162,7 +162,7 @@
     "duration": 100
    },
    {
-    "filename": "tiles 2.aseprite",
+    "filename": "tileset 2.aseprite",
     "frame": { "x": 64, "y": 221, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -171,7 +171,7 @@
     "duration": 100
    },
    {
-    "filename": "tiles 3.aseprite",
+    "filename": "tileset 3.aseprite",
     "frame": { "x": 96, "y": 221, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -180,7 +180,7 @@
     "duration": 100
    },
    {
-    "filename": "tiles 4.aseprite",
+    "filename": "tileset 4.aseprite",
     "frame": { "x": 128, "y": 221, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -189,7 +189,7 @@
     "duration": 100
    },
    {
-    "filename": "tiles 5.aseprite",
+    "filename": "tileset 5.aseprite",
     "frame": { "x": 160, "y": 221, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -198,7 +198,7 @@
     "duration": 100
    },
    {
-    "filename": "tiles 6.aseprite",
+    "filename": "tileset 6.aseprite",
     "frame": { "x": 192, "y": 221, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -207,7 +207,7 @@
     "duration": 100
    },
    {
-    "filename": "tiles 7.aseprite",
+    "filename": "tileset 7.aseprite",
     "frame": { "x": 224, "y": 221, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -216,84 +216,12 @@
     "duration": 100
    },
    {
-    "filename": "tiles 8.aseprite",
-    "frame": { "x": 256, "y": 221, "w": 32, "h": 32 },
+    "filename": "walls.aseprite",
+    "frame": { "x": 0, "y": 253, "w": 36, "h": 36 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
-    "sourceSize": { "w": 32, "h": 32 },
-    "duration": 100
-   },
-   {
-    "filename": "tileset 0.aseprite",
-    "frame": { "x": 0, "y": 253, "w": 32, "h": 32 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
-    "sourceSize": { "w": 32, "h": 32 },
-    "duration": 100
-   },
-   {
-    "filename": "tileset 1.aseprite",
-    "frame": { "x": 32, "y": 253, "w": 32, "h": 32 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
-    "sourceSize": { "w": 32, "h": 32 },
-    "duration": 100
-   },
-   {
-    "filename": "tileset 2.aseprite",
-    "frame": { "x": 64, "y": 253, "w": 32, "h": 32 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
-    "sourceSize": { "w": 32, "h": 32 },
-    "duration": 100
-   },
-   {
-    "filename": "tileset 3.aseprite",
-    "frame": { "x": 96, "y": 253, "w": 32, "h": 32 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
-    "sourceSize": { "w": 32, "h": 32 },
-    "duration": 100
-   },
-   {
-    "filename": "tileset 4.aseprite",
-    "frame": { "x": 128, "y": 253, "w": 32, "h": 32 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
-    "sourceSize": { "w": 32, "h": 32 },
-    "duration": 100
-   },
-   {
-    "filename": "tileset 5.aseprite",
-    "frame": { "x": 160, "y": 253, "w": 32, "h": 32 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
-    "sourceSize": { "w": 32, "h": 32 },
-    "duration": 100
-   },
-   {
-    "filename": "tileset 6.aseprite",
-    "frame": { "x": 192, "y": 253, "w": 32, "h": 32 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
-    "sourceSize": { "w": 32, "h": 32 },
-    "duration": 100
-   },
-   {
-    "filename": "tileset 7.aseprite",
-    "frame": { "x": 224, "y": 253, "w": 32, "h": 32 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
-    "sourceSize": { "w": 32, "h": 32 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 36, "h": 36 },
+    "sourceSize": { "w": 36, "h": 36 },
     "duration": 100
    }
  ],
@@ -302,7 +230,7 @@
   "version": "1.2.18",
   "image": "spritesheet-gen.png",
   "format": "RGBA8888",
-  "size": { "w": 288, "h": 285 },
+  "size": { "w": 256, "h": 289 },
   "scale": "1"
  }
 }
