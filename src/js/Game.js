@@ -25,6 +25,8 @@ import { Constants as C } from './Constants';
 import { Geometry as G } from './Geometry';
 import { Menu } from './Menu';
 
+import { Canvas} from './Canvas';
+
 import { Behavior } from './systems/Behavior';
 import { Movement } from './systems/Movement';
 import { Damage } from './systems/Damage';
@@ -56,6 +58,8 @@ export class Game {
         this.player.pos.y = (this.maze.rooms[1][0].r + Math.floor(this.maze.rooms[1][0].height / 2)) * C.TILE_WIDTH + C.TILE_WIDTH / 2;
 
         this.entities.push(this.player);
+
+        this.roomsCleared = [];
 
         /*
 
@@ -126,10 +130,14 @@ export class Game {
         // Behavior (AI, player input, etc.)
         Behavior.apply(this.entities);
 
+        // Apply any queued damage
         Damage.apply(this.entities);
 
-        // Movement (apply entity velocity to position)
+        // Movement (apply entity velocities to position)
         Movement.apply(this.entities);
+
+        // Culling (typically set when an entity dies)
+        this.entities = this.entities.filter(entity => !entity.cull);
 
         // camera logic! where does it go! (an entity perhaps?)
         let diff = {
@@ -139,10 +147,52 @@ export class Game {
         this.camera.pos.x += diff.x * 0.2;
         this.camera.pos.y += diff.y * 0.2;
 
-        this.spawnEnemy();
+        //this.spawnEnemy();
 
-        // Culling Step
-        this.entities = this.entities.filter(entity => !entity.cull);
+        if (!this.activeBattle) {
+            let qr = G.xy2qr(game.player.pos);
+            let room = this.maze.rooms[this.maze.maze[qr.r][qr.q]];
+            if (room && room.length) room = room[0];
+
+            if (room && !this.roomsCleared.includes(room.roomNumber) && room.width > 4 && room.height > 4 &&
+                qr.q > room.q && qr.r > room.r && qr.q < room.q + room.width - 1 && qr.r < room.r + room.height - 1) {
+                this.activeBattle = {
+                    room,
+                    enemies: [],
+                    plan: [
+                        {
+                            frame: this.frame + 10,
+                            x: Math.floor(Math.random() * (room.width * 32)) + room.q * 32,
+                            y: Math.floor(Math.random() * (room.height * 32)) + room.r * 32,
+                        },
+                        {
+                            frame: this.frame + 70,
+                            x: Math.floor(Math.random() * (room.width * 32)) + room.q * 32,
+                            y: Math.floor(Math.random() * (room.height * 32)) + room.r * 32,
+                        }
+                    ]
+                };
+                console.log("BATTLE STARTED", room);
+            }
+        }
+
+        if (this.activeBattle) {
+            if (this.activeBattle.plan.length === 0) {
+                if (this.activeBattle.enemies.filter(enemy => !enemy.cull).length === 0) {
+                    this.roomsCleared.unshift(this.activeBattle.room.roomNumber);
+                    this.activeBattle = undefined;
+                    console.log("BATTLE FINISHED", this.roomsClear);
+                }
+            } else {
+                if (this.frame >= this.activeBattle.plan[0].frame) {
+                    let spawn = this.activeBattle.plan.shift();
+                    let monster = new Monster();
+                    monster.pos = { x: spawn.x, y: spawn.y };
+                    this.entities.push(monster);
+                    this.activeBattle.enemies.push(monster);
+                }
+            }
+        }
     }
 
     spawnEnemy() {
@@ -168,11 +218,11 @@ export class Game {
 
         this.drawMaze(ctx, this.maze);
 
-        this.drawHud(ctx);
-
         for (let entity of this.entities) {
             entity.draw(viewport);
         }
+
+        this.drawHud(ctx);
 
         /*
         ctx.fillStyle = 'rgba(150, 128, 128, 1)';
@@ -340,12 +390,48 @@ export class Game {
         ctx.drawImage(Sprite.page.img, viewport.width - 39, 10 - 1);
         Text.drawText(ctx, 'x302', viewport.width - 30, 10);
 
+        Text.drawText(ctx, String(this.frame), viewport.width - 30, viewport.height - 28);
+
         Text.drawRightText(ctx, [viewport.scale, viewport.width, viewport.height].join(', '), viewport.width - 4, viewport.height - 18);
         let ptr = this.input.pointer;
         if (ptr) {
             Text.drawRightText(ctx, JSON.stringify(ptr), viewport.width - 4, viewport.height - 8);
-            Sprite.drawSprite(ctx, Sprite.hud_crosshair, ptr.u, ptr.v);
+            ctx.save();
+            ctx.translate(ptr.u, ptr.v);
+            ctx.rotate(this.frame / 72);
+            ctx.drawImage(Sprite.hud_crosshair.img, -Sprite.hud_crosshair.anchor.x, -Sprite.hud_crosshair.anchor.y);
+            ctx.restore();
+            //Sprite.drawSprite(ctx, Sprite.hud_crosshair, ptr.u, ptr.v);
         }
+
+        if (!this.grab) {
+            let colors = [
+                'rgba(20, 20, 20)',
+                'rgba(20, 20, 20)',
+                'rgba(32, 32, 32)',
+                'rgba(32, 32, 32)',
+                'rgba(64, 6, 6)',
+                'rgba(64, 6, 6)',
+                'rgba(128, 0, 0)',
+                'rgba(158, 32, 32)'
+            ];
+
+            this.grab = new Canvas(100, 100);
+            for (let i = 0; i < 100; i++) {
+                for (let j = 0; j < 100; j++) {
+                    let c = colors[Math.floor(Math.random() * colors.length)];
+                    this.grab.ctx.fillStyle = c;
+                    this.grab.ctx.fillRect(i, j, 1, 1);
+                }
+            }
+            this.grab.ctx.globalOpacity = 0.1;
+            this.grab.ctx.drawImage(this.grab.canvas, 0, 0, 50, 100, 1, 0, 50, 100);
+            this.grab.ctx.drawImage(this.grab.canvas, 0, 0, 50, 100, 2, 0, 50, 100);
+            this.grab.ctx.drawImage(this.grab.canvas, 0, 0, 50, 100, 3, 0, 50, 100);
+        }
+        let mark = this.frame % 100;
+        //ctx.drawImage(this.grab.canvas, mark, 0, 100 - mark, 100, 50, 50, 100 - mark, 100);
+        //ctx.drawImage(this.grab.canvas, 0, 0, mark, 100, 50 + 100 - mark, 50, mark, 100);
     }
 }
 
