@@ -4,7 +4,8 @@ import { Constants as C } from './Constants';
 import { Canvas } from './Canvas';
 import { SpriteSheet } from './SpriteSheet-gen';
 
-const SPRITESHEET_URI = 'sprites.png'; // produced during gulp build
+// The spritesheet is produced during the gulp build
+const SPRITESHEET_URI = 'sprites.png';
 
 /**
  * Sprites!
@@ -108,44 +109,44 @@ export class Assets {
     this.images = {};
 
     // Base Pixel Font (see `Text.init` for additional manipulation)
-    Sprite.font = await this.initSprite(SPRITESHEET_URI, SpriteSheet.font_1);
+    Sprite.font = await this.initBasicSprite(SpriteSheet.font_1);
 
     // Player
-    Sprite.player = await this.initSprite(SPRITESHEET_URI, SpriteSheet.player2_1);
+    Sprite.player = await this.initBasicSprite(SpriteSheet.player2_1);
 
     // Bullets
-    Sprite.bullet = await this.initSprite(SPRITESHEET_URI, SpriteSheet.bullet_1);
+    Sprite.bullet = await this.initBasicSprite(SpriteSheet.bullet_1);
 
     // Enemy
-    Sprite.monster = await this.initSprite(SPRITESHEET_URI, SpriteSheet.monster2_1);
-    Sprite.monster_dead = await this.initSprite(SPRITESHEET_URI, SpriteSheet.monster2_2);
+    Sprite.monster = await this.initBasicSprite(SpriteSheet.monster2_1);
+    Sprite.monster_dead = await this.initBasicSprite(SpriteSheet.monster2_2);
 
     // GUI
-    Sprite.hud_shells_empty = await this.initSprite(SPRITESHEET_URI, SpriteSheet.hud_shells_1);
-    Sprite.hud_shells_full = await this.initSprite(SPRITESHEET_URI, SpriteSheet.hud_shells_2);
-    Sprite.hud_health_frame = await this.initSprite(SPRITESHEET_URI, SpriteSheet.hud_healthbar_1);
-    Sprite.hud_health_fill = await this.initSprite(SPRITESHEET_URI, SpriteSheet.hud_healthbar_2);
-    Sprite.hud_crosshair = await this.initSprite(SPRITESHEET_URI, SpriteSheet.hud_crosshair_1);
+    Sprite.hud_shells_empty = await this.initBasicSprite(SpriteSheet.hud_shells_1);
+    Sprite.hud_shells_full = await this.initBasicSprite(SpriteSheet.hud_shells_2);
+    Sprite.hud_health_frame = await this.initBasicSprite(SpriteSheet.hud_healthbar_1);
+    Sprite.hud_health_fill = await this.initBasicSprite(SpriteSheet.hud_healthbar_2);
+    Sprite.hud_crosshair = await this.initBasicSprite(SpriteSheet.hud_crosshair_1);
 
     // Pages
-    Sprite.page = await this.initSprite(SPRITESHEET_URI, SpriteSheet.page_1);
+    Sprite.page = await this.initBasicSprite(SpriteSheet.page_1);
 
     // Tiles
     Sprite.tiles = [];
-    Sprite.tiles[C.TILE_FLOOR1] = await this.initSprite(SPRITESHEET_URI, SpriteSheet.tileset_3);
-    Sprite.tiles[C.TILE_WALL1] = await this.initSprite(SPRITESHEET_URI, SpriteSheet.tileset_1);
-    Sprite.tiles[C.TILE_WALL2] = await this.initSprite(SPRITESHEET_URI, SpriteSheet.tileset_2);
+    Sprite.tiles[C.TILE_FLOOR1] = await this.initBasicSprite(SpriteSheet.tileset_3);
+    Sprite.tiles[C.TILE_WALL1] = await this.initBasicSprite(SpriteSheet.tileset_1);
+    Sprite.tiles[C.TILE_WALL2] = await this.initBasicSprite(SpriteSheet.tileset_2);
 
     // Walls
-    Sprite.walls = await this.initSprite(SPRITESHEET_URI, SpriteSheet.walls_1);
+    Sprite.walls = await this.initBasicSprite(SpriteSheet.walls_1);
   };
 
   /**
    * Initialize a sprite by loading it from a particular slice of the given image. Provides
    * "sensible" defaults for bounding box and anchor point if not provided.
    */
-  static async initSprite(uri, data, opts) {
-    return this.initDynamicSprite(await this.loadSlice(uri, data.x, data.y, data.w, data.h), opts);
+  static async initBasicSprite(data, opts) {
+    return this.initDynamicSprite(await this.loadSlice(SPRITESHEET_URI, data.x, data.y, data.w, data.h), opts);
   }
 
   static rotateImage(source, rad) {
