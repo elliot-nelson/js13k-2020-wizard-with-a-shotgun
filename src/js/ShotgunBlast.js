@@ -5,6 +5,7 @@ import { Monster } from './Monster';
 import { Sprite } from './Assets';
 import { Geometry as G } from './Geometry';
 import { viewport } from './Viewport';
+import { Player } from './Player';
 
 export class ShotgunBlast {
   constructor(pos, angle) {
@@ -18,7 +19,7 @@ export class ShotgunBlast {
     this.t = (this.t || 0) + 1;
 
     if (this.t === 3) {
-      let entities = game.entities.filter(entity => entity instanceof Monster);
+      let entities = game.entities.filter(entity => entity.hp && !(entity instanceof Player));
       for (let entity of entities) {
         let vect = G.vectorBetween(this.pos, entity.pos);
         if (vect.m >= this.range + entity.radius) continue;

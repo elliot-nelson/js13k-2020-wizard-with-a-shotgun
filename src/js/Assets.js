@@ -32,11 +32,15 @@ export class Sprite {
   }
 
   static drawViewportSprite(viewport, sprite, spritePos, cameraPos) {
-    viewport.ctx.drawImage(
-      sprite.img,
-      spritePos.x - sprite.anchor.x - cameraPos.x + viewport.center.u,
-      spritePos.y - sprite.anchor.y - cameraPos.y + viewport.center.v
-    );
+    let { u, v } = this.viewportSprite2uv(viewport, sprite, spritePos, cameraPos);
+    viewport.ctx.drawImage(sprite.img, u, v);
+  }
+
+  static viewportSprite2uv(viewport, sprite, spritePos, cameraPos) {
+    return {
+      u: spritePos.x - sprite.anchor.x - cameraPos.x + viewport.center.u,
+      v: spritePos.y - sprite.anchor.y - cameraPos.y + viewport.center.v
+    };
   }
 
   /**
@@ -133,6 +137,9 @@ export class Assets {
       await this.initBasicSprite(SpriteSheet.blood_laser_2),
       await this.initBasicSprite(SpriteSheet.blood_laser_3)
     ];
+
+    Sprite.sawblade = await this.initBasicSprite(SpriteSheet.sawblade_1);
+    Sprite.sawblade_eyes = await this.initBasicSprite(SpriteSheet.sawblade_2);
 
     // Pages
     Sprite.page = await this.initBasicSprite(SpriteSheet.page_1);

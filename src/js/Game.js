@@ -20,6 +20,7 @@ import { MazeGenerator } from './MazeGenerator';
 import { Text } from './Text';
 import { Player} from './Player';
 import { Monster } from './Monster';
+import { Sculptor } from './Sculptor';
 import { viewport } from './Viewport';
 import { Constants as C } from './Constants';
 import { Geometry as G } from './Geometry';
@@ -151,7 +152,7 @@ export class Game {
 
         //this.spawnEnemy();
 
-        if (!this.activeBattle && false) {
+        if (!this.activeBattle) {
             let qr = G.xy2qr(game.player.pos);
             let room = this.maze.rooms[this.maze.maze[qr.r][qr.q]];
             if (room && room.length) room = room[0];
@@ -188,7 +189,7 @@ export class Game {
             } else {
                 if (this.frame >= this.activeBattle.plan[0].frame) {
                     let spawn = this.activeBattle.plan.shift();
-                    let monster = new Monster();
+                    let monster = new Sculptor();
                     monster.pos = { x: spawn.x, y: spawn.y };
                     this.entities.push(monster);
                     this.activeBattle.enemies.push(monster);
@@ -215,21 +216,6 @@ export class Game {
         if (this.activeBattle) {
             ctx.fillStyle = 'rgba(128,20,20,1)';
             ctx.fillRect(0, 0, viewport.width, viewport.height);
-
-            let t = this.frames / 60;
-            let c = viewport.canvas;
-            let x = viewport.ctx;
-            let S = Math.sin;
-            let C = Math.cos;
-            let T = Math.tan;
-            let R = (r,g,b,a) => `${r},${g},${b},${a}`;
-            let i, w, p, Y, r;
-
-            function u(t) {
-                for(w=c.width&=i=8320;i--;u[i]=t?p<w?r%.7*(p+u[i-w]+u[i-w+1])&w-1:p:(~r-14&16)<<r*.6)p=u[i],x.fillRect(i%w,Y=68-i/w,1,p**.4/7-Y/w),r=i*t^i&Y
-            }
-
-            //u(t)
         } else {
             ctx.fillStyle = 'rgba(20,20,20,1)';
             ctx.fillRect(0, 0, viewport.width, viewport.height);

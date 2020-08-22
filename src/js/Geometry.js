@@ -57,6 +57,18 @@ export const Geometry = {
     return v;
   },
 
+  closestAngleDifference(a, b) {
+    if (a > b) [a, b] = [b, a];
+    return Math.min(b - a, C.R360 + a - b);
+  },
+
+  intermediateAngle(a, b, m) {
+    if (b > C.R270 && a <= C.R90) a += C.R360;
+    if (a > C.R270 && b <= C.R90) b += C.R360;
+    let angle = (b - a) * m + a;
+    return (angle + C.R360) % C.R360;
+  },
+
   angleBetween(angle, min, max) {
     if (min > max) [min, max] = [max, min];
     while (angle >= max + Geometry.RAD[360]) angle -= Geometry.RAD[360];
@@ -65,10 +77,8 @@ export const Geometry = {
   },
 
   arcOverlap(angleA1, angleA2, angleB1, angleB2) {
-    console.log([angleA1, angleA2, angleB1, angleB2].map(x => x * 360 / (Math.PI * 2)));
     if (angleA1 > angleA2) [angleA1, angleA2] = [angleA2, angleA1];
     if (angleB1 > angleB2) [angleB1, angleB2] = [angleB2, angleB1];
-    //while (angleA1 < 0) angleA1 += Geometry.RAD[360];
 
     while (angleB2 >= angleA2 + Geometry.RAD[360]) {
       angleB2 -= Geometry.RAD[360];
@@ -80,7 +90,6 @@ export const Geometry = {
     }
 
     const result = [Math.max(angleA1, angleB1), Math.min(angleA2, angleB2)];
-    console.log([angleA1, angleA2, angleB1, angleB2, ...result].map(x => x * 360 / (Math.PI * 2)));
     return result[0] > result[1] ? undefined : result;
   },
 
@@ -383,6 +392,10 @@ export const Geometry = {
   },
 
   tileIsPassable(q, r) {
+    if (game.activeBattle) {
+      let room = game.activeBattle.room;
+      if (q < room.q || r < room.r || q >= room.q + room.width || r >= room.r + room.height) return false;
+    }
     return !!game.maze.maze[r][q];
   }
 };

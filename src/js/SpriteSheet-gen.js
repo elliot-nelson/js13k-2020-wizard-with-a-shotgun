@@ -24,15 +24,18 @@ export const SpriteSheet =
   particles_1: { x: 0, y: 163, w: 11, h: 11 },
   player2_1: { x: 0, y: 174, w: 32, h: 32 },
   portal_1: { x: 0, y: 206, w: 32, h: 32 },
-  sparkle_1: { x: 0, y: 238, w: 11, h: 11 },
-  tileset_1: { x: 0, y: 249, w: 32, h: 32 },
-  tileset_2: { x: 32, y: 249, w: 32, h: 32 },
-  tileset_3: { x: 64, y: 249, w: 32, h: 32 },
-  tileset_4: { x: 96, y: 249, w: 32, h: 32 },
-  tileset_5: { x: 128, y: 249, w: 32, h: 32 },
-  tileset_6: { x: 160, y: 249, w: 32, h: 32 },
-  tileset_7: { x: 192, y: 249, w: 32, h: 32 },
-  tileset_8: { x: 224, y: 249, w: 32, h: 32 },
-  walls_1: { x: 0, y: 281, w: 36, h: 36 } }
+  sawblade_1: { x: 0, y: 238, w: 17, h: 17 },
+  sawblade_2: { x: 17, y: 238, w: 17, h: 17 },
+  sparkle_1: { x: 0, y: 255, w: 11, h: 11 },
+  tileset_1: { x: 0, y: 266, w: 32, h: 32 },
+  tileset_2: { x: 32, y: 266, w: 32, h: 32 },
+  tileset_3: { x: 64, y: 266, w: 32, h: 32 },
+  tileset_4: { x: 96, y: 266, w: 32, h: 32 },
+  tileset_5: { x: 128, y: 266, w: 32, h: 32 },
+  tileset_6: { x: 160, y: 266, w: 32, h: 32 },
+  tileset_7: { x: 192, y: 266, w: 32, h: 32 },
+  tileset_8: { x: 224, y: 266, w: 32, h: 32 },
+  walls_1: { x: 0, y: 298, w: 36, h: 36 },
+  walls_2: { x: 36, y: 298, w: 36, h: 36 } }
 /* </generated> */
 ;

@@ -76,18 +76,6 @@ export class Player {
     this.vel.y = (this.vel.y + v.y) / 2;
   }
 
-  draw(viewport) {
-    Sprite.drawViewportSprite(viewport, Sprite.player, this.pos, game.camera.pos);
-
-    viewport.ctx.strokeStyle = 'rgba(255, 255, 64, 0.3)';
-    viewport.ctx.beginPath();
-    let uv = game.xy2uv(this.pos);
-    viewport.ctx.arc(uv.u, uv.v, C.PLAYER_BOUND_RADIUS, 0, 2 * Math.PI);
-    viewport.ctx.setLineDash([2, 1]);
-    viewport.ctx.stroke();
-    viewport.ctx.setLineDash([]);
-  }
-
   fire() {
     this.state = Behavior.ATTACK;
     this.frames = 6;
@@ -104,5 +92,17 @@ export class Player {
     this.state = Behavior.RELOAD;
     this.frames = 12;
     game.entities.push(new ReloadAnimation(this.frames));
+  }
+
+  draw(viewport) {
+    Sprite.drawViewportSprite(viewport, Sprite.player, this.pos, game.camera.pos);
+
+    viewport.ctx.strokeStyle = 'rgba(255, 255, 64, 0.3)';
+    viewport.ctx.beginPath();
+    let uv = game.xy2uv(this.pos);
+    viewport.ctx.arc(uv.u, uv.v, C.PLAYER_BOUND_RADIUS, 0, 2 * Math.PI);
+    viewport.ctx.setLineDash([2, 1]);
+    viewport.ctx.stroke();
+    viewport.ctx.setLineDash([]);
   }
 }
