@@ -25,6 +25,7 @@ import { viewport } from './Viewport';
 import { Constants as C } from './Constants';
 import { Geometry as G } from './Geometry';
 import { Menu } from './Menu';
+import { BattleStreamAnimation } from './BattleStreamAnimation';
 
 import { Canvas} from './Canvas';
 
@@ -196,6 +197,11 @@ export class Game {
                 }
             }
         }
+
+        let u = Math.floor(Math.random() * (480 + 50)) - 25,
+            v = Math.floor(Math.random() * (270 + 50)) - 25;
+        let qr = this.uv2xy({ u, v });
+        this.entities.push(new BattleStreamAnimation(qr));
     }
 
     spawnEnemy() {
@@ -224,10 +230,14 @@ export class Game {
         /*ctx.fillStyle = 'rgba(150, 128, 128, 1)';
         ctx.fillRect(10, 10, 100, 100);*/
 
+        for (let entity of this.entities) {
+            if (entity.z < 0) entity.draw(viewport);
+        }
+
         this.drawMaze(ctx, this.maze);
 
         for (let entity of this.entities) {
-            entity.draw(viewport);
+            if (entity.z > 0 || !entity.z) entity.draw(viewport);
         }
 
         this.drawHud(ctx);

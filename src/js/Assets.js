@@ -144,6 +144,17 @@ export class Assets {
     // Pages
     Sprite.page = await this.initBasicSprite(SpriteSheet.page_1);
 
+    Sprite.battle_stream = [
+      await this.initBasicSprite(SpriteSheet.battle_stream_1),
+      await this.initBasicSprite(SpriteSheet.battle_stream_2),
+      await this.initBasicSprite(SpriteSheet.battle_stream_3),
+      await this.initBasicSprite(SpriteSheet.battle_stream_4),
+      await this.initBasicSprite(SpriteSheet.battle_stream_5),
+      await this.initBasicSprite(SpriteSheet.battle_stream_6),
+      await this.initBasicSprite(SpriteSheet.battle_stream_7),
+      await this.initBasicSprite(SpriteSheet.battle_stream_8)
+    ];
+
     // Tiles
     Sprite.tiles = [];
     Sprite.tiles[C.TILE_FLOOR1] = await this.initBasicSprite(SpriteSheet.tileset_3);
