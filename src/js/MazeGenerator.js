@@ -47,6 +47,7 @@ export const MazeGenerator = {
         //
         for (let j = 0; j < height; j++) {
             for (let i = 0; i < width; i++) {
+                if (maze[r+j][q+i]) return;
                 if (maze[r+j][q+i]) roomNumber = found = maze[r+j][q+i];
                 if (maze[r+j][q+i]===1) return;
             }
@@ -56,6 +57,18 @@ export const MazeGenerator = {
         for (let j = 0; j < height; j++) {
             for (let i = 0; i < width; i++) {
                 maze[r+j][q+i] = roomNumber;
+            }
+        }
+
+        if (roomNumber > 1) {
+            if (width >= 5 && height >= 5) {
+                maze[r + rand(1, height - 2)][q + rand(1, width - 2)] = 0;
+            }
+            if (width >= 7 && height >= 7) {
+                maze[r + rand(1, height - 2)][q + rand(1, width - 2)] = 0;
+            }
+            if (width >= 9 && height >= 9) {
+                maze[r + rand(1, height - 2)][q + rand(1, width - 2)] = 0;
             }
         }
 
@@ -120,7 +133,7 @@ export const MazeGenerator = {
 
         for (let r = 1; r < maze.length - 1; r++) {
             for (let q = 1; q < maze.length - 1; q++) {
-                let room1, room2;
+                let room1, room2, cq, cr;
 
                 let [up, down, left, right] = [
                     maze[r - 1][q],
@@ -130,16 +143,16 @@ export const MazeGenerator = {
                 ];
 
                 if (up && down && up !== down) {
-                    room1 = up, room2 = down;
+                    room1 = up, room2 = down, cq = 0, cr = 1;
                 } else if (left && right && left !== right) {
-                    room1 = left, room2 = right;
+                    room1 = left, room2 = right, cq = 1, cr = 0;
                 }
 
                 if (room1 && room2) {
                     if (room1 > room2) {
                         [room1, room2] = [room2, room1];
                     }
-                    connectors.push({ q, r, room1, room2 });
+                    connectors.push({ q, r, cq, cr, room1, room2 });
                     rooms.push(room1, room2);
                     //connectors.push({ q, r, room1: room2, room2: room1 });
                     /*connectors[room1] = connectors[room1] || [];
@@ -155,6 +168,8 @@ export const MazeGenerator = {
         let groups = [...new Set(rooms)].map(a => [a]);
         console.log(groups);
 
+        let remaining = [];
+
         while (connectors.length > 0) {
             let idx = rand(0, connectors.length);
             let choice = connectors.splice(idx, 1)[0];
@@ -163,18 +178,30 @@ export const MazeGenerator = {
             let group1 = groups.find(group => group.includes(choice.room1));
             let group2 = groups.find(group => group.includes(choice.room2));
 
-            if (rand() > 0.2) {
-                connectors = connectors.filter(c => !(
+            connectors = connectors.filter(c => {
+                let handled =
                     (group1.includes(c.room1) && group2.includes(c.room2)) ||
-                    (group2.includes(c.room1) && group1.includes(c.room2))
-                ));
-            }
+                    (group2.includes(c.room1) && group1.includes(c.room2));
+                if (handled) remaining.push(c);
+                return !handled;
+            });
 
             if (group1 !== group2) {
                 groups.splice(groups.indexOf(group2), 1);
                 group1.push(...group2);
             }
         }
+
+        console.log("do REMAINING", remaining.length);
+        for (let choice of remaining) {
+            let flood = G.flood(maze, { q: choice.q + choice.cq, r: choice.r + choice.cr }, 20);
+            let value = flood[choice.r - choice.cr][choice.q - choice.cq];
+            if (value > 15 && rand() < 0.33) {
+                maze[choice.r][choice.q] = choice.room1;
+            }
+        }
+
+        console.log(remaining);
 /*
         while (groups.length > 1) {
             let a = rand(0, groups.length);
@@ -244,15 +271,25 @@ export const MazeGenerator = {
         }, {});
     },
 
-    createWalls(maze) {
+    createWalls(maze, rooms) {
         let walls = G.array2d(maze[0].length, maze.length, 0);
         for (let r = 0; r < walls.length; r++) {
             for (let q = 0; q < walls[0].length; q++) {
                 if (maze[r][q]) {
+                    let room = rooms[maze[r][q]];
+                    if (room && room[0]) room = room[0];
+
                     walls[r][q] = (maze[r - 1][q] ? 0 : C.WALL_TOP) |
                                   (maze[r][q + 1] ? 0 : C.WALL_RIGHT) |
                                   (maze[r + 1][q] ? 0 : C.WALL_BOTTOM) |
                                   (maze[r][q - 1] ? 0 : C.WALL_LEFT);
+
+                    if (room) {
+                        walls[r][q] |= (maze[r - 1][q] && r === room.r ? C.OPEN_TOP : 0) |
+                                       (maze[r][q + 1] && q === room.q + room.width - 1 ? C.OPEN_RIGHT : 0) |
+                                       (maze[r + 1][q] && r === room.r + room.height - 1 ? C.OPEN_BOTTOM : 0) |
+                                       (maze[r][q - 1] && q === room.q ? C.OPEN_LEFT : 0);
+                    }
                 }
             }
         }
@@ -275,30 +312,28 @@ export const MazeGenerator = {
 
     generate(seed) {
         let maze = G.array2d(99, 99, 0);
-        //let rand = Random.seed("apples");
         let rand = Random.seed(seed);
 
         let roomNumber = 1;
 
-        let result = MazeGenerator.attemptRoomPlacement(maze, rand, [{ q: 0, r: 0 }, { q: 99, r: 99 }], 11, 9, roomNumber++);
-        console.log(result);
+        let result = MazeGenerator.attemptRoomPlacement(maze, rand, [{ q: 0, r: 0 }, { q: 99, r: 99 }], 7, 7, roomNumber++);
         let rooms = [result];
 
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 150; i++) {
             let w = rand(3, 4) * 2 + 1;
             let h = rand(3, 4) * 2 + 1;
             result = MazeGenerator.attemptRoomPlacement(maze, rand, [{ q: 0, r: 0 }, { q: 99, r: 99 }], w, h, roomNumber);
             if (result) rooms.push(result);
             if (result && result.roomNumber === roomNumber) roomNumber++;
         }
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 150; i++) {
             let w = rand(2, 4) * 2 + 1;
             let h = rand(2, 4) * 2 + 1;
             result = MazeGenerator.attemptRoomPlacement(maze, rand, [{ q: 0, r: 0 }, { q: 99, r: 99 }], w, h, roomNumber);
             if (result) rooms.push(result);
             if (result && result.roomNumber === roomNumber) roomNumber++;
         }
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 150; i++) {
             let w = rand(1, 4) * 2 + 1;
             let h = rand(1, 4) * 2 + 1;
             result = MazeGenerator.attemptRoomPlacement(maze, rand, [{ q: 0, r: 0 }, { q: 99, r: 99 }], w, h, roomNumber);
@@ -330,12 +365,14 @@ export const MazeGenerator = {
         MazeGenerator.pruneDeadEnds(maze, rand);
 
         let homeflow = G.flood(maze, rooms[0]);
+        let roomLookup = this.createRoomLookup(rooms);
+
         return {
             maze,
-            walls: this.createWalls(maze),
+            walls: this.createWalls(maze, roomLookup),
             tiles: this.createTiles(maze, rand),
             rand,
-            rooms: this.createRoomLookup(rooms),
+            rooms: roomLookup,
             flowhome: homeflow
         };
     }

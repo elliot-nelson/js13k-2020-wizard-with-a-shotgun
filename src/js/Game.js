@@ -44,7 +44,9 @@ export class Game {
         this.input = new Input();
         await this.input.init();
 
-        this.maze = MazeGenerator.generate("apples");
+        //this.maze = MazeGenerator.generate("apples");
+        //this.maze = MazeGenerator.generate("manhattan");
+        this.maze = MazeGenerator.generate("arkham");
         this.camera = { pos: { x: 1, y: 1 } };
 
         await Assets.init();
@@ -149,7 +151,7 @@ export class Game {
 
         //this.spawnEnemy();
 
-        if (!this.activeBattle) {
+        if (!this.activeBattle && false) {
             let qr = G.xy2qr(game.player.pos);
             let room = this.maze.rooms[this.maze.maze[qr.r][qr.q]];
             if (room && room.length) room = room[0];
@@ -210,8 +212,28 @@ export class Game {
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.scale(viewport.scale, viewport.scale);
 
-        ctx.fillStyle = 'rgba(20,20,20,1)';
-        ctx.fillRect(0, 0, viewport.width, viewport.height);
+        if (this.activeBattle) {
+            ctx.fillStyle = 'rgba(128,20,20,1)';
+            ctx.fillRect(0, 0, viewport.width, viewport.height);
+
+            let t = this.frames / 60;
+            let c = viewport.canvas;
+            let x = viewport.ctx;
+            let S = Math.sin;
+            let C = Math.cos;
+            let T = Math.tan;
+            let R = (r,g,b,a) => `${r},${g},${b},${a}`;
+            let i, w, p, Y, r;
+
+            function u(t) {
+                for(w=c.width&=i=8320;i--;u[i]=t?p<w?r%.7*(p+u[i-w]+u[i-w+1])&w-1:p:(~r-14&16)<<r*.6)p=u[i],x.fillRect(i%w,Y=68-i/w,1,p**.4/7-Y/w),r=i*t^i&Y
+            }
+
+            //u(t)
+        } else {
+            ctx.fillStyle = 'rgba(20,20,20,1)';
+            ctx.fillRect(0, 0, viewport.width, viewport.height);
+        }
 
         /*ctx.fillStyle = 'rgba(150, 128, 128, 1)';
         ctx.fillRect(10, 10, 100, 100);*/
@@ -334,8 +356,14 @@ export class Game {
             x: viewport.center.u - this.camera.pos.x,
             y: viewport.center.v - this.camera.pos.y
         };
-        for (let r = 0; r < maze.tiles.length; r++) {
-            for (let q = 0; q < maze.tiles[r].length; q++) {
+
+        let r1 = this.activeBattle ? this.activeBattle.room.r : 0,
+            r2 = this.activeBattle ? this.activeBattle.room.r + this.activeBattle.room.height : maze.tiles.length,
+            q1 = this.activeBattle ? this.activeBattle.room.q : 0,
+            q2 = this.activeBattle ? this.activeBattle.room.q + this.activeBattle.room.width : maze.tiles[0].length;
+
+        for (let r = r1; r < r2; r++) {
+            for (let q = q1; q < q2; q++) {
                 let x = q * 32 + offset.x, y = r * 32 + offset.y;
                 if (x < -50 || y < -50 || x > 500 || y > 500) continue;
 
@@ -345,8 +373,8 @@ export class Game {
             }
         }
 
-        for (let r = 0; r < maze.tiles.length; r++) {
-            for (let q = 0; q < maze.tiles[r].length; q++) {
+        for (let r = r1; r < r2; r++) {
+            for (let q = q1; q < q2; q++) {
                 let x = q * 32 + offset.x, y = r * 32 + offset.y;
                 if (x < -50 || y < -50 || x > 500 || y > 500) continue;
 
@@ -364,6 +392,22 @@ export class Game {
 
                 if (maze.walls[r][q] & C.WALL_LEFT) {
                     ctx.drawImage(Sprite.walls.img, 0, 0, 4, 36, x - 2, y - 2, 4, 36);
+                }
+
+                if (maze.walls[r][q] & C.OPEN_TOP) {
+                    ctx.drawImage(Sprite.laserwall[Math.floor(this.frame / 10) % 3].img, 0, 0, 5, 28, x, y, 5, 28);
+                }
+
+                if (maze.walls[r][q] & C.OPEN_RIGHT) {
+                    ctx.drawImage(Sprite.laserwall[Math.floor(this.frame / 10) % 3].img, 0, 0, 5, 28, x, y, 5, 28);
+                }
+
+                if (maze.walls[r][q] & C.OPEN_BOTTOM) {
+                    ctx.drawImage(Sprite.laserwall[Math.floor(this.frame / 10) % 3].img, 0, 0, 5, 28, x, y, 5, 28);
+                }
+
+                if (maze.walls[r][q] & C.OPEN_LEFT) {
+                    ctx.drawImage(Sprite.laserwall[Math.floor(this.frame / 10) % 3].img, 0, 0, 5, 28, x - 2, y + 2, 5, 28);
                 }
             }
         }

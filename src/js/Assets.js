@@ -128,6 +128,12 @@ export class Assets {
     Sprite.hud_health_fill = await this.initBasicSprite(SpriteSheet.hud_healthbar_2);
     Sprite.hud_crosshair = await this.initBasicSprite(SpriteSheet.hud_crosshair_1);
 
+    Sprite.laserwall = [
+      await this.initBasicSprite(SpriteSheet.blood_laser_1),
+      await this.initBasicSprite(SpriteSheet.blood_laser_2),
+      await this.initBasicSprite(SpriteSheet.blood_laser_3)
+    ];
+
     // Pages
     Sprite.page = await this.initBasicSprite(SpriteSheet.page_1);
 

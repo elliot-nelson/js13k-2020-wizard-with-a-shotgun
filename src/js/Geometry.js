@@ -361,20 +361,19 @@ export const Geometry = {
     }
   },
 
-  flood(maze, pos) {
-    let result = Geometry.array2d(maze[0].length, maze.length, 100);
-    console.log(result[0][0]);
+  flood(maze, pos, maxDistance = Infinity) {
+    let result = Geometry.array2d(maze[0].length, maze.length, Infinity);
     let stack = [{ ...pos, cost: 0 }];
     while (stack.length > 0) {
       let { q, r, cost } = stack.shift();
       if (result[r][q] <= cost) continue;
       result[r][q] = cost++;
+      if (result[r][q] >= maxDistance) continue;
       if (maze[r][q + 1] && result[r][q + 1] > cost) stack.push({ q: q + 1, r, cost });
       if (maze[r][q - 1] && result[r][q - 1] > cost) stack.push({ q: q - 1, r, cost });
       if (maze[r + 1][q] && result[r + 1][q] > cost) stack.push({ q, r: r + 1, cost });
       if (maze[r - 1][q] && result[r - 1][q] > cost) stack.push({ q, r: r - 1, cost });
     }
-    console.log(["---", result, "---"]);
     return result;
   },
 
