@@ -34,10 +34,11 @@ const ImageDataParser = {
 
     for (let frame of json.frames) {
       let id = frame.filename.replace('.aseprite', '');
-      let number = (parseInt(id.split(' ')[1], 10) || 0) + 1;
-      id = id.split(' ')[0] + '_' + number;
+      let number = (parseInt(id.split(' ')[1], 10) || 0);
+      id = id.split(' ')[0];
 
-      data[id] = {
+      data[id] = (data[id] || []);
+      data[id][number] = {
         x: frame.frame.x,
         y: frame.frame.y,
         w: frame.frame.w,
