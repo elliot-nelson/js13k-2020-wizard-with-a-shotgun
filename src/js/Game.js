@@ -163,6 +163,7 @@ export class Game {
                 this.activeBattle = {
                     room,
                     enemies: [],
+                    start: this.frame,
                     plan: [
                         {
                             frame: this.frame + 10,
@@ -219,12 +220,12 @@ export class Game {
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.scale(viewport.scale, viewport.scale);
 
+        ctx.fillStyle = 'rgba(20,20,20,1)';
+        ctx.fillRect(0, 0, viewport.width, viewport.height);
         if (this.activeBattle) {
             ctx.fillStyle = 'rgba(128,20,20,1)';
-            ctx.fillRect(0, 0, viewport.width, viewport.height);
-        } else {
-            ctx.fillStyle = 'rgba(20,20,20,1)';
-            ctx.fillRect(0, 0, viewport.width, viewport.height);
+            let y = Math.min(0, (this.frame - this.activeBattle.start) * 8 - 300);
+            ctx.drawImage(Sprite.battle_bg.img, 0, y);
         }
 
         /*ctx.fillStyle = 'rgba(150, 128, 128, 1)';
@@ -241,6 +242,10 @@ export class Game {
         }
 
         this.drawHud(ctx);
+
+        let ky = this.frame;
+        Text.drawText(ctx, 'FIGHT', ky * 10, 100, Text.shadow, 4);
+        Text.drawText(ctx, 'FIGHT', ky * 10, 100, Text.default, 4);
 
         /*
         ctx.fillStyle = 'rgba(150, 128, 128, 1)';

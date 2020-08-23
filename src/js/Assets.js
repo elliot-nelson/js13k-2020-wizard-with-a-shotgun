@@ -151,6 +151,8 @@ export class Assets {
 
     // Walls
     Sprite.walls = this.initBasicSprite(SpriteSheet.walls2[0]);
+
+    Sprite.battle_bg = this.initDynamicSprite(this.createBattleBackground());
   };
 
   /**
@@ -217,5 +219,18 @@ export class Assets {
       image.src = uri;
       this.images[uri] = image;
     });
+  }
+
+  static createBattleBackground() {
+    let canvas = new Canvas(500, 300);
+    let gradient = canvas.ctx.createLinearGradient(0, 0, 0, 270);
+    gradient.addColorStop(0, 'rgba(128,20,20,1)');
+    gradient.addColorStop(1, 'rgba(191,31,31,1)');
+    canvas.ctx.fillStyle = gradient;
+    canvas.ctx.fillRect(0, 0, 500, 300);
+    for (let i = 0; i < 500; i++) {
+      canvas.ctx.clearRect(i, 299 - Math.random() * 20, 3, 30);
+    }
+    return canvas.canvas;
   }
 }
