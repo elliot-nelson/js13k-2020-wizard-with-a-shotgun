@@ -111,71 +111,55 @@ export class Sprite {
 export class Assets {
   static async init() {
     this.images = {};
+    await this.loadImage(SPRITESHEET_URI);
 
     // Base Pixel Font (see `Text.init` for additional manipulation)
-    Sprite.font = await this.initBasicSprite(SpriteSheet.font_1);
+    Sprite.font = this.initBasicSprite(SpriteSheet.font[0]);
 
     // Player
-    Sprite.player = await this.initBasicSprite(SpriteSheet.player2_1);
+    Sprite.player = this.initBasicSprite(SpriteSheet.player2[0]);
 
     // Bullets
-    Sprite.bullet = await this.initBasicSprite(SpriteSheet.bullet_1);
+    Sprite.bullet = this.initBasicSprite(SpriteSheet.bullet[0]);
 
     // Enemy
-    Sprite.monster = await this.initBasicSprite(SpriteSheet.monster2_1);
-    Sprite.monster_dead = await this.initBasicSprite(SpriteSheet.monster2_2);
+    Sprite.monster = this.initBasicSprite(SpriteSheet.monster2[0]);
+    Sprite.monster_dead = this.initBasicSprite(SpriteSheet.monster2[0]);
 
     // GUI
-    Sprite.hud_shells_empty = await this.initBasicSprite(SpriteSheet.hud_shells_1);
-    Sprite.hud_shells_full = await this.initBasicSprite(SpriteSheet.hud_shells_2);
-    Sprite.hud_health_frame = await this.initBasicSprite(SpriteSheet.hud_healthbar_1);
-    Sprite.hud_health_fill = await this.initBasicSprite(SpriteSheet.hud_healthbar_2);
-    Sprite.hud_crosshair = await this.initBasicSprite(SpriteSheet.hud_crosshair_1);
+    Sprite.hud_shells_empty = this.initBasicSprite(SpriteSheet.hud_shells[0]);
+    Sprite.hud_shells_full = this.initBasicSprite(SpriteSheet.hud_shells[1]);
+    Sprite.hud_health_frame = this.initBasicSprite(SpriteSheet.hud_healthbar[0]);
+    Sprite.hud_health_fill = this.initBasicSprite(SpriteSheet.hud_healthbar[1]);
+    Sprite.hud_crosshair = this.initBasicSprite(SpriteSheet.hud_crosshair[0]);
 
-    Sprite.laserwall = [
-      await this.initBasicSprite(SpriteSheet.blood_laser_1),
-      await this.initBasicSprite(SpriteSheet.blood_laser_2),
-      await this.initBasicSprite(SpriteSheet.blood_laser_3)
-    ];
+    Sprite.laserwall = SpriteSheet.blood_laser.map(data => this.initBasicSprite(data));
 
-    Sprite.sawblade = await this.initBasicSprite(SpriteSheet.sawblade_1);
-    Sprite.sawblade_eyes = await this.initBasicSprite(SpriteSheet.sawblade_2);
+    Sprite.sawblade = this.initBasicSprite(SpriteSheet.sawblade[0]);
+    Sprite.sawblade_eyes = this.initBasicSprite(SpriteSheet.sawblade[1]);
 
     // Pages
-    Sprite.page = await this.initBasicSprite(SpriteSheet.page_1);
+    Sprite.page = await this.initBasicSprite(SpriteSheet.page[0]);
 
-    Sprite.battle_stream = [
-      await this.initBasicSprite(SpriteSheet.battle_stream_1),
-      await this.initBasicSprite(SpriteSheet.battle_stream_2),
-      await this.initBasicSprite(SpriteSheet.battle_stream_3),
-      await this.initBasicSprite(SpriteSheet.battle_stream_4),
-      await this.initBasicSprite(SpriteSheet.battle_stream_5),
-      await this.initBasicSprite(SpriteSheet.battle_stream_6),
-      await this.initBasicSprite(SpriteSheet.battle_stream_7),
-      await this.initBasicSprite(SpriteSheet.battle_stream_8)
-    ];
-    Sprite.battle_spray = [
-      await this.initBasicSprite(SpriteSheet.walls2_2),
-      await this.initBasicSprite(SpriteSheet.walls2_3),
-      await this.initBasicSprite(SpriteSheet.walls2_4)
-    ];
+    Sprite.battle_stream = SpriteSheet.battle_stream.map(data => this.initBasicSprite(data));
+    Sprite.battle_spray = SpriteSheet.walls2.slice(1, 4).map(data => this.initBasicSprite(data));
 
     // Tiles
     Sprite.tiles = [];
-    Sprite.tiles[C.TILE_FLOOR1] = await this.initBasicSprite(SpriteSheet.tileset_3);
-    Sprite.tiles[C.TILE_WALL1] = await this.initBasicSprite(SpriteSheet.tileset_1);
-    Sprite.tiles[C.TILE_WALL2] = await this.initBasicSprite(SpriteSheet.tileset_2);
+    Sprite.tiles[C.TILE_FLOOR1] = this.initBasicSprite(SpriteSheet.tileset[2]);
+    Sprite.tiles[C.TILE_WALL1] = this.initBasicSprite(SpriteSheet.tileset[0]);
+    Sprite.tiles[C.TILE_WALL2] = this.initBasicSprite(SpriteSheet.tileset[1]);
 
     // Walls
-    Sprite.walls = await this.initBasicSprite(SpriteSheet.walls2_1);
+    Sprite.walls = this.initBasicSprite(SpriteSheet.walls2[0]);
   };
 
   /**
    * Initialize a sprite by loading it from a particular slice of the given image. Provides
    * "sensible" defaults for bounding box and anchor point if not provided.
    */
-  static async initBasicSprite(data, opts) {
-    return this.initDynamicSprite(await this.loadSlice(SPRITESHEET_URI, data.x, data.y, data.w, data.h), opts);
+  static initBasicSprite(data, opts) {
+    return this.initDynamicSprite(this.loadCacheSlice(SPRITESHEET_URI, data.x, data.y, data.w, data.h), opts);
   }
 
   static rotateImage(source, rad) {
@@ -213,8 +197,9 @@ export class Assets {
   /**
    * This helper method retrieves a cached image, cuts the specified slice out of it, and returns it.
    */
-  static async loadSlice(uri, x, y, w, h) {
-    const source = await this.loadImage(uri);
+  static loadCacheSlice(uri, x, y, w, h) {
+    //const source = await this.loadImage(uri);
+    const source = this.images[uri];
     const sliceCanvas = new Canvas(w, h);
     sliceCanvas.ctx.drawImage(source, x, y, w, h, 0, 0, w, h);
     return sliceCanvas.canvas;
