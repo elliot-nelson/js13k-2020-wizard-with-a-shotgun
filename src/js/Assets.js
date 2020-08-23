@@ -133,8 +133,6 @@ export class Assets {
     Sprite.hud_health_fill = this.initBasicSprite(SpriteSheet.hud_healthbar[1]);
     Sprite.hud_crosshair = this.initBasicSprite(SpriteSheet.hud_crosshair[0]);
 
-    Sprite.laserwall = SpriteSheet.blood_laser.map(data => this.initBasicSprite(data));
-
     Sprite.sawblade = this.initBasicSprite(SpriteSheet.sawblade[0]);
     Sprite.sawblade_eyes = this.initBasicSprite(SpriteSheet.sawblade[1]);
 
@@ -142,7 +140,8 @@ export class Assets {
     Sprite.page = await this.initBasicSprite(SpriteSheet.page[0]);
 
     Sprite.battle_stream = SpriteSheet.battle_stream.map(data => this.initBasicSprite(data));
-    Sprite.battle_spray = SpriteSheet.walls2.slice(1, 4).map(data => this.initBasicSprite(data));
+    Sprite.battle_spray = SpriteSheet.walls2.slice(4, 7).map(data => this.initBasicSprite(data));
+    Sprite.battle_door = SpriteSheet.walls2.slice(1, 4).map(data => this.initBasicSprite(data));
 
     // Tiles
     Sprite.tiles = [];

@@ -390,35 +390,29 @@ export class Game {
                     ctx.drawImage(Sprite.walls.img, 5, 5, 4, 36, x - 2, y - 2, 4, 36);
                 }
 
-                if (maze.walls[r][q] & C.OPEN_TOP) {
-                    ctx.drawImage(Sprite.laserwall[Math.floor(this.frame / 10) % 3].img, 0, 0, 5, 28, x, y, 5, 28);
-                }
-
-                if (maze.walls[r][q] & C.OPEN_RIGHT) {
-                    ctx.drawImage(Sprite.laserwall[Math.floor(this.frame / 10) % 3].img, 0, 0, 5, 28, x, y, 5, 28);
-                }
-
-                if (maze.walls[r][q] & C.OPEN_BOTTOM) {
-                    ctx.drawImage(Sprite.laserwall[Math.floor(this.frame / 10) % 3].img, 0, 0, 5, 28, x, y, 5, 28);
-                }
-
-                if (maze.walls[r][q] & C.OPEN_LEFT) {
-                    ctx.drawImage(Sprite.laserwall[Math.floor(this.frame / 10) % 3].img, 0, 0, 5, 28, x - 2, y + 2, 5, 28);
-                }
-
                 if (this.activeBattle) {
                     let f = (this.frame / 8) % 3 | 0;
 
-                    if (r == r1 && q == q1) {
-                        ctx.drawImage(Sprite.battle_spray[f].img, 0, 0, 5, 46, x - 7, y -  7, 5, 46);
+                    if (maze.walls[r][q] & C.OPEN_TOP) {
+                        ctx.drawImage(Sprite.battle_door[f].img, 5, 0, 36, 9, x - 2, y - 7, 36, 9);
+                    } else if (r === r1) {
+                        ctx.drawImage(Sprite.battle_spray[f].img, 5, 0, 36, 5, x - 2, y - 7, 36, 5);
                     }
 
-                    if (r == r1 && q == q2 - 1) {
+                    if (maze.walls[r][q] & C.OPEN_RIGHT) {
+                        ctx.drawImage(Sprite.battle_door[f].img, 37, 5, 9, 41, x + 30, y - 2, 9, 41);
+                    } else if (r === r1 && q === q2 - 1) {
                         ctx.drawImage(Sprite.battle_spray[f].img, 41, 0, 5, 46, x + 34, y -  7, 5, 46);
                     }
 
-                    if (r == r1) {
-                        ctx.drawImage(Sprite.battle_spray[f].img, 5, 0, 36, 5, x - 2, y - 7, 36, 5);
+                    if (maze.walls[r][q] & C.OPEN_BOTTOM) {
+                        ctx.drawImage(Sprite.battle_door[f].img, 5, 37, 36, 9, x - 2, y + 30, 36, 9);
+                    }
+
+                    if (maze.walls[r][q] & C.OPEN_LEFT) {
+                        ctx.drawImage(Sprite.battle_door[f].img, 0, 5, 9, 41, x - 7, y - 2, 9, 41);
+                    } else if (r === r1 && q === q1) {
+                        ctx.drawImage(Sprite.battle_spray[f].img, 0, 0, 5, 46, x - 7, y -  7, 5, 46);
                     }
                 }
             }
