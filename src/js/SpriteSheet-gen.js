@@ -53,6 +53,13 @@ export const SpriteSheet =
   tileset_7: { x: 192, y: 544, w: 32, h: 32 },
   tileset_8: { x: 224, y: 544, w: 32, h: 32 },
   walls_1: { x: 0, y: 576, w: 36, h: 36 },
-  walls_2: { x: 36, y: 576, w: 36, h: 36 } }
+  walls_2: { x: 36, y: 576, w: 36, h: 36 },
+  walls2_1: { x: 0, y: 612, w: 46, h: 46 },
+  walls2_2: { x: 46, y: 612, w: 46, h: 46 },
+  walls2_3: { x: 92, y: 612, w: 46, h: 46 },
+  walls2_4: { x: 138, y: 612, w: 46, h: 46 },
+  walls2_5: { x: 184, y: 612, w: 46, h: 46 },
+  walls2_6: { x: 230, y: 612, w: 46, h: 46 },
+  walls2_7: { x: 276, y: 612, w: 46, h: 46 } }
 /* </generated> */
 ;

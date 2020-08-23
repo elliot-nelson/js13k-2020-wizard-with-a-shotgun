@@ -154,6 +154,11 @@ export class Assets {
       await this.initBasicSprite(SpriteSheet.battle_stream_7),
       await this.initBasicSprite(SpriteSheet.battle_stream_8)
     ];
+    Sprite.battle_spray = [
+      await this.initBasicSprite(SpriteSheet.walls2_2),
+      await this.initBasicSprite(SpriteSheet.walls2_3),
+      await this.initBasicSprite(SpriteSheet.walls2_4)
+    ];
 
     // Tiles
     Sprite.tiles = [];
@@ -162,7 +167,7 @@ export class Assets {
     Sprite.tiles[C.TILE_WALL2] = await this.initBasicSprite(SpriteSheet.tileset_2);
 
     // Walls
-    Sprite.walls = await this.initBasicSprite(SpriteSheet.walls_1);
+    Sprite.walls = await this.initBasicSprite(SpriteSheet.walls2_1);
   };
 
   /**

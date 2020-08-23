@@ -430,6 +430,69 @@
     "spriteSourceSize": { "x": 0, "y": 0, "w": 36, "h": 36 },
     "sourceSize": { "w": 36, "h": 36 },
     "duration": 100
+   },
+   {
+    "filename": "walls2 0.aseprite",
+    "frame": { "x": 0, "y": 612, "w": 46, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 46, "h": 46 },
+    "sourceSize": { "w": 46, "h": 46 },
+    "duration": 100
+   },
+   {
+    "filename": "walls2 1.aseprite",
+    "frame": { "x": 46, "y": 612, "w": 46, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 46, "h": 46 },
+    "sourceSize": { "w": 46, "h": 46 },
+    "duration": 100
+   },
+   {
+    "filename": "walls2 2.aseprite",
+    "frame": { "x": 92, "y": 612, "w": 46, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 46, "h": 46 },
+    "sourceSize": { "w": 46, "h": 46 },
+    "duration": 100
+   },
+   {
+    "filename": "walls2 3.aseprite",
+    "frame": { "x": 138, "y": 612, "w": 46, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 46, "h": 46 },
+    "sourceSize": { "w": 46, "h": 46 },
+    "duration": 100
+   },
+   {
+    "filename": "walls2 4.aseprite",
+    "frame": { "x": 184, "y": 612, "w": 46, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 46, "h": 46 },
+    "sourceSize": { "w": 46, "h": 46 },
+    "duration": 100
+   },
+   {
+    "filename": "walls2 5.aseprite",
+    "frame": { "x": 230, "y": 612, "w": 46, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 46, "h": 46 },
+    "sourceSize": { "w": 46, "h": 46 },
+    "duration": 100
+   },
+   {
+    "filename": "walls2 6.aseprite",
+    "frame": { "x": 276, "y": 612, "w": 46, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 46, "h": 46 },
+    "sourceSize": { "w": 46, "h": 46 },
+    "duration": 100
    }
  ],
  "meta": {
@@ -437,7 +500,7 @@
   "version": "1.2.18",
   "image": "spritesheet-gen.png",
   "format": "RGBA8888",
-  "size": { "w": 4500, "h": 612 },
+  "size": { "w": 4500, "h": 658 },
   "scale": "1"
  }
 }

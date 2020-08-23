@@ -375,19 +375,19 @@ export class Game {
                 if (x < -50 || y < -50 || x > 500 || y > 500) continue;
 
                 if (maze.walls[r][q] & C.WALL_TOP) {
-                    ctx.drawImage(Sprite.walls.img, 0, 0, 36, 4, x - 2, y - 2, 36, 4);
+                    ctx.drawImage(Sprite.walls.img, 5, 5, 36, 4, x - 2, y - 2, 36, 4);
                 }
 
                 if (maze.walls[r][q] & C.WALL_RIGHT) {
-                    ctx.drawImage(Sprite.walls.img, 32, 0, 4, 36, x + 30, y - 2, 4, 36);
+                    ctx.drawImage(Sprite.walls.img, 37, 5, 4, 36, x + 30, y - 2, 4, 36);
                 }
 
                 if (maze.walls[r][q] & C.WALL_BOTTOM) {
-                    ctx.drawImage(Sprite.walls.img, 0, 32, 36, 4, x - 2, y + 30, 36, 4);
+                    ctx.drawImage(Sprite.walls.img, 5, 37, 36, 4, x - 2, y + 30, 36, 4);
                 }
 
                 if (maze.walls[r][q] & C.WALL_LEFT) {
-                    ctx.drawImage(Sprite.walls.img, 0, 0, 4, 36, x - 2, y - 2, 4, 36);
+                    ctx.drawImage(Sprite.walls.img, 5, 5, 4, 36, x - 2, y - 2, 4, 36);
                 }
 
                 if (maze.walls[r][q] & C.OPEN_TOP) {
@@ -404,6 +404,22 @@ export class Game {
 
                 if (maze.walls[r][q] & C.OPEN_LEFT) {
                     ctx.drawImage(Sprite.laserwall[Math.floor(this.frame / 10) % 3].img, 0, 0, 5, 28, x - 2, y + 2, 5, 28);
+                }
+
+                if (this.activeBattle) {
+                    let f = (this.frame / 8) % 3 | 0;
+
+                    if (r == r1 && q == q1) {
+                        ctx.drawImage(Sprite.battle_spray[f].img, 0, 0, 5, 46, x - 7, y -  7, 5, 46);
+                    }
+
+                    if (r == r1 && q == q2 - 1) {
+                        ctx.drawImage(Sprite.battle_spray[f].img, 41, 0, 5, 46, x + 34, y -  7, 5, 46);
+                    }
+
+                    if (r == r1) {
+                        ctx.drawImage(Sprite.battle_spray[f].img, 5, 0, 36, 5, x - 2, y - 7, 36, 5);
+                    }
                 }
             }
         }
