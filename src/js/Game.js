@@ -256,6 +256,10 @@ export class Game {
         Text.drawText(ctx, 'FIGHT', ky * 10, 100, Text.shadow, 4);
         Text.drawText(ctx, 'FIGHT', ky * 10, 100, Text.default, 4);
 
+        for (let entity of this.entities) {
+            if (entity.z && entity.z > 100) entity.draw(viewport);
+        }
+
         /*
         ctx.fillStyle = 'rgba(150, 128, 128, 1)';
         ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);

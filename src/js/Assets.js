@@ -131,6 +131,7 @@ export class Assets {
     Sprite.hud_shells_full = this.initBasicSprite(SpriteSheet.hud_shells[1]);
     Sprite.hud_health_frame = this.initBasicSprite(SpriteSheet.hud_healthbar[0]);
     Sprite.hud_health_fill = this.initBasicSprite(SpriteSheet.hud_healthbar[1]);
+    Sprite.hud_health_chunk = this.initBasicSprite(SpriteSheet.hud_healthbar[2]);
     Sprite.hud_crosshair = this.initBasicSprite(SpriteSheet.hud_crosshair[0]);
 
     Sprite.sawblade = this.initBasicSprite(SpriteSheet.sawblade[0]);

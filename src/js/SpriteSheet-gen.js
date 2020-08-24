@@ -18,7 +18,10 @@ export const SpriteSheet =
   bullet: [ { x: 0, y: 8, w: 32, h: 32 } ],
   font: [ { x: 0, y: 40, w: 236, h: 6 } ],
   hud_crosshair: [ { x: 0, y: 46, w: 9, h: 9 } ],
-  hud_healthbar: [ { x: 0, y: 55, w: 109, h: 9 }, { x: 109, y: 55, w: 109, h: 9 } ],
+  hud_healthbar:
+   [ { x: 0, y: 55, w: 109, h: 9 },
+     { x: 109, y: 55, w: 109, h: 9 },
+     { x: 218, y: 55, w: 109, h: 9 } ],
   hud_shells: [ { x: 0, y: 64, w: 6, h: 7 }, { x: 6, y: 64, w: 6, h: 7 } ],
   lovetoad:
    [ { x: 0, y: 71, w: 19, h: 19 },

@@ -26,7 +26,12 @@ export class Sculptor {
   think() {
     switch (this.state) {
       case Behavior.IDLE:
-        this.facing = G.angle2vector(Math.random() * Math.PI * 2);
+        // Kick off at random angles, but, it looks weird to have straight horizontal
+        // or vertical angles - so avoid anything within +- 20 degrees of a straight angle.
+        let angle = Math.random() * C.R360;
+        if (angle % C.R90 < C.R20) angle += C.R20;
+        if (angle % C.R90 > C.R70) angle -= C.R20;
+        this.facing = G.angle2vector(angle);
         this.vel = this.facing;
         this.state = Behavior.CHASE;
         break;
@@ -40,8 +45,14 @@ export class Sculptor {
         }*/
 
         let v = G.normalizeVector(this.vel);
-        v.m = (v.m + 3) / 2;
+        v.m = (v.m + 2.5) / 2;
         this.vel = G.vector2point(v);
+
+        let dist = G.vectorBetween(this.pos, game.player.pos);
+        if (dist.m <= this.radius + game.player.radius) {
+          game.player.damage.push({ amount: 5, vector: dist, knockback: 3 });
+        }
+
         break;
       case Behavior.DEAD:
         this.vel = { x: 0, y: 0, m: 0 };

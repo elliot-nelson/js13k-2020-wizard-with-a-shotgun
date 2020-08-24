@@ -53,7 +53,7 @@ export class ShotgunBlast {
 
         if (wallHit.length < 2) {
           // hit
-          entity.damage.push({ amount: 100, vector: vect });
+          entity.damage.push({ amount: 100, vector: vect, knockback: 9 });
         }
       }
     }

@@ -96,6 +96,8 @@ export class Player {
     this.state = Behavior.RELOAD;
     this.frames = 12;
     game.entities.push(new ReloadAnimation(this.frames));
+
+    //this.damage.push({ amount: 5, vector: { x: 1, y: 1, m: 1 }, knockback: 3 });
   }
 
   draw(viewport) {

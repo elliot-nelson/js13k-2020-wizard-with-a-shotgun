@@ -117,6 +117,15 @@
     "duration": 100
    },
    {
+    "filename": "hud_healthbar 2.aseprite",
+    "frame": { "x": 218, "y": 55, "w": 109, "h": 9 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 109, "h": 9 },
+    "sourceSize": { "w": 109, "h": 9 },
+    "duration": 100
+   },
+   {
     "filename": "hud_shells 0.aseprite",
     "frame": { "x": 0, "y": 64, "w": 6, "h": 7 },
     "rotated": false,
@@ -455,7 +464,7 @@
   "version": "1.2.18",
   "image": "spritesheet-gen.png",
   "format": "RGBA8888",
-  "size": { "w": 322, "h": 330 },
+  "size": { "w": 327, "h": 330 },
   "scale": "1"
  }
 }
