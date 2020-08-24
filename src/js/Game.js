@@ -27,6 +27,8 @@ import { Geometry as G } from './Geometry';
 import { Menu } from './Menu';
 import { BattleStreamAnimation } from './BattleStreamAnimation';
 
+import { Audio } from './Audio';
+
 import { Canvas} from './Canvas';
 
 import { Behavior } from './systems/Behavior';
@@ -45,6 +47,8 @@ export class Game {
 
         this.input = new Input();
         await this.input.init();
+
+        await Audio.init();
 
         //this.maze = MazeGenerator.generate("apples");
         //this.maze = MazeGenerator.generate("manhattan");
@@ -171,7 +175,12 @@ export class Game {
                             y: Math.floor(Math.random() * (room.height * 32)) + room.r * 32,
                         },
                         {
-                            frame: this.frame + 70,
+                            frame: this.frame + 50,
+                            x: Math.floor(Math.random() * (room.width * 32)) + room.q * 32,
+                            y: Math.floor(Math.random() * (room.height * 32)) + room.r * 32,
+                        },
+                        {
+                            frame: this.frame + 90,
                             x: Math.floor(Math.random() * (room.width * 32)) + room.q * 32,
                             y: Math.floor(Math.random() * (room.height * 32)) + room.r * 32,
                         }

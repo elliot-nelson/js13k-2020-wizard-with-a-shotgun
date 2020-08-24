@@ -8,6 +8,8 @@ import { Constants as C } from './Constants';
 import { Behavior } from './systems/Behavior';
 import { ReloadAnimation } from './ReloadAnimation';
 
+import { Audio } from './Audio';
+
 /**
  * Player
  */
@@ -77,6 +79,8 @@ export class Player {
   }
 
   fire() {
+    Audio.playShotgun();
+
     this.state = Behavior.ATTACK;
     this.frames = 6;
     this.shellsLeft--;
