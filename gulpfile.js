@@ -65,11 +65,15 @@ function minifyBuild() {
     // Fast Mode Shortcut
     if (fast) return Promise.resolve();
 
+    let cache = {};
+
     return gulp.src('dist/temp/app.js')
         .pipe(sourcemaps.init())
         // Phase 1: Mangle all props except DOM & built-ins. (Reserved props are built-ins
         // that terser doesn't know about yet, but which will break the game if they get mangled.)
         .pipe(terser({
+            toplevel: true,
+            nameCache: cache,
             mangle: {
                 properties: {
                     reserved: ['imageSmoothingEnabled']
@@ -79,10 +83,11 @@ function minifyBuild() {
         // Phase 2: Specifically target properties we know match builtins but that
         // we can still safely mangle (because we don't refer to the builtin).
         .pipe(terser({
+            nameCache: cache,
             mangle: {
                 properties: {
                     builtins: true,
-                    regex: /behavior|direction|frame|reset|update/
+                    regex: /behavior|direction|frame|reset|update|anchor/
                 }
             }
         }))
