@@ -67,6 +67,7 @@ export class Game {
 
         this.roomsCleared = [];
 
+
         /*
 
         await Assets.init();
@@ -362,6 +363,25 @@ export class Game {
         */
 
         Menu.draw(viewport);
+
+        ctx.font = 'italic bold small-caps 12px Arial,Helvetica,sans-serif';
+        ctx.fillStyle = 'red';
+        ctx.fillText('Every page is missing! Help me get my pages back.', 5, 50);
+        Text.drawText(ctx,'Every page is missing! Help me get my pages back.', 6, 71, Text.shadow);
+        Text.drawText(ctx,'Every page is missing! Help me get my pages back.', 5, 70);
+
+        let w2 = Sprite.page.img.width;
+
+        ctx.save();
+        ctx.translate(100, 100);
+        ctx.scale(Math.sin((this.frame - 1) / 15), 1);
+        ctx.drawImage(Sprite.page_glow.img, -w2 / 2, -5);
+        ctx.restore();
+
+        ctx.save();
+        ctx.translate(100, 100);
+        ctx.scale(Math.sin(this.frame / 15), 1);
+        ctx.drawImage(Sprite.page.img, -w2 / 2, -5);
     }
 
     drawMaze(ctx, maze) {

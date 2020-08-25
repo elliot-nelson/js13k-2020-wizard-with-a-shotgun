@@ -138,7 +138,8 @@ export class Assets {
     Sprite.sawblade_eyes = this.initBasicSprite(SpriteSheet.sawblade[1]);
 
     // Pages
-    Sprite.page = await this.initBasicSprite(SpriteSheet.page[0]);
+    Sprite.page = this.initBasicSprite(SpriteSheet.page[1]);
+    Sprite.page_glow = this.initBasicSprite(SpriteSheet.page[2]);
 
     Sprite.battle_stream = SpriteSheet.battle_stream.map(data => this.initBasicSprite(data));
     Sprite.battle_spray = SpriteSheet.walls2.slice(4, 7).map(data => this.initBasicSprite(data));
