@@ -24,6 +24,7 @@ export class Player {
 
     this.shellsLeft = 4;
     this.shellsMax = 4;
+    this.forcedReload = false;
 
     this.mass = 3;
   }
@@ -42,16 +43,26 @@ export class Player {
         }
 
         if (game.input.pressed[Input.Action.RELOAD]) {
-          this.reload();
+          if (this.shellsLeft < this.shellsMax) {
+            this.reload();
+          } else {
+            // play nasty noise
+          }
         }
 
         break;
       case Behavior.ATTACK:
         this.defaultMovement(1);
-        if (--this.frames <= 0) this.state = Behavior.HUNT;
+        if (--this.frames <= 0) {
+          if (this.shellsLeft === 0) {
+            this.reload(true);
+          } else {
+            this.state = Behavior.HUNT;
+          }
+        }
         break;
       case Behavior.RELOAD:
-        this.defaultMovement(2.5);
+        this.defaultMovement(this.forcedReload ? 1 : 2.5);
         if (--this.frames <= 0) {
           this.shellsLeft = this.shellsMax;
           this.state = Behavior.HUNT;
@@ -92,9 +103,11 @@ export class Player {
     this.vel = G.vector2point({ ...G.normalizeVector(this.facing), m: -1 });
   }
 
-  reload() {
+  reload(forced) {
+    this.forcedReload = forced;
     this.state = Behavior.RELOAD;
     this.frames = 12;
+    this.shellsLeft = 0;
     game.entities.push(new ReloadAnimation(this.frames));
   }
 
