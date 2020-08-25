@@ -62,8 +62,8 @@ export class Game {
 
         this.player = new Player();
         console.log(this.maze.rooms);
-        this.player.pos.x = (this.maze.rooms[1][0].q + Math.floor(this.maze.rooms[1][0].width / 2)) * C.TILE_WIDTH + C.TILE_WIDTH / 2;
-        this.player.pos.y = (this.maze.rooms[1][0].r + Math.floor(this.maze.rooms[1][0].height / 2)) * C.TILE_WIDTH + C.TILE_WIDTH / 2;
+        this.player.pos.x = (this.maze.rooms[1].q + Math.floor(this.maze.rooms[1].w / 2)) * C.TILE_WIDTH + C.TILE_WIDTH / 2;
+        this.player.pos.y = (this.maze.rooms[1].r + Math.floor(this.maze.rooms[1].h / 2)) * C.TILE_WIDTH + C.TILE_WIDTH / 2;
 
         this.entities.push(this.player);
 
@@ -160,10 +160,11 @@ export class Game {
         if (!this.activeBattle) {
             let qr = G.xy2qr(game.player.pos);
             let room = this.maze.rooms[this.maze.maze[qr.r][qr.q]];
-            if (room && room.length) room = room[0];
 
-            if (room && !this.roomsCleared.includes(room.roomNumber) && room.width > 4 && room.height > 4 &&
-                qr.q > room.q && qr.r > room.r && qr.q < room.q + room.width - 1 && qr.r < room.r + room.height - 1) {
+            console.log(this.maze.maze[qr.r][qr.q]);
+            console.log(room);
+            if (room && room.roomNumber >= 3 && !this.roomsCleared.includes(room.roomNumber) && room.w >= 3 && room.h >= 4 &&
+                qr.q > room.q && qr.r > room.r && qr.q < room.q + room.w - 1 && qr.r < room.r + room.h - 1) {
                 this.activeBattle = {
                     room,
                     enemies: [],
@@ -171,18 +172,18 @@ export class Game {
                     plan: [
                         {
                             frame: this.frame + 10,
-                            x: Math.floor(Math.random() * (room.width * 32)) + room.q * 32,
-                            y: Math.floor(Math.random() * (room.height * 32)) + room.r * 32,
+                            x: Math.floor(Math.random() * (room.w * 32)) + room.q * 32,
+                            y: Math.floor(Math.random() * (room.h * 32)) + room.r * 32,
                         },
                         {
                             frame: this.frame + 50,
-                            x: Math.floor(Math.random() * (room.width * 32)) + room.q * 32,
-                            y: Math.floor(Math.random() * (room.height * 32)) + room.r * 32,
+                            x: Math.floor(Math.random() * (room.w * 32)) + room.q * 32,
+                            y: Math.floor(Math.random() * (room.h * 32)) + room.r * 32,
                         },
                         {
                             frame: this.frame + 90,
-                            x: Math.floor(Math.random() * (room.width * 32)) + room.q * 32,
-                            y: Math.floor(Math.random() * (room.height * 32)) + room.r * 32,
+                            x: Math.floor(Math.random() * (room.w * 32)) + room.q * 32,
+                            y: Math.floor(Math.random() * (room.h * 32)) + room.r * 32,
                         }
                     ]
                 };
@@ -372,9 +373,9 @@ export class Game {
         };
 
         let r1 = this.activeBattle ? this.activeBattle.room.r : 0,
-            r2 = this.activeBattle ? this.activeBattle.room.r + this.activeBattle.room.height : maze.tiles.length,
+            r2 = this.activeBattle ? this.activeBattle.room.r + this.activeBattle.room.h : maze.tiles.length,
             q1 = this.activeBattle ? this.activeBattle.room.q : 0,
-            q2 = this.activeBattle ? this.activeBattle.room.q + this.activeBattle.room.width : maze.tiles[0].length;
+            q2 = this.activeBattle ? this.activeBattle.room.q + this.activeBattle.room.w : maze.tiles[0].length;
 
         for (let r = r1; r < r2; r++) {
             for (let q = q1; q < q2; q++) {

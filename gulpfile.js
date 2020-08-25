@@ -11,6 +11,7 @@ const rollup            = require('rollup');
 
 const AsepriteCli       = require('./tools/aseprite-cli');
 const ImageDataParser   = require('./tools/image-data-parser');
+const MapDataParser     = require('./tools/map-data-parser');
 
 // -----------------------------------------------------------------------------
 // Gulp Plugins
@@ -157,7 +158,14 @@ function copyAssets() {
         .pipe(gulp.dest('dist/build'));
 }
 
-const refreshAssets = gulp.series(exportSpriteSheet, generateSpriteSheetData);
+async function generateMapData() {
+    let data = 'src/maps/map.aseprite';
+    let output = 'src/js/Map-gen.js';
+
+    await MapDataParser.parse(data, output);
+}
+
+const refreshAssets = gulp.series(exportSpriteSheet, generateSpriteSheetData, generateMapData);
 
 const buildAssets = gulp.series(refreshAssets, copyAssets);
 

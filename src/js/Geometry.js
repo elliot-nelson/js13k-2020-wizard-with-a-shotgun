@@ -394,7 +394,7 @@ export const Geometry = {
   tileIsPassable(q, r) {
     if (game.activeBattle) {
       let room = game.activeBattle.room;
-      if (q < room.q || r < room.r || q >= room.q + room.width || r >= room.r + room.height) return false;
+      if (q < room.q || r < room.r || q >= room.q + room.w || r >= room.r + room.h) return false;
     }
     return !!game.maze.maze[r][q];
   }
