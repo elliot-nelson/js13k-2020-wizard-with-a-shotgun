@@ -70,16 +70,20 @@ const MapDataParser = {
         let tunnels = [];
         let roomNumber = 3;
 
+        let lastTunnel = 0;
+
         for (let y = 0; y < h; y++) {
             maze[y] = maze[y] || [];
             for (let x = 0; x < w; x++) {
                 if (map[y][x] === ROOM && !maze[y][x]) {
                     rooms.push(MapDataParser._floodRoom(map, maze, w, h, x, y, roomNumber++));
                 } else if (map[y][x] === SPAWN) {
-                    rooms.push({ q: x, r: y, w: 1, h: 1, roomNumber: 1 });
+                    // q, r, w, h, roomNumber
+                    rooms.push([x, y, 1, 1, 1]);
                     maze[y][x] = 2;
                 } else if (map[y][x]) {
-                    tunnels.push([x,y]);
+                    tunnels.push(y * w + x - lastTunnel);
+                    lastTunnel = y * w + x;
                 }
             }
         }
@@ -109,7 +113,8 @@ const MapDataParser = {
             queue.push({ x, y: y - 1, cost: cost + 1 });
         }
 
-        return { q: left, r: top, w: right - left + 1, h: bottom - top + 1, roomNumber };
+        // q, r, w, h, roomNumber
+        return [left, top, right - left + 1, bottom - top + 1, roomNumber];
     },
     _writeOutputFile(data, outputFile) {
         let js = fs.readFileSync(outputFile, 'utf8');

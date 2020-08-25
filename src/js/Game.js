@@ -16,7 +16,7 @@ import { Tween } from './Tween';
 
 import { Assets, Sprite } from './Assets';
 import { Input } from './input/Input';
-import { MazeGenerator } from './MazeGenerator';
+import { MapLoader } from './MapLoader';
 import { Text } from './Text';
 import { Player} from './Player';
 import { Monster } from './Monster';
@@ -50,9 +50,7 @@ export class Game {
 
         await Audio.init();
 
-        //this.maze = MazeGenerator.generate("apples");
-        //this.maze = MazeGenerator.generate("manhattan");
-        this.maze = MazeGenerator.generate("arkham");
+        this.maze = MapLoader.load();
         this.camera = { pos: { x: 1, y: 1 } };
 
         await Assets.init();
