@@ -154,6 +154,10 @@ export class Assets {
     // Walls
     Sprite.walls = this.initBasicSprite(SpriteSheet.walls2[0]);
 
+    // Dialog
+    Sprite.dialog_speech = this.initBasicSprite(SpriteSheet.dialog[0]);
+    Sprite.dialog_hint = this.initBasicSprite(SpriteSheet.dialog[1]);
+
     Sprite.battle_bg = this.initDynamicSprite(this.createBattleBackground());
   };
 

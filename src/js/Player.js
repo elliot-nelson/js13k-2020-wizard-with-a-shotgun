@@ -116,7 +116,7 @@ export class Player {
 
     viewport.ctx.strokeStyle = 'rgba(255, 255, 64, 0.3)';
     viewport.ctx.beginPath();
-    let uv = game.xy2uv(this.pos);
+    let uv = G.xy2uv(this.pos);
     viewport.ctx.arc(uv.u, uv.v, C.PLAYER_BOUND_RADIUS, 0, 2 * Math.PI);
     viewport.ctx.setLineDash([2, 1]);
     viewport.ctx.stroke();

@@ -11,9 +11,12 @@ const C_HEIGHT = 5;
 // we just need to note the characters that AREN'T full width. Anything not in
 // this list has full shift (3+1 = 4 pixels).
 const C_SHIFT = {
-    32: 3,          // Space
-    44: 3,          // Comma
-    46: 3,          // Period
+    10: 0,          // LF (\n)
+    32: 3,          // Space ( )
+    33: 3,          // Bang (!)
+    39: 2,          // Apostrophe (')
+    44: 3,          // Comma (,)
+    46: 3,          // Period (.)
     73: 2           // I
 };
 
@@ -25,6 +28,8 @@ const C_SHIFT = {
 export const Text = {
     async init() {
         this.default = Sprite.font.img;
+        this.black = this.recolor(this.default, 'rgba(0, 0, 0, 1)');
+        this.black_shadow = this.recolor(this.default, 'rgba(90, 20, 90, 0.15)');
         this.fire = this.recolor(this.default, ctx => {
             let gradient = ctx.createLinearGradient(0, 0, 0, this.default.height);
             gradient.addColorStop(0, 'rgba(240,134,51,1)');
@@ -34,10 +39,17 @@ export const Text = {
         this.shadow = this.recolor(this.default, 'rgba(240, 240, 255, 0.25)');
     },
 
-    drawText(ctx, text, u, v, font = this.default, scale = 1) {
+    drawText(ctx, text, u, v, scale = 1, font = this.default, shadow) {
         text = text.toUpperCase();
         for (let idx = 0; idx < text.length; idx++) {
             let c = text.charCodeAt(idx);
+            if (shadow) {
+                ctx.drawImage(
+                    shadow,
+                    (c - 32) * (C_WIDTH + 1), 0, C_WIDTH, C_HEIGHT,
+                    u + 1, v + 1, C_WIDTH * scale, C_HEIGHT * scale
+                );
+            }
             ctx.drawImage(
                 font,
                 (c - 32) * (C_WIDTH + 1), 0, C_WIDTH, C_HEIGHT,
@@ -47,22 +59,27 @@ export const Text = {
         }
     },
 
-    drawRightText(ctx, text, u, v, font = this.default, scale = 1) {
+    drawRightText(ctx, text, u, v, scale = 1, font = this.default, shadow) {
         text = text.toUpperCase();
         u -= this.measureWidth(text, scale);
-        this.drawText(ctx, text, u, v, font, scale);
+        this.drawText(ctx, text, u, v, scale, font, shadow);
     },
 
-    drawParagraph(ctx, text, u, v, w, h, font = this.default, scale = 1) {
-        let cu = u, cv = v, phrases = text.toUpperCase().split(' ');
+    drawParagraph(ctx, text, u, v, w, h, scale = 1, font = this.default, shadow) {
+        let cu = u, cv = v, phrases = text.toUpperCase().split(/ /);
 
         for (let phrase of phrases) {
+            while (phrase[0] === '\n') {
+                phrase = phrase.substring(1);
+                cu = u;
+                cv += (C_HEIGHT + 2) * scale;
+            }
             let phraseWidth = this.measureWidth(phrase, scale);
             if (cu + phraseWidth - u > w) {
                 cu = u;
                 cv += (C_HEIGHT + 2) * scale;
             }
-            this.drawText(ctx, phrase, cu, cv, font, scale);
+            this.drawText(ctx, phrase, cu, cv, scale, font, shadow);
             cu += phraseWidth + (C_SHIFT[32] || 4);
         }
     },
