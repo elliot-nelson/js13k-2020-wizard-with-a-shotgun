@@ -14,15 +14,14 @@ import { Dialog } from '../Dialog';
 export const DialogScheduling = {
   apply(entities) {
     if (!game.dialog && game.frame > 60) {
-      if (!game.flags[C.FLAG_DIALOG_START_A]) {
-        entities.push(new Dialog(C.DIALOG_START_A, C.FLAG_DIALOG_START_A, true));
-      }
-      if (game.flags[C.FLAG_DIALOG_START_A] && !game.flags[C.FLAG_DIALOG_START_B]) {
-        entities.push(new Dialog(C.DIALOG_START_B, C.FLAG_DIALOG_START_B, true));
-      }
-      if (game.flags[C.FLAG_DIALOG_START_B] && !game.flags[C.FLAG_DIALOG_HINT_1]) {
-        entities.push(new Dialog(C.DIALOG_HINT_1, C.FLAG_DIALOG_HINT_1));
+      for (let key of Object.keys(Dialog.details)) {
+        if (game.dialogPending[key] && !game.dialogSeen[key]) {
+          if (!Dialog.details[key].required || game.dialogSeen[Dialog.details[key].required]) {
+            entities.push(new Dialog(key));
+            return;
+          }
+        }
       }
     }
   }
-};
+}

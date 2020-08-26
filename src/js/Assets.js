@@ -135,6 +135,9 @@ export class Assets {
     Sprite.hud_crosshair = this.initBasicSprite(SpriteSheet.hud_crosshair[0]);
     Sprite.hud_crosshair_wait = this.initBasicSprite(SpriteSheet.hud_crosshair[1]);
 
+    Sprite.icon_mouse_lmb = this.initBasicSprite(SpriteSheet.icon_mouse[0]);
+    Sprite.icon_mouse_rmb = this.initBasicSprite(SpriteSheet.icon_mouse[1]);
+
     Sprite.sawblade = this.initBasicSprite(SpriteSheet.sawblade[0]);
     Sprite.sawblade_eyes = this.initBasicSprite(SpriteSheet.sawblade[1]);
 

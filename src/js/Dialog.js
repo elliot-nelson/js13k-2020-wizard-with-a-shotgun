@@ -5,12 +5,12 @@ import { Sprite } from './Assets';
 import { Geometry as G } from './Geometry';
 import { Text } from './Text';
 import { Input } from './input/Input';
+import { Constants as C } from './Constants';
 
 export class Dialog {
-    constructor(text, flag, speech) {
-        this.text = text;
-        this.flag = flag;
-        this.speech = speech;
+    constructor(key) {
+        Object.assign(this, Dialog.details[key]);
+        this.modal = this.speech;
         this.t = 0;
         this.d = this.speech ? 100 : 40;
         this.z = 98;
@@ -19,14 +19,22 @@ export class Dialog {
 
     think() {
         if (this.t < this.d) this.t++;
+        game.dialogSeen[this.flag] = true;
+        console.log(this.flag);
 
-        if (game.input.pressed[Input.Action.ATTACK]) {
-            if (this.t < this.d) {
-                this.t = this.d;
-            } else {
+        if (this.flag === C.DIALOG_HINT_3) {
+            if (game.input.pressed[Input.Action.RELOAD]) {
                 this.cull = true;
-                game.flags[this.flag] = true;
                 game.dialog = false;
+            }
+        } else {
+            if (game.input.pressed[Input.Action.ATTACK]) {
+                if (this.t < this.d) {
+                    this.t = this.d;
+                } else {
+                    this.cull = true;
+                    game.dialog = false;
+                }
             }
         }
     }
@@ -65,3 +73,32 @@ export class Dialog {
         }
     }
 }
+
+Dialog.details = {
+    [C.DIALOG_START_A]: {
+        text: 'NOT AGAIN! THE PAGES OF THE SHOTGUN SPELLBOOK HAVE BEEN TORN OUT AND SCATTERED ALL OVER THIS DUNGEON!',
+        flag: C.DIALOG_START_A,
+        speech: true,
+    },
+    [C.DIALOG_START_B]: {
+        text: 'FIND MY MISSING PAGES AND HELP ME REGAIN MY POWERS.',
+        flag: C.DIALOG_START_B,
+        required: C.DIALOG_START_A,
+        speech: true
+    },
+    [C.DIALOG_HINT_1]: {
+        text: 'PRESS wasd TO EXPLORE',
+        flag: C.DIALOG_HINT_1,
+        required: C.DIALOG_START_B,
+    },
+    [C.DIALOG_HINT_2]: {
+        text: 'PRESS l TO EXPLORE',
+        flag: C.DIALOG_HINT_2,
+        required: C.DIALOG_HINT_1
+    },
+    [C.DIALOG_HINT_3]: {
+        text: 'PRESS r TO EXPLORE',
+        flag: C.DIALOG_HINT_3,
+        required: C.DIALOG_HINT_2
+    },
+};

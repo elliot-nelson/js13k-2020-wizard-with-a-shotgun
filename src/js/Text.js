@@ -20,6 +20,8 @@ const C_SHIFT = {
     73: 2           // I
 };
 
+const C_ICONS = {};
+
 /**
  * Text
  *
@@ -28,6 +30,12 @@ const C_SHIFT = {
 export const Text = {
     async init() {
         this.default = Sprite.font.img;
+
+        C_ICONS[108] = Sprite.icon_mouse_lmb;
+        C_SHIFT[108] = C_ICONS[108].img.width + 1;
+        C_ICONS[114] = Sprite.icon_mouse_rmb;
+        C_SHIFT[114] = C_ICONS[114].img.width + 1;
+
         this.black = this.recolor(this.default, 'rgba(0, 0, 0, 1)');
         this.black_shadow = this.recolor(this.default, 'rgba(90, 20, 90, 0.15)');
         this.fire = this.recolor(this.default, ctx => {
@@ -42,18 +50,22 @@ export const Text = {
     drawText(ctx, text, u, v, scale = 1, font = this.default, shadow) {
         for (let idx = 0; idx < text.length; idx++) {
             let c = text.charCodeAt(idx);
-            if (shadow) {
+            if (C_ICONS[c]) {
+                ctx.drawImage(C_ICONS[c].img, u, v - (C_ICONS[c].img.height - 5) / 2);
+            } else {
+                if (shadow) {
+                    ctx.drawImage(
+                        shadow,
+                        (c - 32) * (C_WIDTH + 1), 0, C_WIDTH, C_HEIGHT,
+                        u + 1, v + 1, C_WIDTH * scale, C_HEIGHT * scale
+                    );
+                }
                 ctx.drawImage(
-                    shadow,
+                    font,
                     (c - 32) * (C_WIDTH + 1), 0, C_WIDTH, C_HEIGHT,
-                    u + 1, v + 1, C_WIDTH * scale, C_HEIGHT * scale
+                    u, v, C_WIDTH * scale, C_HEIGHT * scale
                 );
             }
-            ctx.drawImage(
-                font,
-                (c - 32) * (C_WIDTH + 1), 0, C_WIDTH, C_HEIGHT,
-                u, v, C_WIDTH * scale, C_HEIGHT * scale
-            );
             u += (C_SHIFT[c] || (C_WIDTH + 1)) * scale;
         }
     },

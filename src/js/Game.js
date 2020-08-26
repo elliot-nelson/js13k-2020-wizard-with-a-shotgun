@@ -59,7 +59,8 @@ export class Game {
 
         this.entities = [];
 
-        this.flags = {};
+        this.dialogPending = {};
+        this.dialogSeen = {};
 
         this.player = new Player();
         console.log(this.maze.rooms);
@@ -111,6 +112,12 @@ export class Game {
         this.started = true;
         this.update();
         this.started = false;
+
+        this.dialogPending[C.DIALOG_START_A] = true;
+        this.dialogPending[C.DIALOG_START_B] = true;
+        this.dialogPending[C.DIALOG_HINT_1] = true;
+        this.dialogPending[C.DIALOG_HINT_2] = true;
+        this.dialogPending[C.DIALOG_HINT_3] = true;
 
         /*
         this.menuStack.push(new IntroMenuA({
@@ -495,7 +502,6 @@ export class Game {
         Text.drawRightText(ctx, [viewport.scale, viewport.width, viewport.height].join(', '), viewport.width - 4, viewport.height - 18);
         let ptr = this.input.pointer;
         if (ptr) {
-            Text.drawRightText(ctx, JSON.stringify(ptr), viewport.width - 4, viewport.height - 8);
             ctx.save();
             ctx.translate(ptr.u, ptr.v);
             ctx.rotate(this.frame / 72);

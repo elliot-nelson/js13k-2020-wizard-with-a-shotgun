@@ -32,9 +32,9 @@ export class Player {
   think() {
     switch (this.state) {
       case Behavior.HUNT:
-        this.defaultMovement(1);
-
-        if (!game.dialog) {
+        if (game.dialog && game.dialog.modal) {
+        } else {
+          this.defaultMovement(1);
           if (game.input.pressed[Input.Action.ATTACK]) {
             if (this.shellsLeft === 0) {
               this.reload();
