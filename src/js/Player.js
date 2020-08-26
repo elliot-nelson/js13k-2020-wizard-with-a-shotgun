@@ -34,19 +34,21 @@ export class Player {
       case Behavior.HUNT:
         this.defaultMovement(1);
 
-        if (game.input.pressed[Input.Action.ATTACK]) {
-          if (this.shellsLeft === 0) {
-            this.reload();
-          } else {
-            this.fire();
+        if (!game.dialog) {
+          if (game.input.pressed[Input.Action.ATTACK]) {
+            if (this.shellsLeft === 0) {
+              this.reload();
+            } else {
+              this.fire();
+            }
           }
-        }
 
-        if (game.input.pressed[Input.Action.RELOAD]) {
-          if (this.shellsLeft < this.shellsMax) {
-            this.reload();
-          } else {
-            // play nasty noise
+          if (game.input.pressed[Input.Action.RELOAD]) {
+            if (this.shellsLeft < this.shellsMax) {
+              this.reload();
+            } else {
+              // play nasty noise
+            }
           }
         }
 

@@ -34,6 +34,7 @@ import { Canvas} from './Canvas';
 import { Behavior } from './systems/Behavior';
 import { Movement } from './systems/Movement';
 import { Damage } from './systems/Damage';
+import { DialogScheduling } from './systems/DialogScheduling';
 
 /**
  * Game state.
@@ -121,8 +122,6 @@ export class Game {
         //this.framems = performance.now();
         window.requestAnimationFrame(() => this.onFrame(1));
         //this.frame = 0;
-
-        this.dialog = new Dialog(C.DIALOG_START_A, C.FLAG_DIALOG_START_A);
     }
 
     onFrame(currentms) {
@@ -145,6 +144,9 @@ export class Game {
 
         // Movement (apply entity velocities to position)
         Movement.apply(this.entities);
+
+        // Dialog scheduling
+        DialogScheduling.apply(this.entities);
 
         // Culling (typically set when an entity dies)
         this.entities = this.entities.filter(entity => !entity.cull);
@@ -366,12 +368,6 @@ export class Game {
 
         Menu.draw(viewport);
 
-        ctx.font = 'italic bold small-caps 12px Arial,Helvetica,sans-serif';
-        ctx.font = '12px Impact,Impact,Charcoal,sans-serif';
-        ctx.fillStyle = 'red';
-        ctx.fillText('Every page is missing! Help me get my pages back.', 5, 50);
-        Text.drawText(ctx,'Every page is missing! Help me get my pages back.', 6, 71, 2, Text.default, Text.shadow);
-
 //        drawParagraph(ctx, text, u, v, w, h, font = this.default, scale = 1) {
 
         let w2 = Sprite.page.img.width;
@@ -388,7 +384,7 @@ export class Game {
         ctx.drawImage(Sprite.page.img, -w2 / 2, -5);
         ctx.restore();
 
-        if (this.dialog) this.dialog.draw(viewport);
+        //if (this.dialog) this.dialog.draw(viewport);
     }
 
     drawMaze(ctx, maze) {
@@ -503,39 +499,11 @@ export class Game {
             ctx.save();
             ctx.translate(ptr.u, ptr.v);
             ctx.rotate(this.frame / 72);
-            ctx.drawImage(Sprite.hud_crosshair.img, -Sprite.hud_crosshair.anchor.x, -Sprite.hud_crosshair.anchor.y);
+            let crosshair = game.dialog ? Sprite.hud_crosshair_wait : Sprite.hud_crosshair;
+            ctx.drawImage(crosshair.img, -crosshair.anchor.x, -crosshair.anchor.y);
             ctx.restore();
             //Sprite.drawSprite(ctx, Sprite.hud_crosshair, ptr.u, ptr.v);
         }
-
-        if (!this.grab) {
-            let colors = [
-                'rgba(20, 20, 20)',
-                'rgba(20, 20, 20)',
-                'rgba(32, 32, 32)',
-                'rgba(32, 32, 32)',
-                'rgba(64, 6, 6)',
-                'rgba(64, 6, 6)',
-                'rgba(128, 0, 0)',
-                'rgba(158, 32, 32)'
-            ];
-
-            this.grab = new Canvas(100, 100);
-            for (let i = 0; i < 100; i++) {
-                for (let j = 0; j < 100; j++) {
-                    let c = colors[Math.floor(Math.random() * colors.length)];
-                    this.grab.ctx.fillStyle = c;
-                    this.grab.ctx.fillRect(i, j, 1, 1);
-                }
-            }
-            this.grab.ctx.globalOpacity = 0.1;
-            this.grab.ctx.drawImage(this.grab.canvas, 0, 0, 50, 100, 1, 0, 50, 100);
-            this.grab.ctx.drawImage(this.grab.canvas, 0, 0, 50, 100, 2, 0, 50, 100);
-            this.grab.ctx.drawImage(this.grab.canvas, 0, 0, 50, 100, 3, 0, 50, 100);
-        }
-        let mark = this.frame % 100;
-        //ctx.drawImage(this.grab.canvas, mark, 0, 100 - mark, 100, 50, 50, 100 - mark, 100);
-        //ctx.drawImage(this.grab.canvas, 0, 0, mark, 100, 50 + 100 - mark, 50, mark, 100);
     }
 }
 

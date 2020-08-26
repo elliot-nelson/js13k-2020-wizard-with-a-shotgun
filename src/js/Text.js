@@ -40,7 +40,6 @@ export const Text = {
     },
 
     drawText(ctx, text, u, v, scale = 1, font = this.default, shadow) {
-        text = text.toUpperCase();
         for (let idx = 0; idx < text.length; idx++) {
             let c = text.charCodeAt(idx);
             if (shadow) {
@@ -60,13 +59,12 @@ export const Text = {
     },
 
     drawRightText(ctx, text, u, v, scale = 1, font = this.default, shadow) {
-        text = text.toUpperCase();
         u -= this.measureWidth(text, scale);
         this.drawText(ctx, text, u, v, scale, font, shadow);
     },
 
     drawParagraph(ctx, text, u, v, w, h, scale = 1, font = this.default, shadow) {
-        let cu = u, cv = v, phrases = text.toUpperCase().split(/ /);
+        let cu = u, cv = v, phrases = text.split(' ');
 
         for (let phrase of phrases) {
             while (phrase[0] === '\n') {
