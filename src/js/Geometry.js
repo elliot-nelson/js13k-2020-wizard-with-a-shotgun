@@ -108,6 +108,13 @@ export const Geometry = {
     };
   },
 
+  uv2xy(pos) {
+      return {
+          x: pos.u - viewport.center.u + game.camera.pos.x,
+          y: pos.v - viewport.center.v + game.camera.pos.y
+      };
+  },
+
   clamp(value, min, max) {
     return value < min ? min : (value > max ? max : value);
   },

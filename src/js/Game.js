@@ -58,6 +58,8 @@ export class Game {
 
         this.entities = [];
 
+        this.flags = {};
+
         this.player = new Player();
         console.log(this.maze.rooms);
         this.player.pos.x = (this.maze.rooms[1].q + Math.floor(this.maze.rooms[1].w / 2)) * C.TILE_WIDTH + C.TILE_WIDTH / 2;
@@ -66,7 +68,6 @@ export class Game {
         this.entities.push(this.player);
 
         this.roomsCleared = [];
-
 
         /*
 
@@ -120,6 +121,8 @@ export class Game {
         //this.framems = performance.now();
         window.requestAnimationFrame(() => this.onFrame(1));
         //this.frame = 0;
+
+        this.dialog = new Dialog(C.DIALOG_START_A, C.FLAG_DIALOG_START_A);
     }
 
     onFrame(currentms) {
@@ -210,7 +213,7 @@ export class Game {
 
         let u = Math.floor(Math.random() * (480 + 50)) - 25,
             v = Math.floor(Math.random() * (270 + 50)) - 25;
-        let qr = this.uv2xy({ u, v });
+        let qr = G.uv2xy({ u, v });
         this.entities.push(new BattleStreamAnimation(qr));
     }
 
@@ -253,8 +256,7 @@ export class Game {
         this.drawHud(ctx);
 
         let ky = this.frame;
-        Text.drawText(ctx, 'FIGHT', ky * 10, 100, Text.shadow, 4);
-        Text.drawText(ctx, 'FIGHT', ky * 10, 100, Text.default, 4);
+        Text.drawText(ctx, 'FIGHT', ky * 10, 100, 4, Text.default, Text.shadow);
 
         for (let entity of this.entities) {
             if (entity.z && entity.z > 100) entity.draw(viewport);
@@ -365,10 +367,12 @@ export class Game {
         Menu.draw(viewport);
 
         ctx.font = 'italic bold small-caps 12px Arial,Helvetica,sans-serif';
+        ctx.font = '12px Impact,Impact,Charcoal,sans-serif';
         ctx.fillStyle = 'red';
         ctx.fillText('Every page is missing! Help me get my pages back.', 5, 50);
-        Text.drawText(ctx,'Every page is missing! Help me get my pages back.', 6, 71, Text.shadow);
-        Text.drawText(ctx,'Every page is missing! Help me get my pages back.', 5, 70);
+        Text.drawText(ctx,'Every page is missing! Help me get my pages back.', 6, 71, 2, Text.default, Text.shadow);
+
+//        drawParagraph(ctx, text, u, v, w, h, font = this.default, scale = 1) {
 
         let w2 = Sprite.page.img.width;
 
@@ -382,6 +386,9 @@ export class Game {
         ctx.translate(100, 100);
         ctx.scale(Math.sin(this.frame / 15), 1);
         ctx.drawImage(Sprite.page.img, -w2 / 2, -5);
+        ctx.restore();
+
+        if (this.dialog) this.dialog.draw(viewport);
     }
 
     drawMaze(ctx, maze) {
@@ -470,21 +477,7 @@ export class Game {
 
     pointerXY() {
         if (!this.input.pointer) return;
-        return this.uv2xy(this.input.pointer);
-    }
-
-    xy2uv(pos) {
-        return {
-            u: pos.x - this.camera.pos.x + viewport.center.u,
-            v: pos.y - this.camera.pos.y + viewport.center.v
-        };
-    }
-
-    uv2xy(pos) {
-        return {
-            x: pos.u - viewport.center.u + this.camera.pos.x,
-            y: pos.v - viewport.center.v + this.camera.pos.y
-        };
+        return G.uv2xy(this.input.pointer);
     }
 
     drawHud(ctx) {
