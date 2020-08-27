@@ -88,7 +88,7 @@ export const Text = {
 
         for (let phrase of phrases) {
             while (phrase[0] === '\n') {
-                phrase = phrase.substring(1);
+                phrase = phrase.slice(1);
                 cu = u;
                 cv += (C_HEIGHT + 2) * scale;
             }

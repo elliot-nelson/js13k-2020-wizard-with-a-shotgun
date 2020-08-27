@@ -42,66 +42,6 @@ export class Sprite {
       v: spritePos.y - sprite.anchor.y - cameraPos.y + viewport.center.v
     };
   }
-
-  /**
-   * Draw a sprite's bounding box, for debugging, using the same rules as drawSprite.
-   */
-  static drawBoundingBox(ctx, sprite, x, y) {
-    ctx.strokeStyle = 'rgba(0, 255, 0, 0.5)';
-    ctx.strokeRect(
-      x - sprite.anchor.x + sprite.bbox[0].x,
-      y - sprite.anchor.y + sprite.bbox[0].y,
-      sprite.bbox[1].x - sprite.bbox[0].x,
-      sprite.bbox[1].y - sprite.bbox[0].y
-    );
-  }
-
-  /**
-   * Draw a sprite's hit box, for debugging, using the same rules as drawSprite.
-   */
-  static drawHitBox(ctx, sprite, x, y) {
-    if (sprite.hbox) {
-      ctx.strokeStyle = 'rgba(255, 0, 0, 0.7)';
-      ctx.strokeRect(
-        x - sprite.anchor.x + sprite.hbox[0].x,
-        y - sprite.anchor.y + sprite.hbox[0].y,
-        sprite.hbox[1].x - sprite.hbox[0].x,
-        sprite.hbox[1].y - sprite.hbox[0].y
-      );
-    }
-  }
-
-  static getBoundingCircle(sprite, x, y) {
-    let dx = sprite.bbox[1].x - sprite.bbox[0].x;
-    let dy = sprite.bbox[1].y - sprite.bbox[0].y;
-    let r = (dx > dy ? dx : dy) / 2;
-    return {
-      x: x - sprite.anchor.x + (sprite.bbox[0].x + sprite.bbox[1].x) / 2,
-      y: y - sprite.anchor.y + (sprite.bbox[0].y + sprite.bbox[1].y) / 2,
-      r
-    };
-  }
-
-  static getBoundingBoxPolygon(sprite, x, y) {
-    return this.getSpriteBoxPolygon(sprite.anchor, sprite.bbox, x, y);
-  }
-
-  static getHitBoxPolygon(sprite, x, y) {
-    return this.getSpriteBoxPolygon(sprite.anchor, sprite.hbox, x, y);
-  }
-
-  static getSpriteBoxPolygon(anchor, box, x, y) {
-    return {
-      x: x,
-      y: y,
-      p: [
-        { x: box[0].x - anchor.x, y: box[0].y - anchor.y },
-        { x: box[1].x - anchor.x, y: box[0].y - anchor.y },
-        { x: box[1].x - anchor.x, y: box[1].y - anchor.y },
-        { x: box[0].x - anchor.x, y: box[1].y - anchor.y }
-      ]
-    };
-  }
 }
 
 /**

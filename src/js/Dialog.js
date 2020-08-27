@@ -48,7 +48,7 @@ export class Dialog {
 
     draw(viewport) {
         let length = Math.ceil(this.t / this.d * this.text.length);
-        let substr = this.text.substring(0, length);
+        let substr = this.text.slice(0, length);
         let idx = this.text.indexOf(' ', length - 1);
         if (idx < 0) idx = this.text.length;
         if (idx-length > 0) substr += '#'.repeat(idx - length);
