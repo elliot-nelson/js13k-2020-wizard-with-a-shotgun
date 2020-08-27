@@ -31,10 +31,18 @@ export const Text = {
     async init() {
         this.default = Sprite.font.img;
 
-        C_ICONS[108] = Sprite.icon_mouse_lmb;
-        C_SHIFT[108] = C_ICONS[108].img.width + 1;
-        C_ICONS[114] = Sprite.icon_mouse_rmb;
-        C_SHIFT[114] = C_ICONS[114].img.width + 1;
+        let icons = [
+            [108, Sprite.icon_mouse_lmb],
+            [114, Sprite.icon_mouse_rmb],
+            [119, Sprite.icon_keys_w],
+            [97, Sprite.icon_keys_a],
+            [115, Sprite.icon_keys_s],
+            [100, Sprite.icon_keys_d]
+        ];
+        for (let icon of icons) {
+            C_ICONS[icon[0]] = icon[1];
+            C_SHIFT[icon[0]] = icon[1].img.width + 1;
+        }
 
         this.black = this.recolor(this.default, 'rgba(0, 0, 0, 1)');
         this.black_shadow = this.recolor(this.default, 'rgba(90, 20, 90, 0.15)');

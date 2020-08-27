@@ -1,14 +1,9 @@
 'use strict';
 
-// https://journal.stuffwithstuff.com/2014/12/21/rooms-and-mazes/
-
 import { Constants as C } from './Constants';
 import { Geometry as G } from './Geometry';
 import { Map } from './Map-gen';
 
-// Maze Generator - TODO
-//
-//
 export const MapLoader = {
     createRoomLookup(rooms) {
         return rooms.reduce((hash, room) => {
@@ -19,20 +14,11 @@ export const MapLoader = {
 
     createWalls(maze, rooms) {
         let walls = G.array2d(maze[0].length, maze.length, 0);
-        console.log(maze[0].length, maze.length, "fook");
         for (let r = 0; r < walls.length; r++) {
             for (let q = 0; q < walls[0].length; q++) {
                 if (maze[r][q]) {
                     let room = rooms[maze[r][q]];
 
-                    console.log(maze[18][5]);
-
-                    console.log(r,q,room,maze[r+1]);
-                    console.log(walls[r]);
-                    console.log(maze[r-1][q]);
-                    console.log(maze[r+1][q]);
-                    console.log(maze[r][q -1]);
-                    console.log(maze[r][q +1]);
                     walls[r][q] = (maze[r - 1][q] ? 0 : C.WALL_TOP) |
                                   (maze[r][q + 1] ? 0 : C.WALL_RIGHT) |
                                   (maze[r + 1][q] ? 0 : C.WALL_BOTTOM) |

@@ -32,9 +32,11 @@ export class Player {
   think() {
     switch (this.state) {
       case Behavior.HUNT:
-        if (game.dialog && game.dialog.modal) {
-        } else {
+        if (!(game.dialog && game.dialog.blockMove)) {
           this.defaultMovement(1);
+        }
+
+        if (!(game.dialog && game.dialog.blockFire)) {
           if (game.input.pressed[Input.Action.ATTACK]) {
             if (this.shellsLeft === 0) {
               this.reload();
@@ -42,7 +44,9 @@ export class Player {
               this.fire();
             }
           }
+        }
 
+        if (!(game.dialog && game.dialog.blockReload)) {
           if (game.input.pressed[Input.Action.RELOAD]) {
             if (this.shellsLeft < this.shellsMax) {
               this.reload();

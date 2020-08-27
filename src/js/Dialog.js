@@ -11,6 +11,9 @@ export class Dialog {
     constructor(key) {
         Object.assign(this, Dialog.details[key]);
         this.modal = this.speech;
+        if (this.speech) {
+            this.blockMove = this.blockFire = this.blockReload = true;
+        }
         this.t = 0;
         this.d = this.speech ? 100 : 40;
         this.z = 98;
@@ -20,9 +23,13 @@ export class Dialog {
     think() {
         if (this.t < this.d) this.t++;
         game.dialogSeen[this.flag] = true;
-        console.log(this.flag);
 
-        if (this.flag === C.DIALOG_HINT_3) {
+        if (this.flag === C.DIALOG_HINT_1) {
+            if (game.input.direction.m > 0) {
+                this.cull = true;
+                game.dialog = false;
+            }
+        } else if (this.flag === C.DIALOG_HINT_3) {
             if (game.input.pressed[Input.Action.RELOAD]) {
                 this.cull = true;
                 game.dialog = false;
@@ -87,18 +94,22 @@ Dialog.details = {
         speech: true
     },
     [C.DIALOG_HINT_1]: {
-        text: 'PRESS wasd TO EXPLORE',
+        text: 'PRESS wasd TO MOVE',
         flag: C.DIALOG_HINT_1,
         required: C.DIALOG_START_B,
+        blockFire: true,
+        blockReload: true
     },
     [C.DIALOG_HINT_2]: {
-        text: 'PRESS l TO EXPLORE',
+        text: 'PRESS l TO FIRE YOUR SHOTGUN',
         flag: C.DIALOG_HINT_2,
-        required: C.DIALOG_HINT_1
+        required: C.DIALOG_HINT_1,
+        blockReload: true
     },
     [C.DIALOG_HINT_3]: {
-        text: 'PRESS r TO EXPLORE',
+        text: 'PRESS r TO RELOAD',
         flag: C.DIALOG_HINT_3,
-        required: C.DIALOG_HINT_2
+        required: C.DIALOG_HINT_2,
+        blockFire: true
     },
 };

@@ -137,6 +137,10 @@ export class Assets {
 
     Sprite.icon_mouse_lmb = this.initBasicSprite(SpriteSheet.icon_mouse[0]);
     Sprite.icon_mouse_rmb = this.initBasicSprite(SpriteSheet.icon_mouse[1]);
+    Sprite.icon_keys_w = this.initBasicSprite(SpriteSheet.icon_keys[0]);
+    Sprite.icon_keys_a = this.initBasicSprite(SpriteSheet.icon_keys[1]);
+    Sprite.icon_keys_s = this.initBasicSprite(SpriteSheet.icon_keys[2]);
+    Sprite.icon_keys_d = this.initBasicSprite(SpriteSheet.icon_keys[3]);
 
     Sprite.sawblade = this.initBasicSprite(SpriteSheet.sawblade[0]);
     Sprite.sawblade_eyes = this.initBasicSprite(SpriteSheet.sawblade[1]);
