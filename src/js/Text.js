@@ -1,6 +1,6 @@
 'use strict';
 
-import { Sprite } from './Assets';
+import { Sprite } from './Sprite';
 import { Canvas } from './Canvas';
 
 const C_WIDTH = 3;

@@ -1,7 +1,7 @@
 'use strict';
 
 import { game } from './Game';
-import { Sprite } from './Assets';
+import { Sprite } from './Sprite';
 import { Geometry as G } from './Geometry';
 import { Text } from './Text';
 import { Input } from './input/Input';

@@ -4,7 +4,7 @@ import { ScreenShake } from './ScreenShake';
 import { Hud } from './Hud';
 import { Menu, PauseMenu, IntroMenuA, IntroMenuB, OutroMenu } from './Menu';
 import { Audio } from './Audio';
-import { Assets, Sprite, drawPoly } from './Assets';
+import { Assets, Sprite, drawPoly } from './Sprite';
 import { Demon1 } from './Demon1';
 import { Canvas } from './Canvas';
 import { Particle, PortalParticle, SuperParticle } from './Particle';
@@ -14,7 +14,7 @@ import { HEARTBEAT } from './Config';
 import { Tween } from './Tween';
 */
 
-import { Assets, Sprite } from './Assets';
+import { Sprite } from './Sprite';
 import { Input } from './input/Input';
 import { MapLoader } from './MapLoader';
 import { Text } from './Text';
@@ -54,7 +54,7 @@ export class Game {
         this.maze = MapLoader.load();
         this.camera = { pos: { x: 1, y: 1 } };
 
-        await Assets.init();
+        await Sprite.init();
         await Text.init();
 
         this.entities = [];

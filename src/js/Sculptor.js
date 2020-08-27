@@ -1,5 +1,5 @@
 import { game } from './Game';
-import { Sprite } from './Assets';
+import { Sprite } from './Sprite';
 import { Input } from './input/Input';
 import { Geometry as G } from './Geometry';
 import { Detection } from './Detection';
