@@ -76,8 +76,10 @@ export const Sprite = {
     Sprite.walls = this.initBasicSprite(SpriteSheet.walls2[0]);
 
     // Dialog
-    Sprite.dialog_speech = this.initBasicSprite(SpriteSheet.dialog[0]);
-    Sprite.dialog_hint = this.initBasicSprite(SpriteSheet.dialog[1]);
+    //Sprite.dialog_speech = this.initBasicSprite(SpriteSheet.dialog[0]);
+    //Sprite.dialog_hint = this.initBasicSprite(SpriteSheet.dialog[1]);
+    Sprite.dialog_speech = this.initDynamicSprite(this.createDialogSpeech());
+    Sprite.dialog_hint = this.initDynamicSprite(this.createDialogHint());
 
     Sprite.battle_bg = this.initDynamicSprite(this.createBattleBackground());
   },
@@ -156,6 +158,25 @@ export const Sprite = {
     for (let i = 0; i < 500; i++) {
       canvas.ctx.clearRect(i, 299 - Math.random() * 20, 3, 30);
     }
+    return canvas.canvas;
+  },
+
+  createDialogSpeech() {
+    let canvas = new Canvas(127, 39);
+    canvas.ctx.fillStyle = '#e6e6b8';
+    canvas.ctx.fillRect(12, 1, 110, 37);
+    canvas.ctx.fillRect(10, 2, 114, 35);
+    canvas.ctx.fillRect(9, 3, 116, 34);
+    canvas.ctx.fillRect(8, 5, 118, 29);
+    return canvas.canvas;
+  },
+
+  createDialogHint() {
+    let canvas = new Canvas(127, 39);
+    canvas.ctx.fillStyle = '#000000';
+    canvas.ctx.fillRect(0, 0, 120, 35);
+    canvas.ctx.fillStyle = '#e6e6b8';
+    canvas.ctx.fillRect(1, 1, 118, 33);
     return canvas.canvas;
   },
 
