@@ -6,17 +6,28 @@ import { Sprite } from './Sprite';
 import { Geometry as G } from './Geometry';
 import { viewport } from './Viewport';
 import { Player } from './Player';
+import { ShotgunParticle } from './ShotgunParticle';
 
 export class ShotgunBlast {
   constructor(pos, angle) {
     this.pos = { ...pos };
     this.angle = angle;
-    this.spread = G.RAD[70];
+    this.spread = G.RAD[80];
+    this.t = -1;
     this.range = 55;
   }
 
   think() {
-    this.t = (this.t || 0) + 1;
+    if (++this.t === this.d) this.cull = true;
+
+    if (this.t === 2) {
+      for (let i = 0; i < 7; i++) {
+        let angle = Math.random() * this.spread - (this.spread / 2) + this.angle;
+        let vector = G.angle2vector(angle, this.range);
+        console.log(this.angle, vector);
+        game.entities.push(new ShotgunParticle(this.pos, vector, 0.5 + Math.random() * 0.2, 0.9 + Math.random() * 0.2));
+      }
+    }
 
     if (this.t === 3) {
       let entities = game.entities.filter(entity => entity.hp && !(entity instanceof Player));
@@ -64,12 +75,12 @@ export class ShotgunBlast {
   draw(viewport) {
     // TODO
     //Sprite.drawViewportSprite(viewport, Sprite.monster, this.pos, game.camera.pos);
-    let uv = G.xy2uv(this.pos);
+    /*let uv = G.xy2uv(this.pos);
     viewport.ctx.beginPath();
     viewport.ctx.arc(uv.u, uv.v, this.range, this.angle - this.spread / 2, this.angle + this.spread / 2);
     viewport.ctx.lineTo(uv.u, uv.v);
     viewport.ctx.closePath();
-    viewport.ctx.fillStyle = 'rgba(255, 0, 0, 0.5)'
-    viewport.ctx.fill();
+    viewport.ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)'
+    viewport.ctx.stroke();*/
   }
 }

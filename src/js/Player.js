@@ -20,7 +20,7 @@ export class Player {
     this.facing = { x: 0, y: -1, m: 0 };
     this.hp = 100;
     this.damage = [];
-    this.radius = 12;
+    this.radius = 11;
 
     this.shellsLeft = 4;
     this.shellsMax = 4;
@@ -84,11 +84,12 @@ export class Player {
   defaultMovement(velocityAdj) {
     if (game.pointerXY()) {
       this.facing = G.vectorBetween(this.pos, game.pointerXY());
+      this.facingAngle = G.vector2angle(this.facing);
     }
 
     let v = {
-      x: game.input.direction.x * game.input.direction.m * 1.8 * velocityAdj,
-      y: game.input.direction.y * game.input.direction.m * 1.8 * velocityAdj
+      x: game.input.direction.x * game.input.direction.m * 1.5 * velocityAdj,
+      y: game.input.direction.y * game.input.direction.m * 1.5 * velocityAdj
     };
 
     this.vel.x = (this.vel.x + v.x) / 2;
@@ -102,8 +103,12 @@ export class Player {
     this.frames = 6;
     this.shellsLeft--;
 
-    let angle = G.vector2angle(this.facing);
-    game.entities.push(new ShotgunBlast(this.pos, angle));
+    let pos = {
+      x: this.pos.x + this.facing.x * 8 - this.facing.y * 3,
+      y: this.pos.y + this.facing.y * 8 + this.facing.x * 3
+    };
+
+    game.entities.push(new ShotgunBlast(pos, this.facingAngle));
 
     // player knockback
     this.vel = G.vector2point({ ...G.normalizeVector(this.facing), m: -1 });
@@ -118,8 +123,26 @@ export class Player {
   }
 
   draw(viewport) {
-    Sprite.drawViewportSprite(viewport, Sprite.player, this.pos, game.camera.pos);
+    let sprite = Sprite.player[Math.floor(game.frame / 30) % 2], blast;
 
+    if (this.state === Behavior.ATTACK && this.frames >= 2) {
+      sprite = Sprite.player_recoil;
+      blast = Sprite.shotgun_blast[6 - this.frames];
+    }
+
+    //Sprite.drawViewportSprite(viewport, sprite, this.pos, game.camera.pos, this.facingAngle + C.R90);
+
+    let { u, v } = Sprite.viewportSprite2uv(viewport, sprite, this.pos, game.camera.pos);
+      viewport.ctx.save();
+      viewport.ctx.translate(u + sprite.anchor.x, v + sprite.anchor.y);
+      viewport.ctx.rotate(this.facingAngle + C.R90);
+
+      viewport.ctx.drawImage(sprite.img, -sprite.anchor.x, -sprite.anchor.y);
+      if (blast) {
+        viewport.ctx.drawImage(blast.img, 3 - blast.anchor.x , -20 - blast.anchor.y);
+      }
+      viewport.ctx.restore();
+    /*
     viewport.ctx.strokeStyle = 'rgba(255, 255, 64, 0.3)';
     viewport.ctx.beginPath();
     let uv = G.xy2uv(this.pos);
@@ -127,5 +150,6 @@ export class Player {
     viewport.ctx.setLineDash([2, 1]);
     viewport.ctx.stroke();
     viewport.ctx.setLineDash([]);
+    */
   }
 }

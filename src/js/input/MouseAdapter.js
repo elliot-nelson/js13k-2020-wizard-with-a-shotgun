@@ -50,7 +50,6 @@ export class MouseAdapter {
 
     window.addEventListener('contextmenu', event => {
       let k = this.map[event.button];
-      console.log(event.button);
       if (k) this.held[k] = true;
       this.releaseRMBTick = 2;
       event.preventDefault();

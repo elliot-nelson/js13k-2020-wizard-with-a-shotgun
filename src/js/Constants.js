@@ -2,12 +2,12 @@
 
 export const Constants = {
     R0: 0,
-    R20: Math.PI  *  20 / 360,
-    R70: Math.PI  *  70 / 360,
-    R90: Math.PI  *  90 / 360,
-    R180: Math.PI * 180 / 360,
-    R270: Math.PI * 270 / 360,
-    R360: Math.PI * 360 / 360,
+    R20: Math.PI  *  20 / 180,
+    R70: Math.PI  *  70 / 180,
+    R90: Math.PI  *  90 / 180,
+    R180: Math.PI * 180 / 180,
+    R270: Math.PI * 270 / 180,
+    R360: Math.PI * 360 / 180,
 
     // Size in pixels of tiles in the game maze
     TILE_WIDTH: 32,

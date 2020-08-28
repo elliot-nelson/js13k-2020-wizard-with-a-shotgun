@@ -30,7 +30,17 @@ export const Sprite = {
     Sprite.font = this.initBasicSprite(SpriteSheet.font[0]);
 
     // Player
-    Sprite.player = this.initBasicSprite(SpriteSheet.player2[0]);
+    Sprite.player = [
+      this.initBasicSprite(SpriteSheet.player2[0], { anchor: { x: 10, y: 21 } }),
+      this.initBasicSprite(SpriteSheet.player2[1], { anchor: { x: 10, y: 21 } })
+    ];
+    Sprite.player_recoil = this.initBasicSprite(SpriteSheet.player2[2], { anchor: { x: 10, y: 21 } });
+
+    Sprite.shotgun_blast = SpriteSheet.shotgun_blast.map(data =>
+      this.initBasicSprite(data, { anchor: { x: 12, y: 41 } })
+    );
+
+    Sprite.shot_particle = this.initBasicSprite(SpriteSheet.shot_particle[0]);
 
     // Bullets
     Sprite.bullet = this.initBasicSprite(SpriteSheet.bullet[0]);
@@ -189,9 +199,17 @@ export const Sprite = {
     ctx.drawImage(sprite.img, u - sprite.anchor.x, v - sprite.anchor.y);
   },
 
-  drawViewportSprite(viewport, sprite, spritePos, cameraPos) {
+  drawViewportSprite(viewport, sprite, spritePos, cameraPos, rotation) {
     let { u, v } = this.viewportSprite2uv(viewport, sprite, spritePos, cameraPos);
-    viewport.ctx.drawImage(sprite.img, u, v);
+    if (rotation) {
+      viewport.ctx.save();
+      viewport.ctx.translate(u + sprite.anchor.x, v + sprite.anchor.y);
+      viewport.ctx.rotate(rotation);
+      viewport.ctx.drawImage(sprite.img, -sprite.anchor.x, -sprite.anchor.y);
+      viewport.ctx.restore();
+    } else {
+      viewport.ctx.drawImage(sprite.img, u, v);
+    }
   },
 
   viewportSprite2uv(viewport, sprite, spritePos, cameraPos) {

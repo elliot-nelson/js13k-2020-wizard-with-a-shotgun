@@ -63,7 +63,6 @@ export class Game {
         this.dialogSeen = {};
 
         this.player = new Player();
-        console.log(this.maze.rooms);
         this.player.pos.x = (this.maze.rooms[1].q + Math.floor(this.maze.rooms[1].w / 2)) * C.TILE_WIDTH + C.TILE_WIDTH / 2;
         this.player.pos.y = (this.maze.rooms[1].r + Math.floor(this.maze.rooms[1].h / 2)) * C.TILE_WIDTH + C.TILE_WIDTH / 2;
 
@@ -172,8 +171,6 @@ export class Game {
             let qr = G.xy2qr(game.player.pos);
             let room = this.maze.rooms[this.maze.maze[qr.r][qr.q]];
 
-            console.log(this.maze.maze[qr.r][qr.q]);
-            console.log(room);
             if (room && room.roomNumber >= 3 && !this.roomsCleared.includes(room.roomNumber) && room.w >= 3 && room.h >= 4 &&
                 qr.q > room.q && qr.r > room.r && qr.q < room.q + room.w - 1 && qr.r < room.r + room.h - 1) {
                 this.activeBattle = {
@@ -198,7 +195,6 @@ export class Game {
                         }
                     ]
                 };
-                console.log("BATTLE STARTED", room);
             }
         }
 
@@ -207,7 +203,6 @@ export class Game {
                 if (this.activeBattle.enemies.filter(enemy => !enemy.cull).length === 0) {
                     this.roomsCleared.unshift(this.activeBattle.room.roomNumber);
                     this.activeBattle = undefined;
-                    console.log("BATTLE FINISHED", this.roomsClear);
                 }
             } else {
                 if (this.frame >= this.activeBattle.plan[0].frame) {
