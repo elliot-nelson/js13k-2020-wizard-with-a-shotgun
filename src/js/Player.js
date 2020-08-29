@@ -16,6 +16,7 @@ import { Audio } from './Audio';
 export class Player {
   constructor() {
     this.pos = { x: 0, y: 0 };
+    this.history = [];
     this.vel = { x: 0, y: 0 };
     this.facing = { x: 0, y: -1, m: 0 };
     this.hp = 100;
@@ -30,6 +31,9 @@ export class Player {
   }
 
   think() {
+    this.history.unshift({ ...this.pos });
+    this.history.splice(50);
+
     switch (this.state) {
       case Behavior.HUNT:
         if (!(game.dialog && game.dialog.blockMove)) {
@@ -132,8 +136,12 @@ export class Player {
 
     //Sprite.drawViewportSprite(viewport, sprite, this.pos, game.camera.pos, this.facingAngle + C.R90);
 
-    let { u, v } = Sprite.viewportSprite2uv(viewport, sprite, this.pos, game.camera.pos);
+    let hf = (this.state === Behavior.RELOAD && !this.forcedReload) ? 15 : 0;
+    for (let i = Math.min(hf, history.length); i >= 0; i--) {
+      let { u, v } = Sprite.viewportSprite2uv(viewport, sprite, this.history[i], game.camera.pos);
+
       viewport.ctx.save();
+      viewport.ctx.globalAlpha = i === 0 ? 1 : 0.5;
       viewport.ctx.translate(u + sprite.anchor.x, v + sprite.anchor.y);
       viewport.ctx.rotate(this.facingAngle + C.R90);
 
@@ -142,6 +150,7 @@ export class Player {
         viewport.ctx.drawImage(blast.img, 3 - blast.anchor.x , -20 - blast.anchor.y);
       }
       viewport.ctx.restore();
+    }
     /*
     viewport.ctx.strokeStyle = 'rgba(255, 255, 64, 0.3)';
     viewport.ctx.beginPath();

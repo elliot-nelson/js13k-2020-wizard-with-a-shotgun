@@ -35,6 +35,8 @@ export const Sprite = {
       this.initBasicSprite(SpriteSheet.player2[1], { anchor: { x: 10, y: 21 } })
     ];
     Sprite.player_recoil = this.initBasicSprite(SpriteSheet.player2[2], { anchor: { x: 10, y: 21 } });
+    Sprite.player_rest = this.initBasicSprite(SpriteSheet.player2[3], { anchor: { x: 10, y: 21 } });
+    Sprite.player_dash = this.initBasicSprite(SpriteSheet.player2[4], { anchor: { x: 10, y: 21 } });
 
     Sprite.shotgun_blast = SpriteSheet.shotgun_blast.map(data =>
       this.initBasicSprite(data, { anchor: { x: 12, y: 41 } })
