@@ -63,7 +63,6 @@ export class KeyboardAdapter {
   async init() {
     window.addEventListener('keydown', event => {
       let k = this.map[event.keyCode];
-      console.log(event.keyCode);
       if (k) {
         this.held[k] = true;
       }

@@ -69,7 +69,6 @@ export class MouseAdapter {
       this.releaseRMBTick--;
       if (this.releaseRMBTick === 0) {
         this.held[Input.Action.RELOAD] = false;
-        console.log('released');
       }
     }
   }

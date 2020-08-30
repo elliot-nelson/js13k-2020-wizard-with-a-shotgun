@@ -16,7 +16,6 @@ export class ShotgunParticle {
     this.m2 = m2;
     this.t = -1;
     this.d = 3;
-    console.log("create particle");
   }
 
   think() {

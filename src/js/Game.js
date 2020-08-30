@@ -1,18 +1,4 @@
-/*import { Input } from './Input';
-import { Player } from './Player';
-import { ScreenShake } from './ScreenShake';
-import { Hud } from './Hud';
-import { Menu, PauseMenu, IntroMenuA, IntroMenuB, OutroMenu } from './Menu';
-import { Audio } from './Audio';
-import { Assets, Sprite, drawPoly } from './Sprite';
-import { Demon1 } from './Demon1';
-import { Canvas } from './Canvas';
-import { Particle, PortalParticle, SuperParticle } from './Particle';
-import { Hive } from './Hive';
-import { Point, intersectingPolygons, intersectingCircles, RAD, vectorFromAngle, distance } from './Geometry';
-import { HEARTBEAT } from './Config';
-import { Tween } from './Tween';
-*/
+'use strict';
 
 import { Sprite } from './Sprite';
 import { Input } from './input/Input';

@@ -2,7 +2,6 @@ import { game } from './Game';
 import { Sprite } from './Sprite';
 import { Input } from './input/Input';
 import { Geometry as G } from './Geometry';
-import { Bullet } from './Bullet';
 import { ShotgunBlast } from './ShotgunBlast';
 import { Constants as C } from './Constants';
 import { Behavior } from './systems/Behavior';

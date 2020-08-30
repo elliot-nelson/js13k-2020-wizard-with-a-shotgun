@@ -44,9 +44,6 @@ export const Sprite = {
 
     Sprite.shot_particle = this.initBasicSprite(SpriteSheet.shot_particle[0]);
 
-    // Bullets
-    Sprite.bullet = this.initBasicSprite(SpriteSheet.bullet[0]);
-
     // Enemy
     Sprite.monster = this.initBasicSprite(SpriteSheet.monster2[0]);
     Sprite.monster_dead = this.initBasicSprite(SpriteSheet.monster2[0]);

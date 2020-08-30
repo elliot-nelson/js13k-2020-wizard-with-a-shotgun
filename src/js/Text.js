@@ -110,7 +110,6 @@ export const Text = {
         let canvas = new Canvas(font.width, font.height);
         canvas.ctx.fillStyle = typeof color === "function" ? color(canvas.ctx) : color;
         canvas.ctx.fillRect(0, 0, font.width, font.height);
-        console.log(font.width, font.height, color, canvas);
         canvas.ctx.globalCompositeOperation = 'destination-in';
         canvas.ctx.drawImage(font, 0, 0);
         return canvas.canvas;
