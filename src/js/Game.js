@@ -259,8 +259,8 @@ export class Game {
 
         this.drawHud(ctx);
 
-        let ky = this.frame;
-        Text.drawText(ctx, 'FIGHT', ky * 10, 100, 4, Text.default, Text.shadow);
+        //let ky = this.frame;
+        //Text.drawText(ctx, 'FIGHT', ky * 10, 100, 4, Text.default, Text.shadow);
 
         for (let entity of this.entities) {
             if (entity.z && entity.z > 100) entity.draw(viewport);
@@ -372,19 +372,6 @@ export class Game {
 
 //        drawParagraph(ctx, text, u, v, w, h, font = this.default, scale = 1) {
 
-        let w2 = Sprite.page.img.width;
-
-        ctx.save();
-        ctx.translate(100, 100);
-        ctx.scale(Math.sin((this.frame - 1) / 15), 1);
-        ctx.drawImage(Sprite.page_glow.img, -w2 / 2, -5);
-        ctx.restore();
-
-        ctx.save();
-        ctx.translate(100, 100);
-        ctx.scale(Math.sin(this.frame / 15), 1);
-        ctx.drawImage(Sprite.page.img, -w2 / 2, -5);
-        ctx.restore();
 
         //if (this.dialog) this.dialog.draw(viewport);
     }

@@ -5,6 +5,7 @@ import { Geometry as G } from './Geometry';
 import { Detection } from './Detection';
 import { Behavior } from './systems/Behavior';
 import { Constants as C } from './Constants';
+import { Page } from './Page';
 
 /**
  * Monster
@@ -58,7 +59,12 @@ export class Sculptor {
         this.vel = { x: 0, y: 0, m: 0 };
         if (!this.cullt) this.cullt = 15;
         this.cullt--;
-        if (this.cullt < 1) this.cull = true;
+        if (this.cullt < 1) {
+          this.cull = true;
+          game.entities.push(new Page(this.pos));
+          game.entities.push(new Page(this.pos));
+        }
+
         break;
       default:
         this.state = Behavior.IDLE;

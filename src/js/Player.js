@@ -72,7 +72,7 @@ export class Player {
         }
         break;
       case Behavior.RELOAD:
-        this.defaultMovement(this.forcedReload ? 1 : 2.5);
+        this.defaultMovement(this.forcedReload ? 0.5 : 2.5);
         if (--this.frames <= 0) {
           this.shellsLeft = this.shellsMax;
           this.state = Behavior.HUNT;
