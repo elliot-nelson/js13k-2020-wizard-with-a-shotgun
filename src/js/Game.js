@@ -22,13 +22,12 @@ import { Movement } from './systems/Movement';
 import { Damage } from './systems/Damage';
 import { DialogScheduling } from './systems/DialogScheduling';
 
+import { Hud } from './Hud';
+
 /**
  * Game state.
  */
 export class Game {
-    constructor() {
-    }
-
     async init() {
         viewport.init();
 
@@ -243,7 +242,7 @@ export class Game {
             if (entity.z > 0 || !entity.z) entity.draw(viewport);
         }
 
-        this.drawHud(ctx);
+        Hud.draw(viewport);
 
         //let ky = this.frame;
         //Text.drawText(ctx, 'FIGHT', ky * 10, 100, 4, Text.default, Text.shadow);
@@ -449,35 +448,6 @@ export class Game {
     pointerXY() {
         if (!this.input.pointer) return;
         return G.uv2xy(this.input.pointer);
-    }
-
-    drawHud(ctx) {
-        let hp = G.clamp(game.player.hp, 0, 100);
-        ctx.drawImage(Sprite.hud_health_frame.img, 2, 2);
-        ctx.drawImage(Sprite.hud_health_fill.img, 0, 0, hp + 8, 8, 2, 2, hp + 8, 8);
-
-        let sprite = Sprite.hud_shells_full;
-        for (let i = 0; i < game.player.shellsMax; i++) {
-            if (i + 1 > game.player.shellsLeft) sprite = Sprite.hud_shells_empty;
-            ctx.drawImage(sprite.img, 15 + 6 * i, 10);
-        }
-
-        ctx.drawImage(Sprite.page.img, viewport.width - 39, 10 - 1);
-        Text.drawText(ctx, 'x' + game.player.pages, viewport.width - 30, 10);
-
-        Text.drawText(ctx, String(this.frame), viewport.width - 30, viewport.height - 28);
-
-        Text.drawRightText(ctx, [viewport.scale, viewport.width, viewport.height].join(', '), viewport.width - 4, viewport.height - 18);
-        let ptr = this.input.pointer;
-        if (ptr) {
-            ctx.save();
-            ctx.translate(ptr.u, ptr.v);
-            ctx.rotate(this.frame / 72);
-            let crosshair = game.dialog ? Sprite.hud_crosshair_wait : Sprite.hud_crosshair;
-            ctx.drawImage(crosshair.img, -crosshair.anchor.x, -crosshair.anchor.y);
-            ctx.restore();
-            //Sprite.drawSprite(ctx, Sprite.hud_crosshair, ptr.u, ptr.v);
-        }
     }
 }
 
