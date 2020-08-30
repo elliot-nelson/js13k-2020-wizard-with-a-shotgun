@@ -463,7 +463,7 @@ export class Game {
         }
 
         ctx.drawImage(Sprite.page.img, viewport.width - 39, 10 - 1);
-        Text.drawText(ctx, 'x302', viewport.width - 30, 10);
+        Text.drawText(ctx, 'x' + game.player.pages, viewport.width - 30, 10);
 
         Text.drawText(ctx, String(this.frame), viewport.width - 30, viewport.height - 28);
 

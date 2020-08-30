@@ -27,6 +27,8 @@ export class Player {
     this.forcedReload = false;
 
     this.mass = 3;
+
+    this.pages = 11;
   }
 
   think() {

@@ -14,6 +14,8 @@ export const Behavior = {
   ATTACK: 201,
   RELOAD: 202,
 
+  COLLECTED: 301,
+
   apply(entities) {
     for (let entity of entities) {
       if (entity.think) entity.think();

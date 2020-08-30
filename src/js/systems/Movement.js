@@ -36,6 +36,8 @@ export const Movement = {
   },
 
   clipVelocityEntityVsEntity(entity, other) {
+    if (entity.noClipEntity || other.noClipEntity) return;
+
     let hit = G.intersectCircleCircle2(
       entity.pos, entity.radius, entity.vel,
       other.pos, other.radius, other.vel
@@ -62,6 +64,8 @@ export const Movement = {
   },
 
   clipVelocityAgainstWalls(entity) {
+    if (entity.noClipWall) return;
+
     for (let tile of G.tilesHitByCircle(entity.pos, entity.vel, entity.radius)) {
       if (!G.tileIsPassable(tile.q, tile.r)) {
         let bounds = [G.qr2xy(tile), G.qr2xy({ q: tile.q + 1, r: tile.r + 1 })];
