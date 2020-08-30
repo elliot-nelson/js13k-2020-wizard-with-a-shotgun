@@ -93,8 +93,8 @@ export class Player {
     }
 
     let v = {
-      x: game.input.direction.x * game.input.direction.m * 1.5 * velocityAdj,
-      y: game.input.direction.y * game.input.direction.m * 1.5 * velocityAdj
+      x: game.input.direction.x * game.input.direction.m * 1.7 * velocityAdj,
+      y: game.input.direction.y * game.input.direction.m * 1.7 * velocityAdj
     };
 
     this.vel.x = (this.vel.x + v.x) / 2;

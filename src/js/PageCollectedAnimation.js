@@ -11,7 +11,7 @@ import { Hud } from './Hud';
 export class PageCollectedAnimation {
   constructor(pos) {
     this.t = -1;
-    this.d = 90;
+    this.d = 40;
     this.z = 101;
 
     this.a = Sprite.viewportSprite2uv(viewport, Sprite.page, pos, game.camera.pos);
