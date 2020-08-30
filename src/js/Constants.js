@@ -1,6 +1,7 @@
 'use strict';
 
 export const Constants = {
+    // Some precalculated radian values
     R0: 0,
     R20: Math.PI  *  20 / 180,
     R70: Math.PI  *  70 / 180,
@@ -31,8 +32,14 @@ export const Constants = {
     OPEN_BOTTOM:   0b0010_0000,
     OPEN_LEFT:     0b0001_0000,
 
+    // help
+    HUD_PAGE_U:             47,
+    HUD_PAGE_V:              2,
+    HUD_PAGE_TEXT_U:        34,
+
     PLAYER_BOUND_RADIUS: 9,
 
+    // Dialog box constants
     DIALOG_START_A: 1,
     DIALOG_START_B: 2,
     DIALOG_HINT_1:  3,

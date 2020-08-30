@@ -22,8 +22,13 @@ export const Hud = {
         }
 
         // Pages
-        viewport.ctx.globalAlpha = 0.5;
-        viewport.ctx.drawImage(Sprite.page_glow.img, viewport.with - C.HUD_PAGE_U, C.HUD_PAGE_V);
+        if (Hud.pageGlow && game.frame >= Hud.pageGlow.start && game.frame <= Hud.pageGlow.end) {
+            let glow = (game.frame - Hud.pageGlow.start) * 5 / (Hud.pageGlow.end - Hud.pageGlow.start);
+            viewport.ctx.globalAlpha = 1 - glow / 10;
+        } else {
+            viewport.ctx.globalAlpha = 0.5;
+        }
+        viewport.ctx.drawImage(Sprite.page_glow.img, viewport.width - C.HUD_PAGE_U, C.HUD_PAGE_V);
         viewport.ctx.globalAlpha = 1;
         viewport.ctx.drawImage(Sprite.page.img, viewport.width - C.HUD_PAGE_U, C.HUD_PAGE_V);
         Text.drawText(viewport.ctx, 'x' + ('' + game.player.pages).padStart(3, '0'), viewport.width - C.HUD_PAGE_TEXT_U, 4, 2, Text.default, Text.shadow);
@@ -41,5 +46,9 @@ export const Hud = {
             viewport.ctx.restore();
             //Sprite.drawSprite(ctx, Sprite.hud_crosshair, ptr.u, ptr.v);
         }
+    },
+
+    animatePageGlow() {
+      Hud.pageGlow = { start: game.frame, end: game.frame + 30 };
     }
 };

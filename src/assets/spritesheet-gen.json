@@ -73,11 +73,11 @@
    },
    {
     "filename": "font.aseprite",
-    "frame": { "x": 0, "y": 8, "w": 236, "h": 6 },
+    "frame": { "x": 0, "y": 8, "w": 356, "h": 6 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 236, "h": 6 },
-    "sourceSize": { "w": 236, "h": 6 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 356, "h": 6 },
+    "sourceSize": { "w": 356, "h": 6 },
     "duration": 100
    },
    {
@@ -599,7 +599,7 @@
   "version": "1.2.18",
   "image": "spritesheet-gen.png",
   "format": "RGBA8888",
-  "size": { "w": 327, "h": 350 },
+  "size": { "w": 356, "h": 350 },
   "scale": "1"
  }
 }

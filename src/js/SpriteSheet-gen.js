@@ -14,7 +14,7 @@ export const SpriteSheet =
      { x: 5, y: 0, w: 1, h: 8 },
      { x: 6, y: 0, w: 1, h: 8 },
      { x: 7, y: 0, w: 1, h: 8 } ],
-  font: [ { x: 0, y: 8, w: 236, h: 6 } ],
+  font: [ { x: 0, y: 8, w: 356, h: 6 } ],
   hud_crosshair: [ { x: 0, y: 14, w: 9, h: 9 }, { x: 9, y: 14, w: 9, h: 9 } ],
   hud_healthbar:
    [ { x: 0, y: 23, w: 109, h: 9 },
