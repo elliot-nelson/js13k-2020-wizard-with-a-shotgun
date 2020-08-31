@@ -23,6 +23,7 @@ import { Damage } from './systems/Damage';
 import { DialogScheduling } from './systems/DialogScheduling';
 
 import { Hud } from './Hud';
+import { StarfieldParticle } from './StarfieldParticle';
 
 /**
  * Game state.
@@ -54,6 +55,9 @@ export class Game {
         this.entities.push(this.player);
 
         this.roomsCleared = [];
+
+        this.shadowCanvas = new Canvas(500, 500);
+        this.shadowOffset = 0;
 
         /*
 
@@ -203,7 +207,9 @@ export class Game {
         let u = Math.floor(Math.random() * (480 + 50)) - 25,
             v = Math.floor(Math.random() * (270 + 50)) - 25;
         let qr = G.uv2xy({ u, v });
-        this.entities.push(new BattleStreamAnimation(qr));
+
+        this.entities.push(new StarfieldParticle());
+        //this.entities.push(new BattleStreamAnimation(qr));
     }
 
     spawnEnemy() {
@@ -223,7 +229,7 @@ export class Game {
 
         ctx.fillStyle = 'rgba(20,20,20,1)';
         ctx.fillRect(0, 0, viewport.width, viewport.height);
-        if (this.activeBattle) {
+        if (this.activeBattle && false) {
             ctx.fillStyle = 'rgba(128,20,20,1)';
             let y = Math.min(0, (this.frame - this.activeBattle.start) * 8 - 300);
             ctx.drawImage(Sprite.battle_bg.img, 0, y);
@@ -241,6 +247,24 @@ export class Game {
         for (let entity of this.entities) {
             if (entity.z > 0 || !entity.z) entity.draw(viewport);
         }
+
+        // Black gradient
+        let klack = (Math.sin(game.frame / 30) * 128 + 128) | 0;
+        klack = 0;
+        this.shadowCanvas.ctx.globalCompositeOperation = 'copy';
+        let gradient = this.shadowCanvas.ctx.createRadialGradient(250, 250, 0, 250, 250, 250);
+        gradient.addColorStop(0.3, 'rgba(0,0,0,0)');
+        gradient.addColorStop(1, 'rgba(' + klack + ',0,0,0.9)');
+        this.shadowCanvas.ctx.fillStyle = gradient;
+        this.shadowCanvas.ctx.fillRect(0, 0, 500, 500);
+
+        if (game.frame % 6 === 0) this.shadowOffset = Math.random() * 10 | 0;
+        viewport.ctx.drawImage(this.shadowCanvas.canvas,
+            0, 0,
+            500, 500,
+            0 - this.shadowOffset, 0 - this.shadowOffset,
+            viewport.width + this.shadowOffset * 2, viewport.height + this.shadowOffset * 2
+        );
 
         Hud.draw(viewport);
 
@@ -359,6 +383,24 @@ export class Game {
 
 
         //if (this.dialog) this.dialog.draw(viewport);
+
+        //this.shadowCanvas.ctx.fillStyle = 'blue';
+        //this.shadowCanvas.ctx.fillRect(0, 0, 500, 300);
+        /*this.shadowCanvas.ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+        let scaleX, scaleY, invScaleX, invScaleY, grad;
+        scaleX = invScaleX = 1;
+        scaleY = viewport.height / viewport.width;
+        invScaleY = viewport.width / viewport.height;
+        //grad = this.shadowCanvas.ctx.createRadialGradient(250, 150 * invScaleY, 0, 250, 150 * invScaleY, 250);
+        grad = this.shadowCanvas.ctx.createRadialGradient(250, 150, 0, 250, 150, 250);
+        let klack = (Math.sin(game.frame / 60) * 128 + 128) | 0;
+        grad.addColorStop(0.1, 'rgba(0,0,0,0)');
+        grad.addColorStop(0.9, 'rgba(' + klack + ',0,0,1)');
+
+        this.shadowCanvas.ctx.fillStyle = grad;
+        this.shadowCanvas.ctx.fillRect(0, 0, 500, 300);*/
+
     }
 
     drawMaze(ctx, maze) {
