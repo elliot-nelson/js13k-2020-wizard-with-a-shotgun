@@ -6,7 +6,7 @@ import { ShotgunBlast } from './ShotgunBlast';
 import { Constants as C } from './Constants';
 import { Behavior } from './systems/Behavior';
 import { ReloadAnimation } from './ReloadAnimation';
-
+import { ScreenShake } from './ScreenShake';
 import { Audio } from './Audio';
 
 /**
@@ -73,7 +73,7 @@ export class Player {
         }
         break;
       case Behavior.RELOAD:
-        this.defaultMovement(this.forcedReload ? 0.5 : 2.5);
+        this.defaultMovement(this.forcedReload ? 0.5 : 2.0);
         if (--this.frames <= 0) {
           this.shellsLeft = this.shellsMax;
           this.state = Behavior.HUNT;
@@ -105,7 +105,7 @@ export class Player {
     Audio.playShotgun();
 
     this.state = Behavior.ATTACK;
-    this.frames = 6;
+    this.frames = 10;
     this.shellsLeft--;
 
     let pos = {
@@ -122,7 +122,7 @@ export class Player {
   reload(forced) {
     this.forcedReload = forced;
     this.state = Behavior.RELOAD;
-    this.frames = 12;
+    this.frames = 20;
     this.shellsLeft = 0;
     game.entities.push(new ReloadAnimation(this.frames));
   }

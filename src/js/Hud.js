@@ -40,7 +40,7 @@ export const Hud = {
         if (ptr) {
             viewport.ctx.save();
             viewport.ctx.translate(ptr.u, ptr.v);
-            viewport.ctx.rotate(this.frame / 72);
+            viewport.ctx.rotate(game.frame / 72);
             let crosshair = game.dialog ? Sprite.hud_crosshair_wait : Sprite.hud_crosshair;
             viewport.ctx.drawImage(crosshair.img, -crosshair.anchor.x, -crosshair.anchor.y);
             viewport.ctx.restore();

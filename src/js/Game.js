@@ -24,6 +24,7 @@ import { DialogScheduling } from './systems/DialogScheduling';
 
 import { Hud } from './Hud';
 import { StarfieldParticle } from './StarfieldParticle';
+import { ScreenShake } from './ScreenShake';
 
 /**
  * Game state.
@@ -58,6 +59,8 @@ export class Game {
 
         this.shadowCanvas = new Canvas(500, 500);
         this.shadowOffset = 0;
+
+        this.screenshakes = [];
 
         /*
 
@@ -162,6 +165,8 @@ export class Game {
 
             if (room && room.roomNumber >= 3 && !this.roomsCleared.includes(room.roomNumber) && room.w >= 3 && room.h >= 4 &&
                 qr.q > room.q && qr.r > room.r && qr.q < room.q + room.w - 1 && qr.r < room.r + room.h - 1) {
+
+                game.screenshakes.push(new ScreenShake(25, 25, 25));
                 this.activeBattle = {
                     room,
                     enemies: [],
@@ -210,6 +215,8 @@ export class Game {
 
         this.entities.push(new StarfieldParticle());
         //this.entities.push(new BattleStreamAnimation(qr));
+
+        this.screenshakes = this.screenshakes.filter(screenshake => screenshake.update());
     }
 
     spawnEnemy() {
@@ -226,6 +233,14 @@ export class Game {
     draw(ctx) {
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.scale(viewport.scale, viewport.scale);
+
+        let shakeX = 0;
+        let shakeY = 0;
+        this.screenshakes.forEach(shake => {
+            shakeX += shake.x;
+            shakeY += shake.y;
+        });
+        ctx.translate(shakeX, shakeY);
 
         ctx.fillStyle = 'rgba(20,20,20,1)';
         ctx.fillRect(0, 0, viewport.width, viewport.height);

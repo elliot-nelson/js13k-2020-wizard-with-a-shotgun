@@ -7,6 +7,7 @@ import { Geometry as G } from './Geometry';
 import { viewport } from './Viewport';
 import { Player } from './Player';
 import { ShotgunParticle } from './ShotgunParticle';
+import { ScreenShake } from './ScreenShake';
 
 export class ShotgunBlast {
   constructor(pos, angle) {
@@ -14,7 +15,10 @@ export class ShotgunBlast {
     this.angle = angle;
     this.spread = G.RAD[80];
     this.t = -1;
+    this.d = 6;
     this.range = 55;
+
+    game.screenshakes.push(new ScreenShake(6, 6, 6)); // wink
   }
 
   think() {
@@ -24,7 +28,7 @@ export class ShotgunBlast {
       for (let i = 0; i < 7; i++) {
         let angle = Math.random() * this.spread - (this.spread / 2) + this.angle;
         let vector = G.angle2vector(angle, this.range);
-        game.entities.push(new ShotgunParticle(this.pos, vector, 0.5 + Math.random() * 0.2, 0.9 + Math.random() * 0.2));
+        game.entities.push(new ShotgunParticle(this.pos, vector, 0.8 + Math.random() * 0.1, 0.9 + Math.random() * 0.1));
       }
     }
 
@@ -67,8 +71,6 @@ export class ShotgunBlast {
         }
       }
     }
-
-    if (this.t > 6) this.cull = true;
   }
 
   draw(viewport) {
