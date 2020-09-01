@@ -71,7 +71,6 @@ export const Sprite = {
     Sprite.page = this.initBasicSprite(SpriteSheet.page[1]);
     Sprite.page_glow = this.initBasicSprite(SpriteSheet.page[2]);
 
-    Sprite.battle_stream = SpriteSheet.battle_stream.map(data => this.initBasicSprite(data));
     Sprite.glyphs = SpriteSheet.glyphs.map(data => this.initBasicSprite(data));
 
     Sprite.battle_spray = SpriteSheet.walls2.slice(1, 4).map(data => this.initBasicSprite(data));

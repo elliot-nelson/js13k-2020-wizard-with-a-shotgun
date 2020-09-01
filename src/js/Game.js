@@ -11,7 +11,6 @@ import { viewport } from './Viewport';
 import { Constants as C } from './Constants';
 import { Geometry as G } from './Geometry';
 import { Menu } from './Menu';
-import { BattleStreamAnimation } from './BattleStreamAnimation';
 
 import { Audio } from './Audio';
 
@@ -214,7 +213,6 @@ export class Game {
         let qr = G.uv2xy({ u, v });
 
         this.entities.push(new StarfieldParticle());
-        //this.entities.push(new BattleStreamAnimation(qr));
 
         this.screenshakes = this.screenshakes.filter(screenshake => screenshake.update());
     }
