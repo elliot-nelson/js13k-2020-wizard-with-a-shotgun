@@ -30,13 +30,10 @@ export const Sprite = {
     Sprite.font = this.initBasicSprite(SpriteSheet.font[0]);
 
     // Player
-    Sprite.player = [
-      this.initBasicSprite(SpriteSheet.player[0], { anchor: { x: 10, y: 21 } }),
-      this.initBasicSprite(SpriteSheet.player[1], { anchor: { x: 10, y: 21 } })
-    ];
-    Sprite.player_recoil = this.initBasicSprite(SpriteSheet.player[2], { anchor: { x: 10, y: 21 } });
-    Sprite.player_rest = this.initBasicSprite(SpriteSheet.player[3], { anchor: { x: 10, y: 21 } });
-    Sprite.player_dash = this.initBasicSprite(SpriteSheet.player[4], { anchor: { x: 10, y: 21 } });
+    let player = SpriteSheet.player.map(data => this.initBasicSprite(data, { anchor: { x: 10, y: 21 } }));
+    Sprite.player = [player[0], player[1]];
+    Sprite.player_recoil = player[2];
+    Sprite.player_rest = player[3];
 
     Sprite.shotgun_blast = SpriteSheet.shotgun_blast.map(data =>
       this.initBasicSprite(data, { anchor: { x: 12, y: 41 } })
