@@ -4,6 +4,7 @@ import { game } from './Game';
 import { Monster } from './Monster';
 import { Sprite } from './Sprite';
 import { Geometry as G } from './Geometry';
+import { Constants as C } from './Constants';
 import { viewport } from './Viewport';
 import { Player } from './Player';
 import { ShotgunParticle } from './ShotgunParticle';
@@ -13,7 +14,7 @@ export class ShotgunBlast {
   constructor(pos, angle) {
     this.pos = { ...pos };
     this.angle = angle;
-    this.spread = G.RAD[80];
+    this.spread = C.R80;
     this.t = -1;
     this.d = 6;
     this.range = 55;

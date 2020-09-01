@@ -5,6 +5,7 @@ export const Constants = {
     R0: 0,
     R20: Math.PI  *  20 / 180,
     R70: Math.PI  *  70 / 180,
+    R80: Math.PI  *  80 / 180,
     R90: Math.PI  *  90 / 180,
     R180: Math.PI * 180 / 180,
     R270: Math.PI * 270 / 180,

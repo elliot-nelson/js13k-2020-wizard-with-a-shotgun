@@ -10,14 +10,6 @@ import { viewport } from './Viewport';
  * A horrible grab bag of math-related nonsense.
  */
 export const Geometry = {
-  RAD: (() => {
-    let radianTable = [];
-    for (let i = 0; i <= 360; i++) {
-      radianTable[i] = Math.PI * 2 * i / 360;
-    }
-    return radianTable;
-  })(),
-
   normalizeVector(p) {
     let m = Math.sqrt(p.x * p.x + p.y * p.y);
     return (m === 0) ? { x: 0, y: 0, m: 0 } : { x: p.x / m, y: p.y / m, m };
@@ -33,7 +25,7 @@ export const Geometry = {
 
   vector2angle(v) {
     let angle = Math.atan2(v.y, v.x);
-    if (angle < 0) angle += Geometry.RAD[360];
+    if (angle < 0) angle += C.R360;
     return angle;
   },
 
@@ -71,8 +63,8 @@ export const Geometry = {
 
   angleBetween(angle, min, max) {
     if (min > max) [min, max] = [max, min];
-    while (angle >= max + Geometry.RAD[360]) angle -= Geometry.RAD[360];
-    while (angle <= min - Geometry.RAD[360]) angle += Geometry.RAD[360];
+    while (angle >= max + C.R360) angle -= C.R360;
+    while (angle <= min - C.R360) angle += C.R360;
     return (angle >= min && angle < max);
   },
 
@@ -80,13 +72,13 @@ export const Geometry = {
     if (angleA1 > angleA2) [angleA1, angleA2] = [angleA2, angleA1];
     if (angleB1 > angleB2) [angleB1, angleB2] = [angleB2, angleB1];
 
-    while (angleB2 >= angleA2 + Geometry.RAD[360]) {
-      angleB2 -= Geometry.RAD[360];
-      angleB1 -= Geometry.RAD[360];
+    while (angleB2 >= angleA2 + C.R360) {
+      angleB2 -= C.R360;
+      angleB1 -= C.R360;
     }
-    while (angleB1 <= angleA1 - Geometry.RAD[360]) {
-      angleB1 += Geometry.RAD[360];
-      angleB2 += Geometry.RAD[360];
+    while (angleB1 <= angleA1 - C.R360) {
+      angleB1 += C.R360;
+      angleB2 += C.R360;
     }
 
     const result = [Math.max(angleA1, angleB1), Math.min(angleA2, angleB2)];

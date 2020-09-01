@@ -70,7 +70,6 @@ export const Sprite = {
 
     Sprite.glyphs = SpriteSheet.glyphs.map(data => this.initBasicSprite(data));
 
-    Sprite.battle_spray = SpriteSheet.walls2.slice(1, 4).map(data => this.initBasicSprite(data));
     Sprite.battle_door = SpriteSheet.walls2.slice(1, 4).map(data => this.initBasicSprite(data));
 
     // Tiles
