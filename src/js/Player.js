@@ -1,12 +1,11 @@
 import { game } from './Game';
 import { Sprite } from './Sprite';
 import { Input } from './input/Input';
-import { Geometry as G } from './Geometry';
+import { vectorBetween, vector2point, normalizeVector, uv2xy, vector2angle } from './Util';
 import { ShotgunBlast } from './ShotgunBlast';
 import { Constants as C } from './Constants';
 import { Behavior } from './systems/Behavior';
 import { ReloadAnimation } from './ReloadAnimation';
-import { ScreenShake } from './ScreenShake';
 import { Audio } from './Audio';
 
 /**
@@ -87,9 +86,10 @@ export class Player {
   }
 
   defaultMovement(velocityAdj) {
-    if (game.pointerXY()) {
-      this.facing = G.vectorBetween(this.pos, game.pointerXY());
-      this.facingAngle = G.vector2angle(this.facing);
+    let pointer = game.input.pointer;
+    if (pointer) {
+      this.facing = vectorBetween(this.pos, uv2xy(pointer));
+      this.facingAngle = vector2angle(this.facing);
     }
 
     let v = {
@@ -116,7 +116,7 @@ export class Player {
     game.entities.push(new ShotgunBlast(pos, this.facingAngle));
 
     // player knockback
-    this.vel = G.vector2point({ ...G.normalizeVector(this.facing), m: -1 });
+    this.vel = vector2point({ ...normalizeVector(this.facing), m: -1 });
   }
 
   reload(forced) {

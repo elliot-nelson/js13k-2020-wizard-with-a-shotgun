@@ -1,7 +1,7 @@
 'use strict';
 
 import { Constants as C } from './Constants';
-import { Geometry as G } from './Geometry';
+import { array2d } from './Util';
 import { Map } from './Map-gen';
 
 export const MapLoader = {
@@ -13,7 +13,7 @@ export const MapLoader = {
     },
 
     createWalls(maze, rooms) {
-        let walls = G.array2d(maze[0].length, maze.length, 0);
+        let walls = array2d(maze[0].length, maze.length, 0);
         for (let r = 0; r < walls.length; r++) {
             for (let q = 0; q < walls[0].length; q++) {
                 if (maze[r][q]) {
@@ -37,7 +37,7 @@ export const MapLoader = {
     },
 
     createTiles(maze, rand) {
-        let tiles = G.array2d(maze[0].length, maze.length, () => C.TILE_WALL);
+        let tiles = array2d(maze[0].length, maze.length, () => C.TILE_WALL);
         for (let r = 0; r < tiles.length; r++) {
             for (let q = 0; q < tiles[0].length; q++) {
                 if (maze[r][q]) {
@@ -49,7 +49,7 @@ export const MapLoader = {
     },
 
     load() {
-        let maze = G.array2d(Map.w, Map.h, 0);
+        let maze = array2d(Map.w, Map.h, 0);
         let rooms = Map.rooms.map(room => ({
             q: room[0], r: room[1], w: room[2], h: room[3], roomNumber: room[4]
         }));

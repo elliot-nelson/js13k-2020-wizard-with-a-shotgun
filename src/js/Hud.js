@@ -4,13 +4,13 @@ import { game } from './Game';
 import { Sprite } from './Sprite';
 import { Text } from './Text';
 import { viewport } from './Viewport';
-import { Geometry as G } from './Geometry';
+import { clamp } from './Util';
 import { Constants as C } from './Constants';
 
 export const Hud = {
     draw(viewport) {
         // Health
-        let hp = G.clamp(game.player.hp, 0, 100);
+        let hp = clamp(game.player.hp, 0, 100);
         viewport.ctx.drawImage(Sprite.hud_health_frame.img, 2, 2);
         viewport.ctx.drawImage(Sprite.hud_health_fill.img, 0, 0, hp + 8, 8, 2, 2, hp + 8, 8);
 

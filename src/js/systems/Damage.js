@@ -1,7 +1,7 @@
 'use strict';
 
 import { Behavior } from './Behavior';
-import { Geometry as G } from '../Geometry';
+import { vectorAdd } from '../Util';
 import { Player } from '../Player';
 import { HealthChunkAnimation } from '../HealthChunkAnimation';
 import { game } from '../Game';
@@ -20,7 +20,7 @@ export const Damage = {
             }
             entity.hp -= damage.amount;
             damage.vector.m = damage.knockback;
-            entity.vel = G.vectorAdd(entity.vel, damage.vector);
+            entity.vel = vectorAdd(entity.vel, damage.vector);
           }
           entity.damage = [];
         }

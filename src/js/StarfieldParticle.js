@@ -3,7 +3,7 @@
 import { game } from './Game';
 import { Monster } from './Monster';
 import { Sprite } from './Sprite';
-import { Geometry as G } from './Geometry';
+import { angle2vector } from './Util';
 import { viewport } from './Viewport';
 import { Player } from './Player';
 import { Constants as C } from './Constants';
@@ -17,7 +17,7 @@ export class StarfieldParticle {
     let brightness = Math.random() * 80 | 0;
     this.color = 'rgba(' + (brightness + 85) + ',' + (80 - brightness) + ',' + (brightness + 85) + ',0.9)';
     this.angle = Math.random() * C.R360;
-    this.vector = G.angle2vector(this.angle, 1 + brightness / 40);
+    this.vector =angle2vector(this.angle, 1 + brightness / 40);
     this.t = 0;
     this.d = 100;
     this.z = -1;

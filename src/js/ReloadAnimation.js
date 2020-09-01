@@ -2,7 +2,6 @@
 
 import { game } from './Game';
 import { Sprite } from './Sprite';
-import { Geometry as G } from './Geometry';
 import { Audio } from './Audio';
 
 export class ReloadAnimation {
@@ -19,7 +18,7 @@ export class ReloadAnimation {
   draw(viewport) {
     for (let i = 0; i < game.player.shellsMax; i++) {
       let end = i * this.d / game.player.shellsMax;
-      let start = Math.floor(end - 3);
+      let start = (end - 3) | 0;
 
       if (this.t === start) {
         Audio.playShellReload();

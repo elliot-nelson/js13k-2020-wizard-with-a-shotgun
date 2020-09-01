@@ -1,8 +1,8 @@
 'use strict';
 
 import { game } from '../Game';
-import { Geometry as G } from '../Geometry';
 import { Constants as C } from '../Constants';
+import { tilesHitByCircle, tileIsPassable, qr2xy, intersectCircleCircle, intersectCircleRectangle, normalizeVector } from '../Util';
 
 /**
  * Movement
@@ -38,7 +38,7 @@ export const Movement = {
   clipVelocityEntityVsEntity(entity, other) {
     if (entity.noClipEntity || other.noClipEntity) return;
 
-    let hit = G.intersectCircleCircle2(
+    let hit = intersectCircleCircle(
       entity.pos, entity.radius, entity.vel,
       other.pos, other.radius, other.vel
     );
@@ -51,8 +51,8 @@ export const Movement = {
       } else {
         // Not a bug: we "add" the mass of the opposing entity to our own velocity when deciding who
         // is at fault for the collision. Entity velocities adjust in relation to their fault level.
-        let entityM = G.normalizeVector(entity.vel).m + other.mass;
-        let otherM = G.normalizeVector(other.vel).m + entity.mass;
+        let entityM = normalizeVector(entity.vel).m + other.mass;
+        let otherM = normalizeVector(other.vel).m + entity.mass;
         let entityI = entity.bounce ? 0.1 : 1;
         let otherI = other.bounce ? 0.1 : 1;
         entity.vel.x -= hit.nx * hit.m * entityI * entityM / (entityM + otherM);
@@ -66,10 +66,10 @@ export const Movement = {
   clipVelocityAgainstWalls(entity) {
     if (entity.noClipWall) return;
 
-    for (let tile of G.tilesHitByCircle(entity.pos, entity.vel, entity.radius)) {
-      if (!G.tileIsPassable(tile.q, tile.r)) {
-        let bounds = [G.qr2xy(tile), G.qr2xy({ q: tile.q + 1, r: tile.r + 1 })];
-        let hit = G.intersectCircleRectangle(
+    for (let tile of tilesHitByCircle(entity.pos, entity.vel, entity.radius)) {
+      if (!tileIsPassable(tile.q, tile.r)) {
+        let bounds = [qr2xy(tile), qr2xy({ q: tile.q + 1, r: tile.r + 1 })];
+        let hit = intersectCircleRectangle(
           entity.pos,
           { x: entity.pos.x + entity.vel.x, y: entity.pos.y + entity.vel.y },
           entity.radius,

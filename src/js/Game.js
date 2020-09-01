@@ -9,7 +9,7 @@ import { Monster } from './Monster';
 import { Sculptor } from './Sculptor';
 import { viewport } from './Viewport';
 import { Constants as C } from './Constants';
-import { Geometry as G } from './Geometry';
+import { uv2xy, xy2qr } from './Util';
 import { Menu } from './Menu';
 
 import { Audio } from './Audio';
@@ -159,7 +159,7 @@ export class Game {
         //this.spawnEnemy();
 
         if (!this.activeBattle) {
-            let qr = G.xy2qr(game.player.pos);
+            let qr = xy2qr(game.player.pos);
             let room = this.maze.rooms[this.maze.maze[qr.r][qr.q]];
 
             if (room && room.roomNumber >= 3 && !this.roomsCleared.includes(room.roomNumber) && room.w >= 3 && room.h >= 4 &&
@@ -210,7 +210,7 @@ export class Game {
 
         let u = Math.floor(Math.random() * (480 + 50)) - 25,
             v = Math.floor(Math.random() * (270 + 50)) - 25;
-        let qr = G.uv2xy({ u, v });
+        let qr = uv2xy({ u, v });
 
         this.entities.push(new StarfieldParticle());
 
@@ -223,7 +223,7 @@ export class Game {
             let q = this.maze.rooms[1][0].q + this.maze.rand(0, this.maze.rooms[1][0].width);
             let r = this.maze.rooms[1][0].r + this.maze.rand(0, this.maze.rooms[1][0].height);
             let monster = new Monster();
-            monster.pos = G.qr2xy({ q, r });
+            monster.pos =qr2xy({ q, r });
             this.entities.push(monster);
         }
     }
@@ -493,11 +493,6 @@ export class Game {
         //Text.drawText(ctx, String(maze.tiles[r][q] >> 4), x, y);
 
         //ctx.fillRect(q * 4 - this.camera.pos.x + this.center.pixel.u, r * 4 - this.camera.pos.y + this.center.pixel.v, 4, 4);
-    }
-
-    pointerXY() {
-        if (!this.input.pointer) return;
-        return G.uv2xy(this.input.pointer);
     }
 }
 

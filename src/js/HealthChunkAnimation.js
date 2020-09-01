@@ -2,7 +2,6 @@
 
 import { game } from './Game';
 import { Sprite } from './Sprite';
-import { Geometry as G } from './Geometry';
 
 export class HealthChunkAnimation {
   constructor(start, amount) {

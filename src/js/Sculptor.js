@@ -1,7 +1,7 @@
 import { game } from './Game';
 import { Sprite } from './Sprite';
 import { Input } from './input/Input';
-import { Geometry as G } from './Geometry';
+import { vector2angle, angle2vector, vectorBetween, normalizeVector, vector2point } from './Util';
 import { Detection } from './Detection';
 import { Behavior } from './systems/Behavior';
 import { Constants as C } from './Constants';
@@ -32,24 +32,24 @@ export class Sculptor {
         let angle = Math.random() * C.R360;
         if (angle % C.R90 < C.R20) angle += C.R20;
         if (angle % C.R90 > C.R70) angle -= C.R20;
-        this.facing = G.angle2vector(angle);
+        this.facing = angle2vector(angle);
         this.vel = this.facing;
         this.state = Behavior.CHASE;
         break;
       case Behavior.CHASE:
-        let playerAngle = G.vector2angle(G.vectorBetween(this.pos, game.player.pos));
-        let velAngle = G.vector2angle(this.vel);
+        let playerAngle = vector2angle(vectorBetween(this.pos, game.player.pos));
+        let velAngle = vector2angle(this.vel);
 
-        /*if (G.closestAngleDifference(velAngle, playerAngle) < C.R90) {
-            velAngle = G.intermediateAngle(velAngle, playerAngle, 0.01);
-            this.vel = G.angle2vector(velAngle);
+        /*if closestAngleDifference(velAngle, playerAngle) < C.R90) {
+            velAngle =intermediateAngle(velAngle, playerAngle, 0.01);
+            this.vel =angle2vector(velAngle);
         }*/
 
-        let v = G.normalizeVector(this.vel);
+        let v = normalizeVector(this.vel);
         v.m = (v.m + 2.5) / 2;
-        this.vel = G.vector2point(v);
+        this.vel = vector2point(v);
 
-        let dist = G.vectorBetween(this.pos, game.player.pos);
+        let dist = vectorBetween(this.pos, game.player.pos);
         if (dist.m <= this.radius + game.player.radius) {
           game.player.damage.push({ amount: 5, vector: dist, knockback: 3 });
         }

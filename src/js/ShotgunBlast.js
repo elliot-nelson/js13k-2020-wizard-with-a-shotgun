@@ -3,7 +3,7 @@
 import { game } from './Game';
 import { Monster } from './Monster';
 import { Sprite } from './Sprite';
-import { Geometry as G } from './Geometry';
+import { tileIsPassable, angle2vector, vectorBetween, vector2angle, arcOverlap, vectorAdd, tilesHitBy } from './Util';
 import { Constants as C } from './Constants';
 import { viewport } from './Viewport';
 import { Player } from './Player';
@@ -28,7 +28,7 @@ export class ShotgunBlast {
     if (this.t === 2) {
       for (let i = 0; i < 7; i++) {
         let angle = Math.random() * this.spread - (this.spread / 2) + this.angle;
-        let vector = G.angle2vector(angle, this.range);
+        let vector = angle2vector(angle, this.range);
         game.entities.push(new ShotgunParticle(this.pos, vector, 0.7 + Math.random() * 0.2, 0.9 + Math.random() * 0.1));
       }
     }
@@ -36,31 +36,31 @@ export class ShotgunBlast {
     if (this.t === 3) {
       let entities = game.entities.filter(entity => entity.hp && !(entity instanceof Player));
       for (let entity of entities) {
-        let vect = G.vectorBetween(this.pos, entity.pos);
+        let vect = vectorBetween(this.pos, entity.pos);
         if (vect.m >= this.range + entity.radius) continue;
 
-        let dot1 = G.vectorBetween(
+        let dot1 = vectorBetween(
           this.pos,
           { x: entity.pos.x - vect.y * entity.radius, y: entity.pos.y + vect.x * entity.radius }
         );
-        let dot2 = G.vectorBetween(
+        let dot2 = vectorBetween(
           this.pos,
           { x: entity.pos.x + vect.y * entity.radius, y: entity.pos.y - vect.x * entity.radius }
         );
-        let sides = [G.vector2angle(dot1), G.vector2angle(dot2)];
-        let overlap = G.arcOverlap(sides[0], sides[1], this.angle - this.spread / 2, this.angle + this.spread / 2);
+        let sides = [vector2angle(dot1), vector2angle(dot2)];
+        let overlap = arcOverlap(sides[0], sides[1], this.angle - this.spread / 2, this.angle + this.spread / 2);
         if (!overlap) continue;
 
         let wallHit = [];
-        let k = G.vectorAdd(this.pos, G.angle2vector(sides[0], vect.m));
-        for (let tile of G.tilesHitBy(this.pos, G.angle2vector(sides[0], vect.m))) {
-          if (!G.tileIsPassable(tile.q, tile.r)) {
+        let k = vectorAdd(this.pos, angle2vector(sides[0], vect.m));
+        for (let tile of tilesHitBy(this.pos, angle2vector(sides[0], vect.m))) {
+          if (!tileIsPassable(tile.q, tile.r)) {
             wallHit.push(tile);
             break;
           }
         }
-        for (let tile of G.tilesHitBy(this.pos, G.angle2vector(sides[1], vect.m))) {
-          if (!G.tileIsPassable(tile.q, tile.r)) {
+        for (let tile of tilesHitBy(this.pos, angle2vector(sides[1], vect.m))) {
+          if (!tileIsPassable(tile.q, tile.r)) {
             wallHit.push(tile);
             break;
           }
@@ -77,7 +77,7 @@ export class ShotgunBlast {
   draw(viewport) {
     // TODO
     //Sprite.drawViewportSprite(viewport, Sprite.monster, this.pos, game.camera.pos);
-    /*let uv = G.xy2uv(this.pos);
+    /*let uv =xy2uv(this.pos);
     viewport.ctx.beginPath();
     viewport.ctx.arc(uv.u, uv.v, this.range, this.angle - this.spread / 2, this.angle + this.spread / 2);
     viewport.ctx.lineTo(uv.u, uv.v);

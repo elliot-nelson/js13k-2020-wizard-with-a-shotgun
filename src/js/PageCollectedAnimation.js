@@ -2,7 +2,6 @@
 
 import { game } from './Game';
 import { Sprite } from './Sprite';
-import { Geometry as G } from './Geometry';
 import { Audio } from './Audio';
 import { viewport } from './Viewport';
 import { Constants as C } from './Constants';

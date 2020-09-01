@@ -3,7 +3,6 @@
 import { game } from './Game';
 import { Monster } from './Monster';
 import { Sprite } from './Sprite';
-import { Geometry as G } from './Geometry';
 import { viewport } from './Viewport';
 import { Player } from './Player';
 import { Constants as C } from './Constants';

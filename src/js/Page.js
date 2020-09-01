@@ -1,7 +1,7 @@
 import { game } from './Game';
 import { Sprite } from './Sprite';
 import { Input } from './input/Input';
-import { Geometry as G } from './Geometry';
+import { angle2vector, vectorBetween } from './Util';
 import { Detection } from './Detection';
 import { Behavior } from './systems/Behavior';
 import { Constants as C } from './Constants';
@@ -14,7 +14,7 @@ export class Page {
   constructor(pos) {
     this.pos = { ...pos };
     this.angle = Math.random() * C.R360;
-    this.vel = G.angle2vector(this.angle, Math.random() * 30 + 1);
+    this.vel = angle2vector(this.angle, Math.random() * 30 + 1);
     this.baseFrame = Math.random() * 60 | 0;
     //this.mass = 1;
     this.radius = 3;
@@ -25,7 +25,7 @@ export class Page {
     this.vel.x *= 0.9;
     this.vel.y *= 0.9;
 
-    let v = G.vectorBetween(this.pos, game.player.pos);
+    let v = vectorBetween(this.pos, game.player.pos);
     if (v.m < game.player.radius + this.radius) {
       this.cull = true;
       game.entities.push(new PageCollectedAnimation(this.pos));

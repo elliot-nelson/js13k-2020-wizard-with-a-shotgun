@@ -1,7 +1,6 @@
 'use strict';
 
 import { Behavior } from './Behavior';
-import { Geometry as G } from '../Geometry';
 import { Player } from '../Player';
 import { HealthChunkAnimation } from '../HealthChunkAnimation';
 import { game } from '../Game';

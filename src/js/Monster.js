@@ -1,7 +1,7 @@
 import { game } from './Game';
 import { Sprite } from './Sprite';
 import { Input } from './input/Input';
-import { Geometry as G } from './Geometry';
+import { vectorBetween } from './Util';
 import { Detection } from './Detection';
 import { Behavior } from './systems/Behavior';
 
@@ -28,8 +28,8 @@ export class Monster {
         }
         break;
       case Behavior.CHASE:
-        let diff = G.vectorBetween(this.pos, game.player.pos);
-        diff.m = G.clamp(diff.m, 0, 1);
+        let diff = vectorBetween(this.pos, game.player.pos);
+        diff.m =clamp(diff.m, 0, 1);
         this.vel = { x: diff.x * diff.m, y: diff.y * diff.m };
         break;
       case Behavior.DEAD:
