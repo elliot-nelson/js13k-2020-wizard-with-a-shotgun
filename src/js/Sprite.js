@@ -70,21 +70,24 @@ export const Sprite = {
 
     Sprite.glyphs = SpriteSheet.glyphs.map(data => this.initBasicSprite(data));
 
-    Sprite.battle_door = SpriteSheet.walls2.slice(1, 4).map(data => this.initBasicSprite(data));
 
     // Tiles
     Sprite.tiles = SpriteSheet.tiles.map(data => this.initBasicSprite(data));
 
     // Walls
     Sprite.walls = this.initBasicSprite(SpriteSheet.walls2[0]);
+    //Sprite.battle_door = SpriteSheet.walls2.slice(1, 4).map(data => this.initBasicSprite(data));
+    Sprite.battle_door = [
+      this.initDynamicSprite(Sprite.createBattleDoors(Sprite.walls.img)),
+      this.initDynamicSprite(Sprite.createBattleDoors(Sprite.walls.img)),
+      this.initDynamicSprite(Sprite.createBattleDoors(Sprite.walls.img))
+    ];
 
     // Dialog
     //Sprite.dialog_speech = this.initBasicSprite(SpriteSheet.dialog[0]);
     //Sprite.dialog_hint = this.initBasicSprite(SpriteSheet.dialog[1]);
     Sprite.dialog_speech = this.initDynamicSprite(this.createDialogSpeech());
     Sprite.dialog_hint = this.initDynamicSprite(this.createDialogHint());
-
-    Sprite.battle_bg = this.initDynamicSprite(this.createBattleBackground());
   },
 
   /**
@@ -149,6 +152,22 @@ export const Sprite = {
       image.src = uri;
       this.images[uri] = image;
     });
+  },
+
+  createBattleDoors(source) {
+    let canvas = new Canvas(source.width, source.height);
+    canvas.ctx.drawImage(source, 0, 0);
+    canvas.ctx.globalCompositeOperation = 'source-atop';
+    for (let y = 0; y < source.height; y++) {
+      for (let x = 0; x < source.width; x++) {
+        let r = (Math.random() * 100 + 150) | 0;
+        let b = (Math.random() * 100 + 150) | 0;
+        let a = (Math.random() * 10) / 10;
+        canvas.ctx.fillStyle = 'rgba(' + r + ',50,' + b + ',' + a + ')';
+        canvas.ctx.fillRect(x, y, 1, 1);
+      }
+    }
+    return canvas.canvas;
   },
 
   createBattleBackground() {

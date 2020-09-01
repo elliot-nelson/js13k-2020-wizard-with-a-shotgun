@@ -461,7 +461,6 @@ export class Game {
 
                 if (this.activeBattle) {
                     let f = (this.frame / 8) % 3 | 0;
-                    f = 0;
 
                     if (maze.walls[r][q] & C.OPEN_TOP) {
                         ctx.drawImage(Sprite.battle_door[f].img, 5, 0, 36, 9, x - 2, y - 7, 36, 9);
