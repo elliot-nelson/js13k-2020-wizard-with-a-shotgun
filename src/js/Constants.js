@@ -15,10 +15,9 @@ export const Constants = {
     TILE_HEIGHT: 32,
 
     // Tile constants
-    TILE_FLOOR1:            0,
-    TILE_FLOOR2:            1,
-    TILE_WALL1:             2,
-    TILE_WALL2:             3,
+    TILE_WALL:              0,
+    TILE_FLOOR1:            1,
+    TILE_FLOOR2:            2,
 
     // Wall bits, for rendering wall edges
     WALL_TOP:      0b0000_1000,

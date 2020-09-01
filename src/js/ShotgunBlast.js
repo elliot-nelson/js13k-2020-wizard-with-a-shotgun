@@ -28,7 +28,7 @@ export class ShotgunBlast {
       for (let i = 0; i < 7; i++) {
         let angle = Math.random() * this.spread - (this.spread / 2) + this.angle;
         let vector = G.angle2vector(angle, this.range);
-        game.entities.push(new ShotgunParticle(this.pos, vector, 0.8 + Math.random() * 0.1, 0.9 + Math.random() * 0.1));
+        game.entities.push(new ShotgunParticle(this.pos, vector, 0.7 + Math.random() * 0.2, 0.9 + Math.random() * 0.1));
       }
     }
 

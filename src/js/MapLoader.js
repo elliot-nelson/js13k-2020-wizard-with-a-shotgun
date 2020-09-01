@@ -37,13 +37,11 @@ export const MapLoader = {
     },
 
     createTiles(maze, rand) {
-        let tiles = G.array2d(maze[0].length, maze.length, () => {
-            return (rand() < 0.1 ? C.TILE_WALL2 : C.TILE_WALL1);
-        });
+        let tiles = G.array2d(maze[0].length, maze.length, () => C.TILE_WALL);
         for (let r = 0; r < tiles.length; r++) {
             for (let q = 0; q < tiles[0].length; q++) {
                 if (maze[r][q]) {
-                    tiles[r][q] = C.TILE_FLOOR1;
+                    tiles[r][q] = Math.random() < 0.3 ? C.TILE_FLOOR2 : C.TILE_FLOOR1;
                 }
             }
         }

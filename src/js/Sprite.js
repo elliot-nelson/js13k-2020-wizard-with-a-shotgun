@@ -74,14 +74,11 @@ export const Sprite = {
     Sprite.battle_stream = SpriteSheet.battle_stream.map(data => this.initBasicSprite(data));
     Sprite.glyphs = SpriteSheet.glyphs.map(data => this.initBasicSprite(data));
 
-    Sprite.battle_spray = SpriteSheet.walls2.slice(4, 7).map(data => this.initBasicSprite(data));
+    Sprite.battle_spray = SpriteSheet.walls2.slice(1, 4).map(data => this.initBasicSprite(data));
     Sprite.battle_door = SpriteSheet.walls2.slice(1, 4).map(data => this.initBasicSprite(data));
 
     // Tiles
-    Sprite.tiles = [];
-    Sprite.tiles[C.TILE_FLOOR1] = this.initBasicSprite(SpriteSheet.tileset[2]);
-    Sprite.tiles[C.TILE_WALL1] = this.initBasicSprite(SpriteSheet.tileset[0]);
-    Sprite.tiles[C.TILE_WALL2] = this.initBasicSprite(SpriteSheet.tileset[1]);
+    Sprite.tiles = SpriteSheet.tiles.map(data => this.initBasicSprite(data));
 
     // Walls
     Sprite.walls = this.initBasicSprite(SpriteSheet.walls2[0]);
