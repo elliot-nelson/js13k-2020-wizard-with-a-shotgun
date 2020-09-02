@@ -31,14 +31,14 @@ export const Sprite = {
 
         // Player
         let player = SpriteSheet.player.map(data =>
-            this.initBasicSprite(data, { anchor: { x: 10, y: 21 } })
+            this.initBasicSprite(data, { x: 10, y: 21 })
         );
         Sprite.player = [player[0], player[1]];
         Sprite.player_recoil = player[2];
         Sprite.player_rest = player[3];
 
         Sprite.shotgun_blast = SpriteSheet.shotgun_blast.map(data =>
-            this.initBasicSprite(data, { anchor: { x: 12, y: 41 } })
+            this.initBasicSprite(data, { x: 12, y: 41 })
         );
 
         Sprite.shot_particle = this.initBasicSprite(
@@ -117,7 +117,7 @@ export const Sprite = {
      * Initialize a sprite by loading it from a particular slice of the given image. Provides
      * "sensible" defaults for bounding box and anchor point if not provided.
      */
-    initBasicSprite(data, opts) {
+    initBasicSprite(data, anchor) {
         return this.initDynamicSprite(
             this.loadCacheSlice(
                 SPRITESHEET_URI,
@@ -126,7 +126,7 @@ export const Sprite = {
                 data.w,
                 data.h
             ),
-            opts
+            anchor
         );
     },
 
@@ -151,16 +151,13 @@ export const Sprite = {
      * Initialize a sprite by passing it a pre-defined image source (probably generated dynamically).
      * Provides "sensible" defaults for bounding box and anchor point if not provided.
      */
-    initDynamicSprite(source, opts) {
+    initDynamicSprite(source, anchor) {
         let w = source.width,
             h = source.height;
 
         return {
             img: source,
-            anchor: (opts && opts.anchor) || {
-                x: Math.floor(w / 2),
-                y: Math.floor(h / 2)
-            }
+            anchor: anchor || { x: w / 2 | 0, y: h / 2 | 0 }
         };
     },
 

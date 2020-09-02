@@ -27,7 +27,7 @@ export class ScreenShake {
 
         //let s = (this.frames / 10) * (this.frame / this.frames);
         let s = this.frame / 2;
-        let s0 = Math.floor(s);
+        let s0 = s | 0;
         let s1 = s0 + 1;
         let decay = 1 - this.frame / this.frames;
 

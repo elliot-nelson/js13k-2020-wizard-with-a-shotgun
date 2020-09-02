@@ -26,12 +26,8 @@ export class MouseAdapter {
         window.addEventListener('mousemove', event => {
             if (!this.pointer) this.pointer = {};
             //this.handlers['mousemove'](event.movementX, event.movementY, event.clientX, event.clientY);
-            this.pointer.u = Math.floor(
-                (event.clientX * viewport.width) / viewport.clientWidth
-            );
-            this.pointer.v = Math.floor(
-                (event.clientY * viewport.height) / viewport.clientHeight
-            );
+            this.pointer.u = (event.clientX * viewport.width) / viewport.clientWidth | 0;
+            this.pointer.v = (event.clientY * viewport.height) / viewport.clientHeight | 0;
         });
 
         window.addEventListener('mouseout', () => {

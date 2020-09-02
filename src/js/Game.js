@@ -50,15 +50,6 @@ export class Game {
         this.dialogSeen = {};
 
         this.player = new Player();
-        this.player.pos.x =
-            (this.maze.rooms[1].q + Math.floor(this.maze.rooms[1].w / 2)) *
-                C.TILE_WIDTH +
-            C.TILE_WIDTH / 2;
-        this.player.pos.y =
-            (this.maze.rooms[1].r + Math.floor(this.maze.rooms[1].h / 2)) *
-                C.TILE_WIDTH +
-            C.TILE_WIDTH / 2;
-
         this.entities.push(this.player);
 
         this.roomsCleared = [];
@@ -246,137 +237,11 @@ export class Game {
 
         Hud.draw(viewport);
 
-        //let ky = this.frame;
-        //Text.drawText(ctx, 'FIGHT', ky * 10, 100, 4, Text.default, Text.shadow);
-
         for (let entity of this.entities) {
             if (entity.z && entity.z > 100) entity.draw(viewport);
         }
 
-        /*
-        ctx.fillStyle = 'rgba(150, 128, 128, 1)';
-        ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
-        this.shadow.ctx.globalCompositeOperation = 'copy';
-        //this.shadow.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.shadow.ctx.fillStyle = 'rgba(0, 0, 0, 0.99)';
-        this.shadow.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
-        this.shadow.ctx.globalCompositeOperation = 'destination-out';
-        let grd = this.shadow.ctx.createRadialGradient(game.player.x, game.player.y, 0, game.player.x, game.player.y, 200);
-        grd.addColorStop(0, "rgba(0, 0, 0, 1)");
-        grd.addColorStop(0.5, "rgba(0, 0, 0, 0.95)");
-        grd.addColorStop(1, "rgba(0, 0, 0, 0)");
-        this.shadow.ctx.fillStyle = grd;
-        this.shadow.ctx.beginPath();
-        this.shadow.ctx.arc(game.player.x, game.player.y, 200, 0, 2 * Math.PI);
-        this.shadow.ctx.fill();
-
-        for (let particle of this.particles.filter(p => p instanceof PortalParticle)) {
-            let r = (particle as PortalParticle).effectiveRadius();
-            this.shadow.ctx.globalCompositeOperation = 'destination-out';
-            let grd = this.shadow.ctx.createRadialGradient(particle.x, particle.y, 0, particle.x, particle.y, r);
-            grd.addColorStop(0, "rgba(0, 0, 0, 0.7)");
-            grd.addColorStop(1, "rgba(0, 0, 0, 0)");
-            this.shadow.ctx.fillStyle = grd;
-            this.shadow.ctx.beginPath();
-            this.shadow.ctx.arc(particle.x, particle.y, r, 0, 2 * Math.PI);
-            this.shadow.ctx.fill();
-        }
-
-        this.shadow.ctx.globalCompositeOperation = 'source-atop';
-        for (let monster of this.monsters) {
-            this.shadow.ctx.beginPath();
-            this.shadow.ctx.arc(monster.x, monster.y, 200, 0, 2 * Math.PI);
-        }
-
-        /*
-          we don't even use bloodplanes (splatter terrain) anymore because i just
-          render all of them as particles
-        ctx.globalAlpha = 1 - this.bloodplanes[0][1] / this.bloodplanes[0][2];
-        ctx.globalAlpha = 0.9;
-        ctx.drawImage(this.bloodplanes[0][0].canvas, 0, 0);
-        ctx.globalAlpha = 1 - this.bloodplanes[1][1] / this.bloodplanes[1][2];
-        ctx.drawImage(this.bloodplanes[1][0].canvas, 0, 0);
-        ctx.globalAlpha = 1 - this.bloodplanes[2][1] / this.bloodplanes[2][2];
-        ctx.drawImage(this.bloodplanes[2][0].canvas, 0, 0);
-        ctx.globalAlpha = 1;
-        ctx.save();
-        let shakeX = 0, shakeY = 0;
-        this.screenshakes.forEach(shake => {
-            shakeX += shake.x;
-            shakeY += shake.y;
-        });
-        ctx.translate(shakeX, shakeY);
-
-        // low-hanging fruit here (pre-render the map since it never changes)
-        for (let i = 0; i < 16; i++) {
-            for (let j = 0; j < 10; j++) {
-                let k = ((i * i * 13) + j * 17) % 9;
-                Sprite.drawSprite(ctx, Sprite.tiles[k], i * 32 - 16, j * 32 - 8);
-            }
-        }
-
-        for (let particle of this.particles) if (!particle.foreground && !game.superFired) particle.draw(ctx);
-
-        this.player.draw(ctx);
-
-        //Text.renderText(ctx, 250, 120, 20, 'THE ELEPHANTS');
-        //Text.renderText(ctx, 100, 200, 64, 'AB0123456789');
-        //Text.renderText(ctx, 100, 150, 30, 'AB0123456789');
-
-        for (let monster of this.monsters) monster.draw(ctx);
-
-  //      var bubble = ctx.createLinearGradient(
-        // Let's add blue noise?
-        /*for (let i = 100; i < 300; i += 5) {
-            for(let j = 100; j < 120; j += 5) {
-                let [x, y] = [Math.random() * 5, Math.random() * 5];
-                ctx.fillStyle = 'rgba(0,0,0,0.5)';
-                ctx.fillRect(i+Math.floor(x),j+Math.floor(y),1,1);
-            }
-
-        for (let particle of this.particles) if (particle.foreground) particle.draw(ctx);
-
-        ctx.drawImage(this.shadow.canvas, 0, 0);
-        let noiseLoop = Math.floor(this.frame / 8) % 3;
-        ctx.globalAlpha = 0.06;
-        ctx.drawImage(this.artifacts[noiseLoop].canvas, 0, 0);
-        ctx.globalAlpha = 1;
-
-        this.hud.draw(ctx);
-        this.hive.draw(ctx);
-
-        ctx.restore();
-
-        /*
-        if (this.frame % HEARTBEAT === 0 || (this.frame - 1) % HEARTBEAT === 0 || (this.frame - 2) % HEARTBEAT === 0) {
-            ctx.fillStyle = 'rgba(255, 255, 30, 0.3)';
-            ctx.fillRect(100, 0, 100, 10);
-        */
-
         Menu.draw(viewport);
-
-        //        drawParagraph(ctx, text, u, v, w, h, font = this.default, scale = 1) {
-
-        //if (this.dialog) this.dialog.draw(viewport);
-
-        //this.shadowCanvas.ctx.fillStyle = 'blue';
-        //this.shadowCanvas.ctx.fillRect(0, 0, 500, 300);
-        /*this.shadowCanvas.ctx.setTransform(1, 0, 0, 1, 0, 0);
-
-        let scaleX, scaleY, invScaleX, invScaleY, grad;
-        scaleX = invScaleX = 1;
-        scaleY = viewport.height / viewport.width;
-        invScaleY = viewport.width / viewport.height;
-        //grad = this.shadowCanvas.ctx.createRadialGradient(250, 150 * invScaleY, 0, 250, 150 * invScaleY, 250);
-        grad = this.shadowCanvas.ctx.createRadialGradient(250, 150, 0, 250, 150, 250);
-        let klack = (Math.sin(game.frame / 60) * 128 + 128) | 0;
-        grad.addColorStop(0.1, 'rgba(0,0,0,0)');
-        grad.addColorStop(0.9, 'rgba(' + klack + ',0,0,1)');
-
-        this.shadowCanvas.ctx.fillStyle = grad;
-        this.shadowCanvas.ctx.fillRect(0, 0, 500, 300);*/
     }
 
     drawMaze(ctx, maze) {
@@ -529,18 +394,6 @@ export class Game {
                 }
             }
         }
-
-        // old wall logic
-        //sprite = Sprite.walls[maze.tiles[r][q] >> 4];
-        //if (sprite) ctx.drawImage(sprite.img, x, y);
-
-        //if (this.maze.flowhome[r][q] < 100)
-        //Text.drawText(ctx, String(this.maze.flowhome[r][q]), x, y);
-
-        // commented for screenshots:
-        //Text.drawText(ctx, String(maze.tiles[r][q] >> 4), x, y);
-
-        //ctx.fillRect(q * 4 - this.camera.pos.x + this.center.pixel.u, r * 4 - this.camera.pos.y + this.center.pixel.v, 4, 4);
     }
 }
 

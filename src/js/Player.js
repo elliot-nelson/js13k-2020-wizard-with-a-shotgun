@@ -19,7 +19,10 @@ import { Audio } from './Audio';
  */
 export class Player {
     constructor() {
-        this.pos = { x: 0, y: 0 };
+        this.pos = {
+            x: (game.maze.rooms[1].q + game.maze.rooms[1].w / 2) * C.TILE_WIDTH,
+            y: (game.maze.rooms[1].r + game.maze.rooms[1].h / 2) * C.TILE_HEIGHT
+        };
         this.history = [];
         this.vel = { x: 0, y: 0 };
         this.facing = { x: 0, y: -1, m: 0 };
@@ -142,7 +145,7 @@ export class Player {
     }
 
     draw(viewport) {
-        let sprite = Sprite.player[Math.floor(game.frame / 30) % 2],
+        let sprite = Sprite.player[(game.frame / 30 | 0) % 2],
             blast;
 
         if (this.state === Behavior.ATTACK && this.frames >= 2) {
