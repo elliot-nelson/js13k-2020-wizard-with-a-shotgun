@@ -33,26 +33,8 @@ export class ShotgunBlast {
     think() {
         if (++this.t === this.d) this.cull = true;
 
-        if (this.t === 2) {
-            for (let i = 0; i < 0; i++) {
-                let angle =
-                    Math.random() * this.spread - this.spread / 2 + this.angle;
-                let vector = angle2vector(angle, this.range);
-                game.entities.push(
-                    new ShotgunParticle(
-                        this.pos,
-                        vector,
-                        0.7 + Math.random() * 0.2,
-                        0.9 + Math.random() * 0.1
-                    )
-                );
-            }
-        }
-
         if (this.t === 3) {
-            let entities = game.entities.filter(
-                entity => entity.hp && !(entity instanceof Player)
-            );
+            let entities = game.entities.filter(entity => entity.hp && entity !== game.player);
             for (let entity of entities) {
                 let vect = vectorBetween(this.pos, entity.pos);
                 if (vect.m >= this.range + entity.radius) continue;

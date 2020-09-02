@@ -396,8 +396,44 @@
     "duration": 100
    },
    {
+    "filename": "stabguts 0.aseprite",
+    "frame": { "x": 0, "y": 242, "w": 14, "h": 22 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 22 },
+    "sourceSize": { "w": 14, "h": 22 },
+    "duration": 100
+   },
+   {
+    "filename": "stabguts 1.aseprite",
+    "frame": { "x": 14, "y": 242, "w": 14, "h": 22 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 22 },
+    "sourceSize": { "w": 14, "h": 22 },
+    "duration": 100
+   },
+   {
+    "filename": "stabguts 2.aseprite",
+    "frame": { "x": 28, "y": 242, "w": 14, "h": 22 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 22 },
+    "sourceSize": { "w": 14, "h": 22 },
+    "duration": 100
+   },
+   {
+    "filename": "stabguts 3.aseprite",
+    "frame": { "x": 42, "y": 242, "w": 14, "h": 22 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 22 },
+    "sourceSize": { "w": 14, "h": 22 },
+    "duration": 100
+   },
+   {
     "filename": "tiles 0.aseprite",
-    "frame": { "x": 0, "y": 242, "w": 32, "h": 32 },
+    "frame": { "x": 0, "y": 264, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -406,7 +442,7 @@
    },
    {
     "filename": "tiles 1.aseprite",
-    "frame": { "x": 32, "y": 242, "w": 32, "h": 32 },
+    "frame": { "x": 32, "y": 264, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -415,7 +451,7 @@
    },
    {
     "filename": "tiles 2.aseprite",
-    "frame": { "x": 64, "y": 242, "w": 32, "h": 32 },
+    "frame": { "x": 64, "y": 264, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -424,7 +460,7 @@
    },
    {
     "filename": "walls2.aseprite",
-    "frame": { "x": 0, "y": 274, "w": 46, "h": 46 },
+    "frame": { "x": 0, "y": 296, "w": 46, "h": 46 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 46, "h": 46 },
@@ -437,7 +473,7 @@
   "version": "1.2.18",
   "image": "spritesheet-gen.png",
   "format": "RGBA8888",
-  "size": { "w": 356, "h": 320 },
+  "size": { "w": 356, "h": 342 },
   "scale": "1"
  }
 }

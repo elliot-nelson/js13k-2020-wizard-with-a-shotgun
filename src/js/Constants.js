@@ -1,6 +1,9 @@
 'use strict';
 
 export const Constants = {
+    TEAM_ENEMY: 1,
+    TEAM_PLAYER: 2,
+
     // Some precalculated radian values
     R0: 0,
     R20: (Math.PI * 20) / 180,

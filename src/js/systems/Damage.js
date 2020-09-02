@@ -16,7 +16,7 @@ export const Damage = {
             if (typeof entity.hp === 'number') {
                 if (entity.damage.length > 0) {
                     for (let damage of entity.damage) {
-                        if (entity instanceof Player) {
+                        if (entity === game.player) {
                             game.entities.push(
                                 new HealthChunkAnimation(
                                     entity.hp,
