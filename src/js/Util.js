@@ -420,7 +420,7 @@ export function intersectCircleCircle(p1, r1, v1, p2, r2, v2) {
 }
 
 export function flood(maze, pos, maxDistance = Infinity) {
-    let result = array2d(maze[0].length, maze.length, Infinity);
+    let result = array2d(maze[0].length, maze.length, () => Infinity);
     let stack = [{ ...pos, cost: 0 }];
     while (stack.length > 0) {
         let { q, r, cost } = stack.shift();
@@ -439,8 +439,7 @@ export function flood(maze, pos, maxDistance = Infinity) {
     return result;
 }
 
-export function array2d(width, height, value) {
-    let fn = typeof value === 'function' ? value : () => value;
+export function array2d(width, height, fn) {
     return Array.from({ length: height }, () =>
         Array.from({ length: width }, fn)
     );

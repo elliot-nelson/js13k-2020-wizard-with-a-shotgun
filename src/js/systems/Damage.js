@@ -13,7 +13,7 @@ import { Gore } from '../Gore';
 export const Damage = {
     apply(entities) {
         for (let entity of entities) {
-            if (typeof entity.hp === 'number') {
+            if (entity.hp) {
                 if (entity.damage.length > 0) {
                     for (let damage of entity.damage) {
                         if (entity === game.player) {

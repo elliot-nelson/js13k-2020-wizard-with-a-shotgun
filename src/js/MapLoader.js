@@ -13,7 +13,7 @@ export const MapLoader = {
     },
 
     createWalls(maze, rooms) {
-        let walls = array2d(maze[0].length, maze.length, 0);
+        let walls = array2d(maze[0].length, maze.length, () => 0);
         for (let r = 0; r < walls.length; r++) {
             for (let q = 0; q < walls[0].length; q++) {
                 if (maze[r][q]) {
@@ -56,7 +56,7 @@ export const MapLoader = {
     },
 
     load() {
-        let maze = array2d(Map.w, Map.h, 0);
+        let maze = array2d(Map.w, Map.h, () => 0);
         let rooms = Map.rooms.map(room => ({
             q: room[0],
             r: room[1],
