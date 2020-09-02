@@ -102,7 +102,7 @@ Dialog.details = {
         speech: true
     },
     [C.DIALOG_HINT_1]: {
-        text: 'PRESS wasd TO MOVE',
+        text: 'PRESS abcd TO MOVE',
         flag: C.DIALOG_HINT_1,
         required: C.DIALOG_START_B,
         blockFire: true,

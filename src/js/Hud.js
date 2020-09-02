@@ -75,7 +75,7 @@ export const Hud = {
 
         Text.drawRightText(
             viewport.ctx,
-            [viewport.scale, viewport.width, viewport.height].join(', '),
+            [viewport.scale, viewport.width, viewport.height, 'stuvwx'].join(', '),
             viewport.width - 4,
             viewport.height - 18
         );
