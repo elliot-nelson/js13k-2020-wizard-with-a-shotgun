@@ -177,7 +177,7 @@ export class Game {
         });
         ctx.translate(shakeX, shakeY);
 
-        ctx.fillStyle = rgba(20,20,20,1);
+        ctx.fillStyle = rgba(20, 20, 20, 1);
         ctx.fillRect(0, 0, viewport.width, viewport.height);
 
         for (let entity of this.entities) {
@@ -228,23 +228,23 @@ export class Game {
 
         Menu.draw(viewport);
 
-        ctx.strokeStyle = rgba(200,50,200,1);
+        ctx.strokeStyle = rgba(200, 50, 200, 1);
         ctx.beginPath();
         ctx.arc(250, 150, 50, 0, Math.PI * 2);
         ctx.stroke();
 
-        let p = angle2vector(2 * Math.PI / 3 + Math.PI / 2);
-        let [u,v] = [p.x * 40 + 250, p.y * 40 + 150];
+        let p = angle2vector((2 * Math.PI) / 3 + Math.PI / 2);
+        let [u, v] = [p.x * 40 + 250, p.y * 40 + 150];
         ctx.arc(u, v, 10, 0, Math.PI * 2);
         ctx.stroke();
 
-        p = angle2vector(4 * Math.PI / 3 + Math.PI / 2);
-        [u,v] = [p.x * 40 + 250, p.y * 40 + 150];
+        p = angle2vector((4 * Math.PI) / 3 + Math.PI / 2);
+        [u, v] = [p.x * 40 + 250, p.y * 40 + 150];
         ctx.arc(u, v, 10, 0, Math.PI * 2);
         ctx.stroke();
 
-        p = angle2vector(6 * Math.PI / 3 + Math.PI / 2);
-        [u,v] = [p.x * 40 + 250, p.y * 40 + 150];
+        p = angle2vector((6 * Math.PI) / 3 + Math.PI / 2);
+        [u, v] = [p.x * 40 + 250, p.y * 40 + 150];
         ctx.arc(u, v, 10, 0, Math.PI * 2);
         ctx.stroke();
     }
@@ -255,7 +255,10 @@ export class Game {
             y: viewport.center.v - this.camera.pos.y
         };
 
-        let r1 = 0, r2 = maze.h, q1 = 0, q2 = maze.w;
+        let r1 = 0,
+            r2 = maze.h,
+            q1 = 0,
+            q2 = maze.w;
         if (game.brawl) {
             r1 = game.brawl.room.r;
             r2 = r1 + game.brawl.room.h;

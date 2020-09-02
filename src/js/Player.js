@@ -149,7 +149,7 @@ export class Player {
     }
 
     draw(viewport) {
-        let sprite = Sprite.player[(game.frame / 30 | 0) % 2],
+        let sprite = Sprite.player[((game.frame / 30) | 0) % 2],
             blast;
 
         if (this.state === Behavior.ATTACK && this.frames >= 2) {

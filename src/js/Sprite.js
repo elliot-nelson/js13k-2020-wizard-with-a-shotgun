@@ -157,7 +157,7 @@ export const Sprite = {
 
         return {
             img: source,
-            anchor: anchor || { x: w / 2 | 0, y: h / 2 | 0 }
+            anchor: anchor || { x: (w / 2) | 0, y: (h / 2) | 0 }
         };
     },
 

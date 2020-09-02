@@ -34,7 +34,9 @@ export class ShotgunBlast {
         if (++this.t === this.d) this.cull = true;
 
         if (this.t === 3) {
-            let entities = game.entities.filter(entity => entity.hp && entity !== game.player);
+            let entities = game.entities.filter(
+                entity => entity.hp && entity !== game.player
+            );
             for (let entity of entities) {
                 let vect = vectorBetween(this.pos, entity.pos);
                 if (vect.m >= this.range + entity.radius) continue;

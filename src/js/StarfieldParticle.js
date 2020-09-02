@@ -15,7 +15,12 @@ export class StarfieldParticle {
             v: viewport.height / 2
         };
         let brightness = (Math.random() * 80) | 0;
-        this.color = rgba(brightness + 85, 80 - brightness, brightness + 85, 0.9);
+        this.color = rgba(
+            brightness + 85,
+            80 - brightness,
+            brightness + 85,
+            0.9
+        );
         this.angle = Math.random() * C.R360;
         this.vector = angle2vector(this.angle, 1 + brightness / 40);
         this.t = 0;

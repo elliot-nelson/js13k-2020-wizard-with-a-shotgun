@@ -46,12 +46,16 @@ export class Viewport {
             this.canvas.width = dpiWidth;
             this.canvas.height = dpiHeight;
 
-            this.scale = (Math.max(dpiWidth / GAME_WIDTH, dpiHeight / GAME_HEIGHT) * 10 | 0) / 10;
+            this.scale =
+                ((Math.max(dpiWidth / GAME_WIDTH, dpiHeight / GAME_HEIGHT) *
+                    10) |
+                    0) /
+                10;
             this.width = Math.ceil(this.canvas.width / this.scale);
             this.height = Math.ceil(this.canvas.height / this.scale);
             this.center = {
-                u: this.width / 2 | 0,
-                v: this.height / 2 | 0
+                u: (this.width / 2) | 0,
+                v: (this.height / 2) | 0
             };
             this.clientWidth = width;
             this.clientHeight = height;
