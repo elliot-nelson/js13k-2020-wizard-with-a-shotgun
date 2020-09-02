@@ -4,7 +4,7 @@
   "description": "My 2020 entry for the js13kgames compo...",
   "main": "index.js",
   "scripts": {
-    "format": "prettier --write src",
+    "format": "prettier --write src/js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Elliot Nelson",
