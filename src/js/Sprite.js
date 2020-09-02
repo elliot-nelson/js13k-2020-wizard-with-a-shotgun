@@ -170,19 +170,6 @@ export const Sprite = {
     return canvas.canvas;
   },
 
-  createBattleBackground() {
-    let canvas = new Canvas(500, 300);
-    let gradient = canvas.ctx.createLinearGradient(0, 0, 0, 270);
-    gradient.addColorStop(0, 'rgba(128,20,20,1)');
-    gradient.addColorStop(1, 'rgba(191,31,31,1)');
-    canvas.ctx.fillStyle = gradient;
-    canvas.ctx.fillRect(0, 0, 500, 300);
-    for (let i = 0; i < 500; i++) {
-      canvas.ctx.clearRect(i, 299 - Math.random() * 20, 3, 30);
-    }
-    return canvas.canvas;
-  },
-
   createDialogSpeech() {
     let canvas = new Canvas(127, 39);
     canvas.ctx.fillStyle = '#e6e6b8';

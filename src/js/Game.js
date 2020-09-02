@@ -156,64 +156,10 @@ export class Game {
         this.camera.pos.x += diff.x * 0.2;
         this.camera.pos.y += diff.y * 0.2;
 
-        //this.spawnEnemy();
-
-        if (!this.activeBattle) {
-            let qr = xy2qr(game.player.pos);
-            let room = this.maze.rooms[this.maze.maze[qr.r][qr.q]];
-
-            if (room && room.roomNumber >= 3 && !this.roomsCleared.includes(room.roomNumber) && room.w >= 3 && room.h >= 4 &&
-                qr.q > room.q && qr.r > room.r && qr.q < room.q + room.w - 1 && qr.r < room.r + room.h - 1) {
-
-                game.screenshakes.push(new ScreenShake(25, 25, 25));
-                this.activeBattle = {
-                    room,
-                    enemies: [],
-                    start: this.frame,
-                    plan: [
-                        {
-                            frame: this.frame + 10,
-                            x: Math.floor(Math.random() * (room.w * 32)) + room.q * 32,
-                            y: Math.floor(Math.random() * (room.h * 32)) + room.r * 32,
-                        },
-                        {
-                            frame: this.frame + 50,
-                            x: Math.floor(Math.random() * (room.w * 32)) + room.q * 32,
-                            y: Math.floor(Math.random() * (room.h * 32)) + room.r * 32,
-                        },
-                        {
-                            frame: this.frame + 90,
-                            x: Math.floor(Math.random() * (room.w * 32)) + room.q * 32,
-                            y: Math.floor(Math.random() * (room.h * 32)) + room.r * 32,
-                        }
-                    ]
-                };
-            }
-        }
-
-        if (this.activeBattle) {
-            if (this.activeBattle.plan.length === 0) {
-                if (this.activeBattle.enemies.filter(enemy => !enemy.cull).length === 0) {
-                    this.roomsCleared.unshift(this.activeBattle.room.roomNumber);
-                    this.activeBattle = undefined;
-                }
-            } else {
-                if (this.frame >= this.activeBattle.plan[0].frame) {
-                    let spawn = this.activeBattle.plan.shift();
-                    let monster = new Sculptor();
-                    monster.pos = { x: spawn.x, y: spawn.y };
-                    this.entities.push(monster);
-                    this.activeBattle.enemies.push(monster);
-                }
-            }
-        }
-
-        let u = Math.floor(Math.random() * (480 + 50)) - 25,
-            v = Math.floor(Math.random() * (270 + 50)) - 25;
-        let qr = uv2xy({ u, v });
-
+        // Starfield particle
         this.entities.push(new StarfieldParticle());
 
+        // Tick screenshakes and cull finished screenshakes
         this.screenshakes = this.screenshakes.filter(screenshake => screenshake.update());
     }
 
@@ -223,7 +169,7 @@ export class Game {
             let q = this.maze.rooms[1][0].q + this.maze.rand(0, this.maze.rooms[1][0].width);
             let r = this.maze.rooms[1][0].r + this.maze.rand(0, this.maze.rooms[1][0].height);
             let monster = new Monster();
-            monster.pos =qr2xy({ q, r });
+            monster.pos = qr2xy({ q, r });
             this.entities.push(monster);
         }
     }
