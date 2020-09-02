@@ -447,8 +447,8 @@ export function array2d(width, height, value) {
 }
 
 export function tileIsPassable(q, r) {
-    if (game.activeBattle) {
-        let room = game.activeBattle.room;
+    if (game.brawl) {
+        let room = game.brawl.room;
         if (
             q < room.q ||
             r < room.r ||

@@ -85,7 +85,9 @@ export const MapLoader = {
             maze,
             walls: this.createWalls(maze, roomLookup),
             tiles: this.createTiles(maze, Math.random),
-            rooms: roomLookup
+            rooms: roomLookup,
+            w: Map.w,
+            h: Map.h
         };
     }
 };

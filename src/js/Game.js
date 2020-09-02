@@ -17,6 +17,7 @@ import { Audio } from './Audio';
 import { Canvas } from './Canvas';
 
 import { Behavior } from './systems/Behavior';
+import { Brawl } from './systems/Brawl';
 import { Movement } from './systems/Movement';
 import { Damage } from './systems/Damage';
 import { DialogScheduling } from './systems/DialogScheduling';
@@ -151,6 +152,8 @@ export class Game {
         // Dialog scheduling
         DialogScheduling.apply(this.entities);
 
+        Brawl.apply();
+
         // Culling (typically set when an entity dies)
         this.entities = this.entities.filter(entity => !entity.cull);
 
@@ -200,17 +203,6 @@ export class Game {
 
         ctx.fillStyle = 'rgba(20,20,20,1)';
         ctx.fillRect(0, 0, viewport.width, viewport.height);
-        if (this.activeBattle && false) {
-            ctx.fillStyle = 'rgba(128,20,20,1)';
-            let y = Math.min(
-                0,
-                (this.frame - this.activeBattle.start) * 8 - 300
-            );
-            ctx.drawImage(Sprite.battle_bg.img, 0, y);
-        }
-
-        /*ctx.fillStyle = 'rgba(150, 128, 128, 1)';
-        ctx.fillRect(10, 10, 100, 100);*/
 
         for (let entity of this.entities) {
             if (entity.z < 0) entity.draw(viewport);
@@ -393,14 +385,13 @@ export class Game {
             y: viewport.center.v - this.camera.pos.y
         };
 
-        let r1 = this.activeBattle ? this.activeBattle.room.r : 0,
-            r2 = this.activeBattle
-                ? this.activeBattle.room.r + this.activeBattle.room.h
-                : maze.tiles.length,
-            q1 = this.activeBattle ? this.activeBattle.room.q : 0,
-            q2 = this.activeBattle
-                ? this.activeBattle.room.q + this.activeBattle.room.w
-                : maze.tiles[0].length;
+        let r1 = 0, r2 = maze.h, q1 = 0, q2 = maze.w;
+        if (game.brawl) {
+            r1 = game.brawl.room.r;
+            r2 = r1 + game.brawl.room.h;
+            q1 = game.brawl.room.q;
+            q2 = q1 + game.brawl.room.w;
+        }
 
         for (let r = r1; r < r2; r++) {
             for (let q = q1; q < q2; q++) {
@@ -477,7 +468,7 @@ export class Game {
                     );
                 }
 
-                if (this.activeBattle) {
+                if (this.brawl) {
                     let f = (this.frame / 8) % 3 | 0;
 
                     if (maze.walls[r][q] & C.OPEN_TOP) {
