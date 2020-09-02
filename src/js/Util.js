@@ -459,3 +459,7 @@ export function tileIsPassable(q, r) {
     }
     return !!game.maze.maze[r][q];
 }
+
+export function rgba(r, g, b, a) {
+    return `rgba(${r},${g},${b},${a})`;
+}

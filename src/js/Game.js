@@ -9,7 +9,7 @@ import { Monster } from './Monster';
 import { Sculptor } from './Sculptor';
 import { viewport } from './Viewport';
 import { Constants as C } from './Constants';
-import { uv2xy, xy2qr } from './Util';
+import { uv2xy, xy2qr, angle2vector, rgba } from './Util';
 import { Menu } from './Menu';
 
 import { Audio } from './Audio';
@@ -192,7 +192,7 @@ export class Game {
         });
         ctx.translate(shakeX, shakeY);
 
-        ctx.fillStyle = 'rgba(20,20,20,1)';
+        ctx.fillStyle = rgba(20,20,20,1);
         ctx.fillRect(0, 0, viewport.width, viewport.height);
 
         for (let entity of this.entities) {
@@ -217,8 +217,8 @@ export class Game {
             250,
             250
         );
-        gradient.addColorStop(0.3, 'rgba(0,0,0,0)');
-        gradient.addColorStop(1, 'rgba(' + klack + ',0,0,0.9)');
+        gradient.addColorStop(0.3, rgba(0, 0, 0, 0));
+        gradient.addColorStop(1, rgba(klack, 0, 0, 0.9));
         this.shadowCanvas.ctx.fillStyle = gradient;
         this.shadowCanvas.ctx.fillRect(0, 0, 500, 500);
 
@@ -242,6 +242,26 @@ export class Game {
         }
 
         Menu.draw(viewport);
+
+        ctx.strokeStyle = rgba(200,50,200,1);
+        ctx.beginPath();
+        ctx.arc(250, 150, 50, 0, Math.PI * 2);
+        ctx.stroke();
+
+        let p = angle2vector(2 * Math.PI / 3 + Math.PI / 2);
+        let [u,v] = [p.x * 40 + 250, p.y * 40 + 150];
+        ctx.arc(u, v, 10, 0, Math.PI * 2);
+        ctx.stroke();
+
+        p = angle2vector(4 * Math.PI / 3 + Math.PI / 2);
+        [u,v] = [p.x * 40 + 250, p.y * 40 + 150];
+        ctx.arc(u, v, 10, 0, Math.PI * 2);
+        ctx.stroke();
+
+        p = angle2vector(6 * Math.PI / 3 + Math.PI / 2);
+        [u,v] = [p.x * 40 + 250, p.y * 40 + 150];
+        ctx.arc(u, v, 10, 0, Math.PI * 2);
+        ctx.stroke();
     }
 
     drawMaze(ctx, maze) {

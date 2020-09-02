@@ -3,6 +3,7 @@
 import { Constants as C } from './Constants';
 import { Canvas } from './Canvas';
 import { SpriteSheet } from './SpriteSheet-gen';
+import { rgba } from './Util';
 
 // The spritesheet is produced during the gulp build
 const SPRITESHEET_URI = 'sprites.png';
@@ -196,7 +197,7 @@ export const Sprite = {
                 let r = (Math.random() * 100 + 150) | 0;
                 let b = (Math.random() * 100 + 150) | 0;
                 let a = (Math.random() * 10) / 10;
-                canvas.ctx.fillStyle = 'rgba(' + r + ',50,' + b + ',' + a + ')';
+                canvas.ctx.fillStyle = rgba(r, 50, b, a);
                 canvas.ctx.fillRect(x, y, 1, 1);
             }
         }

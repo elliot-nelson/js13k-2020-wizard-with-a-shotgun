@@ -2,6 +2,7 @@
 
 import { Sprite } from './Sprite';
 import { Canvas } from './Canvas';
+import { rgba } from './Util';
 
 const C_WIDTH = 3;
 const C_HEIGHT = 5;
@@ -44,11 +45,8 @@ export const Text = {
             C_SHIFT[icon[0]] = icon[1].img.width + 1;
         }
 
-        this.black = this.recolor(this.default, 'rgba(0, 0, 0, 1)');
-        this.black_shadow = this.recolor(
-            this.default,
-            'rgba(90, 20, 90, 0.15)'
-        );
+        this.black = this.recolor(this.default, rgba(0, 0, 0, 1));
+        this.black_shadow = this.recolor(this.default, rgba(90, 20, 90, 0.15));
         this.fire = this.recolor(this.default, ctx => {
             let gradient = ctx.createLinearGradient(
                 0,
@@ -56,11 +54,11 @@ export const Text = {
                 0,
                 this.default.height
             );
-            gradient.addColorStop(0, 'rgba(240,134,51,1)');
-            gradient.addColorStop(1, 'rgba(250,220,74,1)');
+            gradient.addColorStop(0, rgba(240, 134, 51, 1));
+            gradient.addColorStop(1, rgba(250, 220, 74, 1));
             return gradient;
         });
-        this.shadow = this.recolor(this.default, 'rgba(240, 240, 255, 0.25)');
+        this.shadow = this.recolor(this.default, rgba(240, 240, 255, 0.25));
     },
 
     drawText(ctx, text, u, v, scale = 1, font = this.default, shadow) {
