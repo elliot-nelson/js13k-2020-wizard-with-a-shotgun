@@ -46,21 +46,25 @@ export class Dialog {
     }
 
     draw(viewport) {
-        let length = Math.ceil(this.t / this.d * this.text.length);
+        let length = Math.ceil((this.t / this.d) * this.text.length);
         let substr = this.text.slice(0, length);
         let idx = this.text.indexOf(' ', length - 1);
         if (idx < 0) idx = this.text.length;
-        if (idx-length > 0) substr += '#'.repeat(idx - length);
+        if (idx - length > 0) substr += '#'.repeat(idx - length);
 
         if (this.speech) {
             let uv = { u: viewport.center.u + 6, v: viewport.center.v + 6 };
             viewport.ctx.drawImage(Sprite.dialog_speech.img, uv.u, uv.v);
-            Text.drawParagraph(viewport.ctx,
+            Text.drawParagraph(
+                viewport.ctx,
                 substr,
-                uv.u + 12, uv.v + 5,
-                110, 50,
+                uv.u + 12,
+                uv.v + 5,
+                110,
+                50,
                 1,
-                Text.black, Text.black_shadow
+                Text.black,
+                Text.black_shadow
             );
         } else {
             let uv = {
@@ -69,12 +73,16 @@ export class Dialog {
             };
 
             viewport.ctx.drawImage(Sprite.dialog_hint.img, uv.u, uv.v);
-            Text.drawParagraph(viewport.ctx,
+            Text.drawParagraph(
+                viewport.ctx,
                 substr,
-                uv.u + 5, uv.v + 5,
-                110, 50,
+                uv.u + 5,
+                uv.v + 5,
+                110,
+                50,
                 1,
-                Text.black, Text.black_shadow
+                Text.black,
+                Text.black_shadow
             );
         }
     }
@@ -82,9 +90,10 @@ export class Dialog {
 
 Dialog.details = {
     [C.DIALOG_START_A]: {
-        text: 'NOT AGAIN! THE PAGES OF THE SHOTGUN SPELLBOOK HAVE BEEN TORN OUT AND SCATTERED ALL OVER THIS DUNGEON!',
+        text:
+            'NOT AGAIN! THE PAGES OF THE SHOTGUN SPELLBOOK HAVE BEEN TORN OUT AND SCATTERED ALL OVER THIS DUNGEON!',
         flag: C.DIALOG_START_A,
-        speech: true,
+        speech: true
     },
     [C.DIALOG_START_B]: {
         text: 'FIND MY MISSING PAGES AND HELP ME REGAIN MY POWERS.',
@@ -110,5 +119,5 @@ Dialog.details = {
         flag: C.DIALOG_HINT_3,
         required: C.DIALOG_HINT_2,
         blockFire: true
-    },
+    }
 };

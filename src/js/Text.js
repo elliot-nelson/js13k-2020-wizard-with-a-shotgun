@@ -11,13 +11,13 @@ const C_HEIGHT = 5;
 // we just need to note the characters that AREN'T full width. Anything not in
 // this list has full shift (3+1 = 4 pixels).
 const C_SHIFT = {
-    10: 0,          // LF (\n)
-    32: 3,          // Space ( )
-    33: 3,          // Bang (!)
-    39: 2,          // Apostrophe (')
-    44: 3,          // Comma (,)
-    46: 3,          // Period (.)
-    73: 2           // I
+    10: 0, // LF (\n)
+    32: 3, // Space ( )
+    33: 3, // Bang (!)
+    39: 2, // Apostrophe (')
+    44: 3, // Comma (,)
+    46: 3, // Period (.)
+    73: 2 // I
 };
 
 const C_ICONS = {};
@@ -45,9 +45,17 @@ export const Text = {
         }
 
         this.black = this.recolor(this.default, 'rgba(0, 0, 0, 1)');
-        this.black_shadow = this.recolor(this.default, 'rgba(90, 20, 90, 0.15)');
+        this.black_shadow = this.recolor(
+            this.default,
+            'rgba(90, 20, 90, 0.15)'
+        );
         this.fire = this.recolor(this.default, ctx => {
-            let gradient = ctx.createLinearGradient(0, 0, 0, this.default.height);
+            let gradient = ctx.createLinearGradient(
+                0,
+                0,
+                0,
+                this.default.height
+            );
             gradient.addColorStop(0, 'rgba(240,134,51,1)');
             gradient.addColorStop(1, 'rgba(250,220,74,1)');
             return gradient;
@@ -59,22 +67,38 @@ export const Text = {
         for (let idx = 0; idx < text.length; idx++) {
             let c = text.charCodeAt(idx);
             if (C_ICONS[c]) {
-                ctx.drawImage(C_ICONS[c].img, u, v - (C_ICONS[c].img.height - 5) / 2);
+                ctx.drawImage(
+                    C_ICONS[c].img,
+                    u,
+                    v - (C_ICONS[c].img.height - 5) / 2
+                );
             } else {
                 if (shadow) {
                     ctx.drawImage(
                         shadow,
-                        (c - 32) * (C_WIDTH + 1), 0, C_WIDTH, C_HEIGHT,
-                        u + 1, v + 1, C_WIDTH * scale, C_HEIGHT * scale
+                        (c - 32) * (C_WIDTH + 1),
+                        0,
+                        C_WIDTH,
+                        C_HEIGHT,
+                        u + 1,
+                        v + 1,
+                        C_WIDTH * scale,
+                        C_HEIGHT * scale
                     );
                 }
                 ctx.drawImage(
                     font,
-                    (c - 32) * (C_WIDTH + 1), 0, C_WIDTH, C_HEIGHT,
-                    u, v, C_WIDTH * scale, C_HEIGHT * scale
+                    (c - 32) * (C_WIDTH + 1),
+                    0,
+                    C_WIDTH,
+                    C_HEIGHT,
+                    u,
+                    v,
+                    C_WIDTH * scale,
+                    C_HEIGHT * scale
                 );
             }
-            u += (C_SHIFT[c] || (C_WIDTH + 1)) * scale;
+            u += (C_SHIFT[c] || C_WIDTH + 1) * scale;
         }
     },
 
@@ -83,8 +107,20 @@ export const Text = {
         this.drawText(ctx, text, u, v, scale, font, shadow);
     },
 
-    drawParagraph(ctx, text, u, v, w, h, scale = 1, font = this.default, shadow) {
-        let cu = u, cv = v, phrases = text.split(' ');
+    drawParagraph(
+        ctx,
+        text,
+        u,
+        v,
+        w,
+        h,
+        scale = 1,
+        font = this.default,
+        shadow
+    ) {
+        let cu = u,
+            cv = v,
+            phrases = text.split(' ');
 
         for (let phrase of phrases) {
             while (phrase[0] === '\n') {
@@ -103,15 +139,21 @@ export const Text = {
     },
 
     measureWidth(text, scale) {
-        return text.split('').reduce((sum, c) => sum + (C_SHIFT[c.charCodeAt(0)] || 4), 0) * scale;
+        return (
+            text
+                .split('')
+                .reduce((sum, c) => sum + (C_SHIFT[c.charCodeAt(0)] || 4), 0) *
+            scale
+        );
     },
 
     recolor(font, color) {
         let canvas = new Canvas(font.width, font.height);
-        canvas.ctx.fillStyle = typeof color === "function" ? color(canvas.ctx) : color;
+        canvas.ctx.fillStyle =
+            typeof color === 'function' ? color(canvas.ctx) : color;
         canvas.ctx.fillRect(0, 0, font.width, font.height);
         canvas.ctx.globalCompositeOperation = 'destination-in';
         canvas.ctx.drawImage(font, 0, 0);
         return canvas.canvas;
-    },
+    }
 };

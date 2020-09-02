@@ -4,7 +4,7 @@ import { Sprite } from './Sprite';
 import { Input } from './input/Input';
 import { MapLoader } from './MapLoader';
 import { Text } from './Text';
-import { Player} from './Player';
+import { Player } from './Player';
 import { Monster } from './Monster';
 import { Sculptor } from './Sculptor';
 import { viewport } from './Viewport';
@@ -14,7 +14,7 @@ import { Menu } from './Menu';
 
 import { Audio } from './Audio';
 
-import { Canvas} from './Canvas';
+import { Canvas } from './Canvas';
 
 import { Behavior } from './systems/Behavior';
 import { Movement } from './systems/Movement';
@@ -49,8 +49,14 @@ export class Game {
         this.dialogSeen = {};
 
         this.player = new Player();
-        this.player.pos.x = (this.maze.rooms[1].q + Math.floor(this.maze.rooms[1].w / 2)) * C.TILE_WIDTH + C.TILE_WIDTH / 2;
-        this.player.pos.y = (this.maze.rooms[1].r + Math.floor(this.maze.rooms[1].h / 2)) * C.TILE_WIDTH + C.TILE_WIDTH / 2;
+        this.player.pos.x =
+            (this.maze.rooms[1].q + Math.floor(this.maze.rooms[1].w / 2)) *
+                C.TILE_WIDTH +
+            C.TILE_WIDTH / 2;
+        this.player.pos.y =
+            (this.maze.rooms[1].r + Math.floor(this.maze.rooms[1].h / 2)) *
+                C.TILE_WIDTH +
+            C.TILE_WIDTH / 2;
 
         this.entities.push(this.player);
 
@@ -160,14 +166,20 @@ export class Game {
         this.entities.push(new StarfieldParticle());
 
         // Tick screenshakes and cull finished screenshakes
-        this.screenshakes = this.screenshakes.filter(screenshake => screenshake.update());
+        this.screenshakes = this.screenshakes.filter(screenshake =>
+            screenshake.update()
+        );
     }
 
     spawnEnemy() {
         let enemies = this.entities.filter(entity => entity instanceof Monster);
         if (enemies.length < 4 && Math.random() < 0.1) {
-            let q = this.maze.rooms[1][0].q + this.maze.rand(0, this.maze.rooms[1][0].width);
-            let r = this.maze.rooms[1][0].r + this.maze.rand(0, this.maze.rooms[1][0].height);
+            let q =
+                this.maze.rooms[1][0].q +
+                this.maze.rand(0, this.maze.rooms[1][0].width);
+            let r =
+                this.maze.rooms[1][0].r +
+                this.maze.rand(0, this.maze.rooms[1][0].height);
             let monster = new Monster();
             monster.pos = qr2xy({ q, r });
             this.entities.push(monster);
@@ -190,7 +202,10 @@ export class Game {
         ctx.fillRect(0, 0, viewport.width, viewport.height);
         if (this.activeBattle && false) {
             ctx.fillStyle = 'rgba(128,20,20,1)';
-            let y = Math.min(0, (this.frame - this.activeBattle.start) * 8 - 300);
+            let y = Math.min(
+                0,
+                (this.frame - this.activeBattle.start) * 8 - 300
+            );
             ctx.drawImage(Sprite.battle_bg.img, 0, y);
         }
 
@@ -211,18 +226,30 @@ export class Game {
         let klack = (Math.sin(game.frame / 30) * 128 + 128) | 0;
         klack = 0;
         this.shadowCanvas.ctx.globalCompositeOperation = 'copy';
-        let gradient = this.shadowCanvas.ctx.createRadialGradient(250, 250, 0, 250, 250, 250);
+        let gradient = this.shadowCanvas.ctx.createRadialGradient(
+            250,
+            250,
+            0,
+            250,
+            250,
+            250
+        );
         gradient.addColorStop(0.3, 'rgba(0,0,0,0)');
         gradient.addColorStop(1, 'rgba(' + klack + ',0,0,0.9)');
         this.shadowCanvas.ctx.fillStyle = gradient;
         this.shadowCanvas.ctx.fillRect(0, 0, 500, 500);
 
-        if (game.frame % 6 === 0) this.shadowOffset = Math.random() * 10 | 0;
-        viewport.ctx.drawImage(this.shadowCanvas.canvas,
-            0, 0,
-            500, 500,
-            0 - this.shadowOffset, 0 - this.shadowOffset,
-            viewport.width + this.shadowOffset * 2, viewport.height + this.shadowOffset * 2
+        if (game.frame % 6 === 0) this.shadowOffset = (Math.random() * 10) | 0;
+        viewport.ctx.drawImage(
+            this.shadowCanvas.canvas,
+            0,
+            0,
+            500,
+            500,
+            0 - this.shadowOffset,
+            0 - this.shadowOffset,
+            viewport.width + this.shadowOffset * 2,
+            viewport.height + this.shadowOffset * 2
         );
 
         Hud.draw(viewport);
@@ -338,8 +365,7 @@ export class Game {
 
         Menu.draw(viewport);
 
-//        drawParagraph(ctx, text, u, v, w, h, font = this.default, scale = 1) {
-
+        //        drawParagraph(ctx, text, u, v, w, h, font = this.default, scale = 1) {
 
         //if (this.dialog) this.dialog.draw(viewport);
 
@@ -359,7 +385,6 @@ export class Game {
 
         this.shadowCanvas.ctx.fillStyle = grad;
         this.shadowCanvas.ctx.fillRect(0, 0, 500, 300);*/
-
     }
 
     drawMaze(ctx, maze) {
@@ -369,59 +394,146 @@ export class Game {
         };
 
         let r1 = this.activeBattle ? this.activeBattle.room.r : 0,
-            r2 = this.activeBattle ? this.activeBattle.room.r + this.activeBattle.room.h : maze.tiles.length,
+            r2 = this.activeBattle
+                ? this.activeBattle.room.r + this.activeBattle.room.h
+                : maze.tiles.length,
             q1 = this.activeBattle ? this.activeBattle.room.q : 0,
-            q2 = this.activeBattle ? this.activeBattle.room.q + this.activeBattle.room.w : maze.tiles[0].length;
+            q2 = this.activeBattle
+                ? this.activeBattle.room.q + this.activeBattle.room.w
+                : maze.tiles[0].length;
 
         for (let r = r1; r < r2; r++) {
             for (let q = q1; q < q2; q++) {
-                let x = q * 32 + offset.x, y = r * 32 + offset.y;
+                let x = q * 32 + offset.x,
+                    y = r * 32 + offset.y;
                 if (x < -50 || y < -50 || x > 500 || y > 500) continue;
 
                 let sprite = Sprite.tiles[maze.tiles[r][q] & 0b1111];
-                if (!sprite) throw new Error(`${q},${r} tile ${maze.tiles[r][q]}`);
+                if (!sprite)
+                    throw new Error(`${q},${r} tile ${maze.tiles[r][q]}`);
                 ctx.drawImage(sprite.img, x, y);
             }
         }
 
         for (let r = r1; r < r2; r++) {
             for (let q = q1; q < q2; q++) {
-                let x = q * 32 + offset.x, y = r * 32 + offset.y;
+                let x = q * 32 + offset.x,
+                    y = r * 32 + offset.y;
                 if (x < -50 || y < -50 || x > 500 || y > 500) continue;
 
                 if (maze.walls[r][q] & C.WALL_TOP) {
-                    ctx.drawImage(Sprite.walls.img, 5, 5, 36, 4, x - 2, y - 2, 36, 4);
+                    ctx.drawImage(
+                        Sprite.walls.img,
+                        5,
+                        5,
+                        36,
+                        4,
+                        x - 2,
+                        y - 2,
+                        36,
+                        4
+                    );
                 }
 
                 if (maze.walls[r][q] & C.WALL_RIGHT) {
-                    ctx.drawImage(Sprite.walls.img, 37, 5, 4, 36, x + 30, y - 2, 4, 36);
+                    ctx.drawImage(
+                        Sprite.walls.img,
+                        37,
+                        5,
+                        4,
+                        36,
+                        x + 30,
+                        y - 2,
+                        4,
+                        36
+                    );
                 }
 
                 if (maze.walls[r][q] & C.WALL_BOTTOM) {
-                    ctx.drawImage(Sprite.walls.img, 5, 37, 36, 4, x - 2, y + 30, 36, 4);
+                    ctx.drawImage(
+                        Sprite.walls.img,
+                        5,
+                        37,
+                        36,
+                        4,
+                        x - 2,
+                        y + 30,
+                        36,
+                        4
+                    );
                 }
 
                 if (maze.walls[r][q] & C.WALL_LEFT) {
-                    ctx.drawImage(Sprite.walls.img, 5, 5, 4, 36, x - 2, y - 2, 4, 36);
+                    ctx.drawImage(
+                        Sprite.walls.img,
+                        5,
+                        5,
+                        4,
+                        36,
+                        x - 2,
+                        y - 2,
+                        4,
+                        36
+                    );
                 }
 
                 if (this.activeBattle) {
                     let f = (this.frame / 8) % 3 | 0;
 
                     if (maze.walls[r][q] & C.OPEN_TOP) {
-                        ctx.drawImage(Sprite.battle_door[f].img, 5, 0, 36, 9, x - 2, y - 7, 36, 9);
+                        ctx.drawImage(
+                            Sprite.battle_door[f].img,
+                            5,
+                            0,
+                            36,
+                            9,
+                            x - 2,
+                            y - 7,
+                            36,
+                            9
+                        );
                     }
 
                     if (maze.walls[r][q] & C.OPEN_RIGHT) {
-                        ctx.drawImage(Sprite.battle_door[f].img, 37, 5, 9, 41, x + 30, y - 2, 9, 41);
+                        ctx.drawImage(
+                            Sprite.battle_door[f].img,
+                            37,
+                            5,
+                            9,
+                            41,
+                            x + 30,
+                            y - 2,
+                            9,
+                            41
+                        );
                     }
 
                     if (maze.walls[r][q] & C.OPEN_BOTTOM) {
-                        ctx.drawImage(Sprite.battle_door[f].img, 5, 37, 36, 9, x - 2, y + 30, 36, 9);
+                        ctx.drawImage(
+                            Sprite.battle_door[f].img,
+                            5,
+                            37,
+                            36,
+                            9,
+                            x - 2,
+                            y + 30,
+                            36,
+                            9
+                        );
                     }
 
                     if (maze.walls[r][q] & C.OPEN_LEFT) {
-                        ctx.drawImage(Sprite.battle_door[f].img, 0, 5, 9, 41, x - 7, y - 2, 9, 41);
+                        ctx.drawImage(
+                            Sprite.battle_door[f].img,
+                            0,
+                            5,
+                            9,
+                            41,
+                            x - 7,
+                            y - 2,
+                            9,
+                            41
+                        );
                     }
                 }
             }

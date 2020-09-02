@@ -79,11 +79,9 @@ export class Input {
         this.direction = this.keyboard.direction;
     }
 
-    onDown(action) {
-    }
+    onDown(action) {}
 
-    onUp(action) {
-    }
+    onUp(action) {}
 }
 
 // Game Inputs
@@ -97,16 +95,16 @@ export class Input {
 // inputs.
 //
 Input.Action = {
-  UP:      11,
-  DOWN:    12,
-  LEFT:    13,
-  RIGHT:   14,
-  ATTACK:  21,
-  RELOAD:  30,
-  DEFLECT: 22,
-  DODGE:   23,
-  SUPER:   24,
-  MENU:    96,
-  MUTE:    97,
-  FREEZE:  98
+    UP: 11,
+    DOWN: 12,
+    LEFT: 13,
+    RIGHT: 14,
+    ATTACK: 21,
+    RELOAD: 30,
+    DEFLECT: 22,
+    DODGE: 23,
+    SUPER: 24,
+    MENU: 96,
+    MUTE: 97,
+    FREEZE: 98
 };

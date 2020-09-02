@@ -1,8 +1,6 @@
-
 export const MazeLoader = {
     load() {
-        return
-        ;
+        return;
     }
 };
 
