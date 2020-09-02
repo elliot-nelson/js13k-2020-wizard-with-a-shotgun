@@ -10,12 +10,12 @@ import {
     vector2angle,
     arcOverlap,
     vectorAdd,
-    tilesHitBy
+    tilesHitBy,
+    xy2uv
 } from './Util';
 import { Constants as C } from './Constants';
 import { viewport } from './Viewport';
 import { Player } from './Player';
-import { ShotgunParticle } from './ShotgunParticle';
 import { ScreenShake } from './ScreenShake';
 
 export class ShotgunBlast {
@@ -34,7 +34,7 @@ export class ShotgunBlast {
         if (++this.t === this.d) this.cull = true;
 
         if (this.t === 2) {
-            for (let i = 0; i < 7; i++) {
+            for (let i = 0; i < 0; i++) {
                 let angle =
                     Math.random() * this.spread - this.spread / 2 + this.angle;
                 let vector = angle2vector(angle, this.range);
@@ -110,12 +110,14 @@ export class ShotgunBlast {
     draw(viewport) {
         // TODO
         //Sprite.drawViewportSprite(viewport, Sprite.monster, this.pos, game.camera.pos);
-        /*let uv =xy2uv(this.pos);
+        /*
+        let uv =xy2uv(this.pos);
     viewport.ctx.beginPath();
     viewport.ctx.arc(uv.u, uv.v, this.range, this.angle - this.spread / 2, this.angle + this.spread / 2);
     viewport.ctx.lineTo(uv.u, uv.v);
     viewport.ctx.closePath();
     viewport.ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)'
-    viewport.ctx.stroke();*/
+    viewport.ctx.stroke();
+    */
     }
 }

@@ -39,16 +39,15 @@ export const Sprite = {
         Sprite.player_rest = player[3];
 
         Sprite.shotgun_blast = SpriteSheet.shotgun_blast.map(data =>
-            this.initBasicSprite(data, { x: 12, y: 41 })
-        );
-
-        Sprite.shot_particle = this.initBasicSprite(
-            SpriteSheet.shot_particle[0]
+            this.initBasicSprite(data, { x: /*12*/ 22, y: 41 })
         );
 
         // Enemy
         Sprite.monster = this.initBasicSprite(SpriteSheet.monster2[0]);
         Sprite.monster_dead = this.initBasicSprite(SpriteSheet.monster2[0]);
+
+        //Sprite.stabguts = SpriteSheet.stabguts.
+        Sprite.gore = SpriteSheet.gore.map(data => this.initBasicSprite(data));
 
         // GUI
         Sprite.hud_shells_empty = this.initBasicSprite(

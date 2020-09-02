@@ -13,6 +13,7 @@ import { Constants as C } from './Constants';
 import { Behavior } from './systems/Behavior';
 import { ReloadAnimation } from './ReloadAnimation';
 import { Audio } from './Audio';
+import { Gore } from './Gore';
 
 /**
  * Player
@@ -129,6 +130,9 @@ export class Player {
             x: this.pos.x + this.facing.x * 8 - this.facing.y * 3,
             y: this.pos.y + this.facing.y * 8 + this.facing.x * 3
         };
+
+        this.lastDamage = { vector: this.facing };
+        //Gore.spawn(this);
 
         game.entities.push(new ShotgunBlast(pos, this.facingAngle));
 

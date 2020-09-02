@@ -4,6 +4,7 @@ export const Constants = {
     // Some precalculated radian values
     R0: 0,
     R20: (Math.PI * 20) / 180,
+    R45: (Math.PI * 45) / 180,
     R70: (Math.PI * 70) / 180,
     R80: (Math.PI * 80) / 180,
     R90: (Math.PI * 90) / 180,

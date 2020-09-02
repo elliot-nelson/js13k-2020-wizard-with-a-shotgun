@@ -12,7 +12,7 @@ import { Dialog } from '../Dialog';
  */
 export const DialogScheduling = {
     apply(entities) {
-        //return;
+        return;
         if (!game.dialog && game.frame > 60) {
             for (let key of Object.keys(Dialog.details)) {
                 if (game.dialogPending[key] && !game.dialogSeen[key]) {

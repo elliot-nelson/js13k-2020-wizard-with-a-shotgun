@@ -12,6 +12,7 @@ import { Detection } from './Detection';
 import { Behavior } from './systems/Behavior';
 import { Constants as C } from './Constants';
 import { Page } from './Page';
+import { Gore } from './Gore';
 
 /**
  * Monster
@@ -68,15 +69,10 @@ export class Sculptor {
 
                 break;
             case Behavior.DEAD:
-                this.vel = { x: 0, y: 0, m: 0 };
-                if (!this.cullt) this.cullt = 15;
-                this.cullt--;
-                if (this.cullt < 1) {
-                    this.cull = true;
-                    game.entities.push(new Page(this.pos));
-                    game.entities.push(new Page(this.pos));
-                }
-
+                this.cull = true;
+                Gore.kill(this);
+                game.entities.push(new Page(this.pos));
+                game.entities.push(new Page(this.pos));
                 break;
             default:
                 this.state = Behavior.IDLE;

@@ -5,6 +5,7 @@ import { vectorAdd } from '../Util';
 import { Player } from '../Player';
 import { HealthChunkAnimation } from '../HealthChunkAnimation';
 import { game } from '../Game';
+import { Gore } from '../Gore';
 
 /**
  * Damage
@@ -26,6 +27,8 @@ export const Damage = {
                         entity.hp -= damage.amount;
                         damage.vector.m = damage.knockback;
                         entity.vel = vectorAdd(entity.vel, damage.vector);
+                        entity.lastDamage = damage;
+                        Gore.damage(entity);
                     }
                     entity.damage = [];
                 }
