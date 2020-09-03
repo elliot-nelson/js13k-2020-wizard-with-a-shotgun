@@ -5,7 +5,7 @@ import { Input } from './input/Input';
 import { MapLoader } from './MapLoader';
 import { Text } from './Text';
 import { Player } from './Player';
-import { viewport } from './Viewport';
+import { Viewport } from './Viewport';
 import { Constants as C } from './Constants';
 import { uv2xy, xy2qr, angle2vector, rgba } from './Util';
 import { Menu } from './Menu';
@@ -29,11 +29,10 @@ import { ScreenShake } from './ScreenShake';
  */
 export class Game {
     async init() {
-        viewport.init();
-
+        await Viewport.init();
+        await Sprite.init();
         await Input.init();
         await Audio.init();
-        await Sprite.init();
 
         this.maze = MapLoader.load();
         this.camera = { pos: { x: 1, y: 1 } };
@@ -75,9 +74,9 @@ export class Game {
 
     onFrame(currentms) {
         this.frame++;
-        viewport.resize();
+        Viewport.resize();
         this.update();
-        this.draw(viewport.ctx);
+        this.draw(Viewport.ctx);
         window.requestAnimationFrame(() => this.onFrame(currentms));
     }
 
@@ -119,9 +118,10 @@ export class Game {
         );
     }
 
-    draw(ctx) {
+    draw() {
+        let ctx = Viewport.ctx;
         ctx.setTransform(1, 0, 0, 1, 0, 0);
-        ctx.scale(viewport.scale, viewport.scale);
+        ctx.scale(Viewport.scale, Viewport.scale);
 
         let shakeX = 0;
         let shakeY = 0;
@@ -132,16 +132,16 @@ export class Game {
         ctx.translate(shakeX, shakeY);
 
         ctx.fillStyle = rgba(20, 20, 20, 1);
-        ctx.fillRect(0, 0, viewport.width, viewport.height);
+        ctx.fillRect(0, 0, Viewport.width, Viewport.height);
 
         for (let entity of this.entities) {
-            if (entity.z < 0) entity.draw(viewport);
+            if (entity.z < 0) entity.draw();
         }
 
         this.drawMaze(ctx, this.maze);
 
         for (let entity of this.entities) {
-            if (entity.z > 0 || !entity.z) entity.draw(viewport);
+            if (entity.z > 0 || !entity.z) entity.draw();
         }
 
         // Black gradient
@@ -162,7 +162,7 @@ export class Game {
         this.shadowCanvas.ctx.fillRect(0, 0, 500, 500);
 
         if (game.frame % 6 === 0) this.shadowOffset = (Math.random() * 10) | 0;
-        viewport.ctx.drawImage(
+        Viewport.ctx.drawImage(
             this.shadowCanvas.canvas,
             0,
             0,
@@ -170,17 +170,17 @@ export class Game {
             500,
             0 - this.shadowOffset,
             0 - this.shadowOffset,
-            viewport.width + this.shadowOffset * 2,
-            viewport.height + this.shadowOffset * 2
+            Viewport.width + this.shadowOffset * 2,
+            Viewport.height + this.shadowOffset * 2
         );
 
-        Hud.draw(viewport);
+        Hud.draw();
 
         for (let entity of this.entities) {
-            if (entity.z && entity.z > 100) entity.draw(viewport);
+            if (entity.z && entity.z > 100) entity.draw();
         }
 
-        Menu.draw(viewport);
+        Menu.draw();
 /*
         ctx.strokeStyle = rgba(200, 50, 200, 1);
         ctx.beginPath();
@@ -206,8 +206,8 @@ export class Game {
 
     drawMaze(ctx, maze) {
         let offset = {
-            x: viewport.center.u - this.camera.pos.x,
-            y: viewport.center.v - this.camera.pos.y
+            x: Viewport.center.u - game.camera.pos.x,
+            y: Viewport.center.v - game.camera.pos.y
         };
 
         let r1 = 0,

@@ -37,21 +37,17 @@ export class Stabguts {
         }
     }
 
-    draw(viewport) {
+    draw() {
         // TODO
         if (this.state === Behavior.DEAD) {
             Sprite.drawViewportSprite(
-                viewport,
                 Sprite.monster_dead,
-                this.pos,
-                game.camera.pos
+                this.pos
             );
         } else {
             Sprite.drawViewportSprite(
-                viewport,
                 Sprite.monster,
-                this.pos,
-                game.camera.pos
+                this.pos
             );
         }
     }

@@ -4,16 +4,16 @@ import { game } from './Game';
 import { Input } from './input/Input';
 import { Sprite } from './Sprite';
 import { Text } from './Text';
-import { viewport } from './Viewport';
+import { Viewport } from './Viewport';
 import { clamp } from './Util';
 import { Constants as C } from './Constants';
 
 export const Hud = {
-    draw(viewport) {
+    draw() {
         // Health
         let hp = clamp(game.player.hp, 0, 100);
-        viewport.ctx.drawImage(Sprite.hud_health_frame.img, 2, 2);
-        viewport.ctx.drawImage(
+        Viewport.ctx.drawImage(Sprite.hud_health_frame.img, 2, 2);
+        Viewport.ctx.drawImage(
             Sprite.hud_health_fill.img,
             0,
             0,
@@ -30,7 +30,7 @@ export const Hud = {
         for (let i = 0; i < game.player.shellsMax; i++) {
             if (i + 1 > game.player.shellsLeft)
                 sprite = Sprite.hud_shells_empty;
-            viewport.ctx.drawImage(sprite.img, 15 + 6 * i, 10);
+            Viewport.ctx.drawImage(sprite.img, 15 + 6 * i, 10);
         }
 
         // Pages
@@ -42,25 +42,25 @@ export const Hud = {
             let glow =
                 ((game.frame - Hud.pageGlow.start) * 5) /
                 (Hud.pageGlow.end - Hud.pageGlow.start);
-            viewport.ctx.globalAlpha = 1 - glow / 10;
+            Viewport.ctx.globalAlpha = 1 - glow / 10;
         } else {
-            viewport.ctx.globalAlpha = 0.5;
+            Viewport.ctx.globalAlpha = 0.5;
         }
-        viewport.ctx.drawImage(
+        Viewport.ctx.drawImage(
             Sprite.page_glow.img,
-            viewport.width - C.HUD_PAGE_U,
+            Viewport.width - C.HUD_PAGE_U,
             C.HUD_PAGE_V
         );
-        viewport.ctx.globalAlpha = 1;
-        viewport.ctx.drawImage(
+        Viewport.ctx.globalAlpha = 1;
+        Viewport.ctx.drawImage(
             Sprite.page.img,
-            viewport.width - C.HUD_PAGE_U,
+            Viewport.width - C.HUD_PAGE_U,
             C.HUD_PAGE_V
         );
         Text.drawText(
-            viewport.ctx,
+            Viewport.ctx,
             'x' + ('' + game.player.pages).padStart(3, '0'),
-            viewport.width - C.HUD_PAGE_TEXT_U,
+            Viewport.width - C.HUD_PAGE_TEXT_U,
             4,
             2,
             Text.default,
@@ -68,32 +68,32 @@ export const Hud = {
         );
 
         Text.drawText(
-            viewport.ctx,
+            Viewport.ctx,
             String(this.frame),
-            viewport.width - 30,
-            viewport.height - 28
+            Viewport.width - 30,
+            Viewport.height - 28
         );
 
         Text.drawRightText(
-            viewport.ctx,
-            [viewport.scale, viewport.width, viewport.height, 'stuvwx'].join(', '),
-            viewport.width - 4,
-            viewport.height - 18
+            Viewport.ctx,
+            [Viewport.scale, Viewport.width, Viewport.height, 'stuvwx'].join(', '),
+            Viewport.width - 4,
+            Viewport.height - 18
         );
 
         if (Input.pointer) {
-            viewport.ctx.save();
-            viewport.ctx.translate(Input.pointer.u, Input.pointer.v);
-            viewport.ctx.rotate(game.frame / 72);
+            Viewport.ctx.save();
+            Viewport.ctx.translate(Input.pointer.u, Input.pointer.v);
+            Viewport.ctx.rotate(game.frame / 72);
             let crosshair = game.dialog
                 ? Sprite.hud_crosshair_wait
                 : Sprite.hud_crosshair;
-            viewport.ctx.drawImage(
+            Viewport.ctx.drawImage(
                 crosshair.img,
                 -crosshair.anchor.x,
                 -crosshair.anchor.y
             );
-            viewport.ctx.restore();
+            Viewport.ctx.restore();
             //Sprite.drawSprite(ctx, Sprite.hud_crosshair, ptr.u, ptr.v);
         }
     },

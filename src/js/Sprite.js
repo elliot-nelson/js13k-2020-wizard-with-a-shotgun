@@ -5,6 +5,8 @@ import { Canvas } from './Canvas';
 import { SpriteSheet } from './SpriteSheet-gen';
 import { rgba } from './Util';
 import { Text } from './Text';
+import { game } from './Game';
+import { Viewport } from './Viewport';
 
 // The spritesheet is produced during the gulp build
 const SPRITESHEET_URI = 'sprites.png';
@@ -254,32 +256,30 @@ export const Sprite = {
         ctx.drawImage(sprite.img, u - sprite.anchor.x, v - sprite.anchor.y);
     },
 
-    drawViewportSprite(viewport, sprite, spritePos, cameraPos, rotation) {
+    drawViewportSprite(sprite, pos, rotation) {
         let { u, v } = this.viewportSprite2uv(
-            viewport,
             sprite,
-            spritePos,
-            cameraPos
+            pos
         );
         if (rotation) {
-            viewport.ctx.save();
-            viewport.ctx.translate(u + sprite.anchor.x, v + sprite.anchor.y);
-            viewport.ctx.rotate(rotation);
-            viewport.ctx.drawImage(
+            Viewport.ctx.save();
+            Viewport.ctx.translate(u + sprite.anchor.x, v + sprite.anchor.y);
+            Viewport.ctx.rotate(rotation);
+            Viewport.ctx.drawImage(
                 sprite.img,
                 -sprite.anchor.x,
                 -sprite.anchor.y
             );
-            viewport.ctx.restore();
+            Viewport.ctx.restore();
         } else {
-            viewport.ctx.drawImage(sprite.img, u, v);
+            Viewport.ctx.drawImage(sprite.img, u, v);
         }
     },
 
-    viewportSprite2uv(viewport, sprite, spritePos, cameraPos) {
+    viewportSprite2uv(sprite, pos) {
         return {
-            u: spritePos.x - sprite.anchor.x - cameraPos.x + viewport.center.u,
-            v: spritePos.y - sprite.anchor.y - cameraPos.y + viewport.center.v
+            u: pos.x - sprite.anchor.x - game.camera.pos.x + Viewport.center.u,
+            v: pos.y - sprite.anchor.y - game.camera.pos.y + Viewport.center.v
         };
     }
 };

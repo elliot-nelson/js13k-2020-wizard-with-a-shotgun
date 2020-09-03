@@ -39,12 +39,10 @@ export class Page {
         };
 
         Sprite.drawViewportSprite(
-            viewport,
             Sprite.page_glow,
-            pos,
-            game.camera.pos
+            pos
         );
-        Sprite.drawViewportSprite(viewport, Sprite.page, pos, game.camera.pos);
+        Sprite.drawViewportSprite(Sprite.page, pos);
     }
 
     /*

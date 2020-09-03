@@ -13,7 +13,7 @@ import {
     xy2uv
 } from './Util';
 import { Constants as C } from './Constants';
-import { viewport } from './Viewport';
+import { Viewport } from './Viewport';
 import { Player } from './Player';
 import { ScreenShake } from './ScreenShake';
 
@@ -92,15 +92,15 @@ export class ShotgunBlast {
 
     draw(viewport) {
         // TODO
-        //Sprite.drawViewportSprite(viewport, Sprite.monster, this.pos, game.camera.pos);
+        //Sprite.drawViewportSprite(Sprite.monster, this.pos);
         /*
         let uv =xy2uv(this.pos);
-    viewport.ctx.beginPath();
-    viewport.ctx.arc(uv.u, uv.v, this.range, this.angle - this.spread / 2, this.angle + this.spread / 2);
-    viewport.ctx.lineTo(uv.u, uv.v);
-    viewport.ctx.closePath();
-    viewport.ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)'
-    viewport.ctx.stroke();
+    Viewport.ctx.beginPath();
+    Viewport.ctx.arc(uv.u, uv.v, this.range, this.angle - this.spread / 2, this.angle + this.spread / 2);
+    Viewport.ctx.lineTo(uv.u, uv.v);
+    Viewport.ctx.closePath();
+    Viewport.ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)'
+    Viewport.ctx.stroke();
     */
     }
 }

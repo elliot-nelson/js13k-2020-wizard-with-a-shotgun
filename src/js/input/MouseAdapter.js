@@ -1,7 +1,7 @@
 'use strict';
 
 import { Input } from './Input';
-import { viewport } from '../Viewport';
+import { Viewport } from '../Viewport';
 
 /**
  * MouseAdapter
@@ -27,9 +27,9 @@ export class MouseAdapter {
             if (!this.pointer) this.pointer = {};
             //this.handlers['mousemove'](event.movementX, event.movementY, event.clientX, event.clientY);
             this.pointer.u =
-                ((event.clientX * viewport.width) / viewport.clientWidth) | 0;
+                ((event.clientX * Viewport.width) / Viewport.clientWidth) | 0;
             this.pointer.v =
-                ((event.clientY * viewport.height) / viewport.clientHeight) | 0;
+                ((event.clientY * Viewport.height) / Viewport.clientHeight) | 0;
         });
 
         window.addEventListener('mouseout', () => {

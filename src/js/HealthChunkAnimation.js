@@ -2,6 +2,7 @@
 
 import { game } from './Game';
 import { Sprite } from './Sprite';
+import { Viewport } from './Viewport';
 
 export class HealthChunkAnimation {
     constructor(start, amount) {
@@ -21,11 +22,11 @@ export class HealthChunkAnimation {
         this.vel += this.gravity;
     }
 
-    draw(viewport) {
+    draw() {
         let x = this.start - this.amount + 8;
 
-        if (this.t > 15) viewport.ctx.globalAlpha = 1 - this.t * 0.1;
-        viewport.ctx.drawImage(
+        if (this.t > 15) Viewport.ctx.globalAlpha = 1 - this.t * 0.1;
+        Viewport.ctx.drawImage(
             Sprite.hud_health_chunk.img,
             x,
             3,
@@ -36,6 +37,6 @@ export class HealthChunkAnimation {
             this.amount,
             3
         );
-        viewport.ctx.globalAlpha = 1;
+        Viewport.ctx.globalAlpha = 1;
     }
 }

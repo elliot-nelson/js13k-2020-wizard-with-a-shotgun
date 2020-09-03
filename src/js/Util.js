@@ -2,7 +2,7 @@
 
 import { Constants as C } from './Constants';
 import { game } from './Game';
-import { viewport } from './Viewport';
+import { Viewport } from './Viewport';
 
 export function normalizeVector(p) {
     let m = Math.sqrt(p.x * p.x + p.y * p.y);
@@ -89,15 +89,15 @@ export function qr2xy(pos) {
 
 export function xy2uv(pos) {
     return {
-        u: pos.x + viewport.center.u - game.camera.pos.x,
-        v: pos.y + viewport.center.v - game.camera.pos.y
+        u: pos.x + Viewport.center.u - game.camera.pos.x,
+        v: pos.y + Viewport.center.v - game.camera.pos.y
     };
 }
 
 export function uv2xy(pos) {
     return {
-        x: pos.u - viewport.center.u + game.camera.pos.x,
-        y: pos.v - viewport.center.v + game.camera.pos.y
+        x: pos.u - Viewport.center.u + game.camera.pos.x,
+        y: pos.v - Viewport.center.v + game.camera.pos.y
     };
 }
 

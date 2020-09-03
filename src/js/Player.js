@@ -14,6 +14,7 @@ import { Behavior } from './systems/Behavior';
 import { ReloadAnimation } from './ReloadAnimation';
 import { Audio } from './Audio';
 import { Gore } from './Gore';
+import { Viewport } from './Viewport';
 
 /**
  * Player
@@ -145,35 +146,34 @@ export class Player {
             blast = Sprite.shotgun_blast[6 - this.frames];
         }
 
-        //Sprite.drawViewportSprite(viewport, sprite, this.pos, game.camera.pos, this.facingAngle + C.R90);
+        //Sprite.drawViewportSprite(sprite, this.pos, this.facingAngle + C.R90);
 
         let hf = this.state === Behavior.RELOAD && !this.forcedReload ? 15 : 0;
         for (let i = Math.min(hf, history.length); i >= 0; i--) {
             let { u, v } = Sprite.viewportSprite2uv(
-                viewport,
                 sprite,
-                this.history[i],
-                game.camera.pos
+                this.history[i]
             );
+            console.log(sprite, this.history[i], u,v);
 
-            viewport.ctx.save();
-            viewport.ctx.globalAlpha = i === 0 ? 1 : 0.5;
-            viewport.ctx.translate(u + sprite.anchor.x, v + sprite.anchor.y);
-            viewport.ctx.rotate(this.facingAngle + C.R90);
+            Viewport.ctx.save();
+            Viewport.ctx.globalAlpha = i === 0 ? 1 : 0.5;
+            Viewport.ctx.translate(u + sprite.anchor.x, v + sprite.anchor.y);
+            Viewport.ctx.rotate(this.facingAngle + C.R90);
 
-            viewport.ctx.drawImage(
+            Viewport.ctx.drawImage(
                 sprite.img,
                 -sprite.anchor.x,
                 -sprite.anchor.y
             );
             if (blast) {
-                viewport.ctx.drawImage(
+                Viewport.ctx.drawImage(
                     blast.img,
                     3 - blast.anchor.x,
                     -20 - blast.anchor.y
                 );
             }
-            viewport.ctx.restore();
+            Viewport.ctx.restore();
         }
     }
 }

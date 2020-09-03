@@ -4,6 +4,7 @@ import { game } from './Game';
 import { Sprite } from './Sprite';
 import { Text } from './Text';
 import { Input } from './input/Input';
+import { Viewport } from './Viewport';
 import { Constants as C } from './Constants';
 
 export class Dialog {
@@ -45,7 +46,7 @@ export class Dialog {
         }
     }
 
-    draw(viewport) {
+    draw() {
         let length = Math.ceil((this.t / this.d) * this.text.length);
         let substr = this.text.slice(0, length);
         let idx = this.text.indexOf(' ', length - 1);
@@ -53,10 +54,10 @@ export class Dialog {
         if (idx - length > 0) substr += '#'.repeat(idx - length);
 
         if (this.speech) {
-            let uv = { u: viewport.center.u + 6, v: viewport.center.v + 6 };
-            viewport.ctx.drawImage(Sprite.dialog_speech.img, uv.u, uv.v);
+            let uv = { u: Viewport.center.u + 6, v: Viewport.center.v + 6 };
+            Viewport.ctx.drawImage(Sprite.dialog_speech.img, uv.u, uv.v);
             Text.drawParagraph(
-                viewport.ctx,
+                Viewport.ctx,
                 substr,
                 uv.u + 12,
                 uv.v + 5,
@@ -68,13 +69,13 @@ export class Dialog {
             );
         } else {
             let uv = {
-                u: viewport.center.u - Sprite.dialog_hint.img.width / 2,
-                v: viewport.height - Sprite.dialog_hint.img.height - 4
+                u: Viewport.center.u - Sprite.dialog_hint.img.width / 2,
+                v: Viewport.height - Sprite.dialog_hint.img.height - 4
             };
 
-            viewport.ctx.drawImage(Sprite.dialog_hint.img, uv.u, uv.v);
+            Viewport.ctx.drawImage(Sprite.dialog_hint.img, uv.u, uv.v);
             Text.drawParagraph(
-                viewport.ctx,
+                Viewport.ctx,
                 substr,
                 uv.u + 5,
                 uv.v + 5,

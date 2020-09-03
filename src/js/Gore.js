@@ -2,7 +2,7 @@
 
 import { game } from './Game';
 import { Sprite } from './Sprite';
-import { viewport } from './Viewport';
+import { Viewport } from './Viewport';
 import { Player } from './Player';
 import { Constants as C } from './Constants';
 import { vector2angle, vector2point, angle2vector, vectorAdd } from './Util';
@@ -30,12 +30,10 @@ export class Gore {
         this.r += this.a;
     }
 
-    draw(viewport) {
+    draw() {
         Sprite.drawViewportSprite(
-            viewport,
             Sprite.gore[this.f],
             this.pos,
-            game.camera.pos,
             this.r
         );
     }

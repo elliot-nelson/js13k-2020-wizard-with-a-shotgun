@@ -8,12 +8,12 @@ const GAME_HEIGHT = 270;
  *
  * Represents the game display (for us, a canvas).
  */
-export class Viewport {
+export const Viewport = {
     async init() {
         this.canvas = document.getElementById('canvas');
         this.ctx = this.canvas.getContext('2d');
         this.resize(true);
-    }
+    },
 
     // Resize the canvas to give us approximately our desired game display size.
     //
@@ -64,10 +64,7 @@ export class Viewport {
             // we do it here.
             this.ctx.imageSmoothingEnabled = false;
 
-            viewport.canvas.style.cursor = 'none';
+            Viewport.canvas.style.cursor = 'none';
         }
     }
-}
-
-// Singleton
-export const viewport = new Viewport();
+};

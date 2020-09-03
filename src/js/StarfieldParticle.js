@@ -3,15 +3,15 @@
 import { game } from './Game';
 import { Sprite } from './Sprite';
 import { angle2vector, rgba } from './Util';
-import { viewport } from './Viewport';
+import { Viewport } from './Viewport';
 import { Player } from './Player';
 import { Constants as C } from './Constants';
 
 export class StarfieldParticle {
     constructor() {
         this.uv = {
-            u: viewport.width / 2,
-            v: viewport.height / 2
+            u: Viewport.width / 2,
+            v: Viewport.height / 2
         };
         let brightness = (Math.random() * 80) | 0;
         this.color = rgba(
@@ -34,9 +34,9 @@ export class StarfieldParticle {
         this.uv.v += this.vector.y * this.vector.m;
     }
 
-    draw(viewport) {
-        viewport.ctx.fillStyle = this.color;
-        viewport.ctx.fillRect(this.uv.u, this.uv.v, 1, 1);
-        viewport.ctx.drawImage(Sprite.glyphs[0].img, this.uv.u, this.uv.v);
+    draw() {
+        Viewport.ctx.fillStyle = this.color;
+        Viewport.ctx.fillRect(this.uv.u, this.uv.v, 1, 1);
+        Viewport.ctx.drawImage(Sprite.glyphs[0].img, this.uv.u, this.uv.v);
     }
 }

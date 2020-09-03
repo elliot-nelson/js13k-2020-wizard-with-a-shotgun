@@ -12,6 +12,7 @@ import { Behavior } from './systems/Behavior';
 import { Constants as C } from './Constants';
 import { Page } from './Page';
 import { Gore } from './Gore';
+import { Viewport } from './Viewport';
 
 /**
  * Monster
@@ -60,21 +61,19 @@ export class Sculptor {
         }
     }
 
-    draw(viewport) {
+    draw() {
         let { u, v } = Sprite.viewportSprite2uv(
-            viewport,
             Sprite.sawblade,
-            this.pos,
-            game.camera.pos
+            this.pos
         );
         u += Sprite.sawblade.anchor.x;
         v += Sprite.sawblade.anchor.y;
 
-        viewport.ctx.save();
-        viewport.ctx.translate(u, v);
-        viewport.ctx.rotate(game.frame / 5);
-        Sprite.drawSprite(viewport.ctx, Sprite.sawblade, 0, 0);
-        viewport.ctx.restore();
-        Sprite.drawSprite(viewport.ctx, Sprite.sawblade_eyes, u, v);
+        Viewport.ctx.save();
+        Viewport.ctx.translate(u, v);
+        Viewport.ctx.rotate(game.frame / 5);
+        Sprite.drawSprite(Viewport.ctx, Sprite.sawblade, 0, 0);
+        Viewport.ctx.restore();
+        Sprite.drawSprite(Viewport.ctx, Sprite.sawblade_eyes, u, v);
     }
 }
