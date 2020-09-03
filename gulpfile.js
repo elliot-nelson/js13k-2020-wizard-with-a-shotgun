@@ -88,7 +88,7 @@ function minifyBuild() {
             mangle: {
                 properties: {
                     builtins: true,
-                    regex: /behavior|direction|frame|reset|update|anchor/
+                    regex: /behavior|direction|frame|reset|update|anchor|IDLE|canvas/
                 }
             }
         }))
