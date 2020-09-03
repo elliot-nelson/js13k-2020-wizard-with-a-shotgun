@@ -31,64 +31,21 @@ export class Game {
     async init() {
         viewport.init();
 
-        this.input = new Input();
-        await this.input.init();
-
+        await Input.init();
         await Audio.init();
+        await Sprite.init();
 
         this.maze = MapLoader.load();
         this.camera = { pos: { x: 1, y: 1 } };
-
-        await Sprite.init();
-
         this.entities = [];
-
         this.dialogPending = {};
         this.dialogSeen = {};
-
-        this.player = new Player();
-        this.entities.push(this.player);
-
         this.roomsCleared = [];
-
         this.shadowCanvas = new Canvas(500, 500);
         this.shadowOffset = 0;
-
         this.screenshakes = [];
-
-        /*
-
-        await Assets.init();
-
-        this.artifacts = [
-            await Assets.grayscaleNoise(this.canvas.width, this.canvas.height),
-            await Assets.grayscaleNoise(this.canvas.width, this.canvas.height),
-            await Assets.grayscaleNoise(this.canvas.width, this.canvas.height)
-        ];
-
-        this.input = new Input();
-        await this.input.init();
-
         this.player = new Player();
-
-        this.hud = new Hud();
-
-        this.particles = [];
-        this.screenshakes = [];
-        this.menuStack = [];
-
-        this.monsters = [];
-
-        // Create, but do not initialize, the audio object. The audio object will be
-        // initialized as soon as possible by the first user input event, to meet
-        // requirements of the browser.
-        this.audio = new Audio();
-
-        this.score = 0;
-
-        this.hive = new Hive();
-
-        */
+        this.entities.push(this.player);
     }
 
     start() {
@@ -126,7 +83,7 @@ export class Game {
 
     update() {
         // Pull in frame by frame button pushes / keypresses / mouse clicks
-        this.input.update();
+        Input.update();
 
         // Behavior (AI, player input, etc.)
         Behavior.apply(this.entities);

@@ -1,6 +1,7 @@
 'use strict';
 
 import { game } from './Game';
+import { Input } from './input/Input';
 import { Sprite } from './Sprite';
 import { Text } from './Text';
 import { viewport } from './Viewport';
@@ -79,10 +80,10 @@ export const Hud = {
             viewport.width - 4,
             viewport.height - 18
         );
-        let ptr = game.input.pointer;
-        if (ptr) {
+
+        if (Input.pointer) {
             viewport.ctx.save();
-            viewport.ctx.translate(ptr.u, ptr.v);
+            viewport.ctx.translate(Input.pointer.u, Input.pointer.v);
             viewport.ctx.rotate(game.frame / 72);
             let crosshair = game.dialog
                 ? Sprite.hud_crosshair_wait

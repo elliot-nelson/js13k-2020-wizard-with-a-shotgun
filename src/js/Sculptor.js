@@ -1,6 +1,5 @@
 import { game } from './Game';
 import { Sprite } from './Sprite';
-import { Input } from './input/Input';
 import {
     vector2angle,
     angle2vector,

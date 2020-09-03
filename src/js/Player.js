@@ -49,7 +49,7 @@ export class Player {
             }
 
             if (!(game.dialog && game.dialog.blockFire)) {
-                if (game.input.pressed[Input.Action.ATTACK]) {
+                if (Input.pressed[Input.Action.ATTACK]) {
                     if (this.shellsLeft === 0) {
                         this.reload();
                     } else {
@@ -59,7 +59,7 @@ export class Player {
             }
 
             if (!(game.dialog && game.dialog.blockReload)) {
-                if (game.input.pressed[Input.Action.RELOAD]) {
+                if (Input.pressed[Input.Action.RELOAD]) {
                     if (this.shellsLeft < this.shellsMax) {
                         this.reload();
                     } else {
@@ -86,21 +86,20 @@ export class Player {
     }
 
     defaultMovement(velocityAdj) {
-        let pointer = game.input.pointer;
-        if (pointer) {
-            this.facing = vectorBetween(this.pos, uv2xy(pointer));
+        if (Input.pointer) {
+            this.facing = vectorBetween(this.pos, uv2xy(Input.pointer));
             this.facingAngle = vector2angle(this.facing);
         }
 
         let v = {
             x:
-                game.input.direction.x *
-                game.input.direction.m *
+                Input.direction.x *
+                Input.direction.m *
                 1.7 *
                 velocityAdj,
             y:
-                game.input.direction.y *
-                game.input.direction.m *
+                Input.direction.y *
+                Input.direction.m *
                 1.7 *
                 velocityAdj
         };

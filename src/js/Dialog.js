@@ -24,17 +24,17 @@ export class Dialog {
         game.dialogSeen[this.flag] = true;
 
         if (this.flag === C.DIALOG_HINT_1) {
-            if (game.input.direction.m > 0) {
+            if (Input.direction.m > 0) {
                 this.cull = true;
                 game.dialog = false;
             }
         } else if (this.flag === C.DIALOG_HINT_3) {
-            if (game.input.pressed[Input.Action.RELOAD]) {
+            if (Input.pressed[Input.Action.RELOAD]) {
                 this.cull = true;
                 game.dialog = false;
             }
         } else {
-            if (game.input.pressed[Input.Action.ATTACK]) {
+            if (Input.pressed[Input.Action.ATTACK]) {
                 if (this.t < this.d) {
                     this.t = this.d;
                 } else {

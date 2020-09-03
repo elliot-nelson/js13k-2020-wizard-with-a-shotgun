@@ -17,7 +17,32 @@ import { MouseAdapter } from './MouseAdapter';
  * clicked", or "button B" pressed, and these are translated into a game input
  * like "dodge".
  */
-export class Input {
+export const Input = {
+    // Game Inputs
+    //
+    // Note that moving the player around is actually not considered an action; it's
+    // a separate non-action input called "direction". It just so happens that on
+    // keyboard, for example, pressing the "down arrow" key is considered both a
+    // press of the in-game DOWN action and a directional input. It's up to the input
+    // consumer to decide which input is relevant (if any). For example, on a menu,
+    // we may consume the DOWN/UP actions to navigate the menu, but ignore directional
+    // inputs.
+    //
+    Action: {
+        UP: 11,
+        DOWN: 12,
+        LEFT: 13,
+        RIGHT: 14,
+        ATTACK: 21,
+        RELOAD: 30,
+        DEFLECT: 22,
+        DODGE: 23,
+        SUPER: 24,
+        MENU: 96,
+        MUTE: 97,
+        FREEZE: 98
+    },
+
     async init() {
         // A vector representing the direction the user is pressing/facing,
         // separate from pressing and releasing inputs. Treating "direction"
@@ -46,7 +71,7 @@ export class Input {
 
         //this.gamepad = new GamepadAdapter(this);
         //await this.gamepad.init();
-    }
+    },
 
     update() {
         // We could have some kind of "input adapter toggle", but it's easier to just treat all inputs
@@ -77,34 +102,8 @@ export class Input {
 
         //this.direction = this.gamepad.direction.m > 0 ? this.gamepad.direction : this.keyboard.direction;
         this.direction = this.keyboard.direction;
-    }
+    },
 
-    onDown(action) {}
-
-    onUp(action) {}
-}
-
-// Game Inputs
-//
-// Note that moving the player around is actually not considered an action; it's
-// a separate non-action input called "direction". It just so happens that on
-// keyboard, for example, pressing the "down arrow" key is considered both a
-// press of the in-game DOWN action and a directional input. It's up to the input
-// consumer to decide which input is relevant (if any). For example, on a menu,
-// we may consume the DOWN/UP actions to navigate the menu, but ignore directional
-// inputs.
-//
-Input.Action = {
-    UP: 11,
-    DOWN: 12,
-    LEFT: 13,
-    RIGHT: 14,
-    ATTACK: 21,
-    RELOAD: 30,
-    DEFLECT: 22,
-    DODGE: 23,
-    SUPER: 24,
-    MENU: 96,
-    MUTE: 97,
-    FREEZE: 98
+    onDown(action) {},
+    onUp(action) {},
 };
