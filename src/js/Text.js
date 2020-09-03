@@ -41,6 +41,7 @@ export const Text = {
             [100, Sprite.icon_keys_d]      // d
         ];
         for (let icon of icons) {
+            console.log(icon);
             C_ICONS[icon[0]] = icon[1];
             C_SHIFT[icon[0]] = icon[1].img.width + 1;
         }

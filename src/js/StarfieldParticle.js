@@ -37,6 +37,6 @@ export class StarfieldParticle {
     draw(viewport) {
         viewport.ctx.fillStyle = this.color;
         viewport.ctx.fillRect(this.uv.u, this.uv.v, 1, 1);
-        viewport.ctx.drawImage(Sprite.glyphs[2].img, this.uv.u, this.uv.v);
+        viewport.ctx.drawImage(Sprite.glyphs[0].img, this.uv.u, this.uv.v);
     }
 }

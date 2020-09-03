@@ -40,7 +40,6 @@ export class Game {
         this.camera = { pos: { x: 1, y: 1 } };
 
         await Sprite.init();
-        await Text.init();
 
         this.entities = [];
 
