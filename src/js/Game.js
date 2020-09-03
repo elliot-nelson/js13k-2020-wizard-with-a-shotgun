@@ -5,8 +5,6 @@ import { Input } from './input/Input';
 import { MapLoader } from './MapLoader';
 import { Text } from './Text';
 import { Player } from './Player';
-import { Monster } from './Monster';
-import { Sculptor } from './Sculptor';
 import { viewport } from './Viewport';
 import { Constants as C } from './Constants';
 import { uv2xy, xy2qr, angle2vector, rgba } from './Util';

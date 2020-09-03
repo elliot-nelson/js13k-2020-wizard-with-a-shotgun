@@ -30,68 +30,58 @@ export class Player {
         this.hp = 100;
         this.damage = [];
         this.radius = 11;
-
         this.shellsLeft = 4;
         this.shellsMax = 4;
         this.forcedReload = false;
-
         this.mass = 3;
-
         this.pages = 11;
+        this.state = Behavior.HUNT;
+        this.frames = 0;
     }
 
     think() {
         this.history.unshift({ ...this.pos });
         this.history.splice(50);
 
-        switch (this.state) {
-            case Behavior.HUNT:
-                if (!(game.dialog && game.dialog.blockMove)) {
-                    this.defaultMovement(1);
-                }
-
-                if (!(game.dialog && game.dialog.blockFire)) {
-                    if (game.input.pressed[Input.Action.ATTACK]) {
-                        if (this.shellsLeft === 0) {
-                            this.reload();
-                        } else {
-                            this.fire();
-                        }
-                    }
-                }
-
-                if (!(game.dialog && game.dialog.blockReload)) {
-                    if (game.input.pressed[Input.Action.RELOAD]) {
-                        if (this.shellsLeft < this.shellsMax) {
-                            this.reload();
-                        } else {
-                            // play nasty noise
-                        }
-                    }
-                }
-
-                break;
-            case Behavior.ATTACK:
+        if (this.state === Behavior.HUNT) {
+            if (!(game.dialog && game.dialog.blockMove)) {
                 this.defaultMovement(1);
-                if (--this.frames <= 0) {
+            }
+
+            if (!(game.dialog && game.dialog.blockFire)) {
+                if (game.input.pressed[Input.Action.ATTACK]) {
                     if (this.shellsLeft === 0) {
-                        this.reload(true);
+                        this.reload();
                     } else {
-                        this.state = Behavior.HUNT;
+                        this.fire();
                     }
                 }
-                break;
-            case Behavior.RELOAD:
-                this.defaultMovement(this.forcedReload ? 0.5 : 2.0);
-                if (--this.frames <= 0) {
-                    this.shellsLeft = this.shellsMax;
+            }
+
+            if (!(game.dialog && game.dialog.blockReload)) {
+                if (game.input.pressed[Input.Action.RELOAD]) {
+                    if (this.shellsLeft < this.shellsMax) {
+                        this.reload();
+                    } else {
+                        // play nasty noise
+                    }
+                }
+            }
+        } else if (this.state === Behavior.ATTACK) {
+            this.defaultMovement(1);
+            if (--this.frames <= 0) {
+                if (this.shellsLeft === 0) {
+                    this.reload(true);
+                } else {
                     this.state = Behavior.HUNT;
                 }
-                break;
-            default:
+            }
+        } else if (this.state === Behavior.RELOAD) {
+            this.defaultMovement(this.forcedReload ? 0.5 : 2.0);
+            if (--this.frames <= 0) {
+                this.shellsLeft = this.shellsMax;
                 this.state = Behavior.HUNT;
-                this.frames = 0;
-                break;
+            }
         }
     }
 
@@ -132,7 +122,6 @@ export class Player {
         };
 
         this.lastDamage = { vector: this.facing };
-        //Gore.spawn(this);
 
         game.entities.push(new ShotgunBlast(pos, this.facingAngle));
 

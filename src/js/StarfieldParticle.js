@@ -1,7 +1,6 @@
 'use strict';
 
 import { game } from './Game';
-import { Monster } from './Monster';
 import { Sprite } from './Sprite';
 import { angle2vector, rgba } from './Util';
 import { viewport } from './Viewport';

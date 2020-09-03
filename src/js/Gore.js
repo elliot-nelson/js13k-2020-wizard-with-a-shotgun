@@ -1,7 +1,6 @@
 'use strict';
 
 import { game } from './Game';
-import { Monster } from './Monster';
 import { Sprite } from './Sprite';
 import { viewport } from './Viewport';
 import { Player } from './Player';
