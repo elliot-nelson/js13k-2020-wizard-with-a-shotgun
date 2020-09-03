@@ -227,7 +227,7 @@ export class Game {
         }
 
         Menu.draw(viewport);
-
+/*
         ctx.strokeStyle = rgba(200, 50, 200, 1);
         ctx.beginPath();
         ctx.arc(250, 150, 50, 0, Math.PI * 2);
@@ -247,6 +247,7 @@ export class Game {
         [u, v] = [p.x * 40 + 250, p.y * 40 + 150];
         ctx.arc(u, v, 10, 0, Math.PI * 2);
         ctx.stroke();
+        */
     }
 
     drawMaze(ctx, maze) {

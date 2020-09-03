@@ -43,8 +43,6 @@ export const Sprite = {
         );
 
         // Enemy
-        Sprite.monster = this.initBasicSprite(SpriteSheet.monster2[0]);
-        Sprite.monster_dead = this.initBasicSprite(SpriteSheet.monster2[0]);
 
         //Sprite.stabguts = SpriteSheet.stabguts.
         Sprite.gore = SpriteSheet.gore.map(data => this.initBasicSprite(data));

@@ -5,9 +5,21 @@ import { vectorAdd } from '../Util';
 import { Player } from '../Player';
 import { HealthChunkAnimation } from '../HealthChunkAnimation';
 import { game } from '../Game';
-import { xy2qr } from '../Util';
+import { xy2qr, vectorBetween } from '../Util';
 import { ScreenShake } from '../ScreenShake';
 import { Sculptor } from '../Sculptor';
+
+const SpawnPatterns = [
+    [
+        { enemy: Sculptor, frame: 10 },
+        { enemy: Sculptor, frame: 50 },
+        { enemy: Sculptor, frame: 90 },
+        { enemy: Sculptor, frame: 180 },
+        { enemy: Sculptor, frame: 180 },
+        { enemy: Sculptor, frame: 180 },
+        { enemy: Sculptor, frame: 180 }
+    ]
+];
 
 /**
  * Brawl
@@ -17,19 +29,25 @@ export const Brawl = {
         game.roomsCleared = game.roomsCleared || [];
 
         if (game.brawl) {
+            let livingEnemies = game.brawl.enemies.filter(enemy => !enemy.cull).length;
+
             if (game.brawl.plan.length === 0) {
-                if (!game.brawl.enemies.find(enemy => !enemy.cull)) {
+                if (livingEnemies === 0) {
                     game.roomsCleared.unshift(game.brawl.room.roomNumber);
                     game.brawl = false;
                 }
             } else {
-                if (game.frame >= game.brawl.plan[0].frame) {
-                    let spawn = game.brawl.plan.shift();
-                    let monster = new Sculptor();
-                    monster.pos = { x: spawn.x, y: spawn.y };
-                    game.entities.push(monster);
-                    game.brawl.enemies.push(monster);
+                let plan = game.brawl.plan[0];
+                console.log(plan);
+                if (game.frame >= game.brawl.start + plan.frame) {
+                    if (Brawl.spawn(plan)) {
+                        game.brawl.plan.shift();
+                    }
+                } else if (livingEnemies === 0) {
+                    // If nothing is alive, hasten the next enemy
+                    plan.frame -= 10;
                 }
+
             }
         } else {
             let qr = xy2qr(game.player.pos);
@@ -51,37 +69,25 @@ export const Brawl = {
                     room,
                     enemies: [],
                     start: game.frame,
-                    plan: [
-                        {
-                            frame: game.frame + 10,
-                            x:
-                                Math.floor(Math.random() * (room.w * 32)) +
-                                room.q * 32,
-                            y:
-                                Math.floor(Math.random() * (room.h * 32)) +
-                                room.r * 32
-                        },
-                        {
-                            frame: game.frame + 50,
-                            x:
-                                Math.floor(Math.random() * (room.w * 32)) +
-                                room.q * 32,
-                            y:
-                                Math.floor(Math.random() * (room.h * 32)) +
-                                room.r * 32
-                        },
-                        {
-                            frame: game.frame + 90,
-                            x:
-                                Math.floor(Math.random() * (room.w * 32)) +
-                                room.q * 32,
-                            y:
-                                Math.floor(Math.random() * (room.h * 32)) +
-                                room.r * 32
-                        }
-                    ]
+                    plan: SpawnPatterns[room.pattern].map(plan => ({ ...plan }))
                 };
             }
+        }
+    },
+
+    spawn(plan) {
+        let pos = {
+            x: (Math.random() * (game.brawl.room.w * 32 - 32) | 0) + game.brawl.room.q * 32 + 16,
+            y: (Math.random() * (game.brawl.room.h * 32 - 32) | 0) + game.brawl.room.r * 32 + 16
+        };
+
+        let v = vectorBetween(game.player.pos, pos);
+        if (v.m > 48) {
+            console.log(pos);
+            let enemy = new plan.enemy(pos);
+            game.entities.push(enemy);
+            game.brawl.enemies.push(enemy);
+            return enemy;
         }
     }
 };

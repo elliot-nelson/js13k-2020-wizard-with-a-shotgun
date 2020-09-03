@@ -18,8 +18,8 @@ import { Gore } from './Gore';
  * Monster
  */
 export class Sculptor {
-    constructor() {
-        this.pos = { x: 0, y: 0 };
+    constructor(pos) {
+        this.pos = pos;
         this.vel = { x: 0, y: 0 };
         this.facing = { x: 0, y: -1, m: 0 };
         this.hp = 100;
