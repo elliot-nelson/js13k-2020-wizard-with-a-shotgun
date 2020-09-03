@@ -7,19 +7,14 @@ import { Text } from './Text';
 import { Player } from './Player';
 import { Viewport } from './Viewport';
 import { Constants as C } from './Constants';
-import { uv2xy, xy2qr, angle2vector, rgba } from './Util';
+import { uv2xy, xy2qr, angle2vector, rgba, createCanvas } from './Util';
 import { Menu } from './Menu';
-
 import { Audio } from './Audio';
-
-import { Canvas } from './Canvas';
-
 import { Behavior } from './systems/Behavior';
 import { Brawl } from './systems/Brawl';
 import { Movement } from './systems/Movement';
 import { Damage } from './systems/Damage';
 import { DialogScheduling } from './systems/DialogScheduling';
-
 import { Hud } from './Hud';
 import { StarfieldParticle } from './StarfieldParticle';
 import { ScreenShake } from './ScreenShake';
@@ -40,7 +35,7 @@ export class Game {
         this.dialogPending = {};
         this.dialogSeen = {};
         this.roomsCleared = [];
-        this.shadowCanvas = new Canvas(500, 500);
+        this.shadowCanvas = createCanvas(500, 500);
         this.shadowOffset = 0;
         this.screenshakes = [];
         this.player = new Player();

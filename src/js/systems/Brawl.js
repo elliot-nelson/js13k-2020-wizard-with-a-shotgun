@@ -38,7 +38,6 @@ export const Brawl = {
                 }
             } else {
                 let plan = game.brawl.plan[0];
-                console.log(plan);
                 if (game.frame >= game.brawl.start + plan.frame) {
                     if (Brawl.spawn(plan)) {
                         game.brawl.plan.shift();
@@ -83,7 +82,6 @@ export const Brawl = {
 
         let v = vectorBetween(game.player.pos, pos);
         if (v.m > 48) {
-            console.log(pos);
             let enemy = new plan.enemy(pos);
             game.entities.push(enemy);
             game.brawl.enemies.push(enemy);

@@ -1,8 +1,7 @@
 'use strict';
 
 import { Sprite } from './Sprite';
-import { Canvas } from './Canvas';
-import { rgba } from './Util';
+import { rgba, createCanvas } from './Util';
 
 const C_WIDTH = 3;
 const C_HEIGHT = 5;
@@ -41,7 +40,6 @@ export const Text = {
             [100, Sprite.icon_keys_d]      // d
         ];
         for (let icon of icons) {
-            console.log(icon);
             C_ICONS[icon[0]] = icon[1];
             C_SHIFT[icon[0]] = icon[1].img.width + 1;
         }
@@ -147,7 +145,7 @@ export const Text = {
     },
 
     recolor(font, color) {
-        let canvas = new Canvas(font.width, font.height);
+        let canvas = createCanvas(font.width, font.height);
         canvas.ctx.fillStyle =
             typeof color === 'function' ? color(canvas.ctx) : color;
         canvas.ctx.fillRect(0, 0, font.width, font.height);

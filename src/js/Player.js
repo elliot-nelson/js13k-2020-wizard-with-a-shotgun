@@ -154,7 +154,6 @@ export class Player {
                 sprite,
                 this.history[i]
             );
-            console.log(sprite, this.history[i], u,v);
 
             Viewport.ctx.save();
             Viewport.ctx.globalAlpha = i === 0 ? 1 : 0.5;

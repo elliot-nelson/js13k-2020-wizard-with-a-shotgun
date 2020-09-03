@@ -1,12 +1,12 @@
 'use strict';
 
 import { Constants as C } from './Constants';
-import { Canvas } from './Canvas';
 import { SpriteSheet } from './SpriteSheet-gen';
 import { rgba } from './Util';
 import { Text } from './Text';
 import { game } from './Game';
 import { Viewport } from './Viewport';
+import { createCanvas } from './Util';
 
 // The spritesheet is produced during the gulp build
 const SPRITESHEET_URI = 'sprites.png';
@@ -87,7 +87,7 @@ export const Sprite = {
         Sprite.page = this.initBasicSprite(SpriteSheet.page[1]);
         Sprite.page_glow = this.initBasicSprite(SpriteSheet.page[2]);
 
-        let c = new Canvas(6, 10);
+        let c = createCanvas(6, 10);
         Text.drawText(c.ctx, 'u', 0, 0, 2);
         Sprite.glyphs = [this.initDynamicSprite(c.canvas)];
 
@@ -135,7 +135,7 @@ export const Sprite = {
     },
 
     rotateImage(source, rad) {
-        let canvas = new Canvas(source.width, source.height);
+        let canvas = createCanvas(source.width, source.height);
         canvas.ctx.translate(source.width / 2, source.height / 2);
         canvas.ctx.rotate(rad);
         canvas.ctx.translate(-source.width / 2, -source.height / 2);
@@ -144,7 +144,7 @@ export const Sprite = {
     },
 
     overlay(...sources) {
-        let canvas = new Canvas(sources[0].width, sources[0].height);
+        let canvas = createCanvas(sources[0].width, sources[0].height);
         for (let source of sources) {
             canvas.ctx.drawImage(source, 0, 0);
         }
@@ -171,7 +171,7 @@ export const Sprite = {
     loadCacheSlice(uri, x, y, w, h) {
         //const source = await this.loadImage(uri);
         const source = this.images[uri];
-        const sliceCanvas = new Canvas(w, h);
+        const sliceCanvas = createCanvas(w, h);
         sliceCanvas.ctx.drawImage(source, x, y, w, h, 0, 0, w, h);
         return sliceCanvas.canvas;
     },
@@ -192,7 +192,7 @@ export const Sprite = {
     },
 
     createBattleDoors(source) {
-        let canvas = new Canvas(source.width, source.height);
+        let canvas = createCanvas(source.width, source.height);
         canvas.ctx.drawImage(source, 0, 0);
         canvas.ctx.globalCompositeOperation = 'source-atop';
         for (let y = 0; y < source.height; y++) {
@@ -208,7 +208,7 @@ export const Sprite = {
     },
 
     buildWall(source) {
-        let canvas = new Canvas(36, 36);
+        let canvas = createCanvas(36, 36);
         for (let i = 0; i < 36; i += 4) {
             canvas.ctx.drawImage(source, i, 0);
             canvas.ctx.drawImage(source, i, 32);
@@ -229,7 +229,7 @@ export const Sprite = {
     },
 
     createDialogSpeech() {
-        let canvas = new Canvas(127, 39);
+        let canvas = createCanvas(127, 39);
         canvas.ctx.fillStyle = '#e6e6b8';
         canvas.ctx.fillRect(12, 1, 110, 37);
         canvas.ctx.fillRect(10, 2, 114, 35);
@@ -239,7 +239,7 @@ export const Sprite = {
     },
 
     createDialogHint() {
-        let canvas = new Canvas(127, 39);
+        let canvas = createCanvas(127, 39);
         canvas.ctx.fillStyle = '#000000';
         canvas.ctx.fillRect(0, 0, 120, 35);
         canvas.ctx.fillStyle = '#e6e6b8';
