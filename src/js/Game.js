@@ -286,56 +286,32 @@ export class Game {
                 if (maze.walls[r][q] & C.WALL_TOP) {
                     ctx.drawImage(
                         Sprite.walls.img,
-                        5,
-                        5,
-                        36,
-                        4,
-                        x - 2,
-                        y - 2,
-                        36,
-                        4
+                        0, 0, 36, 4,
+                        x - 2, y - 2, 36, 4
                     );
                 }
 
                 if (maze.walls[r][q] & C.WALL_RIGHT) {
                     ctx.drawImage(
                         Sprite.walls.img,
-                        37,
-                        5,
-                        4,
-                        36,
-                        x + 30,
-                        y - 2,
-                        4,
-                        36
+                        32, 0, 4, 36,
+                        x + 30, y - 2, 4, 36
                     );
                 }
 
                 if (maze.walls[r][q] & C.WALL_BOTTOM) {
                     ctx.drawImage(
                         Sprite.walls.img,
-                        5,
-                        37,
-                        36,
-                        4,
-                        x - 2,
-                        y + 30,
-                        36,
-                        4
+                        0, 32, 36, 4,
+                        x - 2, y + 30, 36, 4
                     );
                 }
 
                 if (maze.walls[r][q] & C.WALL_LEFT) {
                     ctx.drawImage(
                         Sprite.walls.img,
-                        5,
-                        5,
-                        4,
-                        36,
-                        x - 2,
-                        y - 2,
-                        4,
-                        36
+                        0, 0, 4, 36,
+                        x - 2, y - 2, 4, 36
                     );
                 }
 

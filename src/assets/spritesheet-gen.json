@@ -406,11 +406,11 @@
    },
    {
     "filename": "walls2.aseprite",
-    "frame": { "x": 0, "y": 255, "w": 46, "h": 46 },
+    "frame": { "x": 0, "y": 255, "w": 4, "h": 4 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 46, "h": 46 },
-    "sourceSize": { "w": 46, "h": 46 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 4 },
+    "sourceSize": { "w": 4, "h": 4 },
     "duration": 100
    }
  ],
@@ -419,7 +419,7 @@
   "version": "1.2.18",
   "image": "spritesheet-gen.png",
   "format": "RGBA8888",
-  "size": { "w": 356, "h": 301 },
+  "size": { "w": 356, "h": 259 },
   "scale": "1"
  }
 }

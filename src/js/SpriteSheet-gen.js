@@ -55,5 +55,5 @@ export const SpriteSheet =
    [ { x: 0, y: 223, w: 32, h: 32 },
      { x: 32, y: 223, w: 32, h: 32 },
      { x: 64, y: 223, w: 32, h: 32 } ],
-  walls2: [ { x: 0, y: 255, w: 46, h: 46 } ] }
+  walls2: [ { x: 0, y: 255, w: 4, h: 4 } ] }
 /* </generated> */

@@ -95,7 +95,10 @@ export const Sprite = {
         );
 
         // Walls
-        Sprite.walls = this.initBasicSprite(SpriteSheet.walls2[0]);
+        //Sprite.walls = this.initBasicSprite(SpriteSheet.walls2[0]);
+        let w = this.initBasicSprite(SpriteSheet.walls2[0]);
+        Sprite.walls = this.initDynamicSprite(this.buildWall(w.img));
+
         //Sprite.battle_door = SpriteSheet.walls2.slice(1, 4).map(data => this.initBasicSprite(data));
         Sprite.battle_door = [
             this.initDynamicSprite(Sprite.createBattleDoors(Sprite.walls.img)),
@@ -199,6 +202,27 @@ export const Sprite = {
                 canvas.ctx.fillRect(x, y, 1, 1);
             }
         }
+        return canvas.canvas;
+    },
+
+    buildWall(source) {
+        let canvas = new Canvas(36, 36);
+        for (let i = 0; i < 36; i += 4) {
+            canvas.ctx.drawImage(source, i, 0);
+            canvas.ctx.drawImage(source, i, 32);
+            canvas.ctx.drawImage(source, 0, i);
+            canvas.ctx.drawImage(source, 32, i);
+        }
+
+        canvas.ctx.globalCompositeOperation = 'source-atop';
+        for (let y = 0; y < 36; y++) {
+            for (let x = 0; x < 36; x++) {
+                let a = ((x * x * 13 + y * y * 17) % 39) / 117;
+                canvas.ctx.fillStyle = rgba(0, 0, 0, a);
+                canvas.ctx.fillRect(x, y, 1, 1);
+            }
+        }
+
         return canvas.canvas;
     },
 
