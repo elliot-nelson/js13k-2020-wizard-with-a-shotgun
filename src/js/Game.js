@@ -49,11 +49,11 @@ export class Game {
         this.update();
         this.started = false;
 
-        this.dialogPending[DIALOG_START_A] = true;
-        this.dialogPending[DIALOG_START_B] = true;
-        this.dialogPending[DIALOG_HINT_1] = true;
-        this.dialogPending[DIALOG_HINT_2] = true;
-        this.dialogPending[DIALOG_HINT_3] = true;
+        this.dialogPending[DIALOG_START_A] =
+        this.dialogPending[DIALOG_START_B] =
+        this.dialogPending[DIALOG_HINT_1] =
+        this.dialogPending[DIALOG_HINT_2] =
+        this.dialogPending[DIALOG_HINT_3] = false;
 
         /*
         this.menuStack.push(new IntroMenuA({
@@ -223,8 +223,6 @@ export class Game {
                 if (x < -50 || y < -50 || x > 500 || y > 500) continue;
 
                 let sprite = Sprite.tiles[maze.tiles[r][q] & 0b1111];
-                if (!sprite)
-                    throw new Error(`${q},${r} tile ${maze.tiles[r][q]}`);
                 ctx.drawImage(sprite.img, x, y);
             }
         }
@@ -271,58 +269,36 @@ export class Game {
                     let f = (this.frame / 8) % 3 | 0;
 
                     if (maze.walls[r][q] & OPEN_TOP) {
+                        console.log('OTP');
                         ctx.drawImage(
                             Sprite.battle_door[f].img,
-                            5,
-                            0,
-                            36,
-                            9,
-                            x - 2,
-                            y - 7,
-                            36,
-                            9
+                            0, 0, 36, 4,
+                            x - 2, y - 2, 36, 4
                         );
                     }
 
                     if (maze.walls[r][q] & OPEN_RIGHT) {
+                        console.log('RIGHT');
                         ctx.drawImage(
                             Sprite.battle_door[f].img,
-                            37,
-                            5,
-                            9,
-                            41,
-                            x + 30,
-                            y - 2,
-                            9,
-                            41
+                            32, 0, 4, 36,
+                            x + 30, y - 2, 4, 36
                         );
                     }
 
                     if (maze.walls[r][q] & OPEN_BOTTOM) {
                         ctx.drawImage(
                             Sprite.battle_door[f].img,
-                            5,
-                            37,
-                            36,
-                            9,
-                            x - 2,
-                            y + 30,
-                            36,
-                            9
+                            0, 32, 36, 4,
+                            x - 2, y + 30, 36, 4
                         );
                     }
 
                     if (maze.walls[r][q] & OPEN_LEFT) {
                         ctx.drawImage(
                             Sprite.battle_door[f].img,
-                            0,
-                            5,
-                            9,
-                            41,
-                            x - 7,
-                            y - 2,
-                            9,
-                            41
+                            0, 0, 4, 36,
+                            x - 2, y - 2, 4, 36
                         );
                     }
                 }

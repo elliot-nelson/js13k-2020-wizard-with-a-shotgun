@@ -6,9 +6,7 @@ import { Text } from './Text';
 import { game } from './Game';
 import { Viewport } from './Viewport';
 import { createCanvas } from './Util';
-
-// The spritesheet is produced during the gulp build
-const SPRITESHEET_URI = 'sprites.png';
+import { SPRITESHEET_URI } from './Constants';
 
 /**
  * Sprites!
@@ -196,9 +194,9 @@ export const Sprite = {
         canvas.ctx.globalCompositeOperation = 'source-atop';
         for (let y = 0; y < source.height; y++) {
             for (let x = 0; x < source.width; x++) {
-                let r = (Math.random() * 100 + 150) | 0;
-                let b = (Math.random() * 100 + 150) | 0;
-                let a = (Math.random() * 10) / 10;
+                let r = (Math.random() * 200 + 50) | 0;
+                let b = (Math.random() * 200 + 50) | 0;
+                let a = (Math.random() * 10 + 10) / 30;
                 canvas.ctx.fillStyle = rgba(r, 50, b, a);
                 canvas.ctx.fillRect(x, y, 1, 1);
             }

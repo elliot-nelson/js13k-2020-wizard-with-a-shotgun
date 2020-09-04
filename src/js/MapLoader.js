@@ -28,10 +28,10 @@ export const MapLoader = {
                     if (room) {
                         walls[r][q] |=
                             (maze[r - 1][q] && r === room.r ? OPEN_TOP : 0) |
-                            (maze[r][q + 1] && q === room.q + room.width - 1
+                            (maze[r][q + 1] && (q === room.q + room.w - 1)
                                 ? OPEN_RIGHT
                                 : 0) |
-                            (maze[r + 1][q] && r === room.r + room.height - 1
+                            (maze[r + 1][q] && (r === room.r + room.h - 1)
                                 ? OPEN_BOTTOM
                                 : 0) |
                             (maze[r][q - 1] && q === room.q ? OPEN_LEFT : 0);
@@ -42,7 +42,7 @@ export const MapLoader = {
         return walls;
     },
 
-    createTiles(maze, rand) {
+    createTiles(maze) {
         let tiles = array2d(maze[0].length, maze.length, () => TILE_WALL);
         for (let r = 0; r < tiles.length; r++) {
             for (let q = 0; q < tiles[0].length; q++) {
@@ -85,7 +85,7 @@ export const MapLoader = {
         return {
             maze,
             walls: this.createWalls(maze, roomLookup),
-            tiles: this.createTiles(maze, Math.random),
+            tiles: this.createTiles(maze),
             rooms: roomLookup,
             w: Map.w,
             h: Map.h
