@@ -6,7 +6,7 @@ import { Text } from './Text';
 import { game } from './Game';
 import { Viewport } from './Viewport';
 import { createCanvas } from './Util';
-import { SPRITESHEET_URI } from './Constants';
+import { SPRITESHEET_URI, R360 } from './Constants';
 
 /**
  * Sprites!
@@ -112,6 +112,14 @@ export const Sprite = {
             this.createDialogSpeech()
         );
         Sprite.dialog_hint = this.initDynamicSprite(this.createDialogHint());
+
+        Sprite.rift = [
+            this.initDynamicSprite(this.buildRift(0)),
+            this.initDynamicSprite(this.buildRift(1)),
+            this.initDynamicSprite(this.buildRift(2)),
+            this.initDynamicSprite(this.buildRift(3)),
+            this.initDynamicSprite(this.buildRift(4))
+        ];
     },
 
     /**
@@ -243,6 +251,64 @@ export const Sprite = {
         canvas.ctx.fillRect(1, 1, 118, 33);
         return canvas.canvas;
     },
+
+    buildRift(frame) {
+        let chars = ['s','t','u','v','w'];
+        let r = 50;
+        let angle = index => (index * 72 + 90) * Math.PI / 180;
+        let angle2 = index => (index * 72 + 126) * Math.PI / 180;
+        let r2 = r * 1.2;
+        let r3 = r - r * 0.24;
+        let u = r2, v = r2;
+
+        let canvas = createCanvas(r2 * 2, r2 * 2);
+        let ctx = canvas.ctx;
+
+        ctx.strokeStyle = rgba(200, 50, 200, 1);
+        ctx.beginPath();
+        ctx.arc(u, v, r, 0, R360);
+        ctx.moveTo(u + Math.cos(angle(0)) * r2, v + Math.sin(angle(0)) * r2);
+        ctx.lineTo(u + Math.cos(angle(2)) * r2, v + Math.sin(angle(2)) * r2);
+        ctx.lineTo(u + Math.cos(angle(4)) * r2, v + Math.sin(angle(4)) * r2);
+        ctx.lineTo(u + Math.cos(angle(1)) * r2, v + Math.sin(angle(1)) * r2);
+        ctx.lineTo(u + Math.cos(angle(3)) * r2, v + Math.sin(angle(3)) * r2);
+        ctx.lineTo(u + Math.cos(angle(0)) * r2, v + Math.sin(angle(0)) * r2);
+        ctx.stroke();
+
+        for (let i = 0; i < 5; i++) {
+            ctx.beginPath();
+            ctx.arc(u + Math.cos(angle2(i)) * r3, v + Math.sin(angle2(i)) * r3, r * 0.24, 0, R360);
+            ctx.stroke();
+            ctx.save();
+            let char = chars[(i + frame) % 5];
+            ctx.translate(u+ Math.cos(angle2(i)) * r3, v+ Math.sin(angle2(i)) * r3);
+            ctx.rotate(angle(i) + (Math.PI * 126 / 180));
+            Text.drawText(ctx, char, -3, -5, 2);
+            ctx.restore();
+        }
+
+        canvas.ctx.globalCompositeOperation = 'source-atop';
+        for (let y = 0; y < r2 * 2; y++) {
+            for (let x = 0; x < r2 * 2; x++) {
+                let a = ((x * x * 13 + y * y * 17) % 39) / 117;
+                a = 1;
+                canvas.ctx.fillStyle = rgba(200, 50, 250, 1);
+                canvas.ctx.fillRect(x, y, 1, 1);
+            }
+        }
+
+        let canvas2 = createCanvas(r2 * 2, r2 * 2);
+        canvas2.ctx.globalAlpha = 0.3;
+        canvas2.ctx.drawImage(canvas.canvas, 0, 1);
+        canvas2.ctx.drawImage(canvas.canvas, -1, 0);
+        canvas2.ctx.drawImage(canvas.canvas, 0, 1);
+        canvas2.ctx.drawImage(canvas.canvas, 0, -1);
+        canvas2.ctx.globalAlpha = 1;
+        canvas2.ctx.drawImage(canvas.canvas, 0, 0);
+
+        return canvas2.canvas;
+    },
+
 
     /**
      * A small helper that draws a sprite onto a canvas, respecting the anchor point of

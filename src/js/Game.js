@@ -6,7 +6,7 @@ import { MapLoader } from './MapLoader';
 import { Text } from './Text';
 import { Player } from './Player';
 import { Viewport } from './Viewport';
-import { WALL_TOP, WALL_RIGHT, WALL_BOTTOM, WALL_LEFT, OPEN_TOP, OPEN_RIGHT, OPEN_BOTTOM, OPEN_LEFT, DIALOG_START_A, DIALOG_START_B, DIALOG_HINT_1, DIALOG_HINT_2, DIALOG_HINT_3 } from './Constants';
+import { WALL_TOP, WALL_RIGHT, WALL_BOTTOM, WALL_LEFT, OPEN_TOP, OPEN_RIGHT, OPEN_BOTTOM, OPEN_LEFT, DIALOG_START_A, DIALOG_START_B, DIALOG_HINT_1, DIALOG_HINT_2, DIALOG_HINT_3, R360 } from './Constants';
 import { uv2xy, xy2qr, angle2vector, rgba, createCanvas } from './Util';
 import { Menu } from './Menu';
 import { Audio } from './Audio';
@@ -176,27 +176,12 @@ export class Game {
         }
 
         Menu.draw();
-/*
-        ctx.strokeStyle = rgba(200, 50, 200, 1);
-        ctx.beginPath();
-        ctx.arc(250, 150, 50, 0, Math.PI * 2);
-        ctx.stroke();
 
-        let p = angle2vector((2 * Math.PI) / 3 + Math.PI / 2);
-        let [u, v] = [p.x * 40 + 250, p.y * 40 + 150];
-        ctx.arc(u, v, 10, 0, Math.PI * 2);
-        ctx.stroke();
-
-        p = angle2vector((4 * Math.PI) / 3 + Math.PI / 2);
-        [u, v] = [p.x * 40 + 250, p.y * 40 + 150];
-        ctx.arc(u, v, 10, 0, Math.PI * 2);
-        ctx.stroke();
-
-        p = angle2vector((6 * Math.PI) / 3 + Math.PI / 2);
-        [u, v] = [p.x * 40 + 250, p.y * 40 + 150];
-        ctx.arc(u, v, 10, 0, Math.PI * 2);
-        ctx.stroke();
-        */
+        ctx.save();
+        ctx.translate(250, 100);
+        ctx.rotate(game.frame / 30);
+        ctx.drawImage(Sprite.rift[(game.frame / 10) % 5 | 0].img, -50, -50);
+        ctx.restore();
     }
 
     drawMaze(ctx, maze) {
