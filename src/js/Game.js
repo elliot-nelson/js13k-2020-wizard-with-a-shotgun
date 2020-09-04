@@ -18,6 +18,7 @@ import { DialogScheduling } from './systems/DialogScheduling';
 import { Hud } from './Hud';
 import { StarfieldParticle } from './StarfieldParticle';
 import { ScreenShake } from './ScreenShake';
+import { Maze } from './Maze';
 
 /**
  * Game state.
@@ -40,6 +41,8 @@ export class Game {
         this.screenshakes = [];
         this.player = new Player();
         this.entities.push(this.player);
+
+        console.log(38);
     }
 
     start() {
@@ -133,7 +136,7 @@ export class Game {
             if (entity.z < 0) entity.draw();
         }
 
-        this.drawMaze(ctx, this.maze);
+        Maze.draw();
 
         for (let entity of this.entities) {
             if (entity.z > 0 || !entity.z) entity.draw();
@@ -184,112 +187,6 @@ export class Game {
         ctx.restore();
     }
 
-    drawMaze(ctx, maze) {
-        let offset = {
-            x: Viewport.center.u - game.camera.pos.x,
-            y: Viewport.center.v - game.camera.pos.y
-        };
-
-        let r1 = 0,
-            r2 = maze.h,
-            q1 = 0,
-            q2 = maze.w;
-        if (game.brawl) {
-            r1 = game.brawl.room.r;
-            r2 = r1 + game.brawl.room.h;
-            q1 = game.brawl.room.q;
-            q2 = q1 + game.brawl.room.w;
-        }
-
-        for (let r = r1; r < r2; r++) {
-            for (let q = q1; q < q2; q++) {
-                let x = q * 32 + offset.x,
-                    y = r * 32 + offset.y;
-                if (x < -50 || y < -50 || x > 500 || y > 500) continue;
-
-                let sprite = Sprite.tiles[maze.tiles[r][q] & 0b1111];
-                ctx.drawImage(sprite.img, x, y);
-            }
-        }
-
-        for (let r = r1; r < r2; r++) {
-            for (let q = q1; q < q2; q++) {
-                let x = q * 32 + offset.x,
-                    y = r * 32 + offset.y;
-                if (x < -50 || y < -50 || x > 500 || y > 500) continue;
-
-                if (maze.walls[r][q] & WALL_TOP) {
-                    ctx.drawImage(
-                        Sprite.walls.img,
-                        0, 0, 36, 4,
-                        x - 2, y - 2, 36, 4
-                    );
-                }
-
-                if (maze.walls[r][q] & WALL_RIGHT) {
-                    ctx.drawImage(
-                        Sprite.walls.img,
-                        32, 0, 4, 36,
-                        x + 30, y - 2, 4, 36
-                    );
-                }
-
-                if (maze.walls[r][q] & WALL_BOTTOM) {
-                    ctx.drawImage(
-                        Sprite.walls.img,
-                        0, 32, 36, 4,
-                        x - 2, y + 30, 36, 4
-                    );
-                }
-
-                if (maze.walls[r][q] & WALL_LEFT) {
-                    ctx.drawImage(
-                        Sprite.walls.img,
-                        0, 0, 4, 36,
-                        x - 2, y - 2, 4, 36
-                    );
-                }
-
-                if (this.brawl) {
-                    let f = (this.frame / 8) % 3 | 0;
-
-                    if (maze.walls[r][q] & OPEN_TOP) {
-                        console.log('OTP');
-                        ctx.drawImage(
-                            Sprite.battle_door[f].img,
-                            0, 0, 36, 4,
-                            x - 2, y - 2, 36, 4
-                        );
-                    }
-
-                    if (maze.walls[r][q] & OPEN_RIGHT) {
-                        console.log('RIGHT');
-                        ctx.drawImage(
-                            Sprite.battle_door[f].img,
-                            32, 0, 4, 36,
-                            x + 30, y - 2, 4, 36
-                        );
-                    }
-
-                    if (maze.walls[r][q] & OPEN_BOTTOM) {
-                        ctx.drawImage(
-                            Sprite.battle_door[f].img,
-                            0, 32, 36, 4,
-                            x - 2, y + 30, 36, 4
-                        );
-                    }
-
-                    if (maze.walls[r][q] & OPEN_LEFT) {
-                        ctx.drawImage(
-                            Sprite.battle_door[f].img,
-                            0, 0, 4, 36,
-                            x - 2, y - 2, 4, 36
-                        );
-                    }
-                }
-            }
-        }
-    }
 }
 
 export const game = new Game();

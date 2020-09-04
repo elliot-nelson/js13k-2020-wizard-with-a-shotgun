@@ -197,6 +197,7 @@ export const Sprite = {
     },
 
     createBattleDoors(source) {
+        return source;
         let canvas = createCanvas(source.width, source.height);
         canvas.ctx.drawImage(source, 0, 0);
         canvas.ctx.globalCompositeOperation = 'source-atop';
@@ -298,11 +299,11 @@ export const Sprite = {
         }
 
         let canvas2 = createCanvas(r2 * 2, r2 * 2);
-        canvas2.ctx.globalAlpha = 0.3;
+        /*canvas2.ctx.globalAlpha = 0.3;
         canvas2.ctx.drawImage(canvas.canvas, 0, 1);
         canvas2.ctx.drawImage(canvas.canvas, -1, 0);
         canvas2.ctx.drawImage(canvas.canvas, 0, 1);
-        canvas2.ctx.drawImage(canvas.canvas, 0, -1);
+        canvas2.ctx.drawImage(canvas.canvas, 0, -1);*/
         canvas2.ctx.globalAlpha = 1;
         canvas2.ctx.drawImage(canvas.canvas, 0, 0);
 
