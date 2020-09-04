@@ -6,7 +6,7 @@ import { MapLoader } from './MapLoader';
 import { Text } from './Text';
 import { Player } from './Player';
 import { Viewport } from './Viewport';
-import { Constants as C } from './Constants';
+import { WALL_TOP, WALL_RIGHT, WALL_BOTTOM, WALL_LEFT, OPEN_TOP, OPEN_RIGHT, OPEN_BOTTOM, OPEN_LEFT, DIALOG_START_A, DIALOG_START_B, DIALOG_HINT_1, DIALOG_HINT_2, DIALOG_HINT_3 } from './Constants';
 import { uv2xy, xy2qr, angle2vector, rgba, createCanvas } from './Util';
 import { Menu } from './Menu';
 import { Audio } from './Audio';
@@ -49,11 +49,11 @@ export class Game {
         this.update();
         this.started = false;
 
-        this.dialogPending[C.DIALOG_START_A] = true;
-        this.dialogPending[C.DIALOG_START_B] = true;
-        this.dialogPending[C.DIALOG_HINT_1] = true;
-        this.dialogPending[C.DIALOG_HINT_2] = true;
-        this.dialogPending[C.DIALOG_HINT_3] = true;
+        this.dialogPending[DIALOG_START_A] = true;
+        this.dialogPending[DIALOG_START_B] = true;
+        this.dialogPending[DIALOG_HINT_1] = true;
+        this.dialogPending[DIALOG_HINT_2] = true;
+        this.dialogPending[DIALOG_HINT_3] = true;
 
         /*
         this.menuStack.push(new IntroMenuA({
@@ -235,7 +235,7 @@ export class Game {
                     y = r * 32 + offset.y;
                 if (x < -50 || y < -50 || x > 500 || y > 500) continue;
 
-                if (maze.walls[r][q] & C.WALL_TOP) {
+                if (maze.walls[r][q] & WALL_TOP) {
                     ctx.drawImage(
                         Sprite.walls.img,
                         0, 0, 36, 4,
@@ -243,7 +243,7 @@ export class Game {
                     );
                 }
 
-                if (maze.walls[r][q] & C.WALL_RIGHT) {
+                if (maze.walls[r][q] & WALL_RIGHT) {
                     ctx.drawImage(
                         Sprite.walls.img,
                         32, 0, 4, 36,
@@ -251,7 +251,7 @@ export class Game {
                     );
                 }
 
-                if (maze.walls[r][q] & C.WALL_BOTTOM) {
+                if (maze.walls[r][q] & WALL_BOTTOM) {
                     ctx.drawImage(
                         Sprite.walls.img,
                         0, 32, 36, 4,
@@ -259,7 +259,7 @@ export class Game {
                     );
                 }
 
-                if (maze.walls[r][q] & C.WALL_LEFT) {
+                if (maze.walls[r][q] & WALL_LEFT) {
                     ctx.drawImage(
                         Sprite.walls.img,
                         0, 0, 4, 36,
@@ -270,7 +270,7 @@ export class Game {
                 if (this.brawl) {
                     let f = (this.frame / 8) % 3 | 0;
 
-                    if (maze.walls[r][q] & C.OPEN_TOP) {
+                    if (maze.walls[r][q] & OPEN_TOP) {
                         ctx.drawImage(
                             Sprite.battle_door[f].img,
                             5,
@@ -284,7 +284,7 @@ export class Game {
                         );
                     }
 
-                    if (maze.walls[r][q] & C.OPEN_RIGHT) {
+                    if (maze.walls[r][q] & OPEN_RIGHT) {
                         ctx.drawImage(
                             Sprite.battle_door[f].img,
                             37,
@@ -298,7 +298,7 @@ export class Game {
                         );
                     }
 
-                    if (maze.walls[r][q] & C.OPEN_BOTTOM) {
+                    if (maze.walls[r][q] & OPEN_BOTTOM) {
                         ctx.drawImage(
                             Sprite.battle_door[f].img,
                             5,
@@ -312,7 +312,7 @@ export class Game {
                         );
                     }
 
-                    if (maze.walls[r][q] & C.OPEN_LEFT) {
+                    if (maze.walls[r][q] & OPEN_LEFT) {
                         ctx.drawImage(
                             Sprite.battle_door[f].img,
                             0,

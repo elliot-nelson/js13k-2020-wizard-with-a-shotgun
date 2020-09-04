@@ -1,6 +1,6 @@
 'use strict';
 
-import { Constants as C } from './Constants';
+import { R90, R270, R360, TILE_WIDTH, TILE_HEIGHT } from './Constants';
 import { game } from './Game';
 import { Viewport } from './Viewport';
 
@@ -19,7 +19,7 @@ export function angle2vector(r, m) {
 
 export function vector2angle(v) {
     let angle = Math.atan2(v.y, v.x);
-    if (angle < 0) angle += C.R360;
+    if (angle < 0) angle += R360;
     return angle;
 }
 
@@ -45,20 +45,20 @@ export function vectorAdd(...vectors) {
 
 export function closestAngleDifference(a, b) {
     if (a > b) [a, b] = [b, a];
-    return Math.min(b - a, C.R360 + a - b);
+    return Math.min(b - a, R360 + a - b);
 }
 
 export function intermediateAngle(a, b, m) {
-    if (b > C.R270 && a <= C.R90) a += C.R360;
-    if (a > C.R270 && b <= C.R90) b += C.R360;
+    if (b > R270 && a <= R90) a += R360;
+    if (a > R270 && b <= R90) b += R360;
     let angle = (b - a) * m + a;
-    return (angle + C.R360) % C.R360;
+    return (angle + R360) % R360;
 }
 
 export function angleBetween(angle, min, max) {
     if (min > max) [min, max] = [max, min];
-    while (angle >= max + C.R360) angle -= C.R360;
-    while (angle <= min - C.R360) angle += C.R360;
+    while (angle >= max + R360) angle -= R360;
+    while (angle <= min - R360) angle += R360;
     return angle >= min && angle < max;
 }
 
@@ -66,13 +66,13 @@ export function arcOverlap(angleA1, angleA2, angleB1, angleB2) {
     if (angleA1 > angleA2) [angleA1, angleA2] = [angleA2, angleA1];
     if (angleB1 > angleB2) [angleB1, angleB2] = [angleB2, angleB1];
 
-    while (angleB2 >= angleA2 + C.R360) {
-        angleB2 -= C.R360;
-        angleB1 -= C.R360;
+    while (angleB2 >= angleA2 + R360) {
+        angleB2 -= R360;
+        angleB1 -= R360;
     }
-    while (angleB1 <= angleA1 - C.R360) {
-        angleB1 += C.R360;
-        angleB2 += C.R360;
+    while (angleB1 <= angleA1 - R360) {
+        angleB1 += R360;
+        angleB2 += R360;
     }
 
     const result = [Math.max(angleA1, angleB1), Math.min(angleA2, angleB2)];
@@ -80,11 +80,11 @@ export function arcOverlap(angleA1, angleA2, angleB1, angleB2) {
 }
 
 export function xy2qr(pos) {
-    return { q: (pos.x / C.TILE_WIDTH) | 0, r: (pos.y / C.TILE_HEIGHT) | 0 };
+    return { q: (pos.x / TILE_WIDTH) | 0, r: (pos.y / TILE_HEIGHT) | 0 };
 }
 
 export function qr2xy(pos) {
-    return { x: pos.q * C.TILE_WIDTH, y: pos.r * C.TILE_HEIGHT };
+    return { x: pos.q * TILE_WIDTH, y: pos.r * TILE_HEIGHT };
 }
 
 export function xy2uv(pos) {
@@ -128,10 +128,10 @@ export function calculateRayIntersectionAndStep(startPos, endPos) {
 
 // https://www.genericgamedev.com/general/shooting-rays-through-tilemaps/
 export function* tilesHitBetween(p1, p2) {
-    let startQ = p1.x / C.TILE_WIDTH,
-        startR = p1.y / C.TILE_HEIGHT;
-    let endQ = p2.x / C.TILE_WIDTH,
-        endR = p2.y / C.TILE_HEIGHT;
+    let startQ = p1.x / TILE_WIDTH,
+        startR = p1.y / TILE_HEIGHT;
+    let endQ = p2.x / TILE_WIDTH,
+        endR = p2.y / TILE_HEIGHT;
     let tileCount =
         Math.abs(Math.floor(startQ) - Math.floor(endQ)) +
         Math.abs(Math.floor(startR) - Math.floor(endR));
@@ -177,13 +177,13 @@ export function* tilesHitBy(p, v) {
  */
 export function* tilesHitInBounds(bounds) {
     for (
-        let r = Math.floor(bounds[0].y / C.TILE_HEIGHT);
-        r * C.TILE_HEIGHT < bounds[1].y;
+        let r = Math.floor(bounds[0].y / TILE_HEIGHT);
+        r * TILE_HEIGHT < bounds[1].y;
         r++
     ) {
         for (
-            let q = Math.floor(bounds[0].x / C.TILE_WIDTH);
-            q * C.TILE_WIDTH < bounds[1].x;
+            let q = Math.floor(bounds[0].x / TILE_WIDTH);
+            q * TILE_WIDTH < bounds[1].x;
             q++
         ) {
             yield { q, r };

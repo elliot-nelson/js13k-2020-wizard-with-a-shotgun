@@ -4,7 +4,6 @@ import { Behavior } from './Behavior';
 import { Player } from '../Player';
 import { HealthChunkAnimation } from '../HealthChunkAnimation';
 import { game } from '../Game';
-import { Constants as C } from '../Constants';
 import { Dialog } from '../Dialog';
 
 /**

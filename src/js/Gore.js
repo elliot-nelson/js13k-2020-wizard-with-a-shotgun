@@ -1,11 +1,11 @@
 'use strict';
 
 import { game } from './Game';
+import { R45, R90, R360 } from './Constants';
+import { vector2angle, vector2point, angle2vector, vectorAdd } from './Util';
 import { Sprite } from './Sprite';
 import { Viewport } from './Viewport';
 import { Player } from './Player';
-import { Constants as C } from './Constants';
-import { vector2angle, vector2point, angle2vector, vectorAdd } from './Util';
 
 export class Gore {
     constructor(pos, angle, f) {
@@ -44,9 +44,9 @@ Gore.damage = entity => {
 
     for (let i = 0; i < 8; i++) {
         let r = Math.random() * entity.radius;
-        let p = vectorAdd(entity.pos, angle2vector(Math.random() * C.R360, r));
+        let p = vectorAdd(entity.pos, angle2vector(Math.random() * R360, r));
         game.entities.push(
-            new Gore(p, angle + Math.random() * C.R90 - C.R45, 0)
+            new Gore(p, angle + Math.random() * R90 - R45, 0)
         );
     }
 };
@@ -56,11 +56,11 @@ Gore.kill = entity => {
 
     for (let i = 0; i < 16; i++) {
         let r = Math.random() * entity.radius;
-        let p = vectorAdd(entity.pos, angle2vector(Math.random() * C.R360, r));
+        let p = vectorAdd(entity.pos, angle2vector(Math.random() * R360, r));
         game.entities.push(
             new Gore(
                 p,
-                angle + Math.random() * C.R90 - C.R45,
+                angle + Math.random() * R90 - R45,
                 (Math.random() * 4) | 0
             )
         );

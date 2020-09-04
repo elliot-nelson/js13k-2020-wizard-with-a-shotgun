@@ -4,7 +4,7 @@ import { game } from './Game';
 import { Sprite } from './Sprite';
 import { Audio } from './Audio';
 import { Viewport } from './Viewport';
-import { Constants as C } from './Constants';
+import { HUD_PAGE_U, HUD_PAGE_V } from './Constants';
 import { Hud } from './Hud';
 
 export class PageCollectedAnimation {
@@ -19,7 +19,7 @@ export class PageCollectedAnimation {
         );
         this.a.u -= Sprite.page.anchor.x;
         this.a.v -= Sprite.page.anchor.y;
-        this.b = { u: Viewport.width - C.HUD_PAGE_U, v: C.HUD_PAGE_V };
+        this.b = { u: Viewport.width - HUD_PAGE_U, v: HUD_PAGE_V };
     }
 
     think() {

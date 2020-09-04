@@ -4,7 +4,7 @@ import { Input } from './input/Input';
 import { angle2vector, vectorBetween } from './Util';
 import { Detection } from './Detection';
 import { Behavior } from './systems/Behavior';
-import { Constants as C } from './Constants';
+import { R360 } from './Constants';
 import { PageCollectedAnimation } from './PageCollectedAnimation';
 
 /**
@@ -13,7 +13,7 @@ import { PageCollectedAnimation } from './PageCollectedAnimation';
 export class Page {
     constructor(pos) {
         this.pos = { ...pos };
-        this.angle = Math.random() * C.R360;
+        this.angle = Math.random() * R360;
         this.vel = angle2vector(this.angle, Math.random() * 30 + 1);
         this.baseFrame = (Math.random() * 60) | 0;
         //this.mass = 1;

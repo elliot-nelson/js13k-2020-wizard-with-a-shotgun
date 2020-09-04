@@ -1,3 +1,5 @@
+'use strict';
+
 import { game } from './Game';
 import { Sprite } from './Sprite';
 import { Input } from './input/Input';
@@ -9,7 +11,7 @@ import {
     vector2angle
 } from './Util';
 import { ShotgunBlast } from './ShotgunBlast';
-import { Constants as C } from './Constants';
+import { TILE_WIDTH, TILE_HEIGHT, R90 } from './Constants';
 import { Behavior } from './systems/Behavior';
 import { ReloadAnimation } from './ReloadAnimation';
 import { Audio } from './Audio';
@@ -22,8 +24,8 @@ import { Viewport } from './Viewport';
 export class Player {
     constructor() {
         this.pos = {
-            x: (game.maze.rooms[1].q + game.maze.rooms[1].w / 2) * C.TILE_WIDTH,
-            y: (game.maze.rooms[1].r + game.maze.rooms[1].h / 2) * C.TILE_HEIGHT
+            x: (game.maze.rooms[1].q + game.maze.rooms[1].w / 2) * TILE_WIDTH,
+            y: (game.maze.rooms[1].r + game.maze.rooms[1].h / 2) * TILE_HEIGHT
         };
         this.history = [];
         this.vel = { x: 0, y: 0 };
@@ -146,7 +148,7 @@ export class Player {
             blast = Sprite.shotgun_blast[6 - this.frames];
         }
 
-        //Sprite.drawViewportSprite(sprite, this.pos, this.facingAngle + C.R90);
+        //Sprite.drawViewportSprite(sprite, this.pos, this.facingAngle + R90);
 
         let hf = this.state === Behavior.RELOAD && !this.forcedReload ? 15 : 0;
         for (let i = Math.min(hf, history.length); i >= 0; i--) {
@@ -158,7 +160,7 @@ export class Player {
             Viewport.ctx.save();
             Viewport.ctx.globalAlpha = i === 0 ? 1 : 0.5;
             Viewport.ctx.translate(u + sprite.anchor.x, v + sprite.anchor.y);
-            Viewport.ctx.rotate(this.facingAngle + C.R90);
+            Viewport.ctx.rotate(this.facingAngle + R90);
 
             Viewport.ctx.drawImage(
                 sprite.img,

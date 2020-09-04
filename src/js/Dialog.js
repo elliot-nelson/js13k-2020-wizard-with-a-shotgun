@@ -5,7 +5,7 @@ import { Sprite } from './Sprite';
 import { Text } from './Text';
 import { Input } from './input/Input';
 import { Viewport } from './Viewport';
-import { Constants as C } from './Constants';
+import { DIALOG_START_A, DIALOG_START_B, DIALOG_HINT_1, DIALOG_HINT_2, DIALOG_HINT_3 } from './Constants';
 
 export class Dialog {
     constructor(key) {
@@ -24,12 +24,12 @@ export class Dialog {
         if (this.t < this.d) this.t++;
         game.dialogSeen[this.flag] = true;
 
-        if (this.flag === C.DIALOG_HINT_1) {
+        if (this.flag === DIALOG_HINT_1) {
             if (Input.direction.m > 0) {
                 this.cull = true;
                 game.dialog = false;
             }
-        } else if (this.flag === C.DIALOG_HINT_3) {
+        } else if (this.flag === DIALOG_HINT_3) {
             if (Input.pressed[Input.Action.RELOAD]) {
                 this.cull = true;
                 game.dialog = false;
@@ -90,35 +90,35 @@ export class Dialog {
 }
 
 Dialog.details = {
-    [C.DIALOG_START_A]: {
+    [DIALOG_START_A]: {
         text:
             'NOT AGAIN! THE PAGES OF THE SHOTGUN SPELLBOOK HAVE BEEN TORN OUT AND SCATTERED ALL OVER THIS DUNGEON!',
-        flag: C.DIALOG_START_A,
+        flag: DIALOG_START_A,
         speech: true
     },
-    [C.DIALOG_START_B]: {
+    [DIALOG_START_B]: {
         text: 'FIND MY MISSING PAGES AND HELP ME REGAIN MY POWERS.',
-        flag: C.DIALOG_START_B,
-        required: C.DIALOG_START_A,
+        flag: DIALOG_START_B,
+        required: DIALOG_START_A,
         speech: true
     },
-    [C.DIALOG_HINT_1]: {
+    [DIALOG_HINT_1]: {
         text: 'PRESS abcd TO MOVE',
-        flag: C.DIALOG_HINT_1,
-        required: C.DIALOG_START_B,
+        flag: DIALOG_HINT_1,
+        required: DIALOG_START_B,
         blockFire: true,
         blockReload: true
     },
-    [C.DIALOG_HINT_2]: {
+    [DIALOG_HINT_2]: {
         text: 'PRESS l TO FIRE YOUR SHOTGUN',
-        flag: C.DIALOG_HINT_2,
-        required: C.DIALOG_HINT_1,
+        flag: DIALOG_HINT_2,
+        required: DIALOG_HINT_1,
         blockReload: true
     },
-    [C.DIALOG_HINT_3]: {
+    [DIALOG_HINT_3]: {
         text: 'PRESS r TO RELOAD',
-        flag: C.DIALOG_HINT_3,
-        required: C.DIALOG_HINT_2,
+        flag: DIALOG_HINT_3,
+        required: DIALOG_HINT_2,
         blockFire: true
     }
 };

@@ -5,7 +5,7 @@ import { Sprite } from './Sprite';
 import { angle2vector, rgba } from './Util';
 import { Viewport } from './Viewport';
 import { Player } from './Player';
-import { Constants as C } from './Constants';
+import { R360 } from './Constants';
 
 export class StarfieldParticle {
     constructor() {
@@ -20,7 +20,7 @@ export class StarfieldParticle {
             brightness + 85,
             0.9
         );
-        this.angle = Math.random() * C.R360;
+        this.angle = Math.random() * R360;
         this.vector = angle2vector(this.angle, 1 + brightness / 40);
         this.t = 0;
         this.d = 100;

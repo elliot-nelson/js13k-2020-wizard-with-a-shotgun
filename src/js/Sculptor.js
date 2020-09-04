@@ -9,7 +9,7 @@ import {
 } from './Util';
 import { Detection } from './Detection';
 import { Behavior } from './systems/Behavior';
-import { Constants as C } from './Constants';
+import { R20, R70, R90, R360 } from './Constants';
 import { Page } from './Page';
 import { Gore } from './Gore';
 import { Viewport } from './Viewport';
@@ -34,9 +34,9 @@ export class Sculptor {
         if (this.state === Behavior.IDLE) {
             // Kick off at random angles, but, it looks weird to have straight horizontal
             // or vertical angles - so avoid anything within +- 20 degrees of a straight angle.
-            let angle = Math.random() * C.R360;
-            if (angle % C.R90 < C.R20) angle += C.R20;
-            if (angle % C.R90 > C.R70) angle -= C.R20;
+            let angle = Math.random() * R360;
+            if (angle % R90 < R20) angle += R20;
+            if (angle % R90 > R70) angle -= R20;
             this.facing = angle2vector(angle);
             this.vel = this.facing;
             this.state = Behavior.CHASE;

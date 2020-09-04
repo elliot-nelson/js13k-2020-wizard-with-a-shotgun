@@ -12,7 +12,7 @@ import {
     tilesHitBy,
     xy2uv
 } from './Util';
-import { Constants as C } from './Constants';
+import { R80 } from './Constants';
 import { Viewport } from './Viewport';
 import { Player } from './Player';
 import { ScreenShake } from './ScreenShake';
@@ -21,7 +21,7 @@ export class ShotgunBlast {
     constructor(pos, angle) {
         this.pos = { ...pos };
         this.angle = angle;
-        this.spread = C.R80;
+        this.spread = R80;
         this.t = -1;
         this.d = 6;
         this.range = 55;

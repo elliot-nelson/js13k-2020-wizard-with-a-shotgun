@@ -1,6 +1,5 @@
 'use strict';
 
-import { Constants as C } from './Constants';
 import { SpriteSheet } from './SpriteSheet-gen';
 import { rgba } from './Util';
 import { Text } from './Text';

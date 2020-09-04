@@ -6,7 +6,7 @@ import { Sprite } from './Sprite';
 import { Text } from './Text';
 import { Viewport } from './Viewport';
 import { clamp } from './Util';
-import { Constants as C } from './Constants';
+import { HUD_PAGE_U, HUD_PAGE_V, HUD_PAGE_TEXT_U } from './Constants';
 
 export const Hud = {
     draw() {
@@ -48,19 +48,19 @@ export const Hud = {
         }
         Viewport.ctx.drawImage(
             Sprite.page_glow.img,
-            Viewport.width - C.HUD_PAGE_U,
-            C.HUD_PAGE_V
+            Viewport.width - HUD_PAGE_U,
+            HUD_PAGE_V
         );
         Viewport.ctx.globalAlpha = 1;
         Viewport.ctx.drawImage(
             Sprite.page.img,
-            Viewport.width - C.HUD_PAGE_U,
-            C.HUD_PAGE_V
+            Viewport.width - HUD_PAGE_U,
+            HUD_PAGE_V
         );
         Text.drawText(
             Viewport.ctx,
             'x' + ('' + game.player.pages).padStart(3, '0'),
-            Viewport.width - C.HUD_PAGE_TEXT_U,
+            Viewport.width - HUD_PAGE_TEXT_U,
             4,
             2,
             Text.default,

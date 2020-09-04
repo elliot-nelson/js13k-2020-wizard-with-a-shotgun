@@ -1,7 +1,6 @@
 'use strict';
 
 import { game } from './Game';
-import { Constants as C } from './Constants';
 import { tilesHitBetween, tileIsPassable } from './Util';
 
 /**

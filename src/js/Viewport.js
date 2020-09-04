@@ -1,7 +1,6 @@
 'use strict';
 
-const GAME_WIDTH = 480;
-const GAME_HEIGHT = 270;
+import { GAME_WIDTH, GAME_HEIGHT } from './Constants';
 
 /**
  * Viewport
