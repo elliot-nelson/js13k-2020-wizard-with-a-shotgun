@@ -27,7 +27,6 @@ export const MapLoader = {
 
                     if (room) {
                         walls[r][q] |=
-                         OPEN_TOP | OPEN_LEFT | OPEN_RIGHT |
                             (maze[r - 1][q] && r === room.r ? OPEN_TOP : 0) |
                             (maze[r][q + 1] && (q === room.q + room.w - 1)
                                 ? OPEN_RIGHT

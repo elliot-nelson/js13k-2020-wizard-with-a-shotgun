@@ -80,15 +80,13 @@ export const Maze = {
                     );
                 }
 
-                if (this.brawl) {
-                    let f = (this.frame / 8) % 3 | 0;
+                if (game.brawl) {
+                    let f = (game.frame / 8) % 3 | 0;
 
                     console.log(maze.walls[r][q]);
                     if (maze.walls[r][q] & OPEN_TOP) {
-                        console.log('otp');
                         ctx.drawImage(
-                            //Sprite.battle_door[f].img,
-                            Sprite.walls.img,
+                            Sprite.battle_door[f].img,
                             0, 0, 36, 4,
                             x - 2, y - 2, 36, 4
                         );

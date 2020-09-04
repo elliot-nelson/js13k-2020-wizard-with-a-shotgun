@@ -197,7 +197,6 @@ export const Sprite = {
     },
 
     createBattleDoors(source) {
-        return source;
         let canvas = createCanvas(source.width, source.height);
         canvas.ctx.drawImage(source, 0, 0);
         canvas.ctx.globalCompositeOperation = 'source-atop';
