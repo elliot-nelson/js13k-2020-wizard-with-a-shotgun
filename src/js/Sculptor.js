@@ -1,5 +1,5 @@
 import { game } from './Game';
-import { Sprite } from './Sprite';
+import { R20, R70, R90, R360 } from './Constants';
 import {
     vector2angle,
     angle2vector,
@@ -7,9 +7,8 @@ import {
     normalizeVector,
     vector2point
 } from './Util';
-import { Detection } from './Detection';
+import { Sprite } from './Sprite';
 import { Behavior } from './systems/Behavior';
-import { R20, R70, R90, R360 } from './Constants';
 import { Page } from './Page';
 import { Gore } from './Gore';
 import { Viewport } from './Viewport';

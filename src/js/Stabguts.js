@@ -1,9 +1,9 @@
+'use strict';
+
 import { game } from './Game';
-import { Sprite } from './Sprite';
-import { Input } from './input/Input';
 import { R90 } from './Constants';
 import { vectorBetween, clamp, vector2angle } from './Util';
-import { Detection } from './Detection';
+import { Sprite } from './Sprite';
 import { Behavior } from './systems/Behavior';
 import { Gore } from './Gore';
 import { Page } from './Page';

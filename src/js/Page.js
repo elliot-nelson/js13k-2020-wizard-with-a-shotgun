@@ -2,7 +2,6 @@ import { game } from './Game';
 import { Sprite } from './Sprite';
 import { Input } from './input/Input';
 import { angle2vector, vectorBetween } from './Util';
-import { Detection } from './Detection';
 import { Behavior } from './systems/Behavior';
 import { R360 } from './Constants';
 import { PageCollectedAnimation } from './PageCollectedAnimation';
@@ -32,7 +31,7 @@ export class Page {
         }
     }
 
-    draw(viewport) {
+    draw() {
         let pos = {
             x: this.pos.x,
             y: this.pos.y + Math.sin((game.frame + this.baseFrame) / 30) * 2
