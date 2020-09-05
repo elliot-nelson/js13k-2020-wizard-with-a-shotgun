@@ -81,8 +81,8 @@ export const Sprite = {
         Sprite.sawblade_eyes = this.initBasicSprite(SpriteSheet.sawblade[1]);
 
         // Pages
-        Sprite.page = this.initBasicSprite(SpriteSheet.page[1]);
-        Sprite.page_glow = this.initBasicSprite(SpriteSheet.page[2]);
+        Sprite.page = this.initBasicSprite(SpriteSheet.page[0]);
+        Sprite.page_glow = this.initBasicSprite(SpriteSheet.page[1]);
 
         let c = createCanvas(6, 10);
         Text.drawText(c.ctx, 'u', 0, 0, 2);
