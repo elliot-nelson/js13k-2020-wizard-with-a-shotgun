@@ -22,7 +22,7 @@ export class ReloadAnimation {
             let start = (end - 3) | 0;
 
             if (this.t === start) {
-                Audio.playShellReload();
+                Audio.play(Audio.shellReload);
             }
             if (this.t >= start) {
                 let y = Math.min(10, 10 + this.t - end);

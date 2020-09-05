@@ -23,6 +23,10 @@ export class PageCollectedAnimation {
     }
 
     think() {
+        if (this.t === 10) {
+            Audio.play(Audio.page);
+        }
+
         if (++this.t === this.d) {
             this.cull = true;
             game.player.pages++;

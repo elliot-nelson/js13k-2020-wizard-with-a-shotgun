@@ -13,7 +13,6 @@ import { WALL_TOP, WALL_RIGHT, WALL_BOTTOM, WALL_LEFT, OPEN_TOP, OPEN_RIGHT, OPE
 export const Maze = {
     draw() {
         let ctx = Viewport.ctx, maze = game.maze;
-        console.log(ctx,maze);
 
         let offset = {
             x: Viewport.center.u - game.camera.pos.x,
@@ -83,7 +82,6 @@ export const Maze = {
                 if (game.brawl) {
                     let f = (game.frame / 8) % 3 | 0;
 
-                    console.log(maze.walls[r][q]);
                     if (maze.walls[r][q] & OPEN_TOP) {
                         ctx.drawImage(
                             Sprite.battle_door[f].img,

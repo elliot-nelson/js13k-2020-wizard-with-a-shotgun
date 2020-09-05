@@ -112,7 +112,7 @@ export class Player {
     }
 
     fire() {
-        Audio.playShotgun();
+        Audio.play(Audio.shotgun);
 
         this.state = Behavior.ATTACK;
         this.frames = 10;
