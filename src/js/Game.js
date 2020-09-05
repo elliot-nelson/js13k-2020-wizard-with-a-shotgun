@@ -26,6 +26,7 @@ export class Game {
     async init() {
         await Viewport.init();
         await Sprite.init();
+        await Text.init();
         await Input.init();
         await Audio.init();
 
@@ -55,7 +56,7 @@ export class Game {
         this.dialogPending[DIALOG_START_B] =
         this.dialogPending[DIALOG_HINT_1] =
         this.dialogPending[DIALOG_HINT_2] =
-        this.dialogPending[DIALOG_HINT_3] = false;
+        this.dialogPending[DIALOG_HINT_3] = true;
 
         /*
         this.menuStack.push(new IntroMenuA({

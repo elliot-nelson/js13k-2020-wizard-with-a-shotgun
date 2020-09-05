@@ -27,7 +27,7 @@ export const Sprite = {
         this.images = {};
         await this.loadImage(SPRITESHEET_URI);
 
-        // Base Pixel Font (see `Text.init` for additional manipulation)
+        // Base pixel font and icons (see `Text.init` for additional variations)
         Sprite.font = this.initBasicSprite(SpriteSheet.font[0]);
         Sprite.icon_mouse_lmb = this.initBasicSprite(SpriteSheet.icon_mouse[0]);
         Sprite.icon_mouse_rmb = this.initBasicSprite(SpriteSheet.icon_mouse[1]);
@@ -35,7 +35,6 @@ export const Sprite = {
         Sprite.icon_keys_a = this.initBasicSprite(SpriteSheet.icon_keys[1]);
         Sprite.icon_keys_s = this.initBasicSprite(SpriteSheet.icon_keys[2]);
         Sprite.icon_keys_d = this.initBasicSprite(SpriteSheet.icon_keys[3]);
-        await Text.init();
 
         // Player
         let player = SpriteSheet.player.map(data =>
@@ -83,10 +82,6 @@ export const Sprite = {
         // Pages
         Sprite.page = this.initBasicSprite(SpriteSheet.page[0]);
         Sprite.page_glow = this.initBasicSprite(SpriteSheet.page[1]);
-
-        let c = createCanvas(6, 10);
-        Text.drawText(c.ctx, 'u', 0, 0, 2);
-        Sprite.glyphs = [this.initDynamicSprite(c.canvas)];
 
         // Tiles
         Sprite.tiles = SpriteSheet.tiles.map(data =>
