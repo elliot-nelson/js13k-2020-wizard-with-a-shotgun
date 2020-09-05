@@ -31,7 +31,6 @@ export class Game {
         await Audio.init();
 
         this.maze = MapLoader.load();
-        this.camera = { pos: { x: 1, y: 1 } };
         this.entities = [];
         this.dialogPending = {};
         this.dialogSeen = {};
@@ -41,8 +40,7 @@ export class Game {
         this.screenshakes = [];
         this.player = new Player();
         this.entities.push(this.player);
-
-        console.log(38);
+        this.camera = { pos: { ...this.player.pos } };
     }
 
     start() {

@@ -17,6 +17,7 @@ import { ReloadAnimation } from './ReloadAnimation';
 import { Audio } from './Audio';
 import { Gore } from './Gore';
 import { Viewport } from './Viewport';
+import { SpawnAnimation } from './SpawnAnimation';
 
 /**
  * Player
@@ -38,8 +39,8 @@ export class Player {
         this.forcedReload = false;
         this.mass = 3;
         this.pages = 11;
-        this.state = Behavior.HUNT;
-        this.frames = 0;
+        this.state = Behavior.DEAD;
+        this.frames = 40;
     }
 
     think() {
@@ -84,6 +85,15 @@ export class Player {
             if (--this.frames <= 0) {
                 this.shellsLeft = this.shellsMax;
                 this.state = Behavior.HUNT;
+            }
+        } else if (this.state === Behavior.DEAD) {
+            if (this.frames-- === 0) {
+                this.pos = {
+                    x: (game.maze.rooms[1].q + game.maze.rooms[1].w / 2) * TILE_WIDTH,
+                    y: (game.maze.rooms[1].r + game.maze.rooms[1].h / 2) * TILE_HEIGHT
+                };
+                this.state = Behavior.HUNT;
+                game.entities.push(new SpawnAnimation(this.pos));
             }
         }
     }
@@ -140,6 +150,8 @@ export class Player {
     }
 
     draw(viewport) {
+        if (this.state === Behavior.DEAD) return;
+
         let sprite = Sprite.player[((game.frame / 30) | 0) % 2],
             blast;
 
