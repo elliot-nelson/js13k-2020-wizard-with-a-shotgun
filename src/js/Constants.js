@@ -54,6 +54,7 @@ export const R0          = 0;
 export const R20         = Math.PI * 20  / 180;
 export const R45         = Math.PI * 45  / 180;
 export const R70         = Math.PI * 70  / 180;
+export const R72         = Math.PI * 72  / 180;
 export const R80         = Math.PI * 80  / 180;
 export const R90         = Math.PI * 90  / 180;
 export const R180        = Math.PI * 180 / 180;

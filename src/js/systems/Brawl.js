@@ -9,6 +9,7 @@ import { xy2qr, vectorBetween } from '../Util';
 import { ScreenShake } from '../ScreenShake';
 import { Sculptor } from '../Sculptor';
 import { Stabguts } from '../Stabguts';
+import { SpawnAnimation } from '../SpawnAnimation';
 
 const SpawnPatterns = [
     [
@@ -88,6 +89,7 @@ export const Brawl = {
             let enemy = new plan.enemy(pos);
             game.entities.push(enemy);
             game.brawl.enemies.push(enemy);
+            game.entities.push(new SpawnAnimation(pos));
             return enemy;
         }
     }
