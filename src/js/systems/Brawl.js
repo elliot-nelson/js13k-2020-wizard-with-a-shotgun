@@ -8,16 +8,19 @@ import { game } from '../Game';
 import { xy2qr, vectorBetween } from '../Util';
 import { ScreenShake } from '../ScreenShake';
 import { Sculptor } from '../Sculptor';
+import { Stabguts } from '../Stabguts';
 
 const SpawnPatterns = [
     [
-        { enemy: Sculptor, frame: 10 },
+        { enemy: Stabguts, frame: 10 },
+        { enemy: Stabguts, frame: 50 },
+        /*{ enemy: Sculptor, frame: 10 },
         { enemy: Sculptor, frame: 50 },
         { enemy: Sculptor, frame: 90 },
         { enemy: Sculptor, frame: 180 },
         { enemy: Sculptor, frame: 180 },
         { enemy: Sculptor, frame: 180 },
-        { enemy: Sculptor, frame: 180 }
+        { enemy: Sculptor, frame: 180 }*/
     ]
 ];
 
