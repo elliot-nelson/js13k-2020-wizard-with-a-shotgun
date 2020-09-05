@@ -120,6 +120,8 @@ export const Sprite = {
             this.initDynamicSprite(this.buildRift(3)),
             this.initDynamicSprite(this.buildRift(4))
         ];
+
+        Sprite.stabguts = SpriteSheet.stabguts.map(data => this.initBasicSprite(data));
     },
 
     /**

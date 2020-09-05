@@ -19,7 +19,7 @@ import { Viewport } from './Viewport';
  */
 export class Sculptor {
     constructor(pos) {
-        this.pos = pos;
+        this.pos = { ...pos };
         this.vel = { x: 0, y: 0 };
         this.facing = { x: 0, y: -1, m: 0 };
         this.hp = 100;

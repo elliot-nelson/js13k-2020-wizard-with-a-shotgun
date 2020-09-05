@@ -16,7 +16,6 @@ import { Movement } from './systems/Movement';
 import { Damage } from './systems/Damage';
 import { DialogScheduling } from './systems/DialogScheduling';
 import { Hud } from './Hud';
-import { StarfieldParticle } from './StarfieldParticle';
 import { ScreenShake } from './ScreenShake';
 import { Maze } from './Maze';
 
@@ -106,9 +105,6 @@ export class Game {
         };
         this.camera.pos.x += diff.x * 0.2;
         this.camera.pos.y += diff.y * 0.2;
-
-        // Starfield particle
-        this.entities.push(new StarfieldParticle());
 
         // Tick screenshakes and cull finished screenshakes
         this.screenshakes = this.screenshakes.filter(screenshake =>
