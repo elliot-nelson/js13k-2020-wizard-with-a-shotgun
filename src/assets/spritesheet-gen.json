@@ -333,8 +333,17 @@
     "duration": 100
    },
    {
-    "filename": "walls2.aseprite",
+    "filename": "walls 0.aseprite",
     "frame": { "x": 0, "y": 214, "w": 4, "h": 4 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 4 },
+    "sourceSize": { "w": 4, "h": 4 },
+    "duration": 100
+   },
+   {
+    "filename": "walls 1.aseprite",
+    "frame": { "x": 4, "y": 214, "w": 4, "h": 4 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 4 },

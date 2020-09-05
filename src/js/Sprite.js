@@ -93,17 +93,10 @@ export const Sprite = {
             this.initBasicSprite(data)
         );
 
-        // Walls
-        //Sprite.walls = this.initBasicSprite(SpriteSheet.walls2[0]);
-        let w = this.initBasicSprite(SpriteSheet.walls2[0]);
-        Sprite.walls = this.initDynamicSprite(this.buildWall(w.img));
-
-        //Sprite.battle_door = SpriteSheet.walls2.slice(1, 4).map(data => this.initBasicSprite(data));
-        Sprite.battle_door = [
-            this.initDynamicSprite(Sprite.createBattleDoors(Sprite.walls.img)),
-            this.initDynamicSprite(Sprite.createBattleDoors(Sprite.walls.img)),
-            this.initDynamicSprite(Sprite.createBattleDoors(Sprite.walls.img))
-        ];
+        // Walls/gates (gates are openings that close during brawls)
+        let w = SpriteSheet.walls.map(data => this.initBasicSprite(data));
+        Sprite.walls = this.initDynamicSprite(this.createWalls(w[0].img));
+        Sprite.gates = this.initDynamicSprite(this.createGates(w[0].img, w[1].img));
 
         // Dialog
         //Sprite.dialog_speech = this.initBasicSprite(SpriteSheet.dialog[0]);
@@ -112,14 +105,6 @@ export const Sprite = {
             this.createDialogSpeech()
         );
         Sprite.dialog_hint = this.initDynamicSprite(this.createDialogHint());
-
-        Sprite.rift = [
-            this.initDynamicSprite(this.buildRift(0)),
-            this.initDynamicSprite(this.buildRift(1)),
-            this.initDynamicSprite(this.buildRift(2)),
-            this.initDynamicSprite(this.buildRift(3)),
-            this.initDynamicSprite(this.buildRift(4))
-        ];
 
         Sprite.stabguts = SpriteSheet.stabguts.map(data => this.initBasicSprite(data));
     },
@@ -198,23 +183,7 @@ export const Sprite = {
         });
     },
 
-    createBattleDoors(source) {
-        let canvas = createCanvas(source.width, source.height);
-        canvas.ctx.drawImage(source, 0, 0);
-        canvas.ctx.globalCompositeOperation = 'source-atop';
-        for (let y = 0; y < source.height; y++) {
-            for (let x = 0; x < source.width; x++) {
-                let r = (Math.random() * 200 + 50) | 0;
-                let b = (Math.random() * 200 + 50) | 0;
-                let a = (Math.random() * 10 + 10) / 30;
-                canvas.ctx.fillStyle = rgba(r, 50, b, a);
-                canvas.ctx.fillRect(x, y, 1, 1);
-            }
-        }
-        return canvas.canvas;
-    },
-
-    buildWall(source) {
+    createWalls(source) {
         let canvas = createCanvas(36, 36);
         for (let i = 0; i < 36; i += 4) {
             canvas.ctx.drawImage(source, i, 0);
@@ -222,6 +191,31 @@ export const Sprite = {
             canvas.ctx.drawImage(source, 0, i);
             canvas.ctx.drawImage(source, 32, i);
         }
+
+        canvas.ctx.globalCompositeOperation = 'source-atop';
+        for (let y = 0; y < 36; y++) {
+            for (let x = 0; x < 36; x++) {
+                let a = ((x * x * 13 + y * y * 17) % 39) / 117;
+                canvas.ctx.fillStyle = rgba(0, 0, 0, a);
+                canvas.ctx.fillRect(x, y, 1, 1);
+            }
+        }
+
+        return canvas.canvas;
+    },
+
+    createGates(wallSource, spikeSource) {
+        let canvas = createCanvas(36, 36);
+        for (let i = 0; i < 36; i += 4) {
+            canvas.ctx.drawImage(spikeSource, i, 0);
+            canvas.ctx.drawImage(spikeSource, i, 32);
+            canvas.ctx.drawImage(spikeSource, 0, i);
+            canvas.ctx.drawImage(spikeSource, 32, i);
+        }
+        canvas.ctx.drawImage(wallSource, 0, 0);
+        canvas.ctx.drawImage(wallSource, 32, 0);
+        canvas.ctx.drawImage(wallSource, 0, 32);
+        canvas.ctx.drawImage(wallSource, 32, 32);
 
         canvas.ctx.globalCompositeOperation = 'source-atop';
         for (let y = 0; y < 36; y++) {
@@ -253,64 +247,6 @@ export const Sprite = {
         canvas.ctx.fillRect(1, 1, 118, 33);
         return canvas.canvas;
     },
-
-    buildRift(frame) {
-        let chars = ['s','t','u','v','w'];
-        let r = 50;
-        let angle = index => (index * 72 + 90) * Math.PI / 180;
-        let angle2 = index => (index * 72 + 126) * Math.PI / 180;
-        let r2 = r * 1.2;
-        let r3 = r - r * 0.24;
-        let u = r2, v = r2;
-
-        let canvas = createCanvas(r2 * 2, r2 * 2);
-        let ctx = canvas.ctx;
-
-        ctx.strokeStyle = rgba(200, 50, 200, 1);
-        ctx.beginPath();
-        ctx.arc(u, v, r, 0, R360);
-        ctx.moveTo(u + Math.cos(angle(0)) * r2, v + Math.sin(angle(0)) * r2);
-        ctx.lineTo(u + Math.cos(angle(2)) * r2, v + Math.sin(angle(2)) * r2);
-        ctx.lineTo(u + Math.cos(angle(4)) * r2, v + Math.sin(angle(4)) * r2);
-        ctx.lineTo(u + Math.cos(angle(1)) * r2, v + Math.sin(angle(1)) * r2);
-        ctx.lineTo(u + Math.cos(angle(3)) * r2, v + Math.sin(angle(3)) * r2);
-        ctx.lineTo(u + Math.cos(angle(0)) * r2, v + Math.sin(angle(0)) * r2);
-        ctx.stroke();
-
-        for (let i = 0; i < 5; i++) {
-            ctx.beginPath();
-            ctx.arc(u + Math.cos(angle2(i)) * r3, v + Math.sin(angle2(i)) * r3, r * 0.24, 0, R360);
-            ctx.stroke();
-            ctx.save();
-            let char = chars[(i + frame) % 5];
-            ctx.translate(u+ Math.cos(angle2(i)) * r3, v+ Math.sin(angle2(i)) * r3);
-            ctx.rotate(angle(i) + (Math.PI * 126 / 180));
-            Text.drawText(ctx, char, -3, -5, 2);
-            ctx.restore();
-        }
-
-        canvas.ctx.globalCompositeOperation = 'source-atop';
-        for (let y = 0; y < r2 * 2; y++) {
-            for (let x = 0; x < r2 * 2; x++) {
-                let a = ((x * x * 13 + y * y * 17) % 39) / 117;
-                a = 1;
-                canvas.ctx.fillStyle = rgba(200, 50, 250, 1);
-                canvas.ctx.fillRect(x, y, 1, 1);
-            }
-        }
-
-        let canvas2 = createCanvas(r2 * 2, r2 * 2);
-        /*canvas2.ctx.globalAlpha = 0.3;
-        canvas2.ctx.drawImage(canvas.canvas, 0, 1);
-        canvas2.ctx.drawImage(canvas.canvas, -1, 0);
-        canvas2.ctx.drawImage(canvas.canvas, 0, 1);
-        canvas2.ctx.drawImage(canvas.canvas, 0, -1);*/
-        canvas2.ctx.globalAlpha = 1;
-        canvas2.ctx.drawImage(canvas.canvas, 0, 0);
-
-        return canvas2.canvas;
-    },
-
 
     /**
      * A small helper that draws a sprite onto a canvas, respecting the anchor point of

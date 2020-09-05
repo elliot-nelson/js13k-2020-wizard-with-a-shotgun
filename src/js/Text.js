@@ -46,6 +46,8 @@ export const Text = {
 
         this.black = this.recolor(this.default, rgba(0, 0, 0, 1));
         this.black_shadow = this.recolor(this.default, rgba(90, 20, 90, 0.15));
+        this.blue = this.recolor(this.default, rgba(200, 50, 240, 1));
+        this.blue_shadow = this.recolor(this.default, rgba(240, 50, 200, 0.2));
         this.fire = this.recolor(this.default, ctx => {
             let gradient = ctx.createLinearGradient(
                 0,

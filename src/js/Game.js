@@ -175,12 +175,6 @@ export class Game {
         }
 
         Menu.draw();
-
-        ctx.save();
-        ctx.translate(250, 100);
-        ctx.rotate(game.frame / 30);
-        ctx.drawImage(Sprite.rift[(game.frame / 10) % 5 | 0].img, -50, -50);
-        ctx.restore();
     }
 
 }

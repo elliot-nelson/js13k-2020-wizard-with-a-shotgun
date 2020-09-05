@@ -80,11 +80,9 @@ export const Maze = {
                 }
 
                 if (game.brawl) {
-                    let f = (game.frame / 8) % 3 | 0;
-
                     if (maze.walls[r][q] & OPEN_TOP) {
                         ctx.drawImage(
-                            Sprite.battle_door[f].img,
+                            Sprite.gates.img,
                             0, 0, 36, 4,
                             x - 2, y - 2, 36, 4
                         );
@@ -92,7 +90,7 @@ export const Maze = {
 
                     if (maze.walls[r][q] & OPEN_RIGHT) {
                         ctx.drawImage(
-                            Sprite.battle_door[f].img,
+                            Sprite.gates.img,
                             32, 0, 4, 36,
                             x + 30, y - 2, 4, 36
                         );
@@ -100,7 +98,7 @@ export const Maze = {
 
                     if (maze.walls[r][q] & OPEN_BOTTOM) {
                         ctx.drawImage(
-                            Sprite.battle_door[f].img,
+                            Sprite.gates.img,
                             0, 32, 36, 4,
                             x - 2, y + 30, 36, 4
                         );
@@ -108,7 +106,7 @@ export const Maze = {
 
                     if (maze.walls[r][q] & OPEN_LEFT) {
                         ctx.drawImage(
-                            Sprite.battle_door[f].img,
+                            Sprite.gates.img,
                             0, 0, 4, 36,
                             x - 2, y - 2, 4, 36
                         );
