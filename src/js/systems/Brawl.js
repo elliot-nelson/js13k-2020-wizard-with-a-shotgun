@@ -13,13 +13,16 @@ import { SpawnAnimation } from '../SpawnAnimation';
 
 const SpawnPatterns = [
     [
-        { enemy: Stabguts, frame: 0 },
-        { enemy: Stabguts, frame: 30 },
-        { enemy: Stabguts, frame: 60 },
-        { enemy: Stabguts, frame: 90 },
-        { enemy: Stabguts, frame: 120 },
-        { enemy: Stabguts, frame: 150 },
-        { enemy: Stabguts, frame: 180 },
+        [Stabguts, 0],
+        [Stabguts, 60],
+        [Stabguts, 120]
+    ],
+    [
+        [Stabguts, 0],
+        [Stabguts, 60],
+        [Stabguts, 120]
+    ],
+
         /*{ enemy: Sculptor, frame: 10 },
         { enemy: Sculptor, frame: 50 },
         { enemy: Sculptor, frame: 90 },
@@ -27,7 +30,6 @@ const SpawnPatterns = [
         { enemy: Sculptor, frame: 180 },
         { enemy: Sculptor, frame: 180 },
         { enemy: Sculptor, frame: 180 }*/
-    ]
 ];
 
 /**
@@ -47,13 +49,13 @@ export const Brawl = {
                 }
             } else {
                 let plan = game.brawl.plan[0];
-                if (game.frame >= game.brawl.start + plan.frame) {
+                if (game.frame >= game.brawl.start + plan[1]) {
                     if (Brawl.spawn(plan)) {
                         game.brawl.plan.shift();
                     }
                 } else if (livingEnemies === 0) {
                     // If nothing is alive, hasten the next enemy
-                    plan.frame -= 10;
+                    plan[1] -= 10;
                 }
 
             }
@@ -91,7 +93,7 @@ export const Brawl = {
 
         let v = vectorBetween(game.player.pos, pos);
         if (v.m > 48) {
-            let enemy = new plan.enemy(pos);
+            let enemy = new plan[0](pos);
             game.entities.push(enemy);
             game.brawl.enemies.push(enemy);
             game.entities.push(new SpawnAnimation(pos));

@@ -16,7 +16,7 @@ export class Dialog {
         }
         this.t = 0;
         this.d = this.speech ? 100 : 40;
-        this.z = 98;
+        this.z = 102;
         game.dialog = this;
     }
 

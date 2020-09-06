@@ -1,7 +1,7 @@
 import { game } from './Game';
 import { Sprite } from './Sprite';
 import { Input } from './input/Input';
-import { angle2vector, vectorBetween } from './Util';
+import { angle2vector, vectorBetween, vector2point } from './Util';
 import { Behavior } from './systems/Behavior';
 import { R360 } from './Constants';
 import { PageCollectedAnimation } from './PageCollectedAnimation';
@@ -14,7 +14,7 @@ export class Page {
         this.pos = { ...pos };
         this.amount = amount;
         this.angle = Math.random() * R360;
-        this.vel = angle2vector(this.angle, Math.random() * 30 + 1);
+        this.vel = vector2point(angle2vector(this.angle, Math.random() * 3 + 1));
         this.baseFrame = (Math.random() * 60) | 0;
         //this.mass = 1;
         this.radius = 3;
