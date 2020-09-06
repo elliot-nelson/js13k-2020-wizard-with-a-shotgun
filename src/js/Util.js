@@ -456,6 +456,7 @@ export function tileIsPassable(q, r) {
         )
             return false;
     }
+    if (q < 0 || r < 0 || q >= game.maze.w || r >= game.maze.h) return false;
     return !!game.maze.maze[r][q];
 }
 

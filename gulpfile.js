@@ -77,7 +77,18 @@ function minifyBuild() {
             nameCache: cache,
             mangle: {
                 properties: {
-                    reserved: ['imageSmoothingEnabled']
+                    reserved: [
+                        'imageSmoothingEnabled',
+                        'KeyW',
+                        'KeyA',
+                        'KeyS',
+                        'KeyD',
+                        'ArrowUp',
+                        'ArrowLeft',
+                        'ArrowDown',
+                        'ArrowRight',
+                        'Escape'
+                    ]
                 }
             }
         }))

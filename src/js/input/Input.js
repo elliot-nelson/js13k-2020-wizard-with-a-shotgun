@@ -35,9 +35,6 @@ export const Input = {
         RIGHT: 14,
         ATTACK: 21,
         RELOAD: 30,
-        DEFLECT: 22,
-        DODGE: 23,
-        SUPER: 24,
         MENU: 96,
         MUTE: 97,
         FREEZE: 98

@@ -75,13 +75,11 @@ export class KeyboardAdapter {
     async init() {
         window.addEventListener('keydown', event => {
             let k = this.map[event.code];
-            console.log(event.key, event.keyCode, event.code);
+            console.log(event.key, event.keyCode, event.code, k);
+            console.log(this.map);
             if (k) {
                 this.held[k] = true;
             }
-
-            // Hack - first key pressed in window will initialize the audio.
-            //game.audio.init();
         });
 
         window.addEventListener('keyup', event => {
