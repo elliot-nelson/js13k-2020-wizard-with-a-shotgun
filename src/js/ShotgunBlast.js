@@ -26,7 +26,7 @@ export class ShotgunBlast {
         this.d = 6;
         this.range = 55;
 
-        game.screenshakes.push(new ScreenShake(6, 6, 6)); // wink
+        game.screenshakes.push(new ScreenShake(6, 6, 6)); // so metal
     }
 
     think() {
@@ -90,17 +90,6 @@ export class ShotgunBlast {
         }
     }
 
-    draw(viewport) {
-        // TODO
-        //Sprite.drawViewportSprite(Sprite.monster, this.pos);
-        /*
-        let uv =xy2uv(this.pos);
-    Viewport.ctx.beginPath();
-    Viewport.ctx.arc(uv.u, uv.v, this.range, this.angle - this.spread / 2, this.angle + this.spread / 2);
-    Viewport.ctx.lineTo(uv.u, uv.v);
-    Viewport.ctx.closePath();
-    Viewport.ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)'
-    Viewport.ctx.stroke();
-    */
+    draw() {
     }
 }

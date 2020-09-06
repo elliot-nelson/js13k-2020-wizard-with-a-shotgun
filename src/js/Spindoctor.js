@@ -16,7 +16,7 @@ import { Viewport } from './Viewport';
 /**
  * Monster
  */
-export class Sculptor {
+export class Spindoctor {
     constructor(pos) {
         this.pos = { ...pos };
         this.vel = { x: 0, y: 0 };

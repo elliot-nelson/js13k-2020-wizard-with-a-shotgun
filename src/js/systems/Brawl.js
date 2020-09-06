@@ -7,29 +7,24 @@ import { HealthChunkAnimation } from '../HealthChunkAnimation';
 import { game } from '../Game';
 import { xy2qr, vectorBetween } from '../Util';
 import { ScreenShake } from '../ScreenShake';
-import { Sculptor } from '../Sculptor';
 import { Stabguts } from '../Stabguts';
+import { Spindoctor } from '../Spindoctor';
 import { SpawnAnimation } from '../SpawnAnimation';
 
 const SpawnPatterns = [
     [
-        [Stabguts, 0],
-        [Stabguts, 60],
-        [Stabguts, 120]
+        [Stabguts, 0, 60, 120]
     ],
     [
-        [Stabguts, 0],
-        [Stabguts, 60],
-        [Stabguts, 120]
+        [Spindoctor, 0, 30, 60]
     ],
-
-        /*{ enemy: Sculptor, frame: 10 },
-        { enemy: Sculptor, frame: 50 },
-        { enemy: Sculptor, frame: 90 },
-        { enemy: Sculptor, frame: 180 },
-        { enemy: Sculptor, frame: 180 },
-        { enemy: Sculptor, frame: 180 },
-        { enemy: Sculptor, frame: 180 }*/
+    [
+        [Stabguts, 0, 30, 60, 90, 100, 110, 180, 200]
+    ],
+    [
+        [Stabguts, 0, 10, 20, 180, 200,],
+        [Spindoctor, 90, 100, 110, 240, 250, 260, 270, 280],
+    ],
 ];
 
 /**
@@ -62,7 +57,6 @@ export const Brawl = {
         } else {
             let qr = xy2qr(game.player.pos);
             let room = game.maze.rooms[game.maze.maze[qr.r][qr.q]];
-
             if (
                 room &&
                 room.roomNumber >= 3 &&
@@ -74,15 +68,29 @@ export const Brawl = {
                 qr.q < room.q + room.w - 1 &&
                 qr.r < room.r + room.h - 1
             ) {
+                room.pattern = 3;
                 game.screenshakes.push(new ScreenShake(20, 20, 20));
                 game.brawl = {
                     room,
                     enemies: [],
                     start: game.frame,
-                    plan: SpawnPatterns[room.pattern].map(plan => ({ ...plan }))
+                    plan: Brawl.expandPattern(SpawnPatterns[room.pattern])
                 };
             }
         }
+    },
+
+    expandPattern(pattern) {
+        let plan = [];
+        for (let entry of pattern) {
+            let enemy = entry[0];
+            for (let i = 1; i < entry.length; i++) {
+                plan.push([enemy, entry[i]]);
+            }
+        }
+        console.log(["pattern", pattern]);
+        console.log(["plan", plan]);
+        return plan;
     },
 
     spawn(plan) {

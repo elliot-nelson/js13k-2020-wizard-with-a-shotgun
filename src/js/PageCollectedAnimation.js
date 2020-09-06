@@ -6,6 +6,7 @@ import { Audio } from './Audio';
 import { Viewport } from './Viewport';
 import { HUD_PAGE_U, HUD_PAGE_V } from './Constants';
 import { Hud } from './Hud';
+import { clamp } from './Util';
 
 export class PageCollectedAnimation {
     constructor(pos, amount) {
@@ -26,6 +27,10 @@ export class PageCollectedAnimation {
     think() {
         if (this.t === 10) {
             Audio.play(Audio.page);
+        }
+
+        if (this.t % 8 === 0) {
+            game.player.hp = clamp(game.player.hp + 1, 0, 100);
         }
 
         if (++this.t === this.d) {
