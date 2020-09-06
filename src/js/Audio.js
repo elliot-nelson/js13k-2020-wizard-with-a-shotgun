@@ -1,8 +1,8 @@
 'use strict';
 
-import { zzfx, zzfxP, zzfxG } from './zzfx';
-import { zzfxM } from './zzfxm';
-import { ObliqueButNotObtuse } from './McDonald3';
+import { zzfx, zzfxP } from './lib/zzfx';
+import { zzfxM } from './lib/zzfxm';
+import { ObliqueButNotObtuse } from './songs/ObliqueButNotObtuse';
 
 export const Audio = {
     async init() {
