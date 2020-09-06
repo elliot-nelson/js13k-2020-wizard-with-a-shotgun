@@ -55,39 +55,22 @@ export class Dialog {
         if (idx < 0) idx = this.text.length;
         if (idx - length > 0) substr += '#'.repeat(idx - length);
 
-        if (this.speech) {
-            let uv = { u: Viewport.center.u + 6, v: Viewport.center.v + 6 };
-            Viewport.ctx.drawImage(Sprite.dialog_speech.img, uv.u, uv.v);
-            Text.drawParagraph(
-                Viewport.ctx,
-                substr,
-                uv.u + 12,
-                uv.v + 5,
-                110,
-                50,
-                1,
-                Text.black,
-                Text.black_shadow
-            );
-        } else {
-            let uv = {
-                u: Viewport.center.u - Sprite.dialog_hint.img.width / 2,
-                v: Viewport.height - Sprite.dialog_hint.img.height - 4
-            };
+        let sprite = Sprite.dialog_speech,
+            spriteu = Viewport.center.u + 6,
+            spritev = Viewport.center.v + 6,
+            textu = spriteu + 12,
+            textv = spritev + 5;
 
-            Viewport.ctx.drawImage(Sprite.dialog_hint.img, uv.u, uv.v);
-            Text.drawParagraph(
-                Viewport.ctx,
-                substr,
-                uv.u + 5,
-                uv.v + 5,
-                110,
-                50,
-                1,
-                Text.black,
-                Text.black_shadow
-            );
+        if (!this.speech) {
+            sprite = Sprite.dialog_hint;
+            spriteu = Viewport.center.u - Sprite.dialog_hint.img.width / 2;
+            spritev = Viewport.height - Sprite.dialog_hint.img.height - 8;
+            textu = spriteu + 5;
+            textv = spritev + 5;
         }
+
+        Viewport.ctx.drawImage(sprite.img, spriteu, spritev);
+        Text.drawParagraph(Viewport.ctx, substr, textu, textv, 110, 50, 1, Text.black, Text.black_shadow);
     }
 }
 

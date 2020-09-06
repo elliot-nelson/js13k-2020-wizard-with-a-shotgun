@@ -64,17 +64,20 @@ export const Hud = {
                 Viewport.width - HUD_PAGE_TEXT_U,
                 4,
                 2,
-                Text.default,
-                Text.shadow
+                Text.blue,
+                Text.blue_shadow
             );
         }
 
+        // Debugging - viewport width/height
+        /*
         Text.drawRightText(
             Viewport.ctx,
             [Viewport.scale, Viewport.width, Viewport.height, 'stuvwx'].join(', '),
             Viewport.width - 4,
             Viewport.height - 18
         );
+        */
 
         if (Input.pointer) {
             Viewport.ctx.save();
@@ -89,7 +92,7 @@ export const Hud = {
                 -crosshair.anchor.y
             );
             Viewport.ctx.restore();
-            //Sprite.drawSprite(ctx, Sprite.hud_crosshair, ptr.u, ptr.v);
+            //Sprite.drawSprite(ctx, Sprite.hud_crosshair, ptr.u, ptr.v, game.frame / 72);
         }
     },
 

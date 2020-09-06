@@ -28,25 +28,6 @@ export class KeyboardAdapter {
             Escape:      Input.Action.MENU
         };
 
-        /*
-        this.map[88] = Input.Action.ATTACK; // [X]
-        this.map[90] = Input.Action.DEFLECT; // [Z]
-        this.map[67] = Input.Action.DODGE; // [C]
-        this.map[32] = Input.Action.SUPER; // [SPACEBAR]
-        this.map[38] = Input.Action.UP; // [UpArrow]
-        this.map[40] = Input.Action.DOWN; // [DownArrow]
-        this.map[37] = Input.Action.LEFT; // [LeftArrow]
-        this.map[39] = Input.Action.RIGHT; // [RightArrow]
-        this.map[87] = Input.Action.UP; // [W]
-        this.map[83] = Input.Action.DOWN; // [S]
-        this.map[65] = Input.Action.LEFT; // [A]
-        this.map[68] = Input.Action.RIGHT; // [D]
-        this.map[27] = Input.Action.MENU; // [ESC]
-        this.map[77] = Input.Action.MUTE; // [M]
-        this.map[70] = Input.Action.FREEZE; // [F]
-        this.map[80] = Input.Action.FREEZE; // [P]
-        */
-
         // For keyboard, we support 8-point movement (S, E, SE, etc.)
         this.arrowDirections = [
             { x: A00, y: A00, m: 0 },
@@ -75,8 +56,8 @@ export class KeyboardAdapter {
     async init() {
         window.addEventListener('keydown', event => {
             let k = this.map[event.code];
-            console.log(event.key, event.keyCode, event.code, k);
-            console.log(this.map);
+            // Debugging - key presses
+            // console.log(event.key, event.keyCode, event.code, k);
             if (k) {
                 this.held[k] = true;
             }
