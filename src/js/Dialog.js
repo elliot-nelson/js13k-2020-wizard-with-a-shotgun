@@ -94,7 +94,7 @@ export class Dialog {
 Dialog.details = {
     [DIALOG_START_A]: {
         text:
-            'NOT AGAIN! THE PAGES OF THE SHOTGUN SPELLBOOK HAVE BEEN TORN OUT AND SCATTERED ALL OVER THIS DUNGEON!',
+            'SHOGGOTH\'S BALLS! THE PAGES OF THE SHOTGUN SPELLBOOK ARE SCATTERED ALL OVER THIS DUNGEON!',
         flag: DIALOG_START_A,
         speech: true
     },
@@ -124,7 +124,7 @@ Dialog.details = {
         blockFire: true
     },
     [DIALOG_HINT_DEATH]: {
-        text: 'OUCH! BE CAREFUL OUT THERE, WE NEED THOSE PAGES!',
+        text: 'OUCH! BE CAREFUL OUT THERE, WE NEED THOSE PAGES BACK!',
         flag: DIALOG_HINT_DEATH,
         speech: true
     }

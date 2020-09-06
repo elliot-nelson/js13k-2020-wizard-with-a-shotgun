@@ -8,7 +8,7 @@ import { HUD_PAGE_U, HUD_PAGE_V } from './Constants';
 import { Hud } from './Hud';
 
 export class PageCollectedAnimation {
-    constructor(pos) {
+    constructor(pos, amount) {
         this.t = -1;
         this.d = 40;
         this.z = 101;
@@ -20,6 +20,7 @@ export class PageCollectedAnimation {
         this.a.u -= Sprite.page.anchor.x;
         this.a.v -= Sprite.page.anchor.y;
         this.b = { u: Viewport.width - HUD_PAGE_U, v: HUD_PAGE_V };
+        this.amount = amount;
     }
 
     think() {
@@ -29,7 +30,7 @@ export class PageCollectedAnimation {
 
         if (++this.t === this.d) {
             this.cull = true;
-            game.player.pages++;
+            game.player.pages += this.amount;
             Hud.animatePageGlow();
         }
     }

@@ -10,8 +10,9 @@ import { PageCollectedAnimation } from './PageCollectedAnimation';
  * Monster
  */
 export class Page {
-    constructor(pos) {
+    constructor(pos, amount = 1) {
         this.pos = { ...pos };
+        this.amount = amount;
         this.angle = Math.random() * R360;
         this.vel = angle2vector(this.angle, Math.random() * 30 + 1);
         this.baseFrame = (Math.random() * 60) | 0;
@@ -21,13 +22,13 @@ export class Page {
     }
 
     think() {
-        this.vel.x *= 0.9;
-        this.vel.y *= 0.9;
+        this.vel.x *= 0.95;
+        this.vel.y *= 0.95;
 
         let v = vectorBetween(this.pos, game.player.pos);
-        if (v.m < game.player.radius + this.radius) {
+        if (v.m < game.player.radius + this.radius && game.player.state === Behavior.HUNT) {
             this.cull = true;
-            game.entities.push(new PageCollectedAnimation(this.pos));
+            game.entities.push(new PageCollectedAnimation(this.pos, this.amount));
         }
     }
 
