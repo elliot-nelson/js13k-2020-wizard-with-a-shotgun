@@ -25,7 +25,9 @@ export class Dialog {
         game.dialogSeen[this.flag] = true;
 
         if (this.flag === DIALOG_HINT_1) {
+            console.log(Input.direction.m);
             if (Input.direction.m > 0) {
+                console.log('BARF');
                 this.cull = true;
                 game.dialog = false;
             }

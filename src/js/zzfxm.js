@@ -1,5 +1,7 @@
 'use strict';
 
+import { zzfxG, zzfxR } from './zzfx';
+
 /**
  * ZzFX Music Renderer v2.0.2 by Keith Clark
  */

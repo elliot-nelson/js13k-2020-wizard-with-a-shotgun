@@ -28,7 +28,6 @@ export class Game {
         await Sprite.init();
         await Text.init();
         await Input.init();
-        await Audio.init();
 
         this.maze = MapLoader.load();
         this.entities = [];
@@ -79,12 +78,13 @@ export class Game {
         // Dialog scheduling
         DialogScheduling.apply(this.entities);
 
+        // Brawl system (aka "room battles")
         Brawl.apply();
 
-        // Culling (typically set when an entity dies)
+        // Culling (typically when an entity dies)
         this.entities = this.entities.filter(entity => !entity.cull);
 
-        // camera logic! where does it go! (an entity perhaps?)
+        // Camera logic
         let diff = {
             x: this.player.pos.x - this.camera.pos.x,
             y: this.player.pos.y - this.camera.pos.y
@@ -96,6 +96,9 @@ export class Game {
         this.screenshakes = this.screenshakes.filter(screenshake =>
             screenshake.update()
         );
+
+        // Apply any per-frame audio updates
+        Audio.update();
     }
 
     draw() {

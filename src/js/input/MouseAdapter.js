@@ -2,6 +2,7 @@
 
 import { Input } from './Input';
 import { Viewport } from '../Viewport';
+import { Audio } from '../Audio';
 
 /**
  * MouseAdapter
@@ -39,6 +40,9 @@ export class MouseAdapter {
         window.addEventListener('mousedown', event => {
             let k = this.map[event.button];
             if (k) this.held[k] = true;
+
+            // Hack to ensure we initialize audio after user interacts with game
+            Audio.init();
         });
 
         window.addEventListener('mouseup', event => {
