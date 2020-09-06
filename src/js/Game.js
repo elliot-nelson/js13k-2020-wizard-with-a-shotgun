@@ -28,6 +28,7 @@ export class Game {
         await Sprite.init();
         await Text.init();
         await Input.init();
+        await Audio.init();
 
         this.maze = MapLoader.load();
         this.entities = [];

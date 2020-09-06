@@ -42,7 +42,7 @@ export class MouseAdapter {
             if (k) this.held[k] = true;
 
             // Hack to ensure we initialize audio after user interacts with game
-            Audio.init();
+            Audio.readyToPlay = true;
         });
 
         window.addEventListener('mouseup', event => {

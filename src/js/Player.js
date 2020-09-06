@@ -39,7 +39,7 @@ export class Player {
         this.shellsMax = 4;
         this.forcedReload = false;
         this.mass = 3;
-        this.pages = 11;
+        this.pages = 0;
         this.deaths = 0;
         this.state = Behavior.SPAWN;
         this.frames = 30;
@@ -108,6 +108,7 @@ export class Player {
                     x: (game.maze.rooms[1].q + game.maze.rooms[1].w / 2) * TILE_WIDTH,
                     y: (game.maze.rooms[1].r + game.maze.rooms[1].h / 2) * TILE_HEIGHT
                 };
+                this.vel = { x: 0, y: 0 };
                 if (game.brawl) {
                     for (let entity of game.brawl.enemies) {
                         entity.cull = true;

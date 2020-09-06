@@ -34,45 +34,40 @@ export const Hud = {
         }
 
         // Pages
-        if (
-            Hud.pageGlow &&
-            game.frame >= Hud.pageGlow.start &&
-            game.frame <= Hud.pageGlow.end
-        ) {
-            let glow =
-                ((game.frame - Hud.pageGlow.start) * 5) /
-                (Hud.pageGlow.end - Hud.pageGlow.start);
-            Viewport.ctx.globalAlpha = 1 - glow / 10;
-        } else {
-            Viewport.ctx.globalAlpha = 0.5;
+        if (game.player.pages > 0 || game.player.deaths > 0) {
+            if (
+                Hud.pageGlow &&
+                game.frame >= Hud.pageGlow.start &&
+                game.frame <= Hud.pageGlow.end
+            ) {
+                let glow =
+                    ((game.frame - Hud.pageGlow.start) * 5) /
+                    (Hud.pageGlow.end - Hud.pageGlow.start);
+                Viewport.ctx.globalAlpha = 1 - glow / 10;
+            } else {
+                Viewport.ctx.globalAlpha = 0.5;
+            }
+            Viewport.ctx.drawImage(
+                Sprite.page_glow.img,
+                Viewport.width - HUD_PAGE_U,
+                HUD_PAGE_V
+            );
+            Viewport.ctx.globalAlpha = 1;
+            Viewport.ctx.drawImage(
+                Sprite.page.img,
+                Viewport.width - HUD_PAGE_U,
+                HUD_PAGE_V
+            );
+            Text.drawText(
+                Viewport.ctx,
+                'x' + ('' + game.player.pages).padStart(3, '0'),
+                Viewport.width - HUD_PAGE_TEXT_U,
+                4,
+                2,
+                Text.default,
+                Text.shadow
+            );
         }
-        Viewport.ctx.drawImage(
-            Sprite.page_glow.img,
-            Viewport.width - HUD_PAGE_U,
-            HUD_PAGE_V
-        );
-        Viewport.ctx.globalAlpha = 1;
-        Viewport.ctx.drawImage(
-            Sprite.page.img,
-            Viewport.width - HUD_PAGE_U,
-            HUD_PAGE_V
-        );
-        Text.drawText(
-            Viewport.ctx,
-            'x' + ('' + game.player.pages).padStart(3, '0'),
-            Viewport.width - HUD_PAGE_TEXT_U,
-            4,
-            2,
-            Text.default,
-            Text.shadow
-        );
-
-        Text.drawText(
-            Viewport.ctx,
-            String(this.frame),
-            Viewport.width - 30,
-            Viewport.height - 28
-        );
 
         Text.drawRightText(
             Viewport.ctx,
