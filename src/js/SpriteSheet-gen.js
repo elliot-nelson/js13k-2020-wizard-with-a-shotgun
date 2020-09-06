@@ -27,8 +27,7 @@ export const SpriteSheet =
   player:
    [ { x: 0, y: 66, w: 21, h: 32 },
      { x: 21, y: 66, w: 21, h: 32 },
-     { x: 42, y: 66, w: 21, h: 32 },
-     { x: 63, y: 66, w: 21, h: 32 } ],
+     { x: 42, y: 66, w: 21, h: 32 } ],
   sawblade: [ { x: 0, y: 98, w: 17, h: 17 }, { x: 17, y: 98, w: 17, h: 17 } ],
   shotgun_blast:
    [ { x: 0, y: 115, w: 45, h: 45 },

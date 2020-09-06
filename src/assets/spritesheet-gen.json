@@ -207,15 +207,6 @@
     "duration": 100
    },
    {
-    "filename": "player 3.aseprite",
-    "frame": { "x": 63, "y": 66, "w": 21, "h": 32 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 21, "h": 32 },
-    "sourceSize": { "w": 21, "h": 32 },
-    "duration": 100
-   },
-   {
     "filename": "sawblade 0.aseprite",
     "frame": { "x": 0, "y": 98, "w": 17, "h": 17 },
     "rotated": false,

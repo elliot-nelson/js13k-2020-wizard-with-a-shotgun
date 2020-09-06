@@ -37,20 +37,19 @@ export const Sprite = {
         Sprite.icon_keys_d = this.initBasicSprite(SpriteSheet.icon_keys[3]);
 
         // Player
-        let player = SpriteSheet.player.map(data =>
+        Sprite.player = SpriteSheet.player.map(data =>
             this.initBasicSprite(data, { x: 10, y: 21 })
         );
-        Sprite.player = [player[0], player[1]];
-        Sprite.player_recoil = player[2];
-        Sprite.player_rest = player[3];
-
         Sprite.shotgun_blast = SpriteSheet.shotgun_blast.map(data =>
             this.initBasicSprite(data, { x: /*12*/ 22, y: 41 })
         );
 
-        // Enemy
+        // Enemies
+        Sprite.stabguts = SpriteSheet.stabguts.map(data => this.initBasicSprite(data));
+        Sprite.sawblade = this.initBasicSprite(SpriteSheet.sawblade[0]);
+        Sprite.sawblade_eyes = this.initBasicSprite(SpriteSheet.sawblade[1]);
 
-        //Sprite.stabguts = SpriteSheet.stabguts.
+        // Gore/blood
         Sprite.gore = SpriteSheet.gore.map(data => this.initBasicSprite(data));
 
         // GUI
@@ -76,9 +75,6 @@ export const Sprite = {
             SpriteSheet.hud_crosshair[1]
         );
 
-        Sprite.sawblade = this.initBasicSprite(SpriteSheet.sawblade[0]);
-        Sprite.sawblade_eyes = this.initBasicSprite(SpriteSheet.sawblade[1]);
-
         // Pages
         Sprite.page = this.initBasicSprite(SpriteSheet.page[0]);
         Sprite.page_glow = this.initBasicSprite(SpriteSheet.page[1]);
@@ -100,8 +96,6 @@ export const Sprite = {
             this.createDialogSpeech()
         );
         Sprite.dialog_hint = this.initDynamicSprite(this.createDialogHint());
-
-        Sprite.stabguts = SpriteSheet.stabguts.map(data => this.initBasicSprite(data));
     },
 
     /**

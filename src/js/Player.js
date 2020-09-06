@@ -178,7 +178,7 @@ export class Player {
             blast;
 
         if (this.state === Behavior.ATTACK && this.frames >= 2) {
-            sprite = Sprite.player_recoil;
+            sprite = Sprite.player[2];
             blast = Sprite.shotgun_blast[6 - this.frames];
         }
 
