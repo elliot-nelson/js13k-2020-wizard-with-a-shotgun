@@ -11,7 +11,7 @@ import {
     vector2angle
 } from './Util';
 import { ShotgunBlast } from './ShotgunBlast';
-import { TILE_WIDTH, TILE_HEIGHT, R90 } from './Constants';
+import { TILE_WIDTH, TILE_HEIGHT, R90, DIALOG_HINT_DEATH } from './Constants';
 import { Behavior } from './systems/Behavior';
 import { ReloadAnimation } from './ReloadAnimation';
 import { Audio } from './Audio';
@@ -39,8 +39,9 @@ export class Player {
         this.forcedReload = false;
         this.mass = 3;
         this.pages = 11;
-        this.state = Behavior.DEAD;
-        this.frames = 40;
+        this.deaths = 0;
+        this.state = Behavior.SPAWN;
+        this.frames = 30;
     }
 
     think() {
@@ -71,6 +72,10 @@ export class Player {
                     }
                 }
             }
+
+            if (this.deaths > 0) {
+                game.dialogPending[DIALOG_HINT_DEATH] = true;
+            }
         } else if (this.state === Behavior.ATTACK) {
             this.defaultMovement(1);
             if (--this.frames <= 0) {
@@ -87,11 +92,27 @@ export class Player {
                 this.state = Behavior.HUNT;
             }
         } else if (this.state === Behavior.DEAD) {
-            if (this.frames-- === 0) {
+            this.state = Behavior.SPAWN;
+            this.frames = 75;
+            this.hp = 100;
+            this.deaths++;
+            Gore.kill(this);
+            Gore.kill(this);
+            Gore.kill(this);
+        } else if (this.state === Behavior.SPAWN) {
+            this.frames--;
+            if (this.frames === 30) {
                 this.pos = {
                     x: (game.maze.rooms[1].q + game.maze.rooms[1].w / 2) * TILE_WIDTH,
                     y: (game.maze.rooms[1].r + game.maze.rooms[1].h / 2) * TILE_HEIGHT
                 };
+                if (game.brawl) {
+                    for (let entity of game.brawl.enemies) {
+                        entity.cull = true;
+                    }
+                    game.brawl = false;
+                }
+            } else if (this.frames === 0) {
                 this.state = Behavior.HUNT;
                 game.entities.push(new SpawnAnimation(this.pos));
             }
@@ -133,8 +154,6 @@ export class Player {
             y: this.pos.y + this.facing.y * 8 + this.facing.x * 3
         };
 
-        this.lastDamage = { vector: this.facing };
-
         game.entities.push(new ShotgunBlast(pos, this.facingAngle));
 
         // player knockback
@@ -149,8 +168,8 @@ export class Player {
         game.entities.push(new ReloadAnimation(this.frames));
     }
 
-    draw(viewport) {
-        if (this.state === Behavior.DEAD) return;
+    draw() {
+        if (this.state === Behavior.DEAD || this.state === Behavior.SPAWN) return;
 
         let sprite = Sprite.player[((game.frame / 30) | 0) % 2],
             blast;

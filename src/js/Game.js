@@ -6,7 +6,7 @@ import { MapLoader } from './MapLoader';
 import { Text } from './Text';
 import { Player } from './Player';
 import { Viewport } from './Viewport';
-import { WALL_TOP, WALL_RIGHT, WALL_BOTTOM, WALL_LEFT, OPEN_TOP, OPEN_RIGHT, OPEN_BOTTOM, OPEN_LEFT, DIALOG_START_A, DIALOG_START_B, DIALOG_HINT_1, DIALOG_HINT_2, DIALOG_HINT_3, R360 } from './Constants';
+import { WALL_TOP, WALL_RIGHT, WALL_BOTTOM, WALL_LEFT, OPEN_TOP, OPEN_RIGHT, OPEN_BOTTOM, OPEN_LEFT, DIALOG_START_A, DIALOG_START_B, DIALOG_HINT_1, DIALOG_HINT_2, DIALOG_HINT_3, DIALOG_HINT_DEATH, R360 } from './Constants';
 import { uv2xy, xy2qr, angle2vector, rgba, createCanvas } from './Util';
 import { Menu } from './Menu';
 import { Audio } from './Audio';
@@ -45,27 +45,14 @@ export class Game {
 
     start() {
         this.frame = 0;
-
-        this.started = true;
-        this.update();
-        this.started = false;
-
         this.dialogPending[DIALOG_START_A] =
         this.dialogPending[DIALOG_START_B] =
         this.dialogPending[DIALOG_HINT_1] =
         this.dialogPending[DIALOG_HINT_2] =
         this.dialogPending[DIALOG_HINT_3] = true;
 
-        /*
-        this.menuStack.push(new IntroMenuA({
-            onClose: () => {
-                this.menuStack.push(new IntroMenuB({}));
-            }
-        }));*/
-
-        //this.framems = performance.now();
+        this.update();
         window.requestAnimationFrame(() => this.onFrame(1));
-        //this.frame = 0;
     }
 
     onFrame(currentms) {

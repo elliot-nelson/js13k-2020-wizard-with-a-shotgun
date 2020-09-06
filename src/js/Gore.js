@@ -52,6 +52,7 @@ Gore.damage = entity => {
 };
 
 Gore.kill = entity => {
+    console.log(entity.lastDamage);
     let angle = vector2angle(entity.lastDamage.vector);
 
     for (let i = 0; i < 16; i++) {

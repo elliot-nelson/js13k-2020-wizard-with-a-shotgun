@@ -5,7 +5,7 @@ import { Sprite } from './Sprite';
 import { Text } from './Text';
 import { Input } from './input/Input';
 import { Viewport } from './Viewport';
-import { DIALOG_START_A, DIALOG_START_B, DIALOG_HINT_1, DIALOG_HINT_2, DIALOG_HINT_3 } from './Constants';
+import { DIALOG_START_A, DIALOG_START_B, DIALOG_HINT_1, DIALOG_HINT_2, DIALOG_HINT_3, DIALOG_HINT_DEATH } from './Constants';
 
 export class Dialog {
     constructor(key) {
@@ -120,5 +120,10 @@ Dialog.details = {
         flag: DIALOG_HINT_3,
         required: DIALOG_HINT_2,
         blockFire: true
+    },
+    [DIALOG_HINT_DEATH]: {
+        text: 'OUCH! BE CAREFUL OUT THERE, WE NEED THOSE PAGES!',
+        flag: DIALOG_HINT_DEATH,
+        speech: true
     }
 };

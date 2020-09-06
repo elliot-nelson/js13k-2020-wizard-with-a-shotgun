@@ -15,24 +15,28 @@ export const Damage = {
         for (let entity of entities) {
             if (entity.hp) {
                 if (entity.damage.length > 0) {
-                    for (let damage of entity.damage) {
-                        if (entity === game.player) {
-                            game.entities.push(
-                                new HealthChunkAnimation(
-                                    entity.hp,
-                                    damage.amount
-                                )
-                            );
+                    if (entity.state !== Behavior.DEAD && entity.state !== Behavior.SPAWN) {
+                        for (let damage of entity.damage) {
+                            if (entity === game.player) {
+                                game.entities.push(
+                                    new HealthChunkAnimation(
+                                        entity.hp,
+                                        damage.amount
+                                    )
+                                );
+                            }
+                            entity.hp -= damage.amount;
+                            damage.vector.m = damage.knockback;
+                            entity.vel = vectorAdd(entity.vel, damage.vector);
+                            entity.lastDamage = damage;
+                            Gore.damage(entity);
                         }
-                        entity.hp -= damage.amount;
-                        damage.vector.m = damage.knockback;
-                        entity.vel = vectorAdd(entity.vel, damage.vector);
-                        entity.lastDamage = damage;
-                        Gore.damage(entity);
                     }
                     entity.damage = [];
                 }
-                if (entity.hp <= 0) entity.state = Behavior.DEAD;
+                if (entity.hp <= 0 && entity.state !== Behavior.DEAD) {
+                    entity.state = Behavior.DEAD;
+                }
             }
         }
     }

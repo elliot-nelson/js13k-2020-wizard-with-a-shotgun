@@ -13,8 +13,13 @@ import { SpawnAnimation } from '../SpawnAnimation';
 
 const SpawnPatterns = [
     [
-        { enemy: Stabguts, frame: 10 },
-        { enemy: Stabguts, frame: 50 },
+        { enemy: Stabguts, frame: 0 },
+        { enemy: Stabguts, frame: 30 },
+        { enemy: Stabguts, frame: 60 },
+        { enemy: Stabguts, frame: 90 },
+        { enemy: Stabguts, frame: 120 },
+        { enemy: Stabguts, frame: 150 },
+        { enemy: Stabguts, frame: 180 },
         /*{ enemy: Sculptor, frame: 10 },
         { enemy: Sculptor, frame: 50 },
         { enemy: Sculptor, frame: 90 },

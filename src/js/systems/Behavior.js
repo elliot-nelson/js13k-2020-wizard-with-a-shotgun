@@ -10,6 +10,7 @@ export const Behavior = {
     HUNT: 104,
     FLEE: 105,
     DEAD: 106,
+    SPAWN: 107,
 
     ATTACK: 201,
     RELOAD: 202,
