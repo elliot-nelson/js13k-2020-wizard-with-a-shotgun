@@ -83,6 +83,7 @@ export const Sprite = {
         Sprite.tiles = SpriteSheet.tiles.map(data =>
             this.initBasicSprite(data)
         );
+        Sprite.tilebg = Sprite.initDynamicSprite(this.createTileBg(Sprite.tiles[0].img));
 
         // Walls/gates (gates are openings that close during brawls)
         let w = SpriteSheet.walls.map(data => this.initBasicSprite(data));
@@ -215,6 +216,16 @@ export const Sprite = {
             }
         }
 
+        return canvas.canvas;
+    },
+
+    createTileBg(source) {
+        let canvas = createCanvas(544, 334);
+        for (let y = 0; y < 334; y += 32) {
+            for (let x = 0; x < 544; x += 32) {
+                canvas.ctx.drawImage(source, x, y);
+            }
+        }
         return canvas.canvas;
     },
 

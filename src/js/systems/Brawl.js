@@ -61,14 +61,12 @@ export const Brawl = {
                 room &&
                 room.roomNumber >= 3 &&
                 !game.roomsCleared.includes(room.roomNumber) &&
-                room.w >= 3 &&
-                room.h >= 4 &&
                 qr.q > room.q &&
                 qr.r > room.r &&
                 qr.q < room.q + room.w - 1 &&
                 qr.r < room.r + room.h - 1
             ) {
-                room.pattern = 3;
+                room.pattern = 0;
                 game.screenshakes.push(new ScreenShake(20, 20, 20));
                 game.brawl = {
                     room,

@@ -23,11 +23,14 @@ export const Maze = {
             r2 = maze.h,
             q1 = 0,
             q2 = maze.w;
+
         if (game.brawl) {
             r1 = game.brawl.room.r;
             r2 = r1 + game.brawl.room.h;
             q1 = game.brawl.room.q;
             q2 = q1 + game.brawl.room.w;
+        } else {
+            Viewport.ctx.drawImage(Sprite.tilebg.img, -16 - game.camera.pos.x % 32, -8 - game.camera.pos.y % 32);
         }
 
         for (let r = r1; r < r2; r++) {
