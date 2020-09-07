@@ -117,10 +117,10 @@ export function calculateRayIntersectionAndStep(startPos, endPos) {
         next = +Infinity;
     } else if (diff > 0) {
         step = 1 / diff;
-        next = (1 - (startPos - Math.floor(startPos))) * step;
+        next = (1 - (startPos - (startPos | 0))) * step;
     } else {
         step = -1 / diff;
-        next = (startPos - Math.floor(startPos)) * step;
+        next = (startPos - (startPos | 0)) * step;
     }
 
     return { next, step };
@@ -133,8 +133,8 @@ export function* tilesHitBetween(p1, p2) {
     let endQ = p2.x / TILE_SIZE,
         endR = p2.y / TILE_SIZE;
     let tileCount =
-        Math.abs(Math.floor(startQ) - Math.floor(endQ)) +
-        Math.abs(Math.floor(startR) - Math.floor(endR));
+        Math.abs((startQ | 0) - (endQ | 0)) +
+        Math.abs((startR | 0) - (endR | 0));
 
     yield { q: startQ | 0, r: startR | 0, m: 0 };
 
@@ -176,16 +176,8 @@ export function* tilesHitBy(p, v) {
  * @yields {QR}
  */
 export function* tilesHitInBounds(bounds) {
-    for (
-        let r = Math.floor(bounds[0].y / TILE_SIZE);
-        r * TILE_SIZE < bounds[1].y;
-        r++
-    ) {
-        for (
-            let q = Math.floor(bounds[0].x / TILE_SIZE);
-            q * TILE_SIZE < bounds[1].x;
-            q++
-        ) {
+    for (let r = bounds[0].y / TILE_SIZE | 0; r * TILE_SIZE < bounds[1].y; r++) {
+        for (let q = bounds[0].x / TILE_SIZE | 0; q * TILE_SIZE <  bounds[1].x; q++) {
             yield { q, r };
         }
     }
