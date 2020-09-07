@@ -1,6 +1,6 @@
 'use strict';
 
-import { R90, R270, R360, TILE_WIDTH, TILE_HEIGHT } from './Constants';
+import { R90, R270, R360, TILE_SIZE } from './Constants';
 import { game } from './Game';
 import { Viewport } from './Viewport';
 
@@ -80,11 +80,11 @@ export function arcOverlap(angleA1, angleA2, angleB1, angleB2) {
 }
 
 export function xy2qr(pos) {
-    return { q: (pos.x / TILE_WIDTH) | 0, r: (pos.y / TILE_HEIGHT) | 0 };
+    return { q: (pos.x / TILE_SIZE) | 0, r: (pos.y / TILE_SIZE) | 0 };
 }
 
 export function qr2xy(pos) {
-    return { x: pos.q * TILE_WIDTH, y: pos.r * TILE_HEIGHT };
+    return { x: pos.q * TILE_SIZE, y: pos.r * TILE_SIZE };
 }
 
 export function xy2uv(pos) {
@@ -128,10 +128,10 @@ export function calculateRayIntersectionAndStep(startPos, endPos) {
 
 // https://www.genericgamedev.com/general/shooting-rays-through-tilemaps/
 export function* tilesHitBetween(p1, p2) {
-    let startQ = p1.x / TILE_WIDTH,
-        startR = p1.y / TILE_HEIGHT;
-    let endQ = p2.x / TILE_WIDTH,
-        endR = p2.y / TILE_HEIGHT;
+    let startQ = p1.x / TILE_SIZE,
+        startR = p1.y / TILE_SIZE;
+    let endQ = p2.x / TILE_SIZE,
+        endR = p2.y / TILE_SIZE;
     let tileCount =
         Math.abs(Math.floor(startQ) - Math.floor(endQ)) +
         Math.abs(Math.floor(startR) - Math.floor(endR));
@@ -177,13 +177,13 @@ export function* tilesHitBy(p, v) {
  */
 export function* tilesHitInBounds(bounds) {
     for (
-        let r = Math.floor(bounds[0].y / TILE_HEIGHT);
-        r * TILE_HEIGHT < bounds[1].y;
+        let r = Math.floor(bounds[0].y / TILE_SIZE);
+        r * TILE_SIZE < bounds[1].y;
         r++
     ) {
         for (
-            let q = Math.floor(bounds[0].x / TILE_WIDTH);
-            q * TILE_WIDTH < bounds[1].x;
+            let q = Math.floor(bounds[0].x / TILE_SIZE);
+            q * TILE_SIZE < bounds[1].x;
             q++
         ) {
             yield { q, r };

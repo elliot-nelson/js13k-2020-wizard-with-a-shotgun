@@ -45,7 +45,7 @@ export const Maze = {
                     y = r * 32 + offset.y;
                 if (x < -50 || y < -50 || x > 500 || y > 500) continue;
 
-                let sprite = Sprite.tiles[maze.tiles[r][q] & 0b1111];
+                let sprite = Sprite.tiles[maze.maze[r][q] ? 1 : 0];
                 ctx.drawImage(sprite.img, x, y);
             }
         }

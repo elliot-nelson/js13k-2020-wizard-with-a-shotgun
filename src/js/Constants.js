@@ -14,13 +14,7 @@ export const GAME_WIDTH  = 480;
 export const GAME_HEIGHT = 270;
 
 // Size in pixels of each map tile
-export const TILE_WIDTH  = 32;
-export const TILE_HEIGHT = 32;
-
-// Tile numbers, for reference
-export const TILE_WALL   = 0;
-export const TILE_FLOOR1 = 1;
-export const TILE_FLOOR2 = 2;
+export const TILE_SIZE   = 32;
 
 // Bitmasks used to represent wall sides on map
 export const WALL_TOP    = 0b0000_1000;

@@ -11,7 +11,7 @@ import {
     vector2angle
 } from './Util';
 import { ShotgunBlast } from './ShotgunBlast';
-import { TILE_WIDTH, TILE_HEIGHT, R90, DIALOG_HINT_DEATH } from './Constants';
+import { TILE_SIZE, R90, DIALOG_HINT_DEATH } from './Constants';
 import { Behavior } from './systems/Behavior';
 import { ReloadAnimation } from './ReloadAnimation';
 import { Audio } from './Audio';
@@ -26,8 +26,8 @@ import { Page } from './Page';
 export class Player {
     constructor() {
         this.pos = {
-            x: (game.maze.rooms[1].q + game.maze.rooms[1].w / 2) * TILE_WIDTH,
-            y: (game.maze.rooms[1].r + game.maze.rooms[1].h / 2) * TILE_HEIGHT
+            x: (game.maze.rooms[1].q + game.maze.rooms[1].w / 2) * TILE_SIZE,
+            y: (game.maze.rooms[1].r + game.maze.rooms[1].h / 2) * TILE_SIZE
         };
         this.history = [];
         this.vel = { x: 0, y: 0 };
@@ -105,8 +105,8 @@ export class Player {
             this.frames--;
             if (this.frames === 30) {
                 this.pos = {
-                    x: (game.maze.rooms[1].q + game.maze.rooms[1].w / 2) * TILE_WIDTH,
-                    y: (game.maze.rooms[1].r + game.maze.rooms[1].h / 2) * TILE_HEIGHT
+                    x: (game.maze.rooms[1].q + game.maze.rooms[1].w / 2) * TILE_SIZE,
+                    y: (game.maze.rooms[1].r + game.maze.rooms[1].h / 2) * TILE_SIZE
                 };
                 this.vel = { x: 0, y: 0 };
                 if (game.brawl) {

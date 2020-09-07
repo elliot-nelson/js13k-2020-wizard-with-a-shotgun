@@ -1,6 +1,6 @@
 'use strict';
 
-import { WALL_TOP, WALL_RIGHT, WALL_BOTTOM, WALL_LEFT, OPEN_TOP, OPEN_RIGHT, OPEN_BOTTOM, OPEN_LEFT, TILE_WALL, TILE_FLOOR1, TILE_FLOOR2 } from './Constants';
+import { WALL_TOP, WALL_RIGHT, WALL_BOTTOM, WALL_LEFT, OPEN_TOP, OPEN_RIGHT, OPEN_BOTTOM, OPEN_LEFT } from './Constants';
 import { array2d } from './Util';
 import { Map } from './Map-gen';
 
@@ -42,19 +42,6 @@ export const MapLoader = {
         return walls;
     },
 
-    createTiles(maze) {
-        let tiles = array2d(maze[0].length, maze.length, () => TILE_WALL);
-        for (let r = 0; r < tiles.length; r++) {
-            for (let q = 0; q < tiles[0].length; q++) {
-                if (maze[r][q]) {
-                    tiles[r][q] =
-                        Math.random() < 0.3 ? TILE_FLOOR2 : TILE_FLOOR1;
-                }
-            }
-        }
-        return tiles;
-    },
-
     load() {
         let maze = array2d(Map.w, Map.h, () => 0);
         let rooms = Map.rooms.map(room => ({
@@ -85,7 +72,6 @@ export const MapLoader = {
         return {
             maze,
             walls: this.createWalls(maze, roomLookup),
-            tiles: this.createTiles(maze),
             rooms: roomLookup,
             w: Map.w,
             h: Map.h
