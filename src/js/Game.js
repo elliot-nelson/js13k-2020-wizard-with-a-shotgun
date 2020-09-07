@@ -23,27 +23,31 @@ import { Maze } from './Maze';
  * Game state.
  */
 export class Game {
-    async init() {
-        await Viewport.init();
-        await Sprite.init();
-        await Text.init();
-        await Input.init();
-        await Audio.init();
+    init() {
+        Sprite.loadSpritesheet(() => {
+            Viewport.init();
+            Sprite.init();
+            Text.init();
+            Input.init();
+            Audio.init();
 
-        this.maze = MapLoader.load();
-        this.entities = [];
-        this.dialogPending = {};
-        this.dialogSeen = {};
-        this.roomsCleared = [];
-        this.shadowCanvas = createCanvas(500, 500);
-        this.shadowOffset = 0;
-        this.screenshakes = [];
-        this.player = new Player();
-        this.entities.push(this.player);
-        this.camera = { pos: { ...this.player.pos } };
+            this.maze = MapLoader.load();
+            this.entities = [];
+            this.dialogPending = {};
+            this.dialogSeen = {};
+            this.roomsCleared = [];
+            this.shadowCanvas = createCanvas(500, 500);
+            this.shadowOffset = 0;
+            this.screenshakes = [];
+            this.player = new Player();
+            this.entities.push(this.player);
+            this.camera = { pos: { ...this.player.pos } };
 
-        window.addEventListener('blur', () => this.pause());
-        window.addEventListener('focus', () => this.unpause());
+            window.addEventListener('blur', () => this.pause());
+            window.addEventListener('focus', () => this.unpause());
+
+            this.start();
+        });
     }
 
     start() {

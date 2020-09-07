@@ -8,7 +8,7 @@ import { GAME_WIDTH, GAME_HEIGHT } from './Constants';
  * Represents the game display (for us, a canvas).
  */
 export const Viewport = {
-    async init() {
+    init() {
         this.canvas = document.getElementById('canvas');
         this.ctx = this.canvas.getContext('2d');
         this.resize(true);

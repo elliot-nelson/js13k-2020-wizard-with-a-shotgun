@@ -5,7 +5,7 @@ import { zzfxM } from './lib/zzfxm';
 import { ObliqueMystique } from './songs/ObliqueMystique';
 
 export const Audio = {
-    async init() {
+    init() {
         this.readyToPlay = false;
         this.musicPlaying = true;
 

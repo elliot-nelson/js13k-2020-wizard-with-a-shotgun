@@ -53,7 +53,7 @@ export class KeyboardAdapter {
         this.reset();
     }
 
-    async init() {
+    init() {
         window.addEventListener('keydown', event => {
             let k = this.map[event.code];
             // Debugging - key presses

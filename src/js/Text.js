@@ -28,7 +28,7 @@ const C_ICONS = {};
  * Utilities for drawing text using in-game pixel font.
  */
 export const Text = {
-    async init() {
+    init() {
         Text.default = Sprite.font.img;
 
         let icons = [

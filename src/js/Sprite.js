@@ -16,10 +16,16 @@ import { SPRITESHEET_URI, R360 } from './Constants';
  * to duplicate it, add some randomness, etc.
  */
 export const Sprite = {
-    async init() {
-        Sprite.images = {};
-        await loadImage(SPRITESHEET_URI);
+    // This is an exception to the rule, loading the spritesheet is a special action that
+    // happens BEFORE everything is initialized.
+    loadSpritesheet(cb) {
+        let image = new Image(), uri = SPRITESHEET_URI;
+        image.onload = cb;
+        image.src = uri;
+        Sprite.sheet = image;
+    },
 
+    init() {
         // Base pixel font and icons (see `Text.init` for additional variations)
         Sprite.font = initBasicSprite(SpriteSheet.font[0]);
         Sprite.icon_mouse_lmb = initBasicSprite(SpriteSheet.icon_mouse[0]);
@@ -126,20 +132,9 @@ export const Sprite = {
 
 // Sprite utility functions
 
-async function loadImage(uri) {
-    return new Promise((resolve, reject) => {
-        let image = new Image();
-        image.onload = () => resolve(image);
-        image.onerror = err => reject(err);
-        image.src = uri;
-        Sprite.images[uri] = image;
-    });
-}
-
 function initBasicSprite(data, anchor) {
     return initDynamicSprite(
         loadCacheSlice(
-            SPRITESHEET_URI,
             data.x,
             data.y,
             data.w,
@@ -164,8 +159,8 @@ function initDynamicSprite(source, anchor) {
     };
 }
 
-function loadCacheSlice(uri, x, y, w, h) {
-    const source = Sprite.images[uri];
+function loadCacheSlice(x, y, w, h) {
+    const source = Sprite.sheet;
     const sliceCanvas = createCanvas(w, h);
     sliceCanvas.ctx.drawImage(source, x, y, w, h, 0, 0, w, h);
     return sliceCanvas.canvas;

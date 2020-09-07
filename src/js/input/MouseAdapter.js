@@ -23,7 +23,7 @@ export class MouseAdapter {
         this.reset();
     }
 
-    async init() {
+    init() {
         window.addEventListener('mousemove', event => {
             if (!this.pointer) this.pointer = {};
             //this.handlers['mousemove'](event.movementX, event.movementY, event.clientX, event.clientY);

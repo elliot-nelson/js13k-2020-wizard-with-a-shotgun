@@ -40,7 +40,7 @@ export const Input = {
         FREEZE: 98
     },
 
-    async init() {
+    init() {
         // A vector representing the direction the user is pressing/facing,
         // separate from pressing and releasing inputs. Treating "direction"
         // separately makes it easier to handle gamepad sticks.
@@ -61,13 +61,13 @@ export const Input = {
         this.framesHeld = {};
 
         this.keyboard = new KeyboardAdapter(this);
-        await this.keyboard.init();
+        this.keyboard.init();
 
         this.mouse = new MouseAdapter(this);
-        await this.mouse.init();
+        this.mouse.init();
 
         //this.gamepad = new GamepadAdapter(this);
-        //await this.gamepad.init();
+        //this.gamepad.init();
     },
 
     update() {
