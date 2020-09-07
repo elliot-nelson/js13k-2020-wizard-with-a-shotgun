@@ -41,6 +41,9 @@ export class Game {
         this.player = new Player();
         this.entities.push(this.player);
         this.camera = { pos: { ...this.player.pos } };
+
+        window.addEventListener('blur', () => this.pause());
+        window.addEventListener('focus', () => this.unpause());
     }
 
     start() {
@@ -66,6 +69,15 @@ export class Game {
     update() {
         // Pull in frame by frame button pushes / keypresses / mouse clicks
         Input.update();
+
+        if (Input.pressed[Input.Action.MENU]) {
+            this.paused ? this.unpause() : this.pause();
+        }
+
+        if (this.paused) return;
+
+        // Apply any per-frame audio updates
+        Audio.update();
 
         // Behavior (AI, player input, etc.)
         Behavior.apply(this.entities);
@@ -100,9 +112,6 @@ export class Game {
 
         // Flickering shadows
         if (game.frame % 6 === 0) this.shadowOffset = (Math.random() * 10) | 0;
-
-        // Apply any per-frame audio updates
-        Audio.update();
     }
 
     draw() {
@@ -145,6 +154,19 @@ export class Game {
         Menu.draw();
     }
 
+    pause() {
+        if (this.paused) return;
+        this.paused = true;
+        Audio.pause();
+        console.log('paused');
+    }
+
+    unpause() {
+        if (!this.paused) return;
+        this.paused = false;
+        Audio.unpause();
+        console.log('unpaused');
+    }
 }
 
 export const game = new Game();
