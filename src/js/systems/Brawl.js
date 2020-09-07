@@ -86,8 +86,6 @@ export const Brawl = {
                 plan.push([enemy, entry[i]]);
             }
         }
-        console.log(["pattern", pattern]);
-        console.log(["plan", plan]);
         return plan;
     },
 

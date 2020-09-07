@@ -158,14 +158,12 @@ export class Game {
         if (this.paused) return;
         this.paused = true;
         Audio.pause();
-        console.log('paused');
     }
 
     unpause() {
         if (!this.paused) return;
         this.paused = false;
         Audio.unpause();
-        console.log('unpaused');
     }
 }
 
