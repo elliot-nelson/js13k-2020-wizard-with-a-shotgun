@@ -61,11 +61,12 @@ export const Text = {
                     v - (C_ICONS[c].img.height - 5) / 2
                 );
             } else {
+                let k = (c - 32) * (C_WIDTH + 1);
                 if (shadow) {
                     ctx.drawImage(
                         shadow,
-                        (c - 32) * (C_WIDTH + 1),
-                        0,
+                        k % 180,
+                        k / 180 | 0,
                         C_WIDTH,
                         C_HEIGHT,
                         u + 1,
@@ -76,8 +77,8 @@ export const Text = {
                 }
                 ctx.drawImage(
                     font,
-                    (c - 32) * (C_WIDTH + 1),
-                    0,
+                    k % 180,
+                    k / 180 | 0,
                     C_WIDTH,
                     C_HEIGHT,
                     u,

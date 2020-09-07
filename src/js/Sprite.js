@@ -72,6 +72,7 @@ export const Sprite = {
 
         // Tiles
         Sprite.tiles = SpriteSheet.tiles.map(initBasicSprite);
+        Sprite.tiles[1] = initDynamicSprite(createSecondTile(Sprite.tiles[0].img));
         Sprite.tilebg = initDynamicSprite(createTileBg(Sprite.tiles[0].img));
         Sprite.shadow = initDynamicSprite(createShadow());
 
@@ -202,8 +203,7 @@ function addNoise(canvas) {
     canvas.ctx.globalCompositeOperation = 'source-atop';
     for (let y = 0; y < 36; y++) {
         for (let x = 0; x < 36; x++) {
-            let a = ((x * x * 13 + y * y * 17) % 39) / 117;
-            canvas.ctx.fillStyle = rgba(0, 0, 0, a);
+            canvas.ctx.fillStyle = rgba(0, 0, 0, Math.random() * 0.6);
             canvas.ctx.fillRect(x, y, 1, 1);
         }
     }
@@ -258,4 +258,15 @@ function expandNineTile(source) {
         }
     }
     return canvas;
+}
+
+function createSecondTile(source) {
+    let canvas = createCanvas(32, 32);
+    canvas.ctx.fillStyle = rgba(48, 0, 0, 1);
+    canvas.ctx.fillRect(0, 0, 32, 32);
+    canvas.ctx.globalAlpha = 0.6;
+    canvas.ctx.globalCompositeOperation = 'hard-light';
+    canvas.ctx.drawImage(source, 0, 0);
+    addNoise(canvas);
+    return canvas.canvas;
 }
