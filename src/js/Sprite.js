@@ -81,12 +81,9 @@ export const Sprite = {
         Sprite.gates = initDynamicSprite(createGates(w[0].img, w[1].img));
 
         // Dialog
-        Sprite.dialog_speech = initBasicSprite(SpriteSheet.dialog[0]);
-        Sprite.dialog_hint = initBasicSprite(SpriteSheet.dialog[1]);
-        Sprite.dialog_speech = initDynamicSprite(
-            createDialogSpeech()
-        );
-        Sprite.dialog_hint = initDynamicSprite(createDialogHint());
+        let dialog = SpriteSheet.dialog.map(initBasicSprite);
+        Sprite.dialog_speech = initDynamicSprite(createDialogSpeech(dialog[0].img, dialog[2].img));
+        Sprite.dialog_hint = initDynamicSprite(createDialogHint(dialog[1].img));
     },
 
     /**
@@ -181,16 +178,7 @@ function createWalls(source) {
         canvas.ctx.drawImage(source, 0, i);
         canvas.ctx.drawImage(source, 32, i);
     }
-
-    canvas.ctx.globalCompositeOperation = 'source-atop';
-    for (let y = 0; y < 36; y++) {
-        for (let x = 0; x < 36; x++) {
-            let a = ((x * x * 13 + y * y * 17) % 39) / 117;
-            canvas.ctx.fillStyle = rgba(0, 0, 0, a);
-            canvas.ctx.fillRect(x, y, 1, 1);
-        }
-    }
-
+    addNoise(canvas);
     return canvas.canvas;
 }
 
@@ -206,7 +194,11 @@ function createGates(wallSource, spikeSource) {
     canvas.ctx.drawImage(wallSource, 32, 0);
     canvas.ctx.drawImage(wallSource, 0, 32);
     canvas.ctx.drawImage(wallSource, 32, 32);
+    addNoise(canvas);
+    return canvas.canvas;
+}
 
+function addNoise(canvas) {
     canvas.ctx.globalCompositeOperation = 'source-atop';
     for (let y = 0; y < 36; y++) {
         for (let x = 0; x < 36; x++) {
@@ -215,8 +207,6 @@ function createGates(wallSource, spikeSource) {
             canvas.ctx.fillRect(x, y, 1, 1);
         }
     }
-
-    return canvas.canvas;
 }
 
 function createTileBg(source) {
@@ -246,21 +236,26 @@ function createShadow() {
     return canvas.canvas;
 }
 
-function createDialogSpeech() {
-    let canvas = createCanvas(127, 39);
-    canvas.ctx.fillStyle = '#e6e6b8';
-    canvas.ctx.fillRect(12, 1, 110, 37);
-    canvas.ctx.fillRect(10, 2, 114, 35);
-    canvas.ctx.fillRect(9, 3, 116, 34);
-    canvas.ctx.fillRect(8, 5, 118, 29);
+function createDialogSpeech(source, tail) {
+    let canvas = createCanvas(130, 45);
+    canvas.ctx.drawImage(expandNineTile(source).canvas, 0, 5);
+    canvas.ctx.drawImage(tail, 5, 0);
     return canvas.canvas;
 }
 
-function createDialogHint() {
-    let canvas = createCanvas(127, 39);
-    canvas.ctx.fillStyle = '#000000';
-    canvas.ctx.fillRect(0, 0, 120, 35);
-    canvas.ctx.fillStyle = '#e6e6b8';
-    canvas.ctx.fillRect(1, 1, 118, 33);
+function createDialogHint(source) {
+    let canvas = expandNineTile(source);
     return canvas.canvas;
+}
+
+function expandNineTile(source) {
+    let canvas = createCanvas(130, 40);
+    for (let y = 0; y < 40; y += 5) {
+        for (let x = 0; x < 130; x += 5) {
+            let sx = x === 0 ? 0 : (x === 125 ? 10 : 5);
+            let sy = y === 0 ? 0 : (y === 35 ? 10 : 5);
+            canvas.ctx.drawImage(source, sx, sy, 5, 5, x, y, 5, 5);
+        }
+    }
+    return canvas;
 }

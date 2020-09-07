@@ -56,10 +56,10 @@ export class Dialog {
         if (idx - length > 0) substr += '#'.repeat(idx - length);
 
         let sprite = Sprite.dialog_speech,
-            spriteu = Viewport.center.u + 6,
-            spritev = Viewport.center.v + 6,
-            textu = spriteu + 12,
-            textv = spritev + 5;
+            spriteu = Viewport.center.u + 5,
+            spritev = Viewport.center.v + 8,
+            textu = spriteu + 8,
+            textv = spritev + 12;
 
         if (!this.speech) {
             sprite = Sprite.dialog_hint;
@@ -70,7 +70,7 @@ export class Dialog {
         }
 
         Viewport.ctx.drawImage(sprite.img, spriteu, spritev);
-        Text.drawParagraph(Viewport.ctx, substr, textu, textv, 110, 50, 1, Text.black, Text.black_shadow);
+        Text.drawParagraph(Viewport.ctx, substr, textu, textv, 115, 50, 1, Text.black, Text.black_shadow);
     }
 }
 
