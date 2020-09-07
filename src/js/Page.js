@@ -7,7 +7,7 @@ import { R360 } from './Constants';
 import { PageCollectedAnimation } from './PageCollectedAnimation';
 
 /**
- * Monster
+ * Page
  */
 export class Page {
     constructor(pos, amount = 1) {
@@ -38,26 +38,7 @@ export class Page {
             y: this.pos.y + Math.sin((game.frame + this.baseFrame) / 30) * 2
         };
 
-        Sprite.drawViewportSprite(
-            Sprite.page_glow,
-            pos
-        );
-        Sprite.drawViewportSprite(Sprite.page, pos);
+        Sprite.drawViewportSprite(Sprite.page[1], pos);
+        Sprite.drawViewportSprite(Sprite.page[0], pos);
     }
-
-    /*
-    Sprite.
-
-    ctx.save();
-    ctx.translate(100, 100);
-    ctx.scale(Math.sin((this.frame - 1) / 15), 1);
-    ctx.drawImage(Sprite.page_glow.img, -w2 / 2, -5);
-    ctx.restore();
-
-    ctx.save();
-    ctx.translate(100, 100);
-    ctx.scale(Math.sin(this.frame / 15), 1);
-    ctx.drawImage(Sprite.page.img, -w2 / 2, -5);
-    ctx.restore();a
-    */
 }

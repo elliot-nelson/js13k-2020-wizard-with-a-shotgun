@@ -7,6 +7,7 @@ import { ObliqueMystique } from './songs/ObliqueMystique';
 export const Audio = {
     async init() {
         this.readyToPlay = false;
+        this.musicPlaying = true;
 
         this.ctx = zzfxX;
         this.gain = this.ctx.createGain();

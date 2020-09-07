@@ -66,7 +66,7 @@ export const Brawl = {
                 qr.q < room.q + room.w - 1 &&
                 qr.r < room.r + room.h - 1
             ) {
-                room.pattern = 0;
+                room.pattern = 1;
                 game.screenshakes.push(new ScreenShake(20, 20, 20));
                 game.brawl = {
                     room,

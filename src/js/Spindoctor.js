@@ -61,18 +61,7 @@ export class Spindoctor {
     }
 
     draw() {
-        let { u, v } = Sprite.viewportSprite2uv(
-            Sprite.sawblade,
-            this.pos
-        );
-        u += Sprite.sawblade.anchor.x;
-        v += Sprite.sawblade.anchor.y;
-
-        Viewport.ctx.save();
-        Viewport.ctx.translate(u, v);
-        Viewport.ctx.rotate(game.frame / 5);
-        Sprite.drawSprite(Viewport.ctx, Sprite.sawblade, 0, 0);
-        Viewport.ctx.restore();
-        Sprite.drawSprite(Viewport.ctx, Sprite.sawblade_eyes, u, v);
+        Sprite.drawViewportSprite(Sprite.spindoctor[0], this.pos, game.frame / 5);
+        Sprite.drawViewportSprite(Sprite.spindoctor[1], this.pos);
     }
 }

@@ -48,13 +48,13 @@ export const Hud = {
                 Viewport.ctx.globalAlpha = 0.5;
             }
             Viewport.ctx.drawImage(
-                Sprite.page_glow.img,
+                Sprite.page[1].img,
                 Viewport.width - HUD_PAGE_U,
                 HUD_PAGE_V
             );
             Viewport.ctx.globalAlpha = 1;
             Viewport.ctx.drawImage(
-                Sprite.page.img,
+                Sprite.page[0].img,
                 Viewport.width - HUD_PAGE_U,
                 HUD_PAGE_V
             );

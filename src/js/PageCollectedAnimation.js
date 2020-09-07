@@ -15,11 +15,11 @@ export class PageCollectedAnimation {
         this.z = 101;
 
         this.a = Sprite.viewportSprite2uv(
-            Sprite.page,
+            Sprite.page[0],
             pos
         );
-        this.a.u -= Sprite.page.anchor.x;
-        this.a.v -= Sprite.page.anchor.y;
+        this.a.u -= Sprite.page[0].anchor.x;
+        this.a.v -= Sprite.page[0].anchor.y;
         this.b = { u: Viewport.width - HUD_PAGE_U, v: HUD_PAGE_V };
         this.amount = amount;
     }
@@ -46,6 +46,6 @@ export class PageCollectedAnimation {
             v: ((this.b.v - this.a.v) * this.t) / this.d + this.a.v
         };
 
-        Viewport.ctx.drawImage(Sprite.page.img, uv.u, uv.v);
+        Viewport.ctx.drawImage(Sprite.page[0].img, uv.u, uv.v);
     }
 }
