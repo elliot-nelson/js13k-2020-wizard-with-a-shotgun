@@ -98,6 +98,9 @@ export class Game {
             screenshake.update()
         );
 
+        // Flickering shadows
+        if (game.frame % 6 === 0) this.shadowOffset = (Math.random() * 10) | 0;
+
         // Apply any per-frame audio updates
         Audio.update();
     }
@@ -115,39 +118,14 @@ export class Game {
         });
         ctx.translate(shakeX, shakeY);
 
-        ctx.fillStyle = rgba(20, 20, 20, 1);
-        ctx.fillRect(0, 0, Viewport.width, Viewport.height);
-
-        for (let entity of this.entities) {
-            if (entity.z < 0) entity.draw();
-        }
-
         Maze.draw();
 
         for (let entity of this.entities) {
             if (entity.z > 0 || !entity.z) entity.draw();
         }
 
-        // Black gradient
-        let klack = (Math.sin(game.frame / 30) * 128 + 128) | 0;
-        klack = 0;
-        this.shadowCanvas.ctx.globalCompositeOperation = 'copy';
-        let gradient = this.shadowCanvas.ctx.createRadialGradient(
-            250,
-            250,
-            0,
-            250,
-            250,
-            250
-        );
-        gradient.addColorStop(0.3, rgba(0, 0, 0, 0));
-        gradient.addColorStop(1, rgba(klack, 0, 0, 0.9));
-        this.shadowCanvas.ctx.fillStyle = gradient;
-        this.shadowCanvas.ctx.fillRect(0, 0, 500, 500);
-
-        if (game.frame % 6 === 0) this.shadowOffset = (Math.random() * 10) | 0;
         Viewport.ctx.drawImage(
-            this.shadowCanvas.canvas,
+            Sprite.shadow.img,
             0,
             0,
             500,

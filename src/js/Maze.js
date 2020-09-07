@@ -4,6 +4,7 @@ import { game } from './Game';
 import { Viewport } from './Viewport';
 import { Sprite } from './Sprite';
 import { WALL_TOP, WALL_RIGHT, WALL_BOTTOM, WALL_LEFT, OPEN_TOP, OPEN_RIGHT, OPEN_BOTTOM, OPEN_LEFT, DIALOG_START_A, DIALOG_START_B, DIALOG_HINT_1, DIALOG_HINT_2, DIALOG_HINT_3, R360 } from './Constants';
+import { rgba } from './Util';
 
 /**
  * Viewport
@@ -29,7 +30,12 @@ export const Maze = {
             r2 = r1 + game.brawl.room.h;
             q1 = game.brawl.room.q;
             q2 = q1 + game.brawl.room.w;
+
+            // During brawl, everything outside the room is hidden
+            Viewport.ctx.fillStyle = rgba(20, 20, 20, 1);
+            Viewport.ctx.fillRect(0, 0, Viewport.width, Viewport.height);
         } else {
+            // Render wall tiles across the entire background
             Viewport.ctx.drawImage(Sprite.tilebg.img, -16 - game.camera.pos.x % 32, -8 - game.camera.pos.y % 32);
         }
 

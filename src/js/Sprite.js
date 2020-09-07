@@ -1,11 +1,10 @@
 'use strict';
 
 import { SpriteSheet } from './SpriteSheet-gen';
-import { rgba } from './Util';
+import { rgba, createCanvas } from './Util';
 import { Text } from './Text';
 import { game } from './Game';
 import { Viewport } from './Viewport';
-import { createCanvas } from './Util';
 import { SPRITESHEET_URI, R360 } from './Constants';
 
 /**
@@ -84,6 +83,7 @@ export const Sprite = {
             this.initBasicSprite(data)
         );
         Sprite.tilebg = Sprite.initDynamicSprite(this.createTileBg(Sprite.tiles[0].img));
+        Sprite.shadow = Sprite.initDynamicSprite(this.createShadow());
 
         // Walls/gates (gates are openings that close during brawls)
         let w = SpriteSheet.walls.map(data => this.initBasicSprite(data));
@@ -226,6 +226,23 @@ export const Sprite = {
                 canvas.ctx.drawImage(source, x, y);
             }
         }
+        return canvas.canvas;
+    },
+
+    createShadow() {
+        let canvas = createCanvas(500, 500);
+        let gradient = canvas.ctx.createRadialGradient(
+            250,
+            250,
+            0,
+            250,
+            250,
+            250
+        );
+        gradient.addColorStop(0.3, rgba(0, 0, 0, 0));
+        gradient.addColorStop(1, rgba(0, 0, 0, 0.9));
+        canvas.ctx.fillStyle = gradient;
+        canvas.ctx.fillRect(0, 0, 500, 500);
         return canvas.canvas;
     },
 
