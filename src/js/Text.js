@@ -29,7 +29,7 @@ const C_ICONS = {};
  */
 export const Text = {
     async init() {
-        this.default = Sprite.font.img;
+        Text.default = Sprite.font.img;
 
         let icons = [
             [108, Sprite.icon_mouse_lmb],  // l
@@ -44,14 +44,14 @@ export const Text = {
             C_SHIFT[icon[0]] = icon[1].img.width + 1;
         }
 
-        this.black = recolor(this.default, rgba(0, 0, 0, 1));
-        this.black_shadow = recolor(this.default, rgba(90, 20, 90, 0.15));
-        this.blue = recolor(this.default, rgba(200, 50, 240, 1));
-        this.blue_shadow = recolor(this.default, rgba(240, 50, 200, 0.2));
-        this.shadow = recolor(this.default, rgba(240, 240, 255, 0.25));
+        Text.black = recolor(Text.default, rgba(0, 0, 0, 1));
+        Text.black_shadow = recolor(Text.default, rgba(90, 20, 90, 0.15));
+        Text.blue = recolor(Text.default, rgba(200, 50, 240, 1));
+        Text.blue_shadow = recolor(Text.default, rgba(240, 50, 200, 0.2));
+        Text.shadow = recolor(Text.default, rgba(240, 240, 255, 0.25));
     },
 
-    drawText(ctx, text, u, v, scale = 1, font = this.default, shadow) {
+    drawText(ctx, text, u, v, scale = 1, font = Text.default, shadow) {
         for (let idx = 0; idx < text.length; idx++) {
             let c = text.charCodeAt(idx);
             if (C_ICONS[c]) {
@@ -90,22 +90,12 @@ export const Text = {
         }
     },
 
-    drawRightText(ctx, text, u, v, scale = 1, font = this.default, shadow) {
+    drawRightText(ctx, text, u, v, scale = 1, font = Text.default, shadow) {
         u -= measureWidth(text, scale);
-        this.drawText(ctx, text, u, v, scale, font, shadow);
+        Text.drawText(ctx, text, u, v, scale, font, shadow);
     },
 
-    drawParagraph(
-        ctx,
-        text,
-        u,
-        v,
-        w,
-        h,
-        scale = 1,
-        font = this.default,
-        shadow
-    ) {
+    drawParagraph(ctx, text, u, v, w, h, scale = 1, font = Text.default, shadow) {
         let cu = u,
             cv = v,
             phrases = text.split(' ');
@@ -121,7 +111,7 @@ export const Text = {
                 cu = u;
                 cv += (C_HEIGHT + 2) * scale;
             }
-            this.drawText(ctx, phrase, cu, cv, scale, font, shadow);
+            Text.drawText(ctx, phrase, cu, cv, scale, font, shadow);
             cu += phraseWidth + (C_SHIFT[32] || 4);
         }
     }
