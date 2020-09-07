@@ -44,22 +44,11 @@ export const Text = {
             C_SHIFT[icon[0]] = icon[1].img.width + 1;
         }
 
-        this.black = this.recolor(this.default, rgba(0, 0, 0, 1));
-        this.black_shadow = this.recolor(this.default, rgba(90, 20, 90, 0.15));
-        this.blue = this.recolor(this.default, rgba(200, 50, 240, 1));
-        this.blue_shadow = this.recolor(this.default, rgba(240, 50, 200, 0.2));
-        this.fire = this.recolor(this.default, ctx => {
-            let gradient = ctx.createLinearGradient(
-                0,
-                0,
-                0,
-                this.default.height
-            );
-            gradient.addColorStop(0, rgba(240, 134, 51, 1));
-            gradient.addColorStop(1, rgba(250, 220, 74, 1));
-            return gradient;
-        });
-        this.shadow = this.recolor(this.default, rgba(240, 240, 255, 0.25));
+        this.black = recolor(this.default, rgba(0, 0, 0, 1));
+        this.black_shadow = recolor(this.default, rgba(90, 20, 90, 0.15));
+        this.blue = recolor(this.default, rgba(200, 50, 240, 1));
+        this.blue_shadow = recolor(this.default, rgba(240, 50, 200, 0.2));
+        this.shadow = recolor(this.default, rgba(240, 240, 255, 0.25));
     },
 
     drawText(ctx, text, u, v, scale = 1, font = this.default, shadow) {
@@ -102,7 +91,7 @@ export const Text = {
     },
 
     drawRightText(ctx, text, u, v, scale = 1, font = this.default, shadow) {
-        u -= this.measureWidth(text, scale);
+        u -= measureWidth(text, scale);
         this.drawText(ctx, text, u, v, scale, font, shadow);
     },
 
@@ -127,7 +116,7 @@ export const Text = {
                 cu = u;
                 cv += (C_HEIGHT + 2) * scale;
             }
-            let phraseWidth = this.measureWidth(phrase, scale);
+            let phraseWidth = measureWidth(phrase, scale);
             if (cu + phraseWidth - u > w) {
                 cu = u;
                 cv += (C_HEIGHT + 2) * scale;
@@ -135,24 +124,20 @@ export const Text = {
             this.drawText(ctx, phrase, cu, cv, scale, font, shadow);
             cu += phraseWidth + (C_SHIFT[32] || 4);
         }
-    },
-
-    measureWidth(text, scale) {
-        return (
-            text
-                .split('')
-                .reduce((sum, c) => sum + (C_SHIFT[c.charCodeAt(0)] || 4), 0) *
-            scale
-        );
-    },
-
-    recolor(font, color) {
-        let canvas = createCanvas(font.width, font.height);
-        canvas.ctx.fillStyle =
-            typeof color === 'function' ? color(canvas.ctx) : color;
-        canvas.ctx.fillRect(0, 0, font.width, font.height);
-        canvas.ctx.globalCompositeOperation = 'destination-in';
-        canvas.ctx.drawImage(font, 0, 0);
-        return canvas.canvas;
     }
 };
+
+// Text utility functions
+
+function measureWidth(text, scale) {
+    return text.split('').reduce((sum, c) => sum + (C_SHIFT[c.charCodeAt(0)] || 4), 0) * scale;
+}
+
+function recolor(font, color) {
+    let canvas = createCanvas(font.width, font.height);
+    canvas.ctx.fillStyle = color;
+    canvas.ctx.fillRect(0, 0, font.width, font.height);
+    canvas.ctx.globalCompositeOperation = 'destination-in';
+    canvas.ctx.drawImage(font, 0, 0);
+    return canvas.canvas;
+}
