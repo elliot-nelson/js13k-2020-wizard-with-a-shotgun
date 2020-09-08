@@ -30,10 +30,6 @@ export const Sprite = {
         Sprite.font = initBasicSprite(SpriteSheet.font[0]);
         Sprite.icon_mouse_lmb = initBasicSprite(SpriteSheet.icon_mouse[0]);
         Sprite.icon_mouse_rmb = initBasicSprite(SpriteSheet.icon_mouse[1]);
-        Sprite.icon_keys_w = initBasicSprite(SpriteSheet.icon_keys[0]);
-        Sprite.icon_keys_a = initBasicSprite(SpriteSheet.icon_keys[1]);
-        Sprite.icon_keys_s = initBasicSprite(SpriteSheet.icon_keys[2]);
-        Sprite.icon_keys_d = initBasicSprite(SpriteSheet.icon_keys[3]);
 
         // Player
         Sprite.player = SpriteSheet.player.map(data =>

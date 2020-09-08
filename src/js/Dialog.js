@@ -86,20 +86,20 @@ Dialog.details = {
         speech: true
     },
     [DIALOG_HINT_1]: {
-        text: 'PRESS abcd TO MOVE',
+        text: 'USE WASD OR mnop TO MOVE',
         flag: DIALOG_HINT_1,
         required: DIALOG_START_B,
         blockFire: true,
         blockReload: true
     },
     [DIALOG_HINT_2]: {
-        text: 'PRESS l TO FIRE YOUR SHOTGUN',
+        text: 'USE l TO FIRE YOUR SHOTGUN',
         flag: DIALOG_HINT_2,
         required: DIALOG_HINT_1,
         blockReload: true
     },
     [DIALOG_HINT_3]: {
-        text: 'PRESS r TO RELOAD',
+        text: 'USE r TO RELOAD',
         flag: DIALOG_HINT_3,
         required: DIALOG_HINT_2,
         blockFire: true

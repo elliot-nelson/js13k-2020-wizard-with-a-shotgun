@@ -34,10 +34,6 @@ export const Text = {
         let icons = [
             [108, Sprite.icon_mouse_lmb],  // l
             [114, Sprite.icon_mouse_rmb],  // r
-            [97, Sprite.icon_keys_w],      // a
-            [98, Sprite.icon_keys_a],      // b
-            [99, Sprite.icon_keys_s],      // c
-            [100, Sprite.icon_keys_d]      // d
         ];
         for (let icon of icons) {
             C_ICONS[icon[0]] = icon[1];
