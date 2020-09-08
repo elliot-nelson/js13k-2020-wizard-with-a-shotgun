@@ -1,17 +1,11 @@
 'use strict';
 
 import { game } from './Game';
+import { TILE_SIZE, R6, R90, DIALOG_HINT_DEATH } from './Constants';
+import { vectorBetween, vector2point, normalizeVector, uv2xy, vector2angle } from './Util';
 import { Sprite } from './Sprite';
 import { Input } from './input/Input';
-import {
-    vectorBetween,
-    vector2point,
-    normalizeVector,
-    uv2xy,
-    vector2angle
-} from './Util';
 import { ShotgunBlast } from './ShotgunBlast';
-import { TILE_SIZE, R90, DIALOG_HINT_DEATH } from './Constants';
 import { Behavior } from './systems/Behavior';
 import { ReloadAnimation } from './ReloadAnimation';
 import { Audio } from './Audio';
@@ -124,7 +118,7 @@ export class Player {
     defaultMovement(velocityAdj) {
         if (Input.pointer) {
             this.facing = vectorBetween(this.pos, uv2xy(Input.pointer));
-            this.facingAngle = vector2angle(this.facing);
+            this.facingAngle = vector2angle(this.facing) - R6;
         }
 
         let v = {
