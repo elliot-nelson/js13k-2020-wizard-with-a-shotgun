@@ -38,6 +38,9 @@ export const Hud = {
             Viewport.ctx.drawImage(sprite.img, 15 + 6 * i, 10);
         }
 
+        // Glyphs
+        Text.drawText(Viewport.ctx, 'stuvw', Viewport.width - HUD_PAGE_TEXT_U - 60, 4, 2, Text.blue, Text.blue_shadow);
+
         // Pages
         if (game.player.pages > 0 || game.player.deaths > 0) {
             if (
