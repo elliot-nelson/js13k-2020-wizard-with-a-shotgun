@@ -168,8 +168,9 @@ export class Player {
     draw() {
         if (this.state === Behavior.DEAD || this.state === Behavior.SPAWN) return;
 
-        let sprite = Sprite.player[((game.frame / 30) | 0) % 2],
-            blast;
+        let sprite = Sprite.player[0],
+            blast,
+            headbob = (game.frame / 30 | 0) % 2;
 
         if (this.state === Behavior.ATTACK && this.frames >= 2) {
             sprite = Sprite.player[2];
@@ -194,6 +195,11 @@ export class Player {
                 sprite.img,
                 -sprite.anchor.x,
                 -sprite.anchor.y
+            );
+            Viewport.ctx.drawImage(
+                Sprite.player[1].img,
+                -sprite.anchor.x,
+                -sprite.anchor.y + headbob
             );
             if (blast) {
                 Viewport.ctx.drawImage(
