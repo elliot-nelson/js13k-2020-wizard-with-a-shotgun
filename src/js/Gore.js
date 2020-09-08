@@ -39,30 +39,16 @@ export class Gore {
     }
 }
 
-Gore.damage = entity => {
+Gore.damage = entity => Gore.spray(entity, 8, () => 0);
+Gore.kill = entity => Gore.spray(entity, 16, () => (Math.random() * 4) | 0);
+Gore.spray = (entity, count, cb) => {
     let angle = vector2angle(entity.lastDamage.vector);
 
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < count; i++) {
         let r = Math.random() * entity.radius;
         let p = vectorAdd(entity.pos, angle2vector(Math.random() * R360, r));
         game.entities.push(
-            new Gore(p, angle + Math.random() * R90 - R45, 0)
-        );
-    }
-};
-
-Gore.kill = entity => {
-    let angle = vector2angle(entity.lastDamage.vector);
-
-    for (let i = 0; i < 16; i++) {
-        let r = Math.random() * entity.radius;
-        let p = vectorAdd(entity.pos, angle2vector(Math.random() * R360, r));
-        game.entities.push(
-            new Gore(
-                p,
-                angle + Math.random() * R90 - R45,
-                (Math.random() * 4) | 0
-            )
+            new Gore(p, angle + Math.random() * R90 - R45, cb())
         );
     }
 };
