@@ -1,10 +1,11 @@
 'use strict';
 
 import { game } from './Game';
+import { WALL_TOP, WALL_RIGHT, WALL_BOTTOM, WALL_LEFT, OPEN_TOP, OPEN_RIGHT, OPEN_BOTTOM, OPEN_LEFT, DIALOG_START_A, DIALOG_START_B, DIALOG_HINT_1, DIALOG_HINT_2, DIALOG_HINT_3, R360, TILE_SIZE } from './Constants';
+import { rgba, xy2uv } from './Util';
 import { Viewport } from './Viewport';
 import { Sprite } from './Sprite';
-import { WALL_TOP, WALL_RIGHT, WALL_BOTTOM, WALL_LEFT, OPEN_TOP, OPEN_RIGHT, OPEN_BOTTOM, OPEN_LEFT, DIALOG_START_A, DIALOG_START_B, DIALOG_HINT_1, DIALOG_HINT_2, DIALOG_HINT_3, R360 } from './Constants';
-import { rgba } from './Util';
+import { Text } from './Text';
 
 /**
  * Viewport
@@ -120,6 +121,20 @@ export const Maze = {
                             x - 2, y - 2, 4, 36
                         );
                     }
+                }
+            }
+        }
+
+        if (!game.brawl) {
+            for (let room of Object.values(maze.rooms)) {
+                if (room.roomNumber >= 3 && !game.roomsCleared.includes(room.roomNumber)) {
+                    let uv = xy2uv({
+                        x: (room.q + room.w / 2) * TILE_SIZE,
+                        y: (room.r + room.h / 2) * TILE_SIZE
+                    });
+                    Viewport.ctx.globalAlpha = 1 - (game.frame % 30) / 30;
+                    Text.drawText(Viewport.ctx, '!', uv.u - 6, uv.v - 10, 4, Text.red, Text.blue_shadow);
+                    Viewport.ctx.globalAlpha = 1;
                 }
             }
         }

@@ -45,6 +45,7 @@ export const Text = {
         Text.blue = recolor(Text.default, rgba(200, 50, 240, 1));
         Text.blue_shadow = recolor(Text.default, rgba(240, 50, 200, 0.2));
         Text.shadow = recolor(Text.default, rgba(240, 240, 255, 0.25));
+        Text.red = recolor(Text.default, rgba(240, 50, 50, 1));
     },
 
     drawText(ctx, text, u, v, scale = 1, font = Text.default, shadow) {
