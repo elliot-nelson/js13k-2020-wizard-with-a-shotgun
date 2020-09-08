@@ -56,7 +56,7 @@ export const MapLoader = {
         let ptr = 0;
         for (let next of Map.tunnels) {
             ptr += next;
-            maze[(ptr / Map.w) | 0][ptr % Map.w] = 2;
+            maze[(ptr / Map.w) | 0][ptr % Map.w] = 3;
         }
 
         for (let room of rooms) {

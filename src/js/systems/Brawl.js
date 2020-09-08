@@ -60,7 +60,7 @@ export const Brawl = {
             let room = game.maze.rooms[game.maze.maze[qr.r][qr.q]];
             if (
                 room &&
-                room.roomNumber >= 3 &&
+                room.roomNumber >= 5 &&
                 !game.roomsCleared.includes(room.roomNumber) &&
                 qr.q > room.q &&
                 qr.r > room.r &&

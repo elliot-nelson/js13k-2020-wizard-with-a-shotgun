@@ -29,6 +29,12 @@ export const OPEN_RIGHT  = 0b0100_0000;
 export const OPEN_BOTTOM = 0b0010_0000;
 export const OPEN_LEFT   = 0b0001_0000;
 
+// Special room numbers - other room numbers >4 are "brawl rooms" where enemies
+// spawn.
+export const ROOM_SPAWN  = 1;
+export const ROOM_TUNNEL = 2;
+export const ROOM_ENDING = 3;
+
 // Coordinates of the page count on the HUD (used by multiple modules since
 // there is a little "page collected" animation).
 export const HUD_PAGE_U  = 47;

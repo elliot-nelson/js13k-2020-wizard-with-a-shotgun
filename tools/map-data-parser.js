@@ -9,6 +9,7 @@ const ROOM     = 1;
 const SAFEROOM = 2;
 const SPAWN    = 3;
 const TUNNEL   = 4;
+const ENDING   = 5;
 
 /**
  * Similar to the image data parser, the map data parser updates a generated source
@@ -47,6 +48,8 @@ const MapDataParser = {
                     map[y][x] = SPAWN;
                 } else if (r === 143 && g === 86 && b === 59) {
                     map[y][x] = TUNNEL;
+                } else if (r === 79 && g === 222 && b === 227) {
+                    map[y][x] = ENDING;
                 }
             }
         }
@@ -68,7 +71,7 @@ const MapDataParser = {
         let maze = [];
         let rooms = [];
         let tunnels = [];
-        let roomNumber = 3;
+        let roomNumber = 5;
 
         let lastTunnel = 0;
 
@@ -80,7 +83,11 @@ const MapDataParser = {
                 } else if (map[y][x] === SPAWN) {
                     // q, r, w, h, roomNumber
                     rooms.push([x, y, 1, 1, 1]);
-                    maze[y][x] = 2;
+                    maze[y][x] = 3;
+                } else if (map[y][x] === ENDING) {
+                    // q, r, w, h, roomNumber
+                    rooms.push([x, y, 1, 1, 2]);
+                    maze[y][x] = 3;
                 } else if (map[y][x]) {
                     tunnels.push(y * w + x - lastTunnel);
                     lastTunnel = y * w + x;
