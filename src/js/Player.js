@@ -94,11 +94,10 @@ export class Player {
             }
         } else if (this.state === Behavior.DEAD) {
             this.state = Behavior.SPAWN;
-            this.frames = 75;
+            this.frames = 120;
             this.hp = 100;
             this.deaths++;
             this.releasePages();
-            Gore.kill(this);
             Gore.kill(this);
             Gore.kill(this);
         } else if (this.state === Behavior.SPAWN) {

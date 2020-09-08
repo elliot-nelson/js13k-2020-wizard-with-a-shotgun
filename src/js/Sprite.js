@@ -47,27 +47,12 @@ export const Sprite = {
         Sprite.gore = SpriteSheet.gore.map(initBasicSprite);
 
         // GUI
-        Sprite.hud_shells_empty = initBasicSprite(
-            SpriteSheet.hud_shells[0]
-        );
-        Sprite.hud_shells_full = initBasicSprite(
-            SpriteSheet.hud_shells[1]
-        );
-        Sprite.hud_health_frame = initBasicSprite(
-            SpriteSheet.hud_healthbar[0]
-        );
-        Sprite.hud_health_fill = initBasicSprite(
-            SpriteSheet.hud_healthbar[1]
-        );
-        Sprite.hud_health_chunk = initBasicSprite(
-            SpriteSheet.hud_healthbar[2]
-        );
-        Sprite.hud_crosshair = initBasicSprite(
-            SpriteSheet.hud_crosshair[0]
-        );
-        Sprite.hud_crosshair_wait = initBasicSprite(
-            SpriteSheet.hud_crosshair[1]
-        );
+        Sprite.hud_shells_empty = initBasicSprite(SpriteSheet.hud_shells[0]);
+        Sprite.hud_shells_full = initBasicSprite(SpriteSheet.hud_shells[1]);
+        Sprite.hud_healthbar = SpriteSheet.hud_healthbar.map(initBasicSprite);
+        Sprite.hud_healthbar.push(initDynamicSprite(createHealthChunk(Sprite.hud_healthbar[1].img)));
+        Sprite.hud_crosshair = initBasicSprite(SpriteSheet.hud_crosshair[0]);
+        Sprite.hud_crosshair_wait = initBasicSprite(SpriteSheet.hud_crosshair[1]);
 
         // Pages
         Sprite.page = SpriteSheet.page.map(initBasicSprite);
@@ -259,5 +244,14 @@ function createSecondTile(source) {
     canvas.ctx.globalCompositeOperation = 'hard-light';
     canvas.ctx.drawImage(source, 0, 0);
     addNoise(canvas);
+    return canvas.canvas;
+}
+
+function createHealthChunk(source) {
+    let canvas = createCanvas(source.width, source.height);
+    canvas.ctx.drawImage(source, 0, 0);
+    canvas.ctx.globalCompositeOperation = 'source-atop';
+    canvas.ctx.fillStyle = rgba(255, 255, 0, 0.6);
+    canvas.ctx.fillRect(0, 0, source.width, source.height);
     return canvas.canvas;
 }

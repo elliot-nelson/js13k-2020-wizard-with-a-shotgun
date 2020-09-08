@@ -27,7 +27,7 @@ export class HealthChunkAnimation {
 
         if (this.t > 15) Viewport.ctx.globalAlpha = 1 - this.t * 0.1;
         Viewport.ctx.drawImage(
-            Sprite.hud_health_chunk.img,
+            Sprite.hud_healthbar[2].img,
             x,
             3,
             this.amount,

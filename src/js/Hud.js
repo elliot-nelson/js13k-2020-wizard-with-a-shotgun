@@ -12,9 +12,9 @@ export const Hud = {
     draw() {
         // Health
         let hp = clamp(game.player.hp, 0, 100);
-        Viewport.ctx.drawImage(Sprite.hud_health_frame.img, 2, 2);
+        Viewport.ctx.drawImage(Sprite.hud_healthbar[0].img, 2, 2);
         Viewport.ctx.drawImage(
-            Sprite.hud_health_fill.img,
+            Sprite.hud_healthbar[1].img,
             0,
             0,
             hp + 8,
