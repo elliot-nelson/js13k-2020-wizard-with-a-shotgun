@@ -1,13 +1,18 @@
 'use strict';
 
 import { game } from './Game';
+import { HUD_PAGE_U, HUD_PAGE_V, HUD_PAGE_TEXT_U, R90 } from './Constants';
+import { clamp, vectorBetween, vectorAdd, vector2angle } from './Util';
 import { Input } from './input/Input';
 import { Sprite } from './Sprite';
 import { Text } from './Text';
 import { Viewport } from './Viewport';
-import { clamp } from './Util';
-import { HUD_PAGE_U, HUD_PAGE_V, HUD_PAGE_TEXT_U } from './Constants';
 
+/**
+ * Hud
+ *
+ * Health bars, ammo, etc.
+ */
 export const Hud = {
     draw() {
         // Health
@@ -69,6 +74,8 @@ export const Hud = {
             );
         }
 
+        Hud.drawPageArrow();
+
         // Debugging - viewport width/height
         /*
         Text.drawRightText(
@@ -98,5 +105,31 @@ export const Hud = {
 
     animatePageGlow() {
         Hud.pageGlow = { start: game.frame, end: game.frame + 30 };
+    },
+
+    drawPageArrow() {
+        let page = Hud.closestPage();
+        if (page) {
+            let vector = vectorBetween(game.player.pos, page.pos);
+            let angle = vector2angle(vector);
+            vector.m = clamp(vector.m / 2, 16, Viewport.height / 2 - 5);
+            if (vector.m > 32) {
+                let xy = vectorAdd(game.player.pos, vector);
+                let a = Math.sin(game.frame / 60)
+                Viewport.ctx.globalAlpha = Math.sin(game.frame / 20) * 0.2 + 0.7;
+                Sprite.drawViewportSprite(Sprite.page[2], xy, angle + R90);
+                Viewport.ctx.globalAlpha = 1;
+            }
+        }
+    },
+
+    closestPage() {
+        let pages = game.entities.filter(entity => entity.page);
+        let pos = game.player.pos;
+        pages.sort((a, b) => {
+            let dist = ((a.pos.x - pos.x) ** 2 + (a.pos.y - pos.y) ** 2) - ((b.pos.x - pos.x) ** 2 + (b.pos.y - pos.y) ** 2);
+            return dist;
+        });
+        return pages[0];
     }
 };

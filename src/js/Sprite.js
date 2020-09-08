@@ -1,11 +1,10 @@
 'use strict';
 
-import { SpriteSheet } from './SpriteSheet-gen';
-import { rgba, createCanvas } from './Util';
-import { Text } from './Text';
 import { game } from './Game';
+import { SPRITESHEET_URI } from './Constants';
+import { rgba, createCanvas } from './Util';
+import { SpriteSheet } from './SpriteSheet-gen';
 import { Viewport } from './Viewport';
-import { SPRITESHEET_URI, R360 } from './Constants';
 
 /**
  * Sprite
@@ -41,7 +40,7 @@ export const Sprite = {
 
         // Enemies
         Sprite.stabguts = SpriteSheet.stabguts.map(initBasicSprite);
-        Sprite.spindoctor = SpriteSheet.sawblade.map(initBasicSprite);
+        Sprite.spindoctor = SpriteSheet.spindoctor.map(initBasicSprite);
 
         // Gore/blood
         Sprite.gore = SpriteSheet.gore.map(initBasicSprite);
@@ -147,6 +146,7 @@ function loadCacheSlice(x, y, w, h) {
     return sliceCanvas.canvas;
 }
 
+// Create the 36x36 "walls" tile rendered between walls and flors
 function createWalls(source) {
     let canvas = createCanvas(36, 36);
     for (let i = 0; i < 36; i += 4) {
@@ -159,6 +159,7 @@ function createWalls(source) {
     return canvas.canvas;
 }
 
+// Create the 36x36 "prison gates" tile for use during brawls
 function createGates(wallSource, spikeSource) {
     let canvas = createCanvas(36, 36);
     for (let i = 0; i < 36; i += 4) {
@@ -175,6 +176,7 @@ function createGates(wallSource, spikeSource) {
     return canvas.canvas;
 }
 
+// Add some chunky noise pixels to a wip canvas
 function addNoise(canvas) {
     canvas.ctx.globalCompositeOperation = 'source-atop';
     for (let y = 0; y < 36; y++) {
@@ -185,6 +187,7 @@ function addNoise(canvas) {
     }
 }
 
+// Given wall tile, create a full screen tiled version to render in background
 function createTileBg(source) {
     let canvas = createCanvas(544, 334);
     for (let y = 0; y < 334; y += 32) {
@@ -195,6 +198,7 @@ function createTileBg(source) {
     return canvas.canvas;
 }
 
+// "Shadow" overlay (gives flickering shadows in corners)
 function createShadow() {
     let canvas = createCanvas(500, 500);
     let gradient = canvas.ctx.createRadialGradient(
@@ -212,6 +216,7 @@ function createShadow() {
     return canvas.canvas;
 }
 
+// "Speech" bubble (character talking)
 function createDialogSpeech(source, tail) {
     let canvas = createCanvas(130, 45);
     canvas.ctx.drawImage(expandNineTile(source).canvas, 0, 5);
@@ -219,6 +224,7 @@ function createDialogSpeech(source, tail) {
     return canvas.canvas;
 }
 
+// "Hint" dialog (instructional for player)
 function createDialogHint(source) {
     let canvas = expandNineTile(source);
     return canvas.canvas;
@@ -236,6 +242,7 @@ function expandNineTile(source) {
     return canvas;
 }
 
+// Given the wall tile, do some color manipulation to get a nice floor tile
 function createSecondTile(source) {
     let canvas = createCanvas(32, 32);
     canvas.ctx.fillStyle = rgba(48, 0, 0, 1);
@@ -247,6 +254,7 @@ function createSecondTile(source) {
     return canvas.canvas;
 }
 
+// Given the red health bar, make a secondary yellow health bar
 function createHealthChunk(source) {
     let canvas = createCanvas(source.width, source.height);
     canvas.ctx.drawImage(source, 0, 0);

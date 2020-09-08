@@ -19,6 +19,7 @@ export class Page {
         //this.mass = 1;
         this.radius = 3;
         this.noClipEntity = true;
+        this.page = true;
     }
 
     think() {

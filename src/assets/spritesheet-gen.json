@@ -162,6 +162,15 @@
     "duration": 100
    },
    {
+    "filename": "page 2.aseprite",
+    "frame": { "x": 24, "y": 66, "w": 12, "h": 14 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 12, "h": 14 },
+    "sourceSize": { "w": 12, "h": 14 },
+    "duration": 100
+   },
+   {
     "filename": "player 0.aseprite",
     "frame": { "x": 0, "y": 80, "w": 21, "h": 32 },
     "rotated": false,
@@ -189,26 +198,8 @@
     "duration": 100
    },
    {
-    "filename": "sawblade 0.aseprite",
-    "frame": { "x": 0, "y": 112, "w": 17, "h": 17 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 17, "h": 17 },
-    "sourceSize": { "w": 17, "h": 17 },
-    "duration": 100
-   },
-   {
-    "filename": "sawblade 1.aseprite",
-    "frame": { "x": 17, "y": 112, "w": 17, "h": 17 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 17, "h": 17 },
-    "sourceSize": { "w": 17, "h": 17 },
-    "duration": 100
-   },
-   {
     "filename": "shotgun_blast 0.aseprite",
-    "frame": { "x": 0, "y": 129, "w": 45, "h": 45 },
+    "frame": { "x": 0, "y": 112, "w": 45, "h": 45 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 45, "h": 45 },
@@ -217,7 +208,7 @@
    },
    {
     "filename": "shotgun_blast 1.aseprite",
-    "frame": { "x": 45, "y": 129, "w": 45, "h": 45 },
+    "frame": { "x": 45, "y": 112, "w": 45, "h": 45 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 45, "h": 45 },
@@ -226,7 +217,7 @@
    },
    {
     "filename": "shotgun_blast 2.aseprite",
-    "frame": { "x": 90, "y": 129, "w": 45, "h": 45 },
+    "frame": { "x": 90, "y": 112, "w": 45, "h": 45 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 45, "h": 45 },
@@ -235,11 +226,29 @@
    },
    {
     "filename": "shotgun_blast 3.aseprite",
-    "frame": { "x": 135, "y": 129, "w": 45, "h": 45 },
+    "frame": { "x": 135, "y": 112, "w": 45, "h": 45 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 45, "h": 45 },
     "sourceSize": { "w": 45, "h": 45 },
+    "duration": 100
+   },
+   {
+    "filename": "spindoctor 0.aseprite",
+    "frame": { "x": 0, "y": 157, "w": 17, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 17, "h": 17 },
+    "sourceSize": { "w": 17, "h": 17 },
+    "duration": 100
+   },
+   {
+    "filename": "spindoctor 1.aseprite",
+    "frame": { "x": 17, "y": 157, "w": 17, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 17, "h": 17 },
+    "sourceSize": { "w": 17, "h": 17 },
     "duration": 100
    },
    {
