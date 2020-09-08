@@ -10,6 +10,7 @@ import { ScreenShake } from '../ScreenShake';
 import { Stabguts } from '../Stabguts';
 import { Spindoctor } from '../Spindoctor';
 import { SpawnAnimation } from '../SpawnAnimation';
+import { Audio } from '../Audio';
 
 const SpawnPatterns = [
     [
@@ -74,6 +75,7 @@ export const Brawl = {
                     start: game.frame,
                     plan: Brawl.expandPattern(SpawnPatterns[room.pattern])
                 };
+                Audio.play(Audio.alarm);
             }
         }
     },

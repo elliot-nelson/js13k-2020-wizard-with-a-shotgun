@@ -2,16 +2,17 @@
 
 import { Behavior } from './Behavior';
 import { vectorAdd } from '../Util';
-import { Player } from '../Player';
 import { HealthChunkAnimation } from '../HealthChunkAnimation';
 import { game } from '../Game';
 import { Gore } from '../Gore';
+import { Audio } from '../Audio';
 
 /**
  * Damage
  */
 export const Damage = {
     apply(entities) {
+        let hit = false;
         for (let entity of entities) {
             if (entity.hp) {
                 if (entity.damage.length > 0) {
@@ -30,6 +31,7 @@ export const Damage = {
                             entity.vel = vectorAdd(entity.vel, damage.vector);
                             entity.lastDamage = damage;
                             Gore.damage(entity);
+                            hit = true;
                         }
                     }
                     entity.damage = [];
@@ -39,5 +41,7 @@ export const Damage = {
                 }
             }
         }
+
+        if (hit) Audio.play(Audio.damage);
     }
 };
