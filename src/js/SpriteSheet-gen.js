@@ -15,7 +15,7 @@ export const SpriteSheet =
      { x: 5, y: 27, w: 5, h: 5 },
      { x: 10, y: 27, w: 5, h: 5 },
      { x: 15, y: 27, w: 5, h: 5 } ],
-  hud_crosshair: [ { x: 0, y: 32, w: 9, h: 9 }, { x: 9, y: 32, w: 9, h: 9 } ],
+  hud_crosshair: [ { x: 0, y: 32, w: 9, h: 9 } ],
   hud_healthbar: [ { x: 0, y: 41, w: 109, h: 9 }, { x: 109, y: 41, w: 109, h: 9 } ],
   hud_shells: [ { x: 0, y: 50, w: 6, h: 7 }, { x: 6, y: 50, w: 6, h: 7 } ],
   icon_mouse: [ { x: 0, y: 57, w: 7, h: 9 }, { x: 7, y: 57, w: 7, h: 9 } ],

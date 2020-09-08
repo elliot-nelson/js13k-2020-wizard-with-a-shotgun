@@ -41,10 +41,10 @@ export const Audio = {
     // that's not helpful if it won't work because you aren't looking at the page!)
 
     pause() {
-        this.gain.gain.linearRampToValueAtTime(0, this.ctx.currentTime + 2.5);
+        this.gain.gain.linearRampToValueAtTime(0, this.ctx.currentTime + 1);
     },
 
     unpause() {
-        this.gain.gain.linearRampToValueAtTime(1, this.ctx.currentTime + 2.5);
+        this.gain.gain.linearRampToValueAtTime(1, this.ctx.currentTime + 1);
     }
 };

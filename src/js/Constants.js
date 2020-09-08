@@ -46,6 +46,7 @@ export const DIALOG_HINT_DEATH = 6;
 
 // Some pre-calculated radian values
 export const R0          = 0;
+export const R6          = Math.PI * 6   / 180;
 export const R20         = Math.PI * 20  / 180;
 export const R45         = Math.PI * 45  / 180;
 export const R70         = Math.PI * 70  / 180;

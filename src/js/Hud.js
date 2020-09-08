@@ -2,7 +2,7 @@
 
 import { game } from './Game';
 import { HUD_PAGE_U, HUD_PAGE_V, HUD_PAGE_TEXT_U, R90 } from './Constants';
-import { clamp, vectorBetween, vectorAdd, vector2angle } from './Util';
+import { clamp, vectorBetween, vectorAdd, vector2angle, uv2xy } from './Util';
 import { Input } from './input/Input';
 import { Sprite } from './Sprite';
 import { Text } from './Text';
@@ -87,19 +87,11 @@ export const Hud = {
         */
 
         if (Input.pointer) {
-            Viewport.ctx.save();
-            Viewport.ctx.translate(Input.pointer.u, Input.pointer.v);
-            Viewport.ctx.rotate(game.frame / 72);
-            let crosshair = game.dialog
-                ? Sprite.hud_crosshair_wait
-                : Sprite.hud_crosshair;
-            Viewport.ctx.drawImage(
-                crosshair.img,
-                -crosshair.anchor.x,
-                -crosshair.anchor.y
-            );
-            Viewport.ctx.restore();
-            //Sprite.drawSprite(ctx, Sprite.hud_crosshair, ptr.u, ptr.v, game.frame / 72);
+            if (game.dialog) {
+                Viewport.ctx.globalAlpha = 0.5;
+            }
+            Sprite.drawViewportSprite(Sprite.hud_crosshair[0], uv2xy(Input.pointer), game.frame / 72);
+            Viewport.ctx.globalAlpha = 1;
         }
     },
 

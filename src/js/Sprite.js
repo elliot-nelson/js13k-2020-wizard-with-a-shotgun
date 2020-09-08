@@ -50,8 +50,7 @@ export const Sprite = {
         Sprite.hud_shells_full = initBasicSprite(SpriteSheet.hud_shells[1]);
         Sprite.hud_healthbar = SpriteSheet.hud_healthbar.map(initBasicSprite);
         Sprite.hud_healthbar.push(initDynamicSprite(createHealthChunk(Sprite.hud_healthbar[1].img)));
-        Sprite.hud_crosshair = initBasicSprite(SpriteSheet.hud_crosshair[0]);
-        Sprite.hud_crosshair_wait = initBasicSprite(SpriteSheet.hud_crosshair[1]);
+        Sprite.hud_crosshair = SpriteSheet.hud_crosshair.map(initBasicSprite);
 
         // Pages
         Sprite.page = SpriteSheet.page.map(initBasicSprite);
