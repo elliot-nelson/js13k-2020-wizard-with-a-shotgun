@@ -105,7 +105,7 @@ export const Hud = {
             let vector = vectorBetween(game.player.pos, page.pos);
             let angle = vector2angle(vector);
             vector.m = clamp(vector.m / 2, 16, Viewport.height / 2 - 5);
-            if (vector.m > 32) {
+            if (vector.m > 64) {
                 let xy = vectorAdd(game.player.pos, vector);
                 let a = Math.sin(game.frame / 60)
                 Viewport.ctx.globalAlpha = Math.sin(game.frame / 20) * 0.2 + 0.7;
