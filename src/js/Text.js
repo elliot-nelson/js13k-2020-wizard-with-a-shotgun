@@ -66,7 +66,7 @@ export const Text = {
                     ctx.drawImage(
                         shadow,
                         k % 180,
-                        k / 180 | 0,
+                        (k / 180 | 0) * 6,
                         C_WIDTH,
                         C_HEIGHT,
                         u + 1,
@@ -78,7 +78,7 @@ export const Text = {
                 ctx.drawImage(
                     font,
                     k % 180,
-                    k / 180 | 0,
+                    (k / 180 | 0) * 6,
                     C_WIDTH,
                     C_HEIGHT,
                     u,
