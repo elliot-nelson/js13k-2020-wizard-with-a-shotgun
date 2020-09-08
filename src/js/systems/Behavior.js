@@ -4,11 +4,8 @@
  * Behavior
  */
 export const Behavior = {
-    IDLE: 101,
-    WANDER: 102,
     CHASE: 103,
     HUNT: 104,
-    FLEE: 105,
     DEAD: 106,
     SPAWN: 107,
 

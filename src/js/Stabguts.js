@@ -14,23 +14,20 @@ import { Page } from './Page';
 export class Stabguts {
     constructor(pos) {
         this.pos = { ...pos };
-        this.vel = { x: 0, y: 0 };
-        this.facing = { x: 0, y: -1, m: 0 };
         this.hp = 100;
         this.damage = [];
+        this.vel = { x: 0, y: 0 };
+        this.facing = { x: 0, y: -1, m: 0 };
         this.radius = 8;
         this.mass = 0.5;
-        this.state = Behavior.IDLE;
         this.lastAttack = 0;
+        this.state = Behavior.CHASE;
     }
 
     think() {
         let diff = this.facing = vectorBetween(this.pos, game.player.pos);
         this.facingAngle = vector2angle(this.facing);
-
-        if (this.state === Behavior.IDLE) {
-            this.state = Behavior.CHASE;
-        } else if (this.state === Behavior.CHASE) {
+        if (this.state === Behavior.CHASE) {
             if (diff.m < 38 && Math.random() < 0.05 && game.frame > this.lastAttack + 60) {
                 this.state = Behavior.RELOAD;
                 this.frames = 24;

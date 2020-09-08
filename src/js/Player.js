@@ -23,11 +23,11 @@ export class Player {
             x: (game.maze.rooms[1].q + game.maze.rooms[1].w / 2) * TILE_SIZE,
             y: (game.maze.rooms[1].r + game.maze.rooms[1].h / 2) * TILE_SIZE
         };
-        this.history = [];
         this.vel = { x: 0, y: 0 };
-        this.facing = { x: 0, y: -1, m: 0 };
         this.hp = 100;
         this.damage = [];
+        this.history = [];
+        this.facing = { x: 0, y: -1, m: 0 };
         this.radius = 11;
         this.shellsLeft = 4;
         this.shellsMax = 4;
@@ -108,7 +108,8 @@ export class Player {
                     }
                     game.brawl = false;
                 }
-            } else if (this.frames === 0) {
+            }
+            if (this.frames === 0) {
                 this.state = Behavior.HUNT;
                 game.entities.push(new SpawnAnimation(this.pos));
             }

@@ -19,27 +19,24 @@ import { Viewport } from './Viewport';
 export class Spindoctor {
     constructor(pos) {
         this.pos = { ...pos };
-        this.vel = { x: 0, y: 0 };
-        this.facing = { x: 0, y: -1, m: 0 };
         this.hp = 100;
         this.damage = [];
         this.radius = 3;
         this.mass = 1;
         this.bounce = true;
-        this.state = Behavior.IDLE;
+
+        // Kick off at random angles, but, it looks weird to have straight horizontal
+        // or vertical angles - so avoid anything within +- 20 degrees of a straight angle.
+        let angle = Math.random() * R360;
+        if (angle % R90 < R20) angle += R20;
+        if (angle % R90 > R70) angle -= R20;
+        this.facing = angle2vector(angle);
+        this.vel = this.facing;
+        this.state = Behavior.CHASE;
     }
 
     think() {
-        if (this.state === Behavior.IDLE) {
-            // Kick off at random angles, but, it looks weird to have straight horizontal
-            // or vertical angles - so avoid anything within +- 20 degrees of a straight angle.
-            let angle = Math.random() * R360;
-            if (angle % R90 < R20) angle += R20;
-            if (angle % R90 > R70) angle -= R20;
-            this.facing = angle2vector(angle);
-            this.vel = this.facing;
-            this.state = Behavior.CHASE;
-        } else if (this.state === Behavior.CHASE) {
+        if (this.state === Behavior.CHASE) {
             let v = normalizeVector(this.vel);
             v.m = (v.m + 2.5) / 2;
             this.vel = vector2point(v);
