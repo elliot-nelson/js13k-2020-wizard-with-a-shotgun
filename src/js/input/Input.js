@@ -60,14 +60,9 @@ export const Input = {
         // is false, it represents how long the input was last held down.
         this.framesHeld = {};
 
-        this.keyboard = new KeyboardAdapter(this);
-        this.keyboard.init();
-
-        this.mouse = new MouseAdapter(this);
-        this.mouse.init();
-
-        //this.gamepad = new GamepadAdapter(this);
-        //this.gamepad.init();
+        KeyboardAdapter.init();
+        MouseAdapter.init();
+        //GamepadAdapter.init();
     },
 
     update() {
@@ -76,13 +71,13 @@ export const Input = {
         // attacking. For directional input, we instead check whether there's movement on the thumbstick,
         // and we use it if there is -- otherwise we try to extract movement from the keyboard instead.
 
-        this.keyboard.update();
-        this.mouse.update();
-        //this.gamepad.update();
+        KeyboardAdapter.update();
+        MouseAdapter.update();
+        //GamepadAdapter.update();
 
         for (let action of Object.values(Input.Action)) {
-            let held = this.mouse.held[action] || this.keyboard.held[action];
-            //let held = this.gamepad.held[action] || this.keyboard.held[action];
+            let held = MouseAdapter.held[action] || KeyboardAdapter.held[action];
+            //let held = GamepadAdapter.held[action] || KeyboardAdapter.held[action];
             this.pressed[action] = !this.held[action] && held;
             this.released[action] = this.held[action] && !held;
 
@@ -95,10 +90,9 @@ export const Input = {
             this.held[action] = held;
         }
 
-        this.pointer = this.mouse.pointer;
-
+        this.pointer = MouseAdapter.pointer;
+        this.direction = KeyboardAdapter.direction;
         //this.direction = this.gamepad.direction.m > 0 ? this.gamepad.direction : this.keyboard.direction;
-        this.direction = this.keyboard.direction;
     },
 
     onDown(action) {},

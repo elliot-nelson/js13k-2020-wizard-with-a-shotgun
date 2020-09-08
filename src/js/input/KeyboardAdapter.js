@@ -12,11 +12,9 @@ const A90 = 1;
  *
  * Maps keyboard inputs to game inputs.
  */
-export class KeyboardAdapter {
-    constructor(handler) {
-        this.handler = handler;
-
-        this.map = {
+export const KeyboardAdapter = {
+    init() {
+        KeyboardAdapter.map = {
             KeyW:        Input.Action.UP,
             KeyA:        Input.Action.LEFT,
             KeyS:        Input.Action.DOWN,
@@ -29,7 +27,7 @@ export class KeyboardAdapter {
         };
 
         // For keyboard, we support 8-point movement (S, E, SE, etc.)
-        this.arrowDirections = [
+        KeyboardAdapter.arrowDirections = [
             { x: A00, y: A00, m: 0 },
             { x: A00, y: -A90, m: 1 },
             { x: A00, y: A90, m: 1 },
@@ -48,46 +46,44 @@ export class KeyboardAdapter {
             { x: A00, y: A00, m: 0 }
         ];
 
-        this.held = [];
+        KeyboardAdapter.held = [];
 
-        this.reset();
-    }
-
-    init() {
         window.addEventListener('keydown', event => {
-            let k = this.map[event.code];
+            let k = KeyboardAdapter.map[event.code];
             // Debugging - key presses
             // console.log(event.key, event.keyCode, event.code, k);
             if (k) {
-                this.held[k] = true;
+                KeyboardAdapter.held[k] = true;
             }
         });
 
         window.addEventListener('keyup', event => {
-            let k = this.map[event.code];
+            let k = KeyboardAdapter.map[event.code];
             if (k) {
-                this.held[k] = false;
+                KeyboardAdapter.held[k] = false;
             }
         });
-    }
+
+        KeyboardAdapter.reset();
+    },
 
     update() {
         // For keyboards, we want to convert the state of the various arrow keys being held down
         // into a directional vector. We use the browser's event to handle the held state of
         // the other action buttons, so we don't need to process them here.
         let state =
-            (this.held[Input.Action.UP] ? 1 : 0) +
-            (this.held[Input.Action.DOWN] ? 2 : 0) +
-            (this.held[Input.Action.LEFT] ? 4 : 0) +
-            (this.held[Input.Action.RIGHT] ? 8 : 0);
+            (KeyboardAdapter.held[Input.Action.UP] ? 1 : 0) +
+            (KeyboardAdapter.held[Input.Action.DOWN] ? 2 : 0) +
+            (KeyboardAdapter.held[Input.Action.LEFT] ? 4 : 0) +
+            (KeyboardAdapter.held[Input.Action.RIGHT] ? 8 : 0);
 
-        this.direction = this.arrowDirections[state];
-    }
+        KeyboardAdapter.direction = KeyboardAdapter.arrowDirections[state];
+    },
 
     reset() {
-        this.direction = this.arrowDirections[0];
+        KeyboardAdapter.direction = KeyboardAdapter.arrowDirections[0];
         for (let action of Object.values(Input.Action)) {
-            this.held[action] = false;
+            KeyboardAdapter.held[action] = false;
         }
     }
-}
+};

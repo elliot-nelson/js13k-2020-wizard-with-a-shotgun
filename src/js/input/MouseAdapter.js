@@ -9,28 +9,18 @@ import { Audio } from '../Audio';
  *
  * Maps mouse inputs to game inputs.
  */
-export class MouseAdapter {
-    constructor(handler) {
-        this.handler = handler;
-
-        // Key Mapping:      ACTION            // Input
+export const MouseAdapter = {
+    init() {
         this.map = [];
         this.map[0] = Input.Action.ATTACK; // LMB
         this.map[2] = Input.Action.RELOAD; // RMB
 
         this.held = [];
 
-        this.reset();
-    }
-
-    init() {
         window.addEventListener('mousemove', event => {
             if (!this.pointer) this.pointer = {};
-            //this.handlers['mousemove'](event.movementX, event.movementY, event.clientX, event.clientY);
-            this.pointer.u =
-                ((event.clientX * Viewport.width) / Viewport.clientWidth) | 0;
-            this.pointer.v =
-                ((event.clientY * Viewport.height) / Viewport.clientHeight) | 0;
+            this.pointer.u = ((event.clientX * Viewport.width) / Viewport.clientWidth) | 0;
+            this.pointer.v = ((event.clientY * Viewport.height) / Viewport.clientHeight) | 0;
         });
 
         window.addEventListener('mouseout', () => {
@@ -61,8 +51,8 @@ export class MouseAdapter {
             event.preventDefault();
         });
 
-        return this;
-    }
+        MouseAdapter.reset();
+    },
 
     update() {
         // Hacks: ideally we could use mousedown and mouseup for all clicks and preventDefault to
@@ -77,7 +67,7 @@ export class MouseAdapter {
                 this.held[Input.Action.RELOAD] = false;
             }
         }
-    }
+    },
 
     reset() {
         this.pointer = undefined;
@@ -85,4 +75,4 @@ export class MouseAdapter {
             this.held[action] = false;
         }
     }
-}
+};
