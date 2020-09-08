@@ -36,12 +36,12 @@ const ImageDataParser = {
       id = id.split(' ')[0];
 
       data[id] = (data[id] || []);
-      data[id][number] = {
-        x: frame.frame.x,
-        y: frame.frame.y,
-        w: frame.frame.w,
-        h: frame.frame.h
-      };
+      data[id][number] = [
+        frame.frame.x,
+        frame.frame.y,
+        frame.frame.w,
+        frame.frame.h
+      ];
     }
 
     return data;

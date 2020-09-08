@@ -112,15 +112,7 @@ export const Sprite = {
 // Sprite utility functions
 
 function initBasicSprite(data, anchor) {
-    return initDynamicSprite(
-        loadCacheSlice(
-            data.x,
-            data.y,
-            data.w,
-            data.h
-        ),
-        anchor
-    );
+    return initDynamicSprite(loadCacheSlice(...data), anchor);
 }
 
 function initDynamicSprite(source, anchor) {
