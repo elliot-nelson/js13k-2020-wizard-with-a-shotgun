@@ -108,7 +108,7 @@ export const Hud = {
             if (vector.m > 64) {
                 let xy = vectorAdd(game.player.pos, vector);
                 let a = Math.sin(game.frame / 60)
-                Viewport.ctx.globalAlpha = Math.sin(game.frame / 20) * 0.2 + 0.7;
+                Viewport.ctx.globalAlpha = Math.sin(game.frame / 20) * 0.2 + 0.8;
                 Sprite.drawViewportSprite(Sprite.page[2], xy, angle + R90);
                 Viewport.ctx.globalAlpha = 1;
             }
