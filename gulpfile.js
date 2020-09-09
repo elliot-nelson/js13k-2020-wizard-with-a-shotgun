@@ -53,7 +53,7 @@ async function compileBuild() {
             file: 'dist/temp/app.js',
             format: 'iife',
             name: 'app',
-            sourcemap: "inline"
+            sourcemap: 'inline'
         });
     } catch (error) {
         // Use rollup's error output
@@ -165,8 +165,14 @@ function copyAssets() {
 
     return pipeline
         .pipe(size({ title: 'spritesheet post' }))
-        .pipe(rename("sprites.png"))
+        .pipe(rename('sprites.png'))
         .pipe(gulp.dest('dist/build'));
+}
+
+async function pngoutAssets() {
+    // This step relies on a new tool "pngout", comment out if not available.
+    // This saves me an extra 20 bytes on the spritesheet.
+    childProcess.execSync('pngout dist/build/sprites.png');
 }
 
 async function generateMapData() {
@@ -178,7 +184,7 @@ async function generateMapData() {
 
 const refreshAssets = gulp.series(exportSpriteSheet, generateSpriteSheetData, generateMapData);
 
-const buildAssets = gulp.series(refreshAssets, copyAssets);
+const buildAssets = gulp.series(refreshAssets, copyAssets, pngoutAssets);
 
 // -----------------------------------------------------------------------------
 // HTML Build
