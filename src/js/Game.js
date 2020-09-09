@@ -9,7 +9,6 @@ import { Viewport } from './Viewport';
 import { WALL_TOP, WALL_RIGHT, WALL_BOTTOM, WALL_LEFT, OPEN_TOP, OPEN_RIGHT, OPEN_BOTTOM, OPEN_LEFT, DIALOG_START_A, DIALOG_START_B, DIALOG_HINT_1, DIALOG_HINT_2, DIALOG_HINT_3, DIALOG_HINT_DEATH, R360 } from './Constants';
 import { uv2xy, xy2qr, angle2vector, rgba, createCanvas } from './Util';
 import { Audio } from './Audio';
-import { Behavior } from './systems/Behavior';
 import { Brawl } from './systems/Brawl';
 import { Movement } from './systems/Movement';
 import { Damage } from './systems/Damage';
@@ -55,7 +54,7 @@ export class Game {
         this.dialogPending[DIALOG_START_B] =
         this.dialogPending[DIALOG_HINT_1] =
         this.dialogPending[DIALOG_HINT_2] =
-        this.dialogPending[DIALOG_HINT_3] = false;
+        this.dialogPending[DIALOG_HINT_3] = true;
 
         this.update();
         window.requestAnimationFrame(() => this.onFrame(1));

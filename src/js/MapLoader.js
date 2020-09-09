@@ -50,7 +50,7 @@ export const MapLoader = {
             w: room[2],
             h: room[3],
             roomNumber: room[4],
-            pattern: room[5] || 0
+            pattern: room[5]
         }));
 
         let ptr = 0;

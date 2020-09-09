@@ -32,16 +32,19 @@ const MapDataParser = {
         // Convert specific pixel colors in the image into known tile types
         // in a temporary map, which will be used in the next step.
         let map = [];
+        let pattern = [];
         for (let y = 0; y < h; y++) {
             map[y] = [];
+            pattern[y] = [];
             for (let x = 0; x < w; x++) {
                 let p = (y * w + x) * 4;
                 let [r, g, b, a] = [buffer[p], buffer[p + 1], buffer[p + 2], buffer[p + 3]];
 
                 map[y][x] = SPACE;
 
-                if (r === 172 && g === 50 && b === 50) {
+                if (r === 172 && g === 50) {
                     map[y][x] = ROOM;
+                    pattern[y][x] = (b - 50) / 5;
                 } else if (r === 106 && g === 190 && b === 48) {
                     map[y][x] = SAFEROOM;
                 } else if (r === 153 && g === 229 && b === 80) {
@@ -79,7 +82,7 @@ const MapDataParser = {
             maze[y] = maze[y] || [];
             for (let x = 0; x < w; x++) {
                 if (map[y][x] === ROOM && !maze[y][x]) {
-                    rooms.push(MapDataParser._floodRoom(map, maze, w, h, x, y, roomNumber++));
+                    rooms.push(MapDataParser._floodRoom(map, maze, w, h, x, y, roomNumber++, pattern[y][x]));
                 } else if (map[y][x] === SPAWN) {
                     // q, r, w, h, roomNumber
                     rooms.push([x, y, 1, 1, 1]);
@@ -97,7 +100,7 @@ const MapDataParser = {
 
         return { w, h, rooms, tunnels };
     },
-    _floodRoom(map, maze, w, h, x, y, roomNumber) {
+    _floodRoom(map, maze, w, h, x, y, roomNumber, pattern) {
         let left = x, right = x, top = y, bottom = y;
         let queue = [{ x, y, cost: 0 }];
         let visited = [];
@@ -121,7 +124,7 @@ const MapDataParser = {
         }
 
         // q, r, w, h, roomNumber
-        return [left, top, right - left + 1, bottom - top + 1, roomNumber];
+        return [left, top, right - left + 1, bottom - top + 1, roomNumber, pattern];
     },
     _writeOutputFile(data, outputFile) {
         let js = fs.readFileSync(outputFile, 'utf8');

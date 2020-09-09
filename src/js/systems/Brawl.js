@@ -13,10 +13,10 @@ import { Audio } from '../Audio';
 
 const SpawnPatterns = [
     [
-        [Stabguts, 0, 60, 120]
+        [Stabguts, 1, 1, 1]
     ],
     [
-        [Spindoctor, 0, 30, 60]
+        [Spindoctor, 1, 1, 1, 1]
     ],
     [
         [Stabguts, 0, 30, 60, 90, 100, 110, 180, 200]
@@ -66,7 +66,6 @@ export const Brawl = {
                 qr.q < room.q + room.w - 1 &&
                 qr.r < room.r + room.h - 1
             ) {
-                room.pattern = 1;
                 game.screenshakes.push(new ScreenShake(20, 20, 20));
                 game.brawl = {
                     room,
@@ -84,9 +83,12 @@ export const Brawl = {
         for (let entry of pattern) {
             let enemy = entry[0];
             for (let i = 1; i < entry.length; i++) {
-                plan.push([enemy, entry[i]]);
+                for (let c = 0; c < entry[i] || 0; c++) {
+                    plan.push([enemy, (i - 1) * 30 + c * 10]);
+                }
             }
         }
+        plan.sort((a, b) => a[1] - b[1]);
         return plan;
     },
 
