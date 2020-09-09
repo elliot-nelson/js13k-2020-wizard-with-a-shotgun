@@ -35,7 +35,7 @@ export const Sprite = {
             initBasicSprite(data, { x: 10, y: 21 })
         );
         Sprite.shotgun_blast = SpriteSheet.shotgun_blast.map(data =>
-            initBasicSprite(data, { x: /*12*/ 22, y: 41 })
+            initBasicSprite(data, { x: 11, y: 14 })
         );
 
         // Enemies

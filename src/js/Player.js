@@ -173,7 +173,7 @@ export class Player {
             headbob = (game.frame / 30 | 0) % 2;
 
         if (this.state === Behavior.ATTACK && this.frames >= 2) {
-            sprite = Sprite.player[2];
+            sprite = Sprite.player[1];
             blast = Sprite.shotgun_blast[6 - this.frames];
         }
 
@@ -197,7 +197,7 @@ export class Player {
                 -sprite.anchor.y
             );
             Viewport.ctx.drawImage(
-                Sprite.player[1].img,
+                Sprite.player[2].img,
                 -sprite.anchor.x,
                 -sprite.anchor.y + headbob
             );
