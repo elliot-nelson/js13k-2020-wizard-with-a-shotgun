@@ -14,7 +14,7 @@ import { Page } from './Page';
 export class Stabguts {
     constructor(pos) {
         this.pos = { ...pos };
-        this.hp = 100;
+        this.hp = 200;
         this.damage = [];
         this.vel = { x: 0, y: 0 };
         this.facing = { x: 0, y: -1, m: 0 };
@@ -33,7 +33,10 @@ export class Stabguts {
                 this.frames = 24;
             }
             diff.m = clamp(diff.m, 0, 0.75);
-            this.vel = { x: diff.x * diff.m, y: diff.y * diff.m };
+            this.vel = {
+                x: (this.vel.x + diff.x * diff.m) / 2,
+                y: (this.vel.y + diff.y * diff.m) / 2
+            };
         } else if (this.state === RELOAD) {
             if (this.frames-- === 0) {
                 this.state = ATTACK;

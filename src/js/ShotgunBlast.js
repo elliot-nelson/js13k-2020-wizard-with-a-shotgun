@@ -83,7 +83,7 @@ export class ShotgunBlast {
                     entity.damage.push({
                         amount: 100,
                         vector: vect,
-                        knockback: 9
+                        knockback: vect.m > 32 ? 5 : 10
                     });
                 }
             }
