@@ -13,6 +13,7 @@ import { Brawl } from './systems/Brawl';
 import { Movement } from './systems/Movement';
 import { Damage } from './systems/Damage';
 import { DialogScheduling } from './systems/DialogScheduling';
+import { Victory } from './systems/Victory';
 import { Hud } from './Hud';
 import { ScreenShake } from './ScreenShake';
 import { Maze } from './Maze';
@@ -98,6 +99,9 @@ export class Game {
 
         // Brawl system (aka "room battles")
         Brawl.apply();
+
+        // Victory condtions
+        Victory.apply();
 
         // Culling (typically when an entity dies)
         this.entities = this.entities.filter(entity => !entity.cull);

@@ -2,7 +2,7 @@
 
 import { game } from '../Game';
 import { R360, TILE_SIZE } from '../Constants';
-import { xy2qr, vectorBetween, vectorAdd, angle2vector, rgba } from '../Util';
+import { xy2qr, vectorBetween, vectorAdd, angle2vector, rgba, roomCenter } from '../Util';
 import { Player } from '../Player';
 import { HealthChunkAnimation } from '../HealthChunkAnimation';
 import { ScreenShake } from '../ScreenShake';
@@ -17,15 +17,11 @@ import { Viewport } from '../Viewport';
  */
 export const Victory = {
     apply() {
+        return;
         if (game.player.pages >= 404 && !game.victory) {
-            game.victory = true;
             Victory.frame = 0;
-
-            let room = game.maze.rooms[2];
-            game.player.pos = {
-                x: (room.q + 0.5) * TILE_SIZE,
-                y: (room.r + 0.5) * TILE_SIZE
-            };
+            game.victory = true;
+            game.player.pos = roomCenter(game.maze.rooms[2]);
             game.brawl = false;
             for (let entity of game.entities) {
                 if (entity.enemy) entity.state = DEAD;

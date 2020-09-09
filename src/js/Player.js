@@ -1,8 +1,8 @@
 'use strict';
 
 import { game } from './Game';
-import { TILE_SIZE, R6, R90, DIALOG_HINT_DEATH, DIALOG_HINT_DMG } from './Constants';
-import { vectorBetween, vector2point, normalizeVector, uv2xy, vector2angle } from './Util';
+import { R6, R90, DIALOG_HINT_DEATH, DIALOG_HINT_DMG } from './Constants';
+import { vectorBetween, vector2point, normalizeVector, uv2xy, vector2angle, roomCenter } from './Util';
 import { Sprite } from './Sprite';
 import { Input } from './input/Input';
 import { ShotgunBlast } from './ShotgunBlast';
@@ -19,10 +19,7 @@ import { Page } from './Page';
  */
 export class Player {
     constructor() {
-        this.pos = {
-            x: (game.maze.rooms[1].q + game.maze.rooms[1].w / 2) * TILE_SIZE,
-            y: (game.maze.rooms[1].r + game.maze.rooms[1].h / 2) * TILE_SIZE
-        };
+        this.pos = roomCenter(game.maze.rooms[1]);
         this.vel = { x: 0, y: 0 };
         this.hp = 100;
         this.damage = [];
@@ -103,10 +100,7 @@ export class Player {
         } else if (this.state === SPAWN) {
             this.frames--;
             if (this.frames === 30) {
-                this.pos = {
-                    x: (game.maze.rooms[1].q + game.maze.rooms[1].w / 2) * TILE_SIZE,
-                    y: (game.maze.rooms[1].r + game.maze.rooms[1].h / 2) * TILE_SIZE
-                };
+                this.pos = roomCenter(game.maze.rooms[1]);
                 this.vel = { x: 0, y: 0 };
                 if (game.brawl) {
                     for (let entity of game.brawl.enemies) {

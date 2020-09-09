@@ -463,3 +463,10 @@ export function createCanvas(width, height) {
     let ctx = canvas.getContext('2d');
     return { canvas, ctx };
 }
+
+export function roomCenter(room) {
+    return {
+        x: (room.q + room.w / 2) * TILE_SIZE,
+        y: (room.r + room.h / 2) * TILE_SIZE
+    };
+}
