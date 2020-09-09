@@ -5,7 +5,7 @@ import { Sprite } from './Sprite';
 import { Text } from './Text';
 import { Input } from './input/Input';
 import { Viewport } from './Viewport';
-import { DIALOG_START_A, DIALOG_START_B, DIALOG_HINT_1, DIALOG_HINT_2, DIALOG_HINT_3, DIALOG_HINT_DEATH } from './Constants';
+import { DIALOG_START_A, DIALOG_START_B, DIALOG_HINT_1, DIALOG_HINT_2, DIALOG_HINT_3, DIALOG_HINT_DEATH, DIALOG_HINT_E1, DIALOG_HINT_E2, DIALOG_HINT_DMG } from './Constants';
 
 export class Dialog {
     constructor(key) {
@@ -72,41 +72,56 @@ export class Dialog {
     }
 }
 
-Dialog.details = {
-    [DIALOG_START_A]: {
-        text:
-            'SHOGGOTH\'S BALLS! THE PAGES OF THE SHOTGUN SPELLBOOK ARE SCATTERED ALL OVER THIS DUNGEON!',
+Dialog.details = [
+    ,
+    {
+        text: 'SHOGGOTH\'S BALLS! THE SHOTGUN ARCANA IS SCATTERED ALL OVER THIS DUNGEON!',
         flag: DIALOG_START_A,
         speech: true
     },
-    [DIALOG_START_B]: {
+    {
         text: 'FIND MY MISSING PAGES AND HELP ME REGAIN MY POWERS.',
         flag: DIALOG_START_B,
         required: DIALOG_START_A,
         speech: true
     },
-    [DIALOG_HINT_1]: {
+    {
         text: 'USE WASD OR mnop TO MOVE',
         flag: DIALOG_HINT_1,
         required: DIALOG_START_B,
         blockFire: true,
         blockReload: true
     },
-    [DIALOG_HINT_2]: {
+    {
         text: 'USE l TO FIRE YOUR SHOTGUN',
         flag: DIALOG_HINT_2,
         required: DIALOG_HINT_1,
         blockReload: true
     },
-    [DIALOG_HINT_3]: {
+    {
         text: 'USE r TO RELOAD',
         flag: DIALOG_HINT_3,
         required: DIALOG_HINT_2,
         blockFire: true
     },
-    [DIALOG_HINT_DEATH]: {
+    {
         text: 'OUCH! BE CAREFUL OUT THERE, WE NEED THOSE PAGES BACK!',
         flag: DIALOG_HINT_DEATH,
         speech: true
+    },
+    {
+        text: 'STABGUTS! LOOK OUT FOR THE POINTY END.',
+        flag: DIALOG_HINT_E1,
+        speech: true
+    },
+    {
+        text: 'SPINDOCTORS! YOU\'LL GET MORE THAN A HAIRCUT FROM THESE THINGS.',
+        flag: DIALOG_HINT_E2,
+        speech: true
+    },
+    {
+        text: 'DON\'T FORGET, PICK UP PAGES TO RECOVER SOME HEALTH!',
+        flag: DIALOG_HINT_DMG,
+        speech: true
     }
-};
+];

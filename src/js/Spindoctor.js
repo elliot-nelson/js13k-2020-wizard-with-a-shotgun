@@ -1,5 +1,5 @@
 import { game } from './Game';
-import { R20, R70, R90, R360 } from './Constants';
+import { R20, R70, R90, R360, DIALOG_HINT_E2 } from './Constants';
 import {
     vector2angle,
     angle2vector,
@@ -24,6 +24,7 @@ export class Spindoctor {
         this.radius = 3;
         this.mass = 1;
         this.bounce = true;
+        game.dialogPending[DIALOG_HINT_E2] = true;
 
         // Kick off at random angles, but, it looks weird to have straight horizontal
         // or vertical angles - so avoid anything within +- 20 degrees of a straight angle.

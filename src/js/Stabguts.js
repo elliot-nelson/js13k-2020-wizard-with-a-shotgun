@@ -1,7 +1,7 @@
 'use strict';
 
 import { game } from './Game';
-import { R90 } from './Constants';
+import { R90, DIALOG_HINT_E1 } from './Constants';
 import { vectorBetween, clamp, vector2angle } from './Util';
 import { Sprite } from './Sprite';
 import { CHASE, DEAD, ATTACK, RELOAD } from './systems/Behavior';
@@ -22,6 +22,7 @@ export class Stabguts {
         this.mass = 0.5;
         this.lastAttack = 0;
         this.state = CHASE;
+        game.dialogPending[DIALOG_HINT_E1] = true;
     }
 
     think() {

@@ -94,7 +94,7 @@ export class Game {
         Movement.apply(this.entities);
 
         // Dialog scheduling
-        DialogScheduling.apply(this.entities);
+        DialogScheduling.apply();
 
         // Brawl system (aka "room battles")
         Brawl.apply();

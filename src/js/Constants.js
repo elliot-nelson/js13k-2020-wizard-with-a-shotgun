@@ -49,6 +49,9 @@ export const DIALOG_HINT_1     = 3;
 export const DIALOG_HINT_2     = 4;
 export const DIALOG_HINT_3     = 5;
 export const DIALOG_HINT_DEATH = 6;
+export const DIALOG_HINT_E1    = 7;
+export const DIALOG_HINT_E2    = 8;
+export const DIALOG_HINT_DMG   = 9;
 
 // Some pre-calculated radian values
 export const R0          = 0;

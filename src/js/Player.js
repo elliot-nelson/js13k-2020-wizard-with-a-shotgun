@@ -1,7 +1,7 @@
 'use strict';
 
 import { game } from './Game';
-import { TILE_SIZE, R6, R90, DIALOG_HINT_DEATH } from './Constants';
+import { TILE_SIZE, R6, R90, DIALOG_HINT_DEATH, DIALOG_HINT_DMG } from './Constants';
 import { vectorBetween, vector2point, normalizeVector, uv2xy, vector2angle } from './Util';
 import { Sprite } from './Sprite';
 import { Input } from './input/Input';
@@ -66,6 +66,10 @@ export class Player {
                         // play nasty noise
                     }
                 }
+            }
+
+            if (this.hp < 75) {
+                game.dialogPending[DIALOG_HINT_DMG] = true;
             }
 
             if (this.deaths > 0) {
