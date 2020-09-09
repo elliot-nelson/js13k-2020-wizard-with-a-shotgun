@@ -51,12 +51,6 @@ export class Game {
 
     start() {
         this.frame = 0;
-        this.dialogPending[DIALOG_START_A] =
-        this.dialogPending[DIALOG_START_B] =
-        this.dialogPending[DIALOG_HINT_1] =
-        this.dialogPending[DIALOG_HINT_2] =
-        this.dialogPending[DIALOG_HINT_3] = true;
-
         this.update();
         window.requestAnimationFrame(() => this.onFrame(1));
     }

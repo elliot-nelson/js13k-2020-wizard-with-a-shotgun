@@ -1,7 +1,7 @@
 'use strict';
 
 import { game } from './Game';
-import { R6, R90, DIALOG_HINT_DEATH, DIALOG_HINT_DMG } from './Constants';
+import { R6, R90, DIALOG_HINT_DEATH, DIALOG_HINT_DMG, DIALOG_START_A, DIALOG_START_B, DIALOG_HINT_1, DIALOG_HINT_2, DIALOG_HINT_3 } from './Constants';
 import { vectorBetween, vector2point, normalizeVector, uv2xy, vector2angle, roomCenter } from './Util';
 import { Sprite } from './Sprite';
 import { Input } from './input/Input';
@@ -33,7 +33,7 @@ export class Player {
         this.pages = 0;
         this.deaths = 0;
         this.state = SPAWN;
-        this.frames = 30;
+        this.frames = 29;
     }
 
     think() {
@@ -98,7 +98,7 @@ export class Player {
             Gore.kill(this);
             Gore.kill(this);
         } else if (this.state === SPAWN) {
-            this.frames--;
+            if (game.started) this.frames--;
             if (this.frames === 30) {
                 this.pos = roomCenter(game.maze.rooms[1]);
                 this.vel = { x: 0, y: 0 };
@@ -112,6 +112,11 @@ export class Player {
             if (this.frames === 0) {
                 this.state = HUNT;
                 game.entities.push(new SpawnAnimation(this.pos));
+                game.dialogPending[DIALOG_START_A] =
+                game.dialogPending[DIALOG_START_B] =
+                game.dialogPending[DIALOG_HINT_1] =
+                game.dialogPending[DIALOG_HINT_2] =
+                game.dialogPending[DIALOG_HINT_3] = true;
             }
         }
     }
