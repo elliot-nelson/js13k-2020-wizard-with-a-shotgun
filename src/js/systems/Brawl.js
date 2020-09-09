@@ -13,17 +13,22 @@ import { Audio } from '../Audio';
 
 const SpawnPatterns = [
     [
-        [Stabguts, 1, 1, 1]
+        [Stabguts,  1,1,1,1,1]
     ],
     [
-        [Spindoctor, 1, 1, 1, 1]
+        [Spindoctor,1,1,1,1,1]
     ],
     [
-        [Stabguts, 0, 30, 60, 90, 100, 110, 180, 200]
+        [Stabguts,  5,0,0,0,1,1,1],
+        [Spindoctor,0,0,0,0,3,0,3],
     ],
     [
-        [Stabguts, 0, 10, 20, 180, 200,],
-        [Spindoctor, 90, 100, 110, 240, 250, 260, 270, 280],
+        [Stabguts,  0,1,0,1,0,1,0],
+        [Spindoctor,2,0,2,0,2,0,2],
+    ],
+    [
+        [Stabguts,  24,0,0,0,0,0,0],
+        [Spindoctor,0,0,0,0,1,1,1,1],
     ],
 ];
 
