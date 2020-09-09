@@ -43,15 +43,15 @@ export const HUD_PAGE_TEXT_U = 34;
 
 // Handy IDs to represent the different dialog boxes / speech bubbles that can
 // appear during the game.
-export const DIALOG_START_A    = 1;
-export const DIALOG_START_B    = 2;
-export const DIALOG_HINT_1     = 3;
-export const DIALOG_HINT_2     = 4;
-export const DIALOG_HINT_3     = 5;
-export const DIALOG_HINT_DEATH = 6;
-export const DIALOG_HINT_E1    = 7;
-export const DIALOG_HINT_E2    = 8;
-export const DIALOG_HINT_DMG   = 9;
+export const DIALOG_START_A    = 0;
+export const DIALOG_START_B    = 1;
+export const DIALOG_HINT_1     = 2;
+export const DIALOG_HINT_2     = 3;
+export const DIALOG_HINT_3     = 4;
+export const DIALOG_HINT_DEATH = 5;
+export const DIALOG_HINT_E1    = 6;
+export const DIALOG_HINT_E2    = 7;
+export const DIALOG_HINT_DMG   = 8;
 
 // Some pre-calculated radian values
 export const R0          = 0;

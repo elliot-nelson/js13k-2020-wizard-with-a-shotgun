@@ -44,7 +44,9 @@ export class Player {
         this.history.splice(50);
 
         if (this.state === HUNT) {
-            if (!(game.dialog && game.dialog.blockMove)) {
+            if (game.dialog && game.dialog.blockMove) {
+                this.vel = { x: 0, y: 0 };
+            } else {
                 this.defaultMovement(1);
             }
 

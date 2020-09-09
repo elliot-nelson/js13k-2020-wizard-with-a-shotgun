@@ -73,7 +73,6 @@ export class Dialog {
 }
 
 Dialog.details = [
-    ,
     {
         text: 'SHOGGOTH\'S BALLS! THE SHOTGUN ARCANA IS SCATTERED ALL OVER THIS DUNGEON!',
         flag: DIALOG_START_A,
@@ -82,26 +81,22 @@ Dialog.details = [
     {
         text: 'FIND MY MISSING PAGES AND HELP ME REGAIN MY POWERS.',
         flag: DIALOG_START_B,
-        required: DIALOG_START_A,
         speech: true
     },
     {
         text: 'USE WASD OR mnop TO MOVE',
         flag: DIALOG_HINT_1,
-        required: DIALOG_START_B,
         blockFire: true,
         blockReload: true
     },
     {
         text: 'USE l TO FIRE YOUR SHOTGUN',
         flag: DIALOG_HINT_2,
-        required: DIALOG_HINT_1,
         blockReload: true
     },
     {
         text: 'USE r TO RELOAD',
         flag: DIALOG_HINT_3,
-        required: DIALOG_HINT_2,
         blockFire: true
     },
     {
