@@ -106,13 +106,13 @@ const MapDataParser = {
         let visited = [];
 
         while (queue.length > 0) {
-            let { x, y, cost } = queue.shift();
-            maze[y] = maze[y] || [];
-            maze[y][x] = roomNumber;
+            let { x, y, cost } = queue.pop();
             if (visited[y * w + x] < cost) continue;
             if (!map[y] || map[y][x] !== ROOM) continue;
-
             visited[y * w + x] = cost;
+            maze[y] = maze[y] || [];
+            maze[y][x] = roomNumber;
+
             left = Math.min(left, x);
             right = Math.max(right, x);
             top = Math.min(top, y);
@@ -123,7 +123,7 @@ const MapDataParser = {
             queue.push({ x, y: y - 1, cost: cost + 1 });
         }
 
-        // q, r, w, h, roomNumber
+        // q, r, w, h, roomNumber, pattern
         return [left, top, right - left + 1, bottom - top + 1, roomNumber, pattern];
     },
     _writeOutputFile(data, outputFile) {
