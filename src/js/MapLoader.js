@@ -43,6 +43,7 @@ export const MapLoader = {
     },
 
     load() {
+        console.log(1);
         let maze = array2d(Map.w, Map.h, () => 0);
         let rooms = Map.rooms.map(room => ({
             q: room[0],

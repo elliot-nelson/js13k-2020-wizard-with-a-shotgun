@@ -7,6 +7,7 @@ import { Input } from './input/Input';
 import { Sprite } from './Sprite';
 import { Text } from './Text';
 import { Viewport } from './Viewport';
+import { ScreenShake } from './ScreenShake';
 
 /**
  * Hud

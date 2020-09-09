@@ -89,7 +89,7 @@ export const Text = {
     },
 
     drawRightText(ctx, text, u, v, scale = 1, font = Text.default, shadow) {
-        u -= measureWidth(text, scale);
+        u -= Text.measureWidth(text, scale);
         Text.drawText(ctx, text, u, v, scale, font, shadow);
     },
 
@@ -104,7 +104,7 @@ export const Text = {
                 cu = u;
                 cv += (C_HEIGHT + 2) * scale;
             }
-            let phraseWidth = measureWidth(phrase, scale);
+            let phraseWidth = Text.measureWidth(phrase, scale);
             if (cu + phraseWidth - u > w) {
                 cu = u;
                 cv += (C_HEIGHT + 2) * scale;
@@ -112,14 +112,15 @@ export const Text = {
             Text.drawText(ctx, phrase, cu, cv, scale, font, shadow);
             cu += phraseWidth + (C_SHIFT[32] || 4);
         }
+    },
+
+    measureWidth(text, scale) {
+        return text.split('').reduce((sum, c) => sum + (C_SHIFT[c.charCodeAt(0)] || 4), 0) * scale;
     }
 };
 
 // Text utility functions
 
-function measureWidth(text, scale) {
-    return text.split('').reduce((sum, c) => sum + (C_SHIFT[c.charCodeAt(0)] || 4), 0) * scale;
-}
 
 function recolor(font, color) {
     let canvas = createCanvas(font.width, font.height);

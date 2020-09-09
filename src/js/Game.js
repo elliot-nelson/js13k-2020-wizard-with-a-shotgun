@@ -121,6 +121,11 @@ export class Game {
 
         // Flickering shadows
         if (game.frame % 6 === 0) this.shadowOffset = (Math.random() * 10) | 0;
+
+        // Intro screenshake
+        if (game.frame === 30) game.screenshakes.push(new ScreenShake(20, 20, 20));
+
+        if (Input.pressed[Input.Action.ATTACK] && !game.started) game.started = true;
     }
 
     draw() {
@@ -158,6 +163,21 @@ export class Game {
 
         for (let entity of this.entities) {
             if (entity.z && entity.z > 100) entity.draw();
+        }
+
+        if (game.frame < 120) {
+            Viewport.ctx.fillStyle = rgba(0, 0, 0, 1 - game.frame / 120);
+            Viewport.ctx.fillRect(0, 0, Viewport.width, Viewport.height);
+        }
+
+        if (game.frame >= 30 && !game.started) {
+            let title = 'WIZARD WITH A SHOTGUN';
+            let width = Text.measureWidth(title, 3);
+            Text.drawText(
+                Viewport.ctx, title, (Viewport.width - width) / 2, Viewport.height / 2, 3,
+                Text.default,
+                Text.red
+            );
         }
     }
 
