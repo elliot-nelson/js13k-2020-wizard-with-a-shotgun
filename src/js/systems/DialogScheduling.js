@@ -1,13 +1,10 @@
 'use strict';
 
-import { Behavior } from './Behavior';
-import { Player } from '../Player';
-import { HealthChunkAnimation } from '../HealthChunkAnimation';
 import { game } from '../Game';
 import { Dialog } from '../Dialog';
 
 /**
- * Damage
+ * DialogScheduling
  */
 export const DialogScheduling = {
     apply(entities) {

@@ -4,7 +4,7 @@ import { game } from './Game';
 import { R90 } from './Constants';
 import { vectorBetween, clamp, vector2angle } from './Util';
 import { Sprite } from './Sprite';
-import { Behavior } from './systems/Behavior';
+import { CHASE, DEAD, ATTACK, RELOAD } from './systems/Behavior';
 import { Gore } from './Gore';
 import { Page } from './Page';
 
@@ -21,28 +21,28 @@ export class Stabguts {
         this.radius = 8;
         this.mass = 0.5;
         this.lastAttack = 0;
-        this.state = Behavior.CHASE;
+        this.state = CHASE;
     }
 
     think() {
         let diff = this.facing = vectorBetween(this.pos, game.player.pos);
         this.facingAngle = vector2angle(this.facing);
-        if (this.state === Behavior.CHASE) {
+        if (this.state === CHASE) {
             if (diff.m < 38 && Math.random() < 0.05 && game.frame > this.lastAttack + 60) {
-                this.state = Behavior.RELOAD;
+                this.state = RELOAD;
                 this.frames = 24;
             }
             diff.m = clamp(diff.m, 0, 0.75);
             this.vel = { x: diff.x * diff.m, y: diff.y * diff.m };
-        } else if (this.state === Behavior.RELOAD) {
+        } else if (this.state === RELOAD) {
             if (this.frames-- === 0) {
-                this.state = Behavior.ATTACK;
+                this.state = ATTACK;
                 this.frames = 12;
             }
             this.vel = { x: 0, y: 0 };
-        } else if (this.state === Behavior.ATTACK) {
+        } else if (this.state === ATTACK) {
             if (this.frames-- === 0) {
-                this.state = Behavior.CHASE;
+                this.state = CHASE;
                 this.lastAttack = game.frame;
             }
             if (this.frames === 1 && diff.m < 23) {
@@ -54,7 +54,7 @@ export class Stabguts {
             }
             diff.m = clamp(diff.m, 0, 3);
             this.vel = { x: diff.x * diff.m, y: diff.y * diff.m };
-        } else if (this.state === Behavior.DEAD) {
+        } else if (this.state === DEAD) {
             this.cull = true;
             Gore.kill(this);
             game.entities.push(new Page(this.pos));
@@ -64,8 +64,8 @@ export class Stabguts {
 
     draw() {
         let sprite = Sprite.stabguts[((game.frame / 12) | 0) % 2];
-        this.state === Behavior.RELOAD && (sprite = Sprite.stabguts[2]);
-        this.state === Behavior.ATTACK && (sprite = Sprite.stabguts[3]);
+        this.state === RELOAD && (sprite = Sprite.stabguts[2]);
+        this.state === ATTACK && (sprite = Sprite.stabguts[3]);
         Sprite.drawViewportSprite(
             sprite,
             this.pos,

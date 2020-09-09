@@ -1,11 +1,10 @@
 'use strict';
 
-import { Behavior } from './Behavior';
+import { game } from '../Game';
+import { xy2qr, vectorBetween } from '../Util';
 import { vectorAdd } from '../Util';
 import { Player } from '../Player';
 import { HealthChunkAnimation } from '../HealthChunkAnimation';
-import { game } from '../Game';
-import { xy2qr, vectorBetween } from '../Util';
 import { ScreenShake } from '../ScreenShake';
 import { Stabguts } from '../Stabguts';
 import { Spindoctor } from '../Spindoctor';

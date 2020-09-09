@@ -3,20 +3,10 @@
 /**
  * Behavior
  */
-export const Behavior = {
-    CHASE: 103,
-    HUNT: 104,
-    DEAD: 106,
-    SPAWN: 107,
-
-    ATTACK: 201,
-    RELOAD: 202,
-
-    COLLECTED: 301,
-
-    apply(entities) {
-        for (let entity of entities) {
-            if (entity.think) entity.think();
-        }
-    }
-};
+export const CHASE     = 103;
+export const HUNT      = 104;
+export const DEAD      = 106;
+export const SPAWN     = 107;
+export const ATTACK    = 201;
+export const RELOAD    = 202;
+export const COLLECTED = 301;

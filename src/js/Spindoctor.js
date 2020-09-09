@@ -8,7 +8,7 @@ import {
     vector2point
 } from './Util';
 import { Sprite } from './Sprite';
-import { Behavior } from './systems/Behavior';
+import { CHASE, DEAD } from './systems/Behavior';
 import { Page } from './Page';
 import { Gore } from './Gore';
 import { Viewport } from './Viewport';
@@ -32,11 +32,11 @@ export class Spindoctor {
         if (angle % R90 > R70) angle -= R20;
         this.facing = angle2vector(angle);
         this.vel = this.facing;
-        this.state = Behavior.CHASE;
+        this.state = CHASE;
     }
 
     think() {
-        if (this.state === Behavior.CHASE) {
+        if (this.state === CHASE) {
             let v = normalizeVector(this.vel);
             v.m = (v.m + 2.5) / 2;
             this.vel = vector2point(v);
@@ -49,7 +49,7 @@ export class Spindoctor {
                     knockback: 3
                 });
             }
-        } else if (this.state === Behavior.DEAD) {
+        } else if (this.state === DEAD) {
             this.cull = true;
             Gore.kill(this);
             game.entities.push(new Page(this.pos));

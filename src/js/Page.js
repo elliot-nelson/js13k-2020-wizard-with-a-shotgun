@@ -2,7 +2,7 @@ import { game } from './Game';
 import { Sprite } from './Sprite';
 import { Input } from './input/Input';
 import { angle2vector, vectorBetween, vector2point } from './Util';
-import { Behavior } from './systems/Behavior';
+import { DEAD, SPAWN } from './systems/Behavior';
 import { R360 } from './Constants';
 import { PageCollectedAnimation } from './PageCollectedAnimation';
 
@@ -27,7 +27,7 @@ export class Page {
         this.vel.y *= 0.95;
 
         let v = vectorBetween(this.pos, game.player.pos);
-        if (v.m < game.player.radius + this.radius + 2 && game.player.state !== Behavior.DEAD && game.player.state !== Behavior.SPAWN) {
+        if (v.m < game.player.radius + this.radius + 2 && game.player.state !== DEAD && game.player.state !== SPAWN) {
             this.cull = true;
             game.entities.push(new PageCollectedAnimation(this.pos, this.amount));
         }

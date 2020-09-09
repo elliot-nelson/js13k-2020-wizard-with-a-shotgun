@@ -8,7 +8,6 @@ import { Player } from './Player';
 import { Viewport } from './Viewport';
 import { WALL_TOP, WALL_RIGHT, WALL_BOTTOM, WALL_LEFT, OPEN_TOP, OPEN_RIGHT, OPEN_BOTTOM, OPEN_LEFT, DIALOG_START_A, DIALOG_START_B, DIALOG_HINT_1, DIALOG_HINT_2, DIALOG_HINT_3, DIALOG_HINT_DEATH, R360 } from './Constants';
 import { uv2xy, xy2qr, angle2vector, rgba, createCanvas } from './Util';
-import { Menu } from './Menu';
 import { Audio } from './Audio';
 import { Behavior } from './systems/Behavior';
 import { Brawl } from './systems/Brawl';
@@ -84,7 +83,10 @@ export class Game {
         Audio.update();
 
         // Behavior (AI, player input, etc.)
-        Behavior.apply(this.entities);
+        //apply(this.entities); <-- cut to save space
+        for (let entity of game.entities) {
+            if (entity.think) entity.think();
+        }
 
         // Apply any queued damage
         Damage.apply(this.entities);
@@ -154,8 +156,6 @@ export class Game {
         for (let entity of this.entities) {
             if (entity.z && entity.z > 100) entity.draw();
         }
-
-        Menu.draw();
     }
 
     pause() {

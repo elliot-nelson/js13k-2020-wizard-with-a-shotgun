@@ -6,7 +6,7 @@ import { vectorBetween, vector2point, normalizeVector, uv2xy, vector2angle } fro
 import { Sprite } from './Sprite';
 import { Input } from './input/Input';
 import { ShotgunBlast } from './ShotgunBlast';
-import { Behavior } from './systems/Behavior';
+import { SPAWN, HUNT, ATTACK, RELOAD, DEAD } from './systems/Behavior';
 import { ReloadAnimation } from './ReloadAnimation';
 import { Audio } from './Audio';
 import { Gore } from './Gore';
@@ -35,7 +35,7 @@ export class Player {
         this.mass = 3;
         this.pages = 400;
         this.deaths = 0;
-        this.state = Behavior.SPAWN;
+        this.state = SPAWN;
         this.frames = 30;
     }
 
@@ -43,7 +43,7 @@ export class Player {
         this.history.unshift({ ...this.pos });
         this.history.splice(50);
 
-        if (this.state === Behavior.HUNT) {
+        if (this.state === HUNT) {
             if (!(game.dialog && game.dialog.blockMove)) {
                 this.defaultMovement(1);
             }
@@ -71,30 +71,30 @@ export class Player {
             if (this.deaths > 0) {
                 game.dialogPending[DIALOG_HINT_DEATH] = true;
             }
-        } else if (this.state === Behavior.ATTACK) {
+        } else if (this.state === ATTACK) {
             this.defaultMovement(1);
             if (--this.frames <= 0) {
                 if (this.shellsLeft === 0) {
                     this.reload(true);
                 } else {
-                    this.state = Behavior.HUNT;
+                    this.state = HUNT;
                 }
             }
-        } else if (this.state === Behavior.RELOAD) {
+        } else if (this.state === RELOAD) {
             this.defaultMovement(this.forcedReload ? 0.5 : 2.0);
             if (--this.frames <= 0) {
                 this.shellsLeft = this.shellsMax;
-                this.state = Behavior.HUNT;
+                this.state = HUNT;
             }
-        } else if (this.state === Behavior.DEAD) {
-            this.state = Behavior.SPAWN;
+        } else if (this.state === DEAD) {
+            this.state = SPAWN;
             this.frames = 120;
             this.hp = 100;
             this.deaths++;
             this.releasePages();
             Gore.kill(this);
             Gore.kill(this);
-        } else if (this.state === Behavior.SPAWN) {
+        } else if (this.state === SPAWN) {
             this.frames--;
             if (this.frames === 30) {
                 this.pos = {
@@ -110,7 +110,7 @@ export class Player {
                 }
             }
             if (this.frames === 0) {
-                this.state = Behavior.HUNT;
+                this.state = HUNT;
                 game.entities.push(new SpawnAnimation(this.pos));
             }
         }
@@ -142,7 +142,7 @@ export class Player {
     fire() {
         Audio.play(Audio.shotgun);
 
-        this.state = Behavior.ATTACK;
+        this.state = ATTACK;
         this.frames = 10;
         this.shellsLeft--;
 
@@ -159,27 +159,27 @@ export class Player {
 
     reload(forced) {
         this.forcedReload = forced;
-        this.state = Behavior.RELOAD;
+        this.state = RELOAD;
         this.frames = 20;
         this.shellsLeft = 0;
         game.entities.push(new ReloadAnimation(this.frames));
     }
 
     draw() {
-        if (this.state === Behavior.DEAD || this.state === Behavior.SPAWN) return;
+        if (this.state === DEAD || this.state === SPAWN) return;
 
         let sprite = Sprite.player[0],
             blast,
             headbob = (game.frame / 30 | 0) % 2;
 
-        if (this.state === Behavior.ATTACK && this.frames >= 2) {
+        if (this.state === ATTACK && this.frames >= 2) {
             sprite = Sprite.player[1];
             blast = Sprite.shotgun_blast[6 - this.frames];
         }
 
         //Sprite.drawViewportSprite(sprite, this.pos, this.facingAngle + R90);
 
-        let hf = this.state === Behavior.RELOAD && !this.forcedReload ? 15 : 0;
+        let hf = this.state === RELOAD && !this.forcedReload ? 15 : 0;
         for (let i = Math.min(hf, history.length); i >= 0; i--) {
             let { u, v } = Sprite.viewportSprite2uv(
                 sprite,

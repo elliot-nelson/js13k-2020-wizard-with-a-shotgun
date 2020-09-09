@@ -1,6 +1,6 @@
 'use strict';
 
-import { Behavior } from './Behavior';
+import { DEAD, SPAWN } from './Behavior';
 import { vectorAdd } from '../Util';
 import { HealthChunkAnimation } from '../HealthChunkAnimation';
 import { game } from '../Game';
@@ -16,7 +16,7 @@ export const Damage = {
         for (let entity of entities) {
             if (entity.hp) {
                 if (entity.damage.length > 0) {
-                    if (entity.state !== Behavior.DEAD && entity.state !== Behavior.SPAWN) {
+                    if (entity.state !== DEAD && entity.state !== SPAWN) {
                         for (let damage of entity.damage) {
                             if (entity === game.player) {
                                 game.entities.push(
@@ -36,8 +36,8 @@ export const Damage = {
                     }
                     entity.damage = [];
                 }
-                if (entity.hp <= 0 && entity.state !== Behavior.DEAD) {
-                    entity.state = Behavior.DEAD;
+                if (entity.hp <= 0 && entity.state !== DEAD) {
+                    entity.state = DEAD;
                 }
             }
         }
