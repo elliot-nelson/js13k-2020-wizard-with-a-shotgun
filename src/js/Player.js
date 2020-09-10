@@ -13,6 +13,7 @@ import { Gore } from './Gore';
 import { Viewport } from './Viewport';
 import { SpawnAnimation } from './SpawnAnimation';
 import { Page } from './Page';
+import { ScreenShake } from './ScreenShake';
 
 /**
  * Player
@@ -30,7 +31,7 @@ export class Player {
         this.shellsMax = 4;
         this.forcedReload = false;
         this.mass = 3;
-        this.pages = 0;
+        this.pages = 400;
         this.deaths = 0;
         this.state = SPAWN;
         this.frames = 29;
@@ -90,11 +91,16 @@ export class Player {
                 this.state = HUNT;
             }
         } else if (this.state === DEAD) {
-            this.state = SPAWN;
-            this.frames = 120;
+            if (game.victory) {
+                this.state = HUNT;
+                game.screenshakes.push(new ScreenShake(15, 15, 25));
+            } else {
+                this.state = SPAWN;
+                this.frames = 120;
+                this.releasePages();
+            }
             this.hp = 100;
             this.deaths++;
-            this.releasePages();
             Gore.kill(this);
             Gore.kill(this);
         } else if (this.state === SPAWN) {

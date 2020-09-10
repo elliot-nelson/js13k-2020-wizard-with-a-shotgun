@@ -67,6 +67,7 @@ export const Brawl = {
                 room &&
                 room.roomNumber >= 5 &&
                 !game.roomsCleared.includes(room.roomNumber) &&
+                !game.victory &&
                 qr.q > room.q &&
                 qr.r > room.r &&
                 qr.q < room.q + room.w - 1 &&

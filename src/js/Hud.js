@@ -43,7 +43,8 @@ export const Hud = {
         Text.drawText(Viewport.ctx, 'stuvw', Viewport.width - HUD_PAGE_TEXT_U - 60, 4, 2, Text.blue, Text.blue_shadow);
 
         // Pages
-        if (game.player.pages > 0 || game.player.deaths > 0) {
+        let pages = game.victory ? 666 : game.player.pages;
+        if (pages > 0 || game.player.deaths > 0) {
             if (
                 Hud.pageGlow &&
                 game.frame >= Hud.pageGlow.start &&
@@ -69,11 +70,11 @@ export const Hud = {
             );
             Text.drawText(
                 Viewport.ctx,
-                'x' + ('' + game.player.pages).padStart(3, '0'),
+                'x' + ('' + pages).padStart(3, '0'),
                 Viewport.width - HUD_PAGE_TEXT_U,
                 4,
                 2,
-                Text.blue,
+                game.victory ? Text.red : Text.blue,
                 Text.blue_shadow
             );
         }

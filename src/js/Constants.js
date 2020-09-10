@@ -33,7 +33,7 @@ export const OPEN_LEFT   = 0b0001_0000;
 // spawn.
 export const ROOM_SPAWN  = 1;
 export const ROOM_TUNNEL = 2;
-export const ROOM_ENDING = 3;
+export const ROOM_ENDING = 25;
 
 // Coordinates of the page count on the HUD (used by multiple modules since
 // there is a little "page collected" animation).

@@ -20,6 +20,7 @@ export class Page {
         this.radius = 3;
         this.noClipEntity = true;
         this.page = true;
+        if (game.victory) this.cull = true;
     }
 
     think() {

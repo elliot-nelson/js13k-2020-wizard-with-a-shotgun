@@ -91,7 +91,7 @@ const MapDataParser = {
                     // q, r, w, h, roomNumber
                     rooms.push([x, y, 1, 1, 2]);
                     maze[y][x] = 3;
-                } else if (map[y][x]) {
+                } else if (map[y][x] === TUNNEL || map[y][x] === SAFEROOM) {
                     tunnels.push(y * w + x - lastTunnel);
                     lastTunnel = y * w + x;
                 }
