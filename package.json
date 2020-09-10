@@ -1,6 +1,6 @@
 {
   "name": "js13k-2020-404",
-  "version": "0.2.0",
+  "version": "0.9.0",
   "description": "My 2020 entry for the js13kgames compo...",
   "main": "index.js",
   "scripts": {
