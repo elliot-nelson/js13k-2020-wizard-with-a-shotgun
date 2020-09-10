@@ -85,7 +85,7 @@ Dialog.details = [
         speech: true
     },
     {
-        text: 'HELP ME FIND MY MISSING PAGES AND REGAIN MY POWERS.',
+        text: 'HELP ME FIND ALL 404 MISSING PAGES AND GET ME OUT OF HERE!',
         speech: true
     },
     {

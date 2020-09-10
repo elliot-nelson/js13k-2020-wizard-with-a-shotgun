@@ -31,7 +31,7 @@ export class Player {
         this.shellsMax = 4;
         this.forcedReload = false;
         this.mass = 3;
-        this.pages = 400;
+        this.pages = 0;
         this.deaths = 0;
         this.state = SPAWN;
         this.frames = 29;
