@@ -1,7 +1,7 @@
 'use strict';
 
 import { game } from './Game';
-import { Sprite } from './Sprite';
+import { R80 } from './Constants';
 import {
     tileIsPassable,
     angle2vector,
@@ -12,9 +12,6 @@ import {
     tilesHitBy,
     xy2uv
 } from './Util';
-import { R80 } from './Constants';
-import { Viewport } from './Viewport';
-import { Player } from './Player';
 import { ScreenShake } from './ScreenShake';
 
 export class ShotgunBlast {

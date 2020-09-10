@@ -67,9 +67,9 @@ export class Game {
         // Pull in frame by frame button pushes / keypresses / mouse clicks
         Input.update();
 
-        if (Input.pressed[Input.Action.MENU]) {
-            this.paused ? this.unpause() : this.pause();
-        }
+        //if (Input.pressed[Input.Action.MENU]) {
+        //    this.paused ? this.unpause() : this.pause();
+        //}
 
         if (this.paused) return;
 
@@ -119,6 +119,7 @@ export class Game {
         // Intro screenshake
         if (game.frame === 30) game.screenshakes.push(new ScreenShake(20, 20, 20));
 
+        // Initial "click" to get game started
         if (Input.pressed[Input.Action.ATTACK] && !game.started) game.started = true;
     }
 
@@ -148,8 +149,8 @@ export class Game {
             0,
             500,
             500,
-            0 - this.shadowOffset,
-            0 - this.shadowOffset,
+            -this.shadowOffset,
+            -this.shadowOffset,
             Viewport.width + this.shadowOffset * 2,
             Viewport.height + this.shadowOffset * 2
         );
@@ -178,13 +179,14 @@ export class Game {
         //if (game.victory) {
             Victory.frame = Victory.frame || 0;
             Victory.frame++;
-            Viewport.ctx.fillStyle = rgba(240, 20, 20, clamp(Victory.frame / 30000, 0, 0.7));
+            Viewport.ctx.fillStyle = rgba(240, 20, 20, clamp(Victory.frame / 1800, 0, 0.7));
             Viewport.fillViewportRect();
 
-            let text = 'WAIT! THE PORTAL HOME! IT\'S NOT SUPPOSED TO END THIS WAY...';
+            let text = 'WAIT! THE PORTAL HOME! IT\'S NOT SUPPOSED TO END THIS WAY... \n \nIT STINKS LIKE ROTTEN MEAT, BUT YOU AREN\'T GOING ANYWHERE...';
             Text.drawParagraph(
                 Viewport.ctx,
-                partialText(text, Victory.frame, 15000),
+                //partialText(text, Victory.frame, 1800),
+                text,
                 40, 40,
                 Viewport.width - 80,
                 Viewport.ctx.height - 80,
