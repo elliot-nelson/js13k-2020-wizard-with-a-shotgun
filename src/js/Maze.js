@@ -34,7 +34,7 @@ export const Maze = {
 
             // During brawl, everything outside the room is hidden
             Viewport.ctx.fillStyle = rgba(20, 20, 20, 1);
-            Viewport.ctx.fillRect(0, 0, Viewport.width, Viewport.height);
+            Viewport.fillViewportRect();
         } else {
             // Render wall tiles across the entire background
             Viewport.ctx.drawImage(Sprite.tilebg.img, -16 - game.camera.pos.x % 32, -8 - game.camera.pos.y % 32);

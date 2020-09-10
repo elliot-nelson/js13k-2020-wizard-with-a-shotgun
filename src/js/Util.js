@@ -470,3 +470,13 @@ export function roomCenter(room) {
         y: (room.r + room.h / 2) * TILE_SIZE
     };
 }
+
+export function partialText(text, t, d) {
+    let length = clamp(Math.ceil(t / d * text.length), 0, text.length),
+        substr = text.slice(0, length),
+        idx = text.indexOf(' ', length - 1);
+    if (idx < 0) idx = text.length;
+    if (idx - length > 0) substr += '#'.repeat(idx - length);
+
+    return substr;
+}

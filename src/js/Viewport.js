@@ -9,9 +9,9 @@ import { GAME_WIDTH, GAME_HEIGHT } from './Constants';
  */
 export const Viewport = {
     init() {
-        this.canvas = document.getElementById('canvas');
-        this.ctx = this.canvas.getContext('2d');
-        this.resize(true);
+        Viewport.canvas = document.getElementById('canvas');
+        Viewport.ctx = Viewport.canvas.getContext('2d');
+        Viewport.resize(true);
     },
 
     // Resize the canvas to give us approximately our desired game display size.
@@ -31,36 +31,40 @@ export const Viewport = {
     // If you use this approach, make sure your GUI can "float" (otherwise there may be whole
     // UI elements the player cannot see!).
     resize(force) {
-        let dpi = window.devicePixelRatio;
-        let width = this.canvas.clientWidth;
-        let height = this.canvas.clientHeight;
-        let dpiWidth = width * dpi;
-        let dpiHeight = height * dpi;
+        let dpi = window.devicePixelRatio,
+            width = Viewport.canvas.clientWidth,
+            height = Viewport.canvas.clientHeight,
+            dpiWidth = width * dpi,
+            dpiHeight = height * dpi;
 
         if (
             force ||
-            this.canvas.width !== dpiWidth ||
-            this.canvas.height !== dpiHeight
+            Viewport.canvas.width !== dpiWidth ||
+            Viewport.canvas.height !== dpiHeight
         ) {
-            this.canvas.width = dpiWidth;
-            this.canvas.height = dpiHeight;
+            Viewport.canvas.width = dpiWidth;
+            Viewport.canvas.height = dpiHeight;
 
-            this.scale = ((Math.max(dpiWidth / GAME_WIDTH, dpiHeight / GAME_HEIGHT) * 10) | 0) / 10;
-            this.width = Math.ceil(this.canvas.width / this.scale);
-            this.height = Math.ceil(this.canvas.height / this.scale);
-            this.center = {
-                u: (this.width / 2) | 0,
-                v: (this.height / 2) | 0
+            Viewport.scale = ((Math.max(dpiWidth / GAME_WIDTH, dpiHeight / GAME_HEIGHT) * 10) | 0) / 10;
+            Viewport.width = Math.ceil(dpiWidth / Viewport.scale);
+            Viewport.height = Math.ceil(dpiHeight / Viewport.scale);
+            Viewport.center = {
+                u: (Viewport.width / 2) | 0,
+                v: (Viewport.height / 2) | 0
             };
-            this.clientWidth = width;
-            this.clientHeight = height;
+            Viewport.clientWidth = width;
+            Viewport.clientHeight = height;
 
             // Note: smoothing flag gets reset on every resize by some browsers, which is why
             // we do it here.
-            this.ctx.imageSmoothingEnabled = false;
+            Viewport.ctx.imageSmoothingEnabled = false;
         }
 
         // We do this every frame, not just on resize, due to browser sometimes "forgetting".
         Viewport.canvas.style.cursor = 'none';
+    },
+
+    fillViewportRect() {
+        Viewport.ctx.fillRect(0, 0, Viewport.width, Viewport.height);
     }
 };

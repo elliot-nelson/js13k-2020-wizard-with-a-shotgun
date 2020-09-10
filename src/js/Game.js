@@ -7,7 +7,7 @@ import { Text } from './Text';
 import { Player } from './Player';
 import { Viewport } from './Viewport';
 import { WALL_TOP, WALL_RIGHT, WALL_BOTTOM, WALL_LEFT, OPEN_TOP, OPEN_RIGHT, OPEN_BOTTOM, OPEN_LEFT, DIALOG_START_A, DIALOG_START_B, DIALOG_HINT_1, DIALOG_HINT_2, DIALOG_HINT_3, DIALOG_HINT_DEATH, R360 } from './Constants';
-import { uv2xy, xy2qr, angle2vector, rgba, createCanvas } from './Util';
+import { uv2xy, xy2qr, angle2vector, rgba, createCanvas, clamp, partialText } from './Util';
 import { Audio } from './Audio';
 import { Brawl } from './systems/Brawl';
 import { Movement } from './systems/Movement';
@@ -123,17 +123,18 @@ export class Game {
     }
 
     draw() {
-        let ctx = Viewport.ctx;
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
-        ctx.scale(Viewport.scale, Viewport.scale);
+        // Reset canvas transform and scale
+        Viewport.ctx.setTransform(1, 0, 0, 1, 0, 0);
+        Viewport.ctx.scale(Viewport.scale, Viewport.scale);
 
+        // Render screenshakes (canvas translation)
         let shakeX = 0;
         let shakeY = 0;
         this.screenshakes.forEach(shake => {
             shakeX += shake.x;
             shakeY += shake.y;
         });
-        ctx.translate(shakeX, shakeY);
+        Viewport.ctx.translate(shakeX, shakeY);
 
         Maze.draw();
 
@@ -161,7 +162,7 @@ export class Game {
 
         if (game.frame < 120) {
             Viewport.ctx.fillStyle = rgba(0, 0, 0, 1 - game.frame / 120);
-            Viewport.ctx.fillRect(0, 0, Viewport.width, Viewport.height);
+            Viewport.fillViewportRect();
         }
 
         if (game.frame >= 30 && !game.started) {
@@ -169,10 +170,29 @@ export class Game {
             let width = Text.measureWidth(title, 3);
             Text.drawText(
                 Viewport.ctx, title, (Viewport.width - width) / 2, Viewport.height / 2, 3,
-                Text.default,
+                Text.white,
                 Text.red
             );
         }
+
+        //if (game.victory) {
+            Victory.frame = Victory.frame || 0;
+            Victory.frame++;
+            Viewport.ctx.fillStyle = rgba(240, 20, 20, clamp(Victory.frame / 30000, 0, 0.7));
+            Viewport.fillViewportRect();
+
+            let text = 'WAIT! THE PORTAL HOME! IT\'S NOT SUPPOSED TO END THIS WAY...';
+            Text.drawParagraph(
+                Viewport.ctx,
+                partialText(text, Victory.frame, 15000),
+                40, 40,
+                Viewport.width - 80,
+                Viewport.ctx.height - 80,
+                2,
+                Text.white,
+                Text.red
+            );
+        //}
     }
 
     pause() {

@@ -6,6 +6,7 @@ import { Text } from './Text';
 import { Input } from './input/Input';
 import { Viewport } from './Viewport';
 import { DIALOG_START_A, DIALOG_START_B, DIALOG_HINT_1, DIALOG_HINT_2, DIALOG_HINT_3, DIALOG_HINT_DEATH, DIALOG_HINT_E1, DIALOG_HINT_E2, DIALOG_HINT_DMG } from './Constants';
+import { partialText } from './Util';
 
 export class Dialog {
     constructor(key) {
@@ -51,12 +52,6 @@ export class Dialog {
     }
 
     draw() {
-        let length = Math.ceil((this.t / this.d) * this.text.length);
-        let substr = this.text.slice(0, length);
-        let idx = this.text.indexOf(' ', length - 1);
-        if (idx < 0) idx = this.text.length;
-        if (idx - length > 0) substr += '#'.repeat(idx - length);
-
         let sprite = Sprite.dialog_speech,
             spriteu = Viewport.center.u + 5,
             spritev = Viewport.center.v + 8,
@@ -72,7 +67,15 @@ export class Dialog {
         }
 
         Viewport.ctx.drawImage(sprite.img, spriteu, spritev);
-        Text.drawParagraph(Viewport.ctx, substr, textu, textv, 115, 50, 1, Text.black, Text.black_shadow);
+        Text.drawParagraph(
+            Viewport.ctx,
+            partialText(this.text, this.t, this.d),
+            textu, textv,
+            115, 50,
+            1,
+            Text.black,
+            Text.black_shadow
+        );
     }
 }
 
