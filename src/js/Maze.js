@@ -127,7 +127,7 @@ export const Maze = {
 
         if (!game.brawl) {
             for (let room of Object.values(maze.rooms)) {
-                if (room.roomNumber >= 3 && !game.roomsCleared.includes(room.roomNumber)) {
+                if (room.roomNumber >= 3 && !game.roomsCleared[room.roomNumber]) {
                     let uv = xy2uv({
                         x: (room.q + room.w / 2) * TILE_SIZE,
                         y: (room.r + room.h / 2) * TILE_SIZE

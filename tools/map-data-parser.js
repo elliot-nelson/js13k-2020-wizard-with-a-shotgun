@@ -98,7 +98,7 @@ const MapDataParser = {
             }
         }
 
-        return { w, h, rooms, tunnels };
+        return [w, h, rooms, tunnels];
     },
     _floodRoom(map, maze, w, h, x, y, roomNumber, pattern) {
         let left = x, right = x, top = y, bottom = y;

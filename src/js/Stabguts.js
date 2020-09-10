@@ -22,6 +22,7 @@ export class Stabguts {
         this.mass = 0.5;
         this.lastAttack = 0;
         this.state = CHASE;
+        this.enemy = true;
         game.dialogPending[DIALOG_HINT_E1] = true;
     }
 

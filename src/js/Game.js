@@ -34,7 +34,7 @@ export class Game {
             this.entities = [];
             this.dialogPending = {};
             this.dialogSeen = {};
-            this.roomsCleared = [];
+            this.roomsCleared = {};
             this.shadowCanvas = createCanvas(500, 500);
             this.shadowOffset = 0;
             this.screenshakes = [];

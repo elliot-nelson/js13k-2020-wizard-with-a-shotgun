@@ -43,8 +43,8 @@ export const MapLoader = {
     },
 
     loadMap() {
-        let maze = array2d(Map.w, Map.h, () => 0);
-        let rooms = Map.rooms.map(room => ({
+        let maze = array2d(Map[0], Map[1], () => 0);
+        let rooms = Map[2].map(room => ({
             q: room[0],
             r: room[1],
             w: room[2],
@@ -54,9 +54,9 @@ export const MapLoader = {
         }));
 
         let ptr = 0;
-        for (let next of Map.tunnels) {
+        for (let next of Map[3]) {
             ptr += next;
-            maze[(ptr / Map.w) | 0][ptr % Map.w] = 3;
+            maze[(ptr / Map[0]) | 0][ptr % Map[0]] = 3;
         }
 
         for (let room of rooms) {
@@ -73,8 +73,8 @@ export const MapLoader = {
             maze,
             walls: this.createWalls(maze, roomLookup),
             rooms: roomLookup,
-            w: Map.w,
-            h: Map.h
+            w: Map[0],
+            h: Map[1]
         };
     }
 };

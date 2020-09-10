@@ -38,14 +38,12 @@ const SpawnPatterns = [
  */
 export const Brawl = {
     apply() {
-        game.roomsCleared = game.roomsCleared || [];
-
         if (game.brawl) {
             let livingEnemies = game.brawl.enemies.filter(enemy => !enemy.cull).length;
 
             if (game.brawl.plan.length === 0) {
                 if (livingEnemies === 0) {
-                    game.roomsCleared.unshift(game.brawl.room.roomNumber);
+                    game.roomsCleared[game.brawl.room.roomNumber] = true;
                     game.brawl = false;
                 }
             } else {
@@ -66,7 +64,7 @@ export const Brawl = {
             if (
                 room &&
                 room.roomNumber >= 5 &&
-                !game.roomsCleared.includes(room.roomNumber) &&
+                !game.roomsCleared[room.roomNumber] &&
                 !game.victory &&
                 qr.q > room.q &&
                 qr.r > room.r &&

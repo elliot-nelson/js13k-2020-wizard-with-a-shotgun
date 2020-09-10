@@ -24,6 +24,7 @@ export class Spindoctor {
         this.radius = 3;
         this.mass = 1;
         this.bounce = true;
+        this.enemy = true;
         game.dialogPending[DIALOG_HINT_E2] = true;
 
         // Kick off at random angles, but, it looks weird to have straight horizontal

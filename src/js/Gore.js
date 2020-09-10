@@ -42,7 +42,7 @@ export class Gore {
 Gore.damage = entity => Gore.spray(entity, 8, () => 0);
 Gore.kill = entity => Gore.spray(entity, 16, () => (Math.random() * 4) | 0);
 Gore.spray = (entity, count, cb) => {
-    let angle = vector2angle(entity.lastDamage.vector);
+    let angle = entity.lastDamage ? vector2angle(entity.lastDamage.vector) : Math.random() * R360;
 
     for (let i = 0; i < count; i++) {
         let r = Math.random() * entity.radius;
