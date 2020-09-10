@@ -12,7 +12,7 @@ export class Gore {
         this.pos = { ...pos };
         this.angle = angle;
         this.vel = vector2point(angle2vector(this.angle, 5));
-        this.a = (Math.PI * 45) / 180;
+        this.a = R45;
         this.noClipEntity = true;
         this.f = f;
         this.bounce = this.f > -1;
