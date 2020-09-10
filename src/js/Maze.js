@@ -33,7 +33,7 @@ export const Maze = {
             q2 = q1 + game.brawl.room.w;
 
             // During brawl, everything outside the room is hidden
-            Viewport.ctx.fillStyle = rgba(20, 20, 20, 1);
+            Viewport.ctx.fillStyle = rgba(10, 10, 10, 1);
             Viewport.fillViewportRect();
         } else {
             // Render wall tiles across the entire background
@@ -57,69 +57,24 @@ export const Maze = {
                     y = r * 32 + offset.y;
                 if (x < -50 || y < -50 || x > 500 || y > 500) continue;
 
-                if (maze.walls[r][q] & WALL_TOP) {
-                    ctx.drawImage(
-                        Sprite.walls.img,
-                        0, 0, 36, 4,
-                        x - 2, y - 2, 36, 4
-                    );
-                }
+                let coords = [
+                    [0, 0, 36, 4, x - 2, y - 2, 36, 4],
+                    [32, 0, 4, 36, x + 30, y - 2, 4, 36],
+                    [0, 32, 36, 4, x - 2, y + 30, 36, 4],
+                    [0, 0, 4, 36, x - 2, y - 2, 4, 36]
+                ];
 
-                if (maze.walls[r][q] & WALL_RIGHT) {
-                    ctx.drawImage(
-                        Sprite.walls.img,
-                        32, 0, 4, 36,
-                        x + 30, y - 2, 4, 36
-                    );
-                }
-
-                if (maze.walls[r][q] & WALL_BOTTOM) {
-                    ctx.drawImage(
-                        Sprite.walls.img,
-                        0, 32, 36, 4,
-                        x - 2, y + 30, 36, 4
-                    );
-                }
-
-                if (maze.walls[r][q] & WALL_LEFT) {
-                    ctx.drawImage(
-                        Sprite.walls.img,
-                        0, 0, 4, 36,
-                        x - 2, y - 2, 4, 36
-                    );
+                for (let i = 0; i < 4; i++) {
+                    if (maze.walls[r][q] & (WALL_TOP << i)) {
+                        ctx.drawImage(Sprite.walls.img, ...coords[i]);
+                    }
                 }
 
                 if (game.brawl) {
-                    if (maze.walls[r][q] & OPEN_TOP) {
-                        ctx.drawImage(
-                            Sprite.gates.img,
-                            0, 0, 36, 4,
-                            x - 2, y - 2, 36, 4
-                        );
-                    }
-
-                    if (maze.walls[r][q] & OPEN_RIGHT) {
-                        ctx.drawImage(
-                            Sprite.gates.img,
-                            32, 0, 4, 36,
-                            x + 30, y - 2, 4, 36
-                        );
-                    }
-
-                    if (maze.walls[r][q] & OPEN_BOTTOM) {
-                        ctx.drawImage(
-                            Sprite.gates.img,
-                            0, 32, 36, 4,
-                            x - 2, y + 30, 36, 4
-                        );
-                    }
-
-                    if (maze.walls[r][q] & OPEN_LEFT) {
-                        ctx.drawImage(
-                            Sprite.gates.img,
-                            0, 0, 4, 36,
-                            x - 2, y - 2, 4, 36
-                        );
+                    for (let i = 0; i < 4; i++) {
+                        if (maze.walls[r][q] & (OPEN_TOP << i)) {
+                            ctx.drawImage(Sprite.gates.img, ...coords[i]);
+                        }
                     }
                 }
             }

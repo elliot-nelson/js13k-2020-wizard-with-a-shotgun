@@ -8,7 +8,7 @@ import { Dialog } from '../Dialog';
  */
 export const DialogScheduling = {
     apply() {
-        if (!game.dialog && !game.brawl && game.frame > 20) {
+        if (!game.dialog && !game.brawl && !game.victory) {
             for (let idx = 0; idx < Dialog.details.length; idx++) {
                 if (game.dialogPending[idx] && !game.dialogSeen[idx]) {
                     game.entities.push(new Dialog(idx));

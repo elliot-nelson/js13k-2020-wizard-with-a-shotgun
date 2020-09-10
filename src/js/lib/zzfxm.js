@@ -35,29 +35,29 @@ import { zzfxG, zzfxR } from './zzfx';
  */
 
 export const zzfxM = (instruments, patterns, sequence, BPM = 125) => {
-    let instrumentParameters;
-    let i;
-    let j;
-    let k;
-    let note;
-    let sample;
-    let patternChannel;
-    let notFirstBeat;
-    let stop;
-    let instrument;
-    let pitch;
-    let attenuation;
-    let outSampleOffset;
-    let sampleOffset;
-    let nextSampleOffset;
-    let sampleBuffer = [];
-    let leftChannelBuffer = [];
-    let rightChannelBuffer = [];
-    let channelIndex = 0;
-    let panning;
-    let hasMore = 1;
-    let sampleCache = {};
-    let beatLength = ((zzfxR / BPM) * 60) >> 2;
+    let instrumentParameters,
+        i,
+        j,
+        k,
+        note,
+        sample,
+        patternChannel,
+        notFirstBeat,
+        stop,
+        instrument,
+        pitch,
+        attenuation,
+        outSampleOffset,
+        sampleOffset,
+        nextSampleOffset,
+        sampleBuffer = [],
+        leftChannelBuffer = [],
+        rightChannelBuffer = [],
+        channelIndex = 0,
+        panning,
+        hasMore = 1,
+        sampleCache = {},
+        beatLength = ((zzfxR / BPM) * 60) >> 2;
 
     // for each channel in order until there are no more
     for (; hasMore; channelIndex++) {

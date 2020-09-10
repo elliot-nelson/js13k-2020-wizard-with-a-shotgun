@@ -17,17 +17,17 @@ export const GAME_HEIGHT = 270;
 export const TILE_SIZE   = 32;
 
 // Bitmasks used to represent wall sides on map
-export const WALL_TOP    = 0b0000_1000;
-export const WALL_RIGHT  = 0b0000_0100;
-export const WALL_BOTTOM = 0b0000_0010;
-export const WALL_LEFT   = 0b0000_0001;
+export const WALL_TOP    = 0b0000_0001;
+export const WALL_RIGHT  = 0b0000_0010;
+export const WALL_BOTTOM = 0b0000_0100;
+export const WALL_LEFT   = 0b0000_1000;
 
 // Bitmasks used to represent "doorways" on map (these doorways are blocked
 // during a brawl.)
-export const OPEN_TOP    = 0b1000_0000;
-export const OPEN_RIGHT  = 0b0100_0000;
-export const OPEN_BOTTOM = 0b0010_0000;
-export const OPEN_LEFT   = 0b0001_0000;
+export const OPEN_TOP    = 0b0001_0000;
+export const OPEN_RIGHT  = 0b0010_0000;
+export const OPEN_BOTTOM = 0b0100_0000;
+export const OPEN_LEFT   = 0b1000_0000;
 
 // Special room numbers - other room numbers >4 are "brawl rooms" where enemies
 // spawn.

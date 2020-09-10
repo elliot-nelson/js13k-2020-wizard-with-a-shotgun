@@ -45,8 +45,8 @@ Gore.spray = (entity, count, cb) => {
     let angle = entity.lastDamage ? vector2angle(entity.lastDamage.vector) : Math.random() * R360;
 
     for (let i = 0; i < count; i++) {
-        let r = Math.random() * entity.radius;
-        let p = vectorAdd(entity.pos, angle2vector(Math.random() * R360, r));
+        let r = Math.random() * entity.radius,
+            p = vectorAdd(entity.pos, angle2vector(Math.random() * R360, r));
         game.entities.push(
             new Gore(p, angle + Math.random() * R90 - R45, cb())
         );

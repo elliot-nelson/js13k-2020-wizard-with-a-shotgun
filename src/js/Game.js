@@ -129,8 +129,7 @@ export class Game {
         Viewport.ctx.scale(Viewport.scale, Viewport.scale);
 
         // Render screenshakes (canvas translation)
-        let shakeX = 0;
-        let shakeY = 0;
+        let shakeX = 0, shakeY = 0;
         this.screenshakes.forEach(shake => {
             shakeX += shake.x;
             shakeY += shake.y;
@@ -176,17 +175,14 @@ export class Game {
             );
         }
 
-        //if (game.victory) {
-            Victory.frame = Victory.frame || 0;
-            Victory.frame++;
-            Viewport.ctx.fillStyle = rgba(240, 20, 20, clamp(Victory.frame / 1800, 0, 0.7));
+        if (game.victory) {
+            Viewport.ctx.fillStyle = rgba(240, 0, 0, clamp(Victory.frame / 1800, 0, 0.7));
             Viewport.fillViewportRect();
 
-            let text = 'WAIT! THE PORTAL HOME! IT\'S NOT SUPPOSED TO END THIS WAY... \n \nIT STINKS LIKE ROTTEN MEAT, BUT YOU AREN\'T GOING ANYWHERE...';
+            let text = 'WAIT! THE PORTAL HOME... \n \nIT STINKS LIKE ROTTEN MEAT, BUT IT LOOKS LIKE YOU ARE STUCK IN THE DUNGEONS.';
             Text.drawParagraph(
                 Viewport.ctx,
-                //partialText(text, Victory.frame, 1800),
-                text,
+                partialText(text, Victory.frame, 600),
                 40, 40,
                 Viewport.width - 80,
                 Viewport.ctx.height - 80,
@@ -194,7 +190,7 @@ export class Game {
                 Text.white,
                 Text.red
             );
-        //}
+        }
     }
 
     pause() {

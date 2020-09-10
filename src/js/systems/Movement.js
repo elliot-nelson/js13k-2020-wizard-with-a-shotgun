@@ -63,10 +63,10 @@ export const Movement = {
             } else {
                 // Not a bug: we "add" the mass of the opposing entity to our own velocity when deciding who
                 // is at fault for the collision. Entity velocities adjust in relation to their fault level.
-                let entityM = normalizeVector(entity.vel).m + other.mass;
-                let otherM = normalizeVector(other.vel).m + entity.mass;
-                let entityI = entity.bounce ? 0.1 : 1;
-                let otherI = other.bounce ? 0.1 : 1;
+                let entityM = normalizeVector(entity.vel).m + other.mass,
+                    otherM = normalizeVector(other.vel).m + entity.mass,
+                    entityI = entity.bounce ? 0.1 : 1,
+                    otherI = other.bounce ? 0.1 : 1;
                 entity.vel.x -=
                     (hit.nx * hit.m * entityI * entityM) / (entityM + otherM);
                 entity.vel.y -=
