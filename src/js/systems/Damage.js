@@ -11,7 +11,7 @@ import { Audio } from '../Audio';
  * Damage
  */
 export const Damage = {
-    apply(entities) {
+    perform(entities) {
         let hit = false;
         for (let entity of entities) {
             if (entity.hp) {

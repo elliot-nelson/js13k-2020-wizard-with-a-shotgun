@@ -73,29 +73,29 @@ export class Game {
 
         if (this.paused) return;
 
-        // Apply any per-frame audio updates
+        // perform any per-frame audio updates
         Audio.update();
 
         // Behavior (AI, player input, etc.)
-        //apply(this.entities); <-- cut to save space
+        //perform(this.entities); <-- cut to save space
         for (let entity of game.entities) {
             if (entity.think) entity.think();
         }
 
-        // Apply any queued damage
-        Damage.apply(this.entities);
+        // perform any queued damage
+        Damage.perform(this.entities);
 
-        // Movement (apply entity velocities to position)
-        Movement.apply(this.entities);
+        // Movement (perform entity velocities to position)
+        Movement.perform(this.entities);
 
         // Dialog scheduling
-        DialogScheduling.apply();
+        DialogScheduling.perform();
 
         // Brawl system (aka "room battles")
-        Brawl.apply();
+        Brawl.perform();
 
         // Victory condtions
-        Victory.apply();
+        Victory.perform();
 
         // Culling (typically when an entity dies)
         this.entities = this.entities.filter(entity => !entity.cull);

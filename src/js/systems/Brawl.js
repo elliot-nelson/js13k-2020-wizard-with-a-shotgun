@@ -37,7 +37,7 @@ const SpawnPatterns = [
  * Brawl
  */
 export const Brawl = {
-    apply() {
+    perform() {
         if (game.brawl) {
             let livingEnemies = game.brawl.enemies.filter(enemy => !enemy.cull).length;
 

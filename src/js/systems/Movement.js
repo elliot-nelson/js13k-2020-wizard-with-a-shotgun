@@ -14,7 +14,7 @@ import {
  * Movement
  */
 export const Movement = {
-    apply(entities) {
+    perform(entities) {
         // Movement only applies to active entities with positions and velocities
         let movers = entities.filter(
             entity => entity.pos && entity.vel && !entity.cull
@@ -36,7 +36,7 @@ export const Movement = {
             }
         }
 
-        // Now we apply all movement, even if it's not going to be perfect.
+        // Now we perform all movement, even if it's not going to be perfect.
         for (let entity of movers) {
             entity.pos.x += entity.vel.x;
             entity.pos.y += entity.vel.y;
@@ -107,7 +107,7 @@ export const Movement = {
                 // decide what to do about it.
                 //
                 // If the normal vector is horizontal or vertical, we zero out the portion of the vector
-                // moving into the wall, allowing frictionless sliding (if we wanted to apply friction,
+                // moving into the wall, allowing frictionless sliding (if we wanted to perform friction,
                 // we could also reduce the other axis slightly).
                 //
                 // If the normal vector is not 90*, we "back up" off the wall by exactly the normal vector.

@@ -15,7 +15,7 @@ import { DEAD } from './Behavior';
  * Victory
  */
 export const Victory = {
-    apply() {
+    perform() {
         if (game.player.pages >= 404 && !game.victory) {
             Victory.frame = 0;
             game.victory = true;
