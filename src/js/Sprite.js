@@ -1,7 +1,6 @@
 'use strict';
 
 import { game } from './Game';
-import { SPRITESHEET_URI } from './Constants';
 import { rgba, createCanvas } from './Util';
 import { SpriteSheet } from './SpriteSheet-gen';
 import { Viewport } from './Viewport';
@@ -18,9 +17,9 @@ export const Sprite = {
     // This is an exception to the rule, loading the spritesheet is a special action that
     // happens BEFORE everything is initialized.
     loadSpritesheet(cb) {
-        let image = new Image(), uri = SPRITESHEET_URI;
+        let image = new Image();
         image.onload = cb;
-        image.src = uri;
+        image.src = SpriteSheet.base64;
         Sprite.sheet = image;
     },
 

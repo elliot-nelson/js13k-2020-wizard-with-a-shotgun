@@ -25,6 +25,7 @@
     "gulp-template": "^5.0.0",
     "gulp-terser": "^1.1.7",
     "gulp-zip": "^4.2.0",
+    "image-to-base64": "^2.1.1",
     "imagemin-advpng": "^6.0.0",
     "prettier": "^2.1.1",
     "rollup": "^2.26.4"

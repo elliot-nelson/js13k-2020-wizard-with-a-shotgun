@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const util = require('util');
+const imageToBase64 = require('image-to-base64');
 
 /**
  * The image data parser takes a JSON file, produced by Aseprite when it exported
@@ -22,9 +23,10 @@ const util = require('util');
  *  - Need to be careful with your "gulp watch" filespec to avoid rebuild loops.
  */
 const ImageDataParser = {
-  parse: function(dataFile, outputFile) {
+  async parse(dataFile, imageFile, outputFile) {
     let data = ImageDataParser._parseDataFile(dataFile);
-    ImageDataParser._writeOutputFile(data, outputFile);
+    let base64 = await imageToBase64(imageFile);
+    ImageDataParser._writeOutputFile(data, base64, outputFile);
   },
   _parseDataFile(dataFile) {
     let json = JSON.parse(fs.readFileSync(dataFile, 'utf8'));
@@ -46,11 +48,16 @@ const ImageDataParser = {
 
     return data;
   },
-  _writeOutputFile(data, outputFile) {
+  _writeOutputFile(data, base64, outputFile) {
     let js = fs.readFileSync(outputFile, 'utf8');
     let lines = js.split('\n');
     let prefix = lines.findIndex(value => value.match(/<generated>/));
     let suffix = lines.findIndex(value => value.match(/<\/generated>/));
+
+    data = {
+      ...data,
+      base64: `data:image/png;base64,${base64}`
+    };
 
     let generated = util.inspect(data, { compact: true, maxArrayLength: Infinity, depth: Infinity });
     generated = lines.slice(0, prefix + 1).join('\n') + '\n' + generated + '\n' + lines.slice(suffix).join('\n');

@@ -145,9 +145,10 @@ async function generateSpriteSheetData() {
     // hand-edting any coordinate data or worrying about the composition of the spritesheet.
 
     let data = 'src/assets/spritesheet-gen.json';
+    let image = 'dist/temp/sprites.png';
     let output = 'src/js/SpriteSheet-gen.js';
 
-    await ImageDataParser.parse(data, output);
+    await ImageDataParser.parse(data, image, output);
 }
 
 function copyAssets() {
@@ -166,13 +167,13 @@ function copyAssets() {
     return pipeline
         .pipe(size({ title: 'spritesheet post' }))
         .pipe(rename('sprites.png'))
-        .pipe(gulp.dest('dist/build'));
+        .pipe(gulp.dest('dist/temp'));
 }
 
 async function pngoutAssets() {
     // This step relies on a new tool "pngout", comment out if not available.
     // This saves me an extra 20 bytes on the spritesheet.
-    childProcess.execSync('pngout dist/build/sprites.png');
+    childProcess.execSync('pngout dist/temp/sprites.png');
 }
 
 async function generateMapData() {
@@ -182,9 +183,19 @@ async function generateMapData() {
     await MapDataParser.parse(data, output);
 }
 
-const refreshAssets = gulp.series(exportSpriteSheet, generateSpriteSheetData, generateMapData);
+function copyFinalSprites() {
+    return gulp.src('dist/temp/sprites.png')
+        .pipe(gulp.dest('dist/final'));
+}
 
-const buildAssets = gulp.series(refreshAssets, copyAssets, pngoutAssets);
+const buildAssets = gulp.series(
+    exportSpriteSheet,
+    copyAssets,
+    pngoutAssets,
+    generateSpriteSheetData,
+    generateMapData,
+    copyFinalSprites
+);
 
 // -----------------------------------------------------------------------------
 // HTML Build
@@ -261,7 +272,6 @@ module.exports = {
     // Potentially useful subtasks
     compileBuild,
     minifyBuild,
-    refreshAssets,
 
     // Core build steps
     buildJs,
