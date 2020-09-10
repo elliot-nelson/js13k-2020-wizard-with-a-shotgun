@@ -32,8 +32,8 @@ export const Victory = {
                 game.screenshakes.push(new ScreenShake(20, 20, 90));
             }
 
-            let enemyCount = game.entities.filter(entity => entity.enemy).length;
-            if (Victory.frame % 30 === 0 && enemyCount < 25) {
+            let livingEnemies = game.brawl.enemies.filter(enemy => !enemy.cull).length;
+            if (Victory.frame % 30 === 0 && livingEnemies < 25) {
                 let pos = vectorAdd(game.player.pos, angle2vector(Math.random() * R360, 48));
                 let enemyType = [Stabguts, Stabguts, Spindoctor][Math.random() * 3 | 0];
                 let enemy = new enemyType(pos);

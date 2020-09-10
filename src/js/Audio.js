@@ -19,6 +19,9 @@ export const Audio = {
         Audio.damage = [,,391,,.19,.01,2,.54,-4,20,,,,,,,.02,.9];
         Audio.alarm = [,,970,.12,.25,.35,,.39,8.1,,10,.1,.2,,.1,,,.6,.09,.13];
         Audio.song = zzfxM(...ObliqueMystique);
+
+        // Save our background music in os13k, for fun!
+        localStorage['OS13kMusic,Wizard with a Shotgun - Oblique Mystique'] = JSON.stringify(ObliqueMystique);
     },
 
     update() {

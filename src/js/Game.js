@@ -139,7 +139,7 @@ export class Game {
         Maze.draw();
 
         for (let entity of this.entities) {
-            if (entity.z > 0 || !entity.z) entity.draw();
+            if (!entity.z || entity.z < 100) entity.draw();
         }
 
         Viewport.ctx.drawImage(
