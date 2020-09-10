@@ -45,11 +45,7 @@ export const Viewport = {
             this.canvas.width = dpiWidth;
             this.canvas.height = dpiHeight;
 
-            this.scale =
-                ((Math.max(dpiWidth / GAME_WIDTH, dpiHeight / GAME_HEIGHT) *
-                    10) |
-                    0) /
-                10;
+            this.scale = ((Math.max(dpiWidth / GAME_WIDTH, dpiHeight / GAME_HEIGHT) * 10) | 0) / 10;
             this.width = Math.ceil(this.canvas.width / this.scale);
             this.height = Math.ceil(this.canvas.height / this.scale);
             this.center = {
@@ -62,8 +58,9 @@ export const Viewport = {
             // Note: smoothing flag gets reset on every resize by some browsers, which is why
             // we do it here.
             this.ctx.imageSmoothingEnabled = false;
-
-            Viewport.canvas.style.cursor = 'none';
         }
+
+        // We do this every frame, not just on resize, due to browser sometimes "forgetting".
+        Viewport.canvas.style.cursor = 'none';
     }
 };

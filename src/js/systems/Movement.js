@@ -27,12 +27,12 @@ export const Movement = {
             // Each pair of entities only needs to interact once.
             for (let i = 0; i < movers.length - 1; i++) {
                 for (let j = i + 1; j < movers.length; j++) {
-                    this.clipVelocityEntityVsEntity(movers[i], movers[j]);
+                    Movement.clipVelocityEntityVsEntity(movers[i], movers[j]);
                 }
             }
 
             for (let entity of movers) {
-                this.clipVelocityAgainstWalls(entity);
+                Movement.clipVelocityAgainstWalls(entity);
             }
         }
 

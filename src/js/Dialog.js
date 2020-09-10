@@ -9,8 +9,12 @@ import { DIALOG_START_A, DIALOG_START_B, DIALOG_HINT_1, DIALOG_HINT_2, DIALOG_HI
 
 export class Dialog {
     constructor(key) {
-        Object.assign(this, Dialog.details[key]);
-        this.modal = this.speech;
+        let dialog = Dialog.details[key];
+        this.flag = key;
+        this.text = dialog.text;
+        this.speech = dialog.speech;
+        this.blockReload = dialog.blockReload;
+        this.blockFire = dialog.blockFire;
         if (this.speech) {
             this.blockMove = this.blockFire = this.blockReload = true;
         }
@@ -75,48 +79,39 @@ export class Dialog {
 Dialog.details = [
     {
         text: 'SHOGGOTH\'S ARMPIT! THE SHOTGUN ARCANA IS SCATTERED ALL OVER THIS DUNGEON!',
-        flag: DIALOG_START_A,
         speech: true
     },
     {
         text: 'HELP ME FIND MY MISSING PAGES AND REGAIN MY POWERS.',
-        flag: DIALOG_START_B,
         speech: true
     },
     {
         text: 'USE WASD OR mnop TO MOVE',
-        flag: DIALOG_HINT_1,
         blockFire: true,
         blockReload: true
     },
     {
         text: 'USE l TO FIRE YOUR SHOTGUN',
-        flag: DIALOG_HINT_2,
         blockReload: true
     },
     {
         text: 'USE r TO RELOAD',
-        flag: DIALOG_HINT_3,
         blockFire: true
     },
     {
         text: 'BE CAREFUL OUT THERE, WE NEED THOSE PAGES BACK!',
-        flag: DIALOG_HINT_DEATH,
         speech: true
     },
     {
         text: 'STABGUTS! LOOK OUT FOR THE POINTY END.',
-        flag: DIALOG_HINT_E1,
         speech: true
     },
     {
         text: 'SPINDOCTORS! YOU\'LL GET MORE THAN A HAIRCUT FROM THOSE THINGS.',
-        flag: DIALOG_HINT_E2,
         speech: true
     },
     {
         text: 'DON\'T FORGET, PICK UP LOST PAGES TO RECOVER SOME HEALTH!',
-        flag: DIALOG_HINT_DMG,
         speech: true
     }
 ];

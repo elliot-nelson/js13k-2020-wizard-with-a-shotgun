@@ -30,7 +30,7 @@ export class Game {
             Input.init();
             Audio.init();
 
-            this.maze = MapLoader.load();
+            this.maze = MapLoader.loadMap();
             this.entities = [];
             this.dialogPending = {};
             this.dialogSeen = {};

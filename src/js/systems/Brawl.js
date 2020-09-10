@@ -56,7 +56,7 @@ export const Brawl = {
                     }
                 } else if (livingEnemies === 0) {
                     // If nothing is alive, hasten the next enemy
-                    plan[1] -= 10;
+                    plan[1] -= 6;
                 }
 
             }
