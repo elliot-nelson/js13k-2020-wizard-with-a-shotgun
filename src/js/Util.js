@@ -108,22 +108,22 @@ export function clamp(value, min, max) {
 // The parameters to this function are (Q, Q) or (R, R) - i.e. horizontal or
 // vertical coordinates in tile space.
 export function calculateRayIntersectionAndStep(startPos, endPos) {
-    let next,
-        step,
+    let _next,
+        _step,
         diff = endPos - startPos;
 
     if (diff === 0) {
-        step = NaN;
-        next = +Infinity;
+        _step = NaN;
+        _next = +Infinity;
     } else if (diff > 0) {
-        step = 1 / diff;
-        next = (1 - (startPos - (startPos | 0))) * step;
+        _step = 1 / diff;
+        _next = (1 - (startPos - (startPos | 0))) * _step;
     } else {
-        step = -1 / diff;
-        next = (startPos - (startPos | 0)) * step;
+        _step = -1 / diff;
+        _next = (startPos - (startPos | 0)) * _step;
     }
 
-    return { next, step };
+    return { _next, _step };
 }
 
 // https://www.genericgamedev.com/general/shooting-rays-through-tilemaps/
@@ -149,14 +149,14 @@ export function* tilesHitBetween(p1, p2) {
         let intersectionR = calculateRayIntersectionAndStep(startR, endR);
 
         for (let i = 0; i < tileCount - 1; i++) {
-            if (intersectionQ.next < intersectionR.next) {
+            if (intersectionQ._next < intersectionR._next) {
                 q += stepQ;
                 m += stepQ;
-                intersectionQ.next += intersectionQ.step;
+                intersectionQ._next += intersectionQ._step;
             } else {
                 r += stepR;
                 m += stepR;
-                intersectionR.next += intersectionR.step;
+                intersectionR._next += intersectionR._step;
             }
             yield { q: q | 0, r: r | 0, m };
         }
@@ -207,7 +207,7 @@ export function* tilesHitByCircle(p, v, r) {
     yield* tilesHitBetweenCircle(p, { x: p.x + v.x, y: p.y + v.y }, r);
 }
 
-// https://stackoverflow.com/a/18790389/80630
+// See https://stackoverflow.com/a/18790389/80630
 export function intersectCircleRectangle(p1, p2, r, bounds) {
     // If the bounding box around the start and end points (+radius on all
     // sides) does not intersect with the rectangle, definitely not an

@@ -10,7 +10,7 @@ import { PageCollectedAnimation } from './PageCollectedAnimation';
  * Page
  */
 export class Page {
-    constructor(pos, amount = 1) {
+    constructor(pos, amount) {
         this.pos = { ...pos };
         this.amount = amount;
         this.angle = Math.random() * R360;

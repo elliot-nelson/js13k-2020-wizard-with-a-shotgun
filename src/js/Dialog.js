@@ -74,12 +74,12 @@ export class Dialog {
 
 Dialog.details = [
     {
-        text: 'SHOGGOTH\'S BALLS! THE SHOTGUN ARCANA IS SCATTERED ALL OVER THIS DUNGEON!',
+        text: 'SHOGGOTH\'S ARMPIT! THE SHOTGUN ARCANA IS SCATTERED ALL OVER THIS DUNGEON!',
         flag: DIALOG_START_A,
         speech: true
     },
     {
-        text: 'FIND MY MISSING PAGES AND HELP ME REGAIN MY POWERS.',
+        text: 'HELP ME FIND MY MISSING PAGES AND REGAIN MY POWERS.',
         flag: DIALOG_START_B,
         speech: true
     },
@@ -100,7 +100,7 @@ Dialog.details = [
         blockFire: true
     },
     {
-        text: 'OUCH! BE CAREFUL OUT THERE, WE NEED THOSE PAGES BACK!',
+        text: 'BE CAREFUL OUT THERE, WE NEED THOSE PAGES BACK!',
         flag: DIALOG_HINT_DEATH,
         speech: true
     },
@@ -110,12 +110,12 @@ Dialog.details = [
         speech: true
     },
     {
-        text: 'SPINDOCTORS! YOU\'LL GET MORE THAN A HAIRCUT FROM THESE THINGS.',
+        text: 'SPINDOCTORS! YOU\'LL GET MORE THAN A HAIRCUT FROM THOSE THINGS.',
         flag: DIALOG_HINT_E2,
         speech: true
     },
     {
-        text: 'DON\'T FORGET, PICK UP PAGES TO RECOVER SOME HEALTH!',
+        text: 'DON\'T FORGET, PICK UP LOST PAGES TO RECOVER SOME HEALTH!',
         flag: DIALOG_HINT_DMG,
         speech: true
     }

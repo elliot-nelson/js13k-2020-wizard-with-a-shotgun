@@ -29,7 +29,7 @@ const C_ICONS = {};
  */
 export const Text = {
     init() {
-        Text.default = Sprite.font.img;
+        Text.white = Sprite.font.img;
 
         let icons = [
             [108, Sprite.icon_mouse_lmb],  // l
@@ -40,15 +40,15 @@ export const Text = {
             C_SHIFT[icon[0]] = icon[1].img.width + 1;
         }
 
-        Text.black = recolor(Text.default, rgba(0, 0, 0, 1));
-        Text.black_shadow = recolor(Text.default, rgba(90, 20, 90, 0.15));
-        Text.blue = recolor(Text.default, rgba(200, 50, 240, 1));
-        Text.blue_shadow = recolor(Text.default, rgba(240, 50, 200, 0.2));
-        Text.shadow = recolor(Text.default, rgba(240, 240, 255, 0.25));
-        Text.red = recolor(Text.default, rgba(240, 50, 50, 1));
+        Text.black = recolor(Text.white, rgba(0, 0, 0, 1));
+        Text.black_shadow = recolor(Text.white, rgba(90, 20, 90, 0.15));
+        Text.blue = recolor(Text.white, rgba(200, 40, 220, 1));
+        Text.blue_shadow = recolor(Text.white, rgba(240, 50, 200, 0.2));
+        Text.shadow = recolor(Text.white, rgba(240, 240, 255, 0.25));
+        Text.red = recolor(Text.white, rgba(240, 50, 50, 1));
     },
 
-    drawText(ctx, text, u, v, scale = 1, font = Text.default, shadow) {
+    drawText(ctx, text, u, v, scale = 1, font = Text.white, shadow) {
         for (let idx = 0; idx < text.length; idx++) {
             let c = text.charCodeAt(idx);
             if (C_ICONS[c]) {
@@ -88,12 +88,14 @@ export const Text = {
         }
     },
 
-    drawRightText(ctx, text, u, v, scale = 1, font = Text.default, shadow) {
+    /*
+    drawRightText(ctx, text, u, v, scale = 1, font = Text.white, shadow) {
         u -= Text.measureWidth(text, scale);
         Text.drawText(ctx, text, u, v, scale, font, shadow);
     },
+    */
 
-    drawParagraph(ctx, text, u, v, w, h, scale = 1, font = Text.default, shadow) {
+    drawParagraph(ctx, text, u, v, w, h, scale = 1, font = Text.white, shadow) {
         let cu = u,
             cv = v,
             phrases = text.split(' ');

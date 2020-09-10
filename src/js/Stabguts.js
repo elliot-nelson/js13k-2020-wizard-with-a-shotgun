@@ -61,8 +61,8 @@ export class Stabguts {
         } else if (this.state === DEAD) {
             this.cull = true;
             Gore.kill(this);
-            game.entities.push(new Page(this.pos));
-            game.entities.push(new Page(this.pos));
+            game.entities.push(new Page(this.pos, 1));
+            game.entities.push(new Page(this.pos, 2));
         }
     }
 

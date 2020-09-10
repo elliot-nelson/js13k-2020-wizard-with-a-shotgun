@@ -133,7 +133,7 @@ export const Maze = {
                         y: (room.r + room.h / 2) * TILE_SIZE
                     });
                     Viewport.ctx.globalAlpha = 1 - (game.frame % 30) / 30;
-                    Text.drawText(Viewport.ctx, '!', uv.u - 6, uv.v - 10, 4, Text.red, Text.blue_shadow);
+                    Text.drawText(Viewport.ctx, '!', uv.u - 4, uv.v - 10, 4, Text.red, Text.blue_shadow);
                     Viewport.ctx.globalAlpha = 1;
                 }
             }

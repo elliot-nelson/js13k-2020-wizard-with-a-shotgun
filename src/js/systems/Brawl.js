@@ -2,9 +2,6 @@
 
 import { game } from '../Game';
 import { xy2qr, vectorBetween } from '../Util';
-import { vectorAdd } from '../Util';
-import { Player } from '../Player';
-import { HealthChunkAnimation } from '../HealthChunkAnimation';
 import { ScreenShake } from '../ScreenShake';
 import { Stabguts } from '../Stabguts';
 import { Spindoctor } from '../Spindoctor';
@@ -12,24 +9,28 @@ import { SpawnAnimation } from '../SpawnAnimation';
 import { Audio } from '../Audio';
 
 const SpawnPatterns = [
-    [
+    [ // 50
         [Stabguts,  1,1,1,1,1]
     ],
-    [
+    [ // 55
         [Spindoctor,1,1,1,1,1]
     ],
-    [
-        [Stabguts,  5,0,0,0,1,1,1],
-        [Spindoctor,0,0,0,0,3,0,3],
+    [ // 60
+        [Stabguts,  5, , , ,1,1,1],
+        [Spindoctor, , , , ,3, ,3]
     ],
-    [
-        [Stabguts,  0,1,0,1,0,1,0],
-        [Spindoctor,2,0,2,0,2,0,2],
+    [ // 65
+        [Stabguts,   ,1, ,1, ,1, ],
+        [Spindoctor,2, ,2, ,2, ,3]
     ],
-    [
-        [Stabguts,  24,0,0,0,0,0,0],
-        [Spindoctor,0,0,0,0,1,1,1,1],
+    [ // 70
+        [Stabguts, 20, , , , , , , ],
+        [Spindoctor, , , , ,1,1,1,1]
     ],
+    [ // 75
+        [Stabguts,   , , , , , ,6, ],
+        [Spindoctor,3, ,3, ,3, , ,3]
+    ]
 ];
 
 /**
