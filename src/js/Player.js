@@ -206,6 +206,13 @@ export class Player {
             Viewport.ctx.translate(u + sprite.anchor.x, v + sprite.anchor.y);
             Viewport.ctx.rotate(this.facingAngle + R90);
 
+            if (blast) {
+                Viewport.ctx.drawImage(
+                    Sprite.player[0].img,
+                    12, 0, 9, 32,
+                    12 - sprite.anchor.x, 2 - sprite.anchor.y, 9, 32
+                );
+            }
             Viewport.ctx.drawImage(
                 sprite.img,
                 -sprite.anchor.x,
@@ -217,6 +224,10 @@ export class Player {
                 -sprite.anchor.y + headbob
             );
             if (blast) {
+                if (this.state === ATTACK && this.frames >= 2) {
+                    sprite = Sprite.player[1];
+                    blast = Sprite.shotgun_blast[6 - this.frames];
+                }
                 Viewport.ctx.drawImage(
                     blast.img,
                     3 - blast.anchor.x,
