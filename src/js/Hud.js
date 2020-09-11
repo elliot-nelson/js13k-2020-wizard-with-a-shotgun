@@ -47,8 +47,8 @@ export const Hud = {
         let pages = game.player.pages;
         if (game.victory) pages = Victory.frame > 240 ? 666 : 404;
         if (pages > 0 || game.player.deaths > 0) {
-            if (Hud.t > 0 && Hud.t < 30) {
-                Viewport.ctx.globalAlpha = 1 - (Hud.t++ / 60);
+            if (Hud.pageGlow > 0 && Hud.pageGlow < 30) {
+                Viewport.ctx.globalAlpha = 1 - (Hud.pageGlow++ / 60);
             } else {
                 Viewport.ctx.globalAlpha = 0.5;
             }
@@ -93,10 +93,6 @@ export const Hud = {
             Sprite.drawViewportSprite(Sprite.hud_crosshair[0], uv2xy(Input.pointer), game.frame / 72);
             Viewport.ctx.globalAlpha = 1;
         }
-    },
-
-    animatePageGlow() {
-        Hud.t = 1;
     },
 
     drawPageArrow() {

@@ -36,7 +36,7 @@ export class PageCollectedAnimation {
         if (++this.t === this.d) {
             this.cull = true;
             game.player.pages += this.amount;
-            Hud.animatePageGlow();
+            Hud.pageGlow = 1;
         }
     }
 
