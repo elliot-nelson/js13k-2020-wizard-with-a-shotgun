@@ -45,15 +45,8 @@ export const Hud = {
         // Pages
         let pages = game.victory ? 666 : game.player.pages;
         if (pages > 0 || game.player.deaths > 0) {
-            if (
-                Hud.pageGlow &&
-                game.frame >= Hud.pageGlow.start &&
-                game.frame <= Hud.pageGlow.end
-            ) {
-                let glow =
-                    ((game.frame - Hud.pageGlow.start) * 5) /
-                    (Hud.pageGlow.end - Hud.pageGlow.start);
-                Viewport.ctx.globalAlpha = 1 - glow / 10;
+            if (Hud.t > 0 && Hud.t < 30) {
+                Viewport.ctx.globalAlpha = 1 - (Hud.t++ / 60);
             } else {
                 Viewport.ctx.globalAlpha = 0.5;
             }
@@ -101,7 +94,7 @@ export const Hud = {
     },
 
     animatePageGlow() {
-        Hud.pageGlow = { start: game.frame, end: game.frame + 30 };
+        Hud.t = 1;
     },
 
     drawPageArrow() {

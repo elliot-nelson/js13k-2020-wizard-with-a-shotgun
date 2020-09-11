@@ -52,8 +52,7 @@ async function compileBuild() {
         await bundle.write({
             file: 'dist/temp/app.js',
             format: 'iife',
-            name: 'app',
-            sourcemap: 'inline'
+            name: 'app'
         });
     } catch (error) {
         // Use rollup's error output
@@ -69,7 +68,7 @@ function minifyBuild() {
     let cache = {};
 
     return gulp.src('dist/temp/app.js')
-        .pipe(sourcemaps.init())
+        //.pipe(sourcemaps.init())
         // Phase 1: Mangle all props except DOM & built-ins. (Reserved props are built-ins
         // that terser doesn't know about yet, but which will break the game if they get mangled.)
         .pipe(terser({
@@ -87,7 +86,8 @@ function minifyBuild() {
                         'ArrowLeft',
                         'ArrowDown',
                         'ArrowRight',
-                        'Escape'
+                        'Escape',
+                        'OS13kMusic,Wizard with a Shotgun - Oblique Mystique'
                     ]
                 }
             }
@@ -103,7 +103,7 @@ function minifyBuild() {
                 }
             }
         }))
-        .pipe(sourcemaps.write('.'))
+        //.pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('dist/temp'));
 }
 
