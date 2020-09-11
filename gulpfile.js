@@ -99,7 +99,7 @@ function minifyBuild() {
             mangle: {
                 properties: {
                     builtins: true,
-                    regex: /behavior|direction|frame|reset|update|anchor|DEAD|canvas|entities|history|pressed|page|paused|resize|reload|pages|pattern|pause|unpause|sheet|state|init|play/
+                    regex: /^(behavior|direction|frame|reset|update|anchor|DEAD|canvas|entities|history|pressed|page|paused|resize|reload|pages|pattern|pause|unpause|sheet|state|init|play|text)$/
                 }
             }
         }))
