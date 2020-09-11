@@ -45,7 +45,7 @@ export const Hud = {
 
         // Pages
         let pages = game.player.pages;
-        if (game.victory) pages = Victory.frame > 180 ? 666 : 404;
+        if (game.victory) pages = Victory.frame > 240 ? 666 : 404;
         if (pages > 0 || game.player.deaths > 0) {
             if (Hud.t > 0 && Hud.t < 30) {
                 Viewport.ctx.globalAlpha = 1 - (Hud.t++ / 60);

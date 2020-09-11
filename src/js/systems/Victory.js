@@ -10,6 +10,7 @@ import { Stabguts } from '../Stabguts';
 import { Spindoctor } from '../Spindoctor';
 import { SpawnAnimation } from '../SpawnAnimation';
 import { DEAD } from './Behavior';
+import { Audio } from '../Audio';
 
 /**
  * Victory
@@ -25,6 +26,7 @@ export const Victory = {
             for (let enemy of enemies) {
                 enemy.state = DEAD;
             }
+            Audio.play(Audio.victory);
         } else if (game.victory) {
             Victory.frame++;
 
