@@ -8,6 +8,7 @@ import { Sprite } from './Sprite';
 import { Text } from './Text';
 import { Viewport } from './Viewport';
 import { ScreenShake } from './ScreenShake';
+import { Victory } from './systems/Victory';
 
 /**
  * Hud
@@ -43,7 +44,8 @@ export const Hud = {
         Text.drawText(Viewport.ctx, 'stuvw', Viewport.width - HUD_PAGE_TEXT_U - 60, 4, 2, Text.blue, Text.blue_shadow);
 
         // Pages
-        let pages = game.victory ? 666 : game.player.pages;
+        let pages = game.player.pages;
+        if (game.victory) pages = Victory.frame > 180 ? 666 : 404;
         if (pages > 0 || game.player.deaths > 0) {
             if (Hud.t > 0 && Hud.t < 30) {
                 Viewport.ctx.globalAlpha = 1 - (Hud.t++ / 60);
@@ -67,7 +69,7 @@ export const Hud = {
                 Viewport.width - HUD_PAGE_TEXT_U,
                 4,
                 2,
-                game.victory ? Text.red : Text.blue,
+                pages === 666 ? Text.red : Text.blue,
                 Text.blue_shadow
             );
         }

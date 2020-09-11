@@ -21,8 +21,9 @@ export const Victory = {
             game.victory = true;
             game.player.pos = roomCenter(game.maze.rooms[ROOM_ENDING]);
             game.brawl = false;
-            for (let entity of game.entities) {
-                if (entity.enemy) entity.state = DEAD;
+            let enemies = game.entities.filter(entity => entity.enemy);
+            for (let enemy of enemies) {
+                enemy.state = DEAD;
             }
         } else if (game.victory) {
             Victory.frame++;
@@ -32,8 +33,8 @@ export const Victory = {
                 game.screenshakes.push(new ScreenShake(20, 20, 90));
             }
 
-            let enemyCount = game.entities.filter(entity => entity.enemy).length;
-            if (Victory.frame % 30 === 0 && enemyCount < 25) {
+            let enemies = game.entities.filter(entity => entity.enemy);
+            if (Victory.frame % 30 === 0 && enemies.length < 25) {
                 let pos = vectorAdd(game.player.pos, angle2vector(Math.random() * R360, 48));
                 let enemyType = [Stabguts, Stabguts, Spindoctor][Math.random() * 3 | 0];
                 let enemy = new enemyType(pos);

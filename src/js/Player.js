@@ -94,6 +94,10 @@ export class Player {
             if (game.victory) {
                 this.state = HUNT;
                 game.screenshakes.push(new ScreenShake(15, 15, 25));
+                let enemies = game.entities.filter(entity => entity.enemy);
+                for (let enemy of enemies) {
+                    if (Math.random() < 0.5) enemy.state = DEAD;
+                }
             } else {
                 this.state = SPAWN;
                 this.frames = 120;
