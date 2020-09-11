@@ -162,9 +162,9 @@ export class Game {
         }
 
         if (game.frame >= 30 && !game.started) {
-            let width = Text.measureWidth(TITLE, 3);
+            //let width = Text.measureWidth(TITLE, 3);
             Text.drawText(
-                Viewport.ctx, TITLE, (Viewport.width - width) / 2, Viewport.height / 2, 3,
+                Viewport.ctx, TITLE, Viewport.center.u - Text.measureWidth(TITLE, 3) / 2, Viewport.center.v, 3,
                 Text.white,
                 Text.red
             );
@@ -174,7 +174,7 @@ export class Game {
             Viewport.ctx.fillStyle = rgba(240, 0, 0, clamp(Victory.frame / 1800, 0, 0.7));
             Viewport.fillViewportRect();
 
-            let text = 'WAIT! THE PORTAL HOME... \n \nIT STINKS LIKE ROTTEN MEAT, BUT IT LOOKS LIKE YOU ARE STUCK IN THE DUNGEONS.';
+            let text = 'WAIT! THE PORTAL HOME... \n \nIT STINKS LIKE ROTTEN MEAT, BUT IT LOOKS LIKE YOU ARE STUCK IN THE DUNGEONS. \n \nWELCOME HOME...';
             Text.drawParagraph(
                 Viewport.ctx,
                 partialText(text, Victory.frame, 600),
