@@ -41,7 +41,7 @@ export const Hud = {
         }
 
         // Glyphs
-        Text.drawText(Viewport.ctx, 'stuvw', Viewport.width - HUD_PAGE_TEXT_U - 60, 4, 2, Text.blue, Text.blue_shadow);
+        // Text.drawText(Viewport.ctx, 'stuvw', Viewport.width - HUD_PAGE_TEXT_U - 60, 4, 2, Text.blue, Text.blue_shadow);
 
         // Pages
         let pages = game.player.pages;
