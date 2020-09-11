@@ -5,6 +5,8 @@
  * rollup's tree shaking ability.
  */
 
+export const TITLE = 'WIZARD WITH A SHOTGUN';
+
 // Spritesheet URI (produced during gulp build)
 export const SPRITESHEET_URI = 'sprites.png';
 

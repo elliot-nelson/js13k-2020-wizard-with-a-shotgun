@@ -6,8 +6,8 @@ import { MapLoader } from './MapLoader';
 import { Text } from './Text';
 import { Player } from './Player';
 import { Viewport } from './Viewport';
-import { WALL_TOP, WALL_RIGHT, WALL_BOTTOM, WALL_LEFT, OPEN_TOP, OPEN_RIGHT, OPEN_BOTTOM, OPEN_LEFT, DIALOG_START_A, DIALOG_START_B, DIALOG_HINT_1, DIALOG_HINT_2, DIALOG_HINT_3, DIALOG_HINT_DEATH, R360 } from './Constants';
-import { uv2xy, xy2qr, angle2vector, rgba, createCanvas, clamp, partialText } from './Util';
+import { TITLE } from './Constants';
+import { rgba, createCanvas, clamp, partialText } from './Util';
 import { Audio } from './Audio';
 import { Brawl } from './systems/Brawl';
 import { Movement } from './systems/Movement';
@@ -166,10 +166,9 @@ export class Game {
         }
 
         if (game.frame >= 30 && !game.started) {
-            let title = 'WIZARD WITH A SHOTGUN';
-            let width = Text.measureWidth(title, 3);
+            let width = Text.measureWidth(TITLE, 3);
             Text.drawText(
-                Viewport.ctx, title, (Viewport.width - width) / 2, Viewport.height / 2, 3,
+                Viewport.ctx, TITLE, (Viewport.width - width) / 2, Viewport.height / 2, 3,
                 Text.white,
                 Text.red
             );
