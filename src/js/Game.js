@@ -35,7 +35,6 @@ export class Game {
             this.dialogPending = {};
             this.dialogSeen = {};
             this.roomsCleared = {};
-            this.shadowCanvas = createCanvas(500, 500);
             this.shadowOffset = 0;
             this.screenshakes = [];
             this.player = new Player();
@@ -144,12 +143,9 @@ export class Game {
 
         Viewport.ctx.drawImage(
             Sprite.shadow.img,
-            0,
-            0,
-            500,
-            500,
-            -this.shadowOffset,
-            -this.shadowOffset,
+            0, 0,
+            500, 500,
+            -this.shadowOffset, -this.shadowOffset,
             Viewport.width + this.shadowOffset * 2,
             Viewport.height + this.shadowOffset * 2
         );
