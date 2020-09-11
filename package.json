@@ -1,7 +1,7 @@
 {
-  "name": "js13k-2020-404",
-  "version": "0.9.0",
-  "description": "My 2020 entry for the js13kgames compo...",
+  "name": "js13k-2020-wizard-with-a-shotgun",
+  "version": "1.0.0",
+  "description": "My 2020 entry for the js13kgames compo, 'WIZARD WITH A SHOTGUN'.",
   "main": "index.js",
   "scripts": {
     "format": "prettier --write src/js",
