@@ -26,6 +26,8 @@ _NOTE: May contain spoilers if you haven't finished the game!_
 
 - The biggest influence on gameplay is Hotline Miami - I was going for the same kind of hectic top-down shooter feel, although bite-size since I had limited space for enemies, level design, etc.
 
+- I didn't want dying to be hard stop in this game, so I adopted the Minecraft approach of just dropping all your "stuff" where you died. You could potentially be carrying hundreds of pages, so to avoid lagging the game horribly, the game renders it as up to 7 floating pages, but each one will be worth roughly 1/7 of the pages you were carrying. (Similar to Minecraft's stacks, although I didn't have the space for logic to render them that way.)
+
 ### Technical challenges
 
 The biggest challenge this year, by far, was space... if I broke down the total hours spent developing this game, I think it would come out to about:
