@@ -4,7 +4,7 @@
 
 ## INSTRUCTIONS
 
-In this top-down 2D shooter, help the Wizard recover the missing pages of the Shotgun Arcana by blasting everything in this dungeon you see.
+In this top-down 2D shooter, help the Wizard recover the missing pages of the Shotgun Arcana from the dungeon by blasting everything you see.
 
 Play on desktop using any browser. Controls: mouse & keyboard.
 
