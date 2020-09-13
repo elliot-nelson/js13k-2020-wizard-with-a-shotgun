@@ -40,6 +40,8 @@ There's a few things I'm really proud of in this game that are new enough or uni
 
  - Another thing I tried and am happy with is breaking up logic into "systems" - it's not full entity-component-system or anything, but my upgrade loop now works in specific stages - first `Behavior` (where each entity thinks), then `Movement` (where velocity is applied and collision detection happens), then `Damage` (damage queued up by the first 2 rounds is now "applied" to each entity, potentially killing it). Last "culled" entities are cleaned up. (Entities aren't "culled" until they process their own "dead" state, which gives them a chance to do appropriate things, like spit out a bunch of blood or spawn some pages, etc.) This made it easier to figure out where to put logic, and helps keep the main game update function nice and clean.
 
+ - I didn't want to mess with a level editor, so I used Aseprite to [draw the map](src/maps/map.png), and then my gulp build turns it into [level data](src/js/Map-gen.js). Each room is color-coded to represent a particular "pattern number", which controls the types and quantities of enemies in the room. This wouldn't cut it if I had multiple tiles and entities and decorative objects to place, but for this game it worked pretty well!
+
 ### Technical challenges
 
 The biggest challenge this year, by far, was space... if I broke down the total hours spent developing this game, I think it would come out to about:
