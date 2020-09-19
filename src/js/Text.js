@@ -13,6 +13,8 @@ const C_HEIGHT = 5;
 const C_SHIFT = {
     33: 4,
     32: 3,
+    73: 5, // I
+    84: 5, // T
     /*10: 0, // LF (\n)
     32: 5, // Space ( )
     33: 3, // Bang (!)
