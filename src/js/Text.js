@@ -3,7 +3,7 @@
 import { Sprite } from './Sprite';
 import { rgba, createCanvas } from './Util';
 
-const C_WIDTH = 3;
+const C_WIDTH = 5;
 const C_HEIGHT = 5;
 
 // Very simple variable-width font implementation. The characters in the font strip
@@ -11,13 +11,15 @@ const C_HEIGHT = 5;
 // we just need to note the characters that AREN'T full width. Anything not in
 // this list has full shift (3+1 = 4 pixels).
 const C_SHIFT = {
-    10: 0, // LF (\n)
-    32: 3, // Space ( )
+    33: 4,
+    32: 3,
+    /*10: 0, // LF (\n)
+    32: 5, // Space ( )
     33: 3, // Bang (!)
     39: 2, // Apostrophe (')
     44: 3, // Comma (,)
     46: 3, // Period (.)
-    73: 2 // I
+    */
 };
 
 const C_ICONS = {};
@@ -58,12 +60,12 @@ export const Text = {
                     v - (C_ICONS[c].img.height - 5) / 2
                 );
             } else {
-                let k = (c - 32) * (C_WIDTH + 1);
+                let k = (c - 32) * (C_WIDTH);
                 if (shadow) {
                     ctx.drawImage(
                         shadow,
-                        k % 180,
-                        (k / 180 | 0) * 6,
+                        k % 225,
+                        (k / 225 | 0) * 6,
                         C_WIDTH,
                         C_HEIGHT,
                         u + 1,
@@ -74,8 +76,8 @@ export const Text = {
                 }
                 ctx.drawImage(
                     font,
-                    k % 180,
-                    (k / 180 | 0) * 6,
+                    k % 225,
+                    (k / 225 | 0) * 6,
                     C_WIDTH,
                     C_HEIGHT,
                     u,
@@ -112,12 +114,12 @@ export const Text = {
                 cv += (C_HEIGHT + 2) * scale;
             }
             Text.drawText(ctx, phrase, cu, cv, scale, font, shadow);
-            cu += phraseWidth + (C_SHIFT[32] || 4);
+            cu += phraseWidth + (C_SHIFT[32] || 5);
         }
     },
 
     measureWidth(text, scale) {
-        return text.split('').reduce((sum, c) => sum + (C_SHIFT[c.charCodeAt(0)] || 4), 0) * scale;
+        return text.split('').reduce((sum, c) => sum + (C_SHIFT[c.charCodeAt(0)] || 6), 0) * scale;
     }
 };
 
